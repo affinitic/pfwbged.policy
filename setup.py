@@ -44,6 +44,11 @@ setup(
         'five.grok',
         'plone.api',
         'setuptools',
+        'collective.dms.basecontent',
+        'collective.dms.mailcontent',
+        'collective.task',
+        'collective.contact.core',
+        'pfwbged.basecontent',
     ],
     extras_require={
         'test': [
