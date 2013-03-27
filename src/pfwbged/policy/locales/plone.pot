@@ -1,0 +1,128 @@
+# --- PLEASE EDIT THE LINES BELOW CORRECTLY ---
+# SOME DESCRIPTIVE TITLE.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2013-03-27 14:16+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Language-Code: en\n"
+"Language-Name: English\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: plone\n"
+
+#: ../profiles/default/workflows/dmsincomingmail_workflow/definition.xml
+msgid "Answer"
+msgstr ""
+
+#: ../profiles/default/workflows/dmsincomingmail_workflow/definition.xml
+msgid "Answered"
+msgstr ""
+
+#: ../profiles/default/workflows/dmsincomingmail_workflow/definition.xml
+msgid "Assigning"
+msgstr ""
+
+#: ../profiles/default/workflows/dmsincomingmail_workflow/definition.xml
+msgid "Back to assigning"
+msgstr ""
+
+#: ../profiles/default/workflows/dmsincomingmail_workflow/definition.xml
+msgid "Back to registering"
+msgstr ""
+
+#: ../profiles/default/workflows/pfwbgeddocument_workflow/definition.xml
+msgid "Declare acceptable"
+msgstr ""
+
+#: ../profiles/default/workflows/versionnote_workflow/definition.xml
+msgid "Draft"
+msgstr ""
+
+#: ../profiles/default/workflows/dmsoutgoingmail_workflow/definition.xml
+#: ../profiles/default/workflows/versionnote_workflow/definition.xml
+msgid "Finish"
+msgstr ""
+
+#: ../profiles/default/workflows/versionnote_workflow/definition.xml
+msgid "Finished"
+msgstr ""
+
+#: ../profiles/default/workflows/versionnote_workflow/definition.xml
+msgid "Make obsolete"
+msgstr ""
+
+#: ../profiles/default/workflows/dmsincomingmail_workflow/definition.xml
+msgid "No action"
+msgstr ""
+
+#: ../profiles/default/workflows/versionnote_workflow/definition.xml
+msgid "Obsolete"
+msgstr ""
+
+#: ../profiles/default/workflows/versionnote_workflow/definition.xml
+msgid "Pending"
+msgstr ""
+
+#: ../profiles/default/workflows/dmsincomingmail_workflow/definition.xml
+msgid "Processing"
+msgstr ""
+
+#: ../profiles/default/workflows/dmsoutgoingmail_workflow/definition.xml
+msgid "Ready to send"
+msgstr ""
+
+#: ../profiles/default/workflows/versionnote_workflow/definition.xml
+msgid "Refuse"
+msgstr ""
+
+#: ../profiles/default/workflows/dmsincomingmail_workflow/definition.xml
+msgid "Registering"
+msgstr ""
+
+#: ../profiles/default/workflows/dmsoutgoingmail_workflow/definition.xml
+msgid "Send"
+msgstr ""
+
+#: ../profiles/default/workflows/dmsoutgoingmail_workflow/definition.xml
+msgid "Sent"
+msgstr ""
+
+#: ../profiles/default/workflows/versionnote_workflow/definition.xml
+msgid "Submit"
+msgstr ""
+
+#: ../profiles/default/workflows/pfwbgeddocument_workflow/definition.xml
+msgid "Submit to service"
+msgstr ""
+
+#: ../profiles/default/workflows/dmsincomingmail_workflow/definition.xml
+msgid "To assign"
+msgstr ""
+
+#: ../profiles/default/workflows/dmsincomingmail_workflow/definition.xml
+msgid "To process"
+msgstr ""
+
+#: ../profiles/default/workflows/versionnote_workflow/definition.xml
+msgid "Unvalidate"
+msgstr ""
+
+#: ../profiles/default/workflows/versionnote_workflow/definition.xml
+msgid "Validate"
+msgstr ""
+
+#: ../profiles/default/workflows/versionnote_workflow/definition.xml
+msgid "Validated"
+msgstr ""
+
+#: ../profiles/default/workflows/dmsoutgoingmail_workflow/definition.xml
+msgid "Writing"
+msgstr ""
+
