@@ -9,12 +9,6 @@
     <i18n:registerTranslations directory="locales" />
 
     <five:registerPackage package="." initialize=".initialize" />
-    
-    <include package="five.grok" />
-    <include package="plone.api" />
-
-    <include package=".browser" />
-    <include package=".content" />
 
     <grok:grok package="." />
 

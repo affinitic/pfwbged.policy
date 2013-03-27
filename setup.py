@@ -41,8 +41,6 @@ setup(
     include_package_data=True,
     zip_safe=False,
     install_requires=[
-        'five.grok',
-        'plone.api',
         'setuptools',
         'collective.dms.basecontent',
         'collective.dms.mailcontent',
