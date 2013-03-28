@@ -1,3 +1,5 @@
+import datetime
+
 from five import grok
 
 from zope.container.interfaces import INameChooser
@@ -20,8 +22,12 @@ def incoming_mail_attributed(context, event):
         treating_groups = set(context.treating_groups) - set(already_in_charge)
         # create a task for each group which has not already a task for this mail
         chooser = INameChooser(context)
+        deadline = datetime.date.today() + datetime.timedelta(days=context.deadline)
         for group_name in treating_groups:
-            params = {'responsible': [group_name], 'title': 'Process mail',}
+            params = {'responsible': [group_name],
+                      'title': 'Process mail',
+                      'deadline': deadline,
+                      }
             newid = chooser.chooseName('process-mail', context)
             context.invokeFactory('task', newid, **params)
 
