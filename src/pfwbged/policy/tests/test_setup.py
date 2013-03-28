@@ -21,10 +21,3 @@ class TestInstall(IntegrationTestCase):
         """Test if pfwbged.policy is cleanly uninstalled."""
         self.installer.uninstallProducts(['pfwbged.policy'])
         self.assertFalse(self.installer.isProductInstalled('pfwbged.policy'))
-
-    # browserlayer.xml
-    def test_browserlayer(self):
-        """Test that IPfwbgedPolicyLayer is registered."""
-        from pfwbged.policy.interfaces import IPfwbgedPolicyLayer
-        from plone.browserlayer import utils
-        self.failUnless(IPfwbgedPolicyLayer in utils.registered_layers())
