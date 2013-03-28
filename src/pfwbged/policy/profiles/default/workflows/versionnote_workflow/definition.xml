@@ -3,7 +3,7 @@
              title="Version Note Workflow"
              description=""
              state_variable="review_state"
-             initial_state="visible"
+             initial_state="draft"
              manager_bypass="False"
              xmlns:i18n="http://xml.zope.org/namespaces/i18n"
              i18n:domain="plone">
@@ -25,7 +25,7 @@
    <permission-role>Manager</permission-role>
   </permission-map>
  </state>
- <state state_id="pending" title="Pending" i18n:attributes="title">
+ <state state_id="pending" title="Waiting validation" i18n:attributes="title">
   <exit-transition transition_id="refuse"/>
   <exit-transition transition_id="validate"/>
   <permission-map name="Modify portal content" acquired="False">

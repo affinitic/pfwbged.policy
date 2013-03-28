@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: pfwbged.policy\n"
-"POT-Creation-Date: 2013-03-28 09:41+0000\n"
-"PO-Revision-Date: 2013-03-28 10:41+0100\n"
+"POT-Creation-Date: 2013-03-28 16:21+0000\n"
+"PO-Revision-Date: 2013-03-28 17:22+0100\n"
 "Last-Translator: Cédric Messiant <cedricmessiant@ecreall.com>\n"
 "Language-Team: French\n"
 "MIME-Version: 1.0\n"
@@ -15,23 +15,23 @@ msgstr ""
 "Domain: plone\n"
 "X-is-fallback-for: fr-fr fr-be fr-ca\n"
 
-#: ../profiles/default/workflows/dmsincomingmail_workflow/definition.xml
+#: ../profiles/default/workflows/incomingmail_workflow/definition.xml
 msgid "Answer"
 msgstr "Répondre"
 
-#: ../profiles/default/workflows/dmsincomingmail_workflow/definition.xml
+#: ../profiles/default/workflows/incomingmail_workflow/definition.xml
 msgid "Answered"
 msgstr "Répondu"
 
-#: ../profiles/default/workflows/dmsincomingmail_workflow/definition.xml
+#: ../profiles/default/workflows/incomingmail_workflow/definition.xml
 msgid "Assigning"
 msgstr "À attribuer"
 
-#: ../profiles/default/workflows/dmsincomingmail_workflow/definition.xml
+#: ../profiles/default/workflows/incomingmail_workflow/definition.xml
 msgid "Back to assigning"
 msgstr "Retour à attribuer"
 
-#: ../profiles/default/workflows/dmsincomingmail_workflow/definition.xml
+#: ../profiles/default/workflows/incomingmail_workflow/definition.xml
 msgid "Back to registering"
 msgstr "Retour à indicater"
 
@@ -51,7 +51,7 @@ msgstr "Fiche version"
 msgid "Draft"
 msgstr "En rédaction"
 
-#: ../profiles/default/workflows/dmsoutgoingmail_workflow/definition.xml
+#: ../profiles/default/workflows/outgoingmail_workflow/definition.xml
 #: ../profiles/default/workflows/versionnote_workflow/definition.xml
 msgid "Finish"
 msgstr "Finaliser"
@@ -64,7 +64,7 @@ msgstr "Finalisé"
 msgid "Make obsolete"
 msgstr "Rendre obsolète"
 
-#: ../profiles/default/workflows/dmsincomingmail_workflow/definition.xml
+#: ../profiles/default/workflows/incomingmail_workflow/definition.xml
 msgid "No action"
 msgstr "Sans suite"
 
@@ -72,15 +72,11 @@ msgstr "Sans suite"
 msgid "Obsolete"
 msgstr "Obsolète"
 
-#: ../profiles/default/workflows/versionnote_workflow/definition.xml
-msgid "Pending"
-msgstr "Publié pour le service"
-
-#: ../profiles/default/workflows/dmsincomingmail_workflow/definition.xml
+#: ../profiles/default/workflows/incomingmail_workflow/definition.xml
 msgid "Processing"
 msgstr "En cours de traitement"
 
-#: ../profiles/default/workflows/dmsoutgoingmail_workflow/definition.xml
+#: ../profiles/default/workflows/outgoingmail_workflow/definition.xml
 msgid "Ready to send"
 msgstr "Prêt à être envoyé"
 
@@ -88,15 +84,15 @@ msgstr "Prêt à être envoyé"
 msgid "Refuse"
 msgstr "Refuser"
 
-#: ../profiles/default/workflows/dmsincomingmail_workflow/definition.xml
+#: ../profiles/default/workflows/incomingmail_workflow/definition.xml
 msgid "Registering"
 msgstr "À indicater"
 
-#: ../profiles/default/workflows/dmsoutgoingmail_workflow/definition.xml
+#: ../profiles/default/workflows/outgoingmail_workflow/definition.xml
 msgid "Send"
 msgstr "Envoyer"
 
-#: ../profiles/default/workflows/dmsoutgoingmail_workflow/definition.xml
+#: ../profiles/default/workflows/outgoingmail_workflow/definition.xml
 msgid "Sent"
 msgstr "Envoyé"
 
@@ -108,11 +104,11 @@ msgstr "Soumettre"
 msgid "Submit to service"
 msgstr "Publier au service"
 
-#: ../profiles/default/workflows/dmsincomingmail_workflow/definition.xml
+#: ../profiles/default/workflows/incomingmail_workflow/definition.xml
 msgid "To assign"
 msgstr "À attribuer"
 
-#: ../profiles/default/workflows/dmsincomingmail_workflow/definition.xml
+#: ../profiles/default/workflows/incomingmail_workflow/definition.xml
 msgid "To process"
 msgstr "À traiter"
 
@@ -128,7 +124,11 @@ msgstr "Valider"
 msgid "Validated"
 msgstr "Validé"
 
-#: ../profiles/default/workflows/dmsoutgoingmail_workflow/definition.xml
+#: ../profiles/default/workflows/versionnote_workflow/definition.xml
+msgid "Waiting validation"
+msgstr "En cours de validation"
+
+#: ../profiles/default/workflows/outgoingmail_workflow/definition.xml
 msgid "Writing"
 msgstr "En rédaction"
 
