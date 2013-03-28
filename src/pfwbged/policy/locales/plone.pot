@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-03-27 14:16+0000\n"
+"POT-Creation-Date: 2013-03-28 09:41+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -39,6 +39,14 @@ msgstr ""
 
 #: ../profiles/default/workflows/pfwbgeddocument_workflow/definition.xml
 msgid "Declare acceptable"
+msgstr ""
+
+#: collective.dms.basecontent:./profiles/default/types/dmsmainfile.xml
+msgid "Dms main file of an Dms document"
+msgstr ""
+
+#: collective.dms.basecontent:./profiles/default/types/dmsmainfile.xml
+msgid "DmsMainFile"
 msgstr ""
 
 #: ../profiles/default/workflows/versionnote_workflow/definition.xml
