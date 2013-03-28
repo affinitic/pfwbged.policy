@@ -14,7 +14,9 @@ from zope.lifecycleevent.interfaces import IObjectCreatedEvent
 def incoming_mail_attributed(context, event):
     """Launched when a mail is attributed to some groups or users"""
     if event.transition is not None and event.transition.id == 'to_process':
-        already_in_charge = [task.responsible for task in context.objectValues('task')]
+        already_in_charge = []
+        for task in context.objectValues('task'):
+            already_in_charge.extend(task.responsible)
         treating_groups = set(context.treating_groups) - set(already_in_charge)
         # create a task for each group which has not already a task for this mail
         chooser = INameChooser(context)
