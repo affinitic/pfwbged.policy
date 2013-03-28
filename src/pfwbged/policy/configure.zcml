@@ -12,6 +12,11 @@
 
     <grok:grok package="." />
 
+    <include package="collective.dms.basecontent" />
+    <include package="collective.dms.mailcontent" />
+    <include package="collective.task" />
+    <include package="collective.contact.core" />
+    <include package="pfwbged.basecontent" />
     <include package="plone.app.contenttypes" />
 
     <genericsetup:registerProfile
