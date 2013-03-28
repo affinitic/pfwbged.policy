@@ -47,6 +47,7 @@ setup(
         'collective.task',
         'collective.contact.core',
         'pfwbged.basecontent',
+        'plone.app.contenttypes',
     ],
     extras_require={
         'test': [

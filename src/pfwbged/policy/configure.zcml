@@ -12,6 +12,8 @@
 
     <grok:grok package="." />
 
+    <include package="plone.app.contenttypes" />
+
     <genericsetup:registerProfile
         name="default"
         title="pfwbged.policy"

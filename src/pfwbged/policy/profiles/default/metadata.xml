@@ -7,6 +7,7 @@
     <dependency>profile-collective.dms.mailcontent:default</dependency>
     <dependency>profile-collective.task:default</dependency>
     <dependency>profile-pfwbged.basecontent:default</dependency>
+    <dependency>profile-plone.app.contenttypes:default</dependency>
     <dependency>profile-plone.app.dexterity:default</dependency>
   </dependencies>
 </metadata>
