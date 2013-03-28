@@ -2,8 +2,8 @@
 <object name="portal_workflow" meta_type="Plone Workflow Tool">
  <property
     name="title">Contains workflow definitions for your portal</property>
- <object name="dmsincomingmail_workflow" meta_type="Workflow"/>
- <object name="dmsoutgoingmail_workflow" meta_type="Workflow"/>
+ <object name="incomingmail_workflow" meta_type="Workflow"/>
+ <object name="outgoingmail_workflow" meta_type="Workflow"/>
  <object name="pfwbgeddocument_workflow" meta_type="Workflow"/>
  <object name="versionnote_workflow" meta_type="Workflow"/>
  <bindings>
@@ -11,10 +11,10 @@
    <bound-workflow workflow_id="intranet_workflow"/>
   </default>
   <type type_id="dmsincomingmail">
-   <bound-workflow workflow_id="dmsincomingmail_workflow"/>
+   <bound-workflow workflow_id="incomingmail_workflow"/>
   </type>
   <type type_id="dmsoutgoingmail">
-   <bound-workflow workflow_id="dmsoutgoingmail_workflow"/>
+   <bound-workflow workflow_id="outgoingmail_workflow"/>
   </type>
   <type type_id="pfwbdocument">
    <bound-workflow workflow_id="pfwbgeddocument_workflow"/>
