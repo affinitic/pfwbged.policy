@@ -19,6 +19,9 @@
   <type type_id="pfwbdocument">
    <bound-workflow workflow_id="pfwbgeddocument_workflow"/>
   </type>
+  <type type_id="dmsfile">
+   <bound-workflow workflow_id="versionnote_workflow"/>
+  </type>
   <type type_id="workspace">
    <bound-workflow workflow_id="intranet_workflow"/>
    <bound-workflow workflow_id="workspace_workflow"/>
