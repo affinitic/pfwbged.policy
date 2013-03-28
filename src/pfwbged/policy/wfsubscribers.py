@@ -10,6 +10,7 @@ from Products.DCWorkflow.interfaces import IAfterTransitionEvent
 from collective.dms.mailcontent.dmsmail import IDmsIncomingMail,\
     IDmsOutgoingMail
 from zope.lifecycleevent.interfaces import IObjectCreatedEvent
+from collective.dms.basecontent.dmsfile import IDmsFile
 
 
 @grok.subscribe(IDmsIncomingMail, IAfterTransitionEvent)
@@ -31,9 +32,26 @@ def incoming_mail_attributed(context, event):
             newid = chooser.chooseName('process-mail', context)
             context.invokeFactory('task', newid, **params)
 
+
 @grok.subscribe(IDmsOutgoingMail, IObjectCreatedEvent)
 def outgoing_mail_created(context, event):
     """Set Editor role to the creator of the outgoing mail"""
     creator = api.user.get_current()
-    if 'Manager' not in api.user.get_roles(user=creator):
-        api.user.grant_roles(user=creator, roles=['Editor'])
+    api.user.grant_roles(user=creator, roles=['Editor'])
+
+
+@grok.subscribe(IDmsFile, IAfterTransitionEvent)
+def version_note_finished(context, event):
+    """Launched when version note is finished"""
+    if event.new_state.id == 'finished':
+        portal_catalog = api.portal.get_tool('portal_catalog')
+        document = context.getParentNode()
+        # if parent is an outgoing mail, change its state to ready_to_send
+        if document.portal_type == 'dmsoutgoingmail' and api.content.get_state(obj=document) == 'writing':
+            api.content.transition(obj=document, transition='finish')
+        version_notes = portal_catalog.searchResults(portal_type='dmsmainfile')
+        # make obsolete other versions
+        for version_brain in version_notes:
+            version = version_brain.getObject()
+            if api.content.get_state(obj=version) == 'validated':
+                api.content.transition(obj=version, transition='obsolete')
