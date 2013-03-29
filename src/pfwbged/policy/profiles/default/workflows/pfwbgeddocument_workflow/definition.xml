@@ -55,6 +55,7 @@
   <description>The document is acceptable as a parlementary document.</description>
   <action url="" category="workflow" icon="" i18n:translate="">Declare acceptable</action>
   <guard>
+   <guard-role>Manager</guard-role>
    <guard-role>Reviewer</guard-role>
   </guard>
  </transition>
