@@ -84,10 +84,17 @@ VERSIONNOTE_TRACK = []
 
 
 class TestSecurity(IntegrationTestCase, BaseWorkflowTest):
-    """Tests collective.task workflows"""
+    """Tests pfwbged.policy workflows"""
 
     def setUp(self):
         super(TestSecurity, self).setUp()
+
+    def test_everyone_is_contributor(self):
+        self.login('reader')
+        self.assertIn('Contributor', api.user.get_roles(username='reader'))
+        portal = api.portal.get()
+        params = {'title': "My Document"}
+        portal.invokeFactory('pfwbdocument', 'mydoc', **params)
 
     def test_incomingmail_workflow(self):
         self.login('manager')
