@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from plone import api
 
 
 def isNotCurrentProfile(context):
@@ -20,3 +21,6 @@ def post_install(context):
     if 'Members' in portal:
         portal.Members.setExcludeFromNav(True)
         portal.Members.reindexObject()
+
+    # grant Contributor role to all Authenticated Users
+    api.group.grant_roles(groupname='AuthenticatedUsers', roles=['Contributor'])
