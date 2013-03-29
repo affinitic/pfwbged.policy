@@ -14,8 +14,19 @@ from plone.testing import z2
 
 import unittest2 as unittest
 
+from ecreall.helpers.testing import member as memberhelpers
+
+from collective.contact.core.setuphandlers import create_test_contact_data
 import pfwbged.policy
 
+
+
+USERDEFS = [{'user': 'secretary', 'roles': ('Member', ), 'groups': ()},
+            {'user': 'greffier', 'roles': ('Member', 'Reviewer'), 'groups': ()},
+            {'user': 'editor', 'roles': ('Member', ), 'groups': ()},
+            {'user': 'reader', 'roles': ('Member', ), 'groups': ()},
+            {'user': 'manager', 'roles': ('Member', 'Manager'), 'groups': ()},
+            ]
 
 class PfwbgedPolicyLayer(PloneSandboxLayer):
 
@@ -33,10 +44,16 @@ class PfwbgedPolicyLayer(PloneSandboxLayer):
         # Install into Plone site using portal_setup
         applyProfile(portal, 'pfwbged.policy:default')
 
+        # create users
+        memberhelpers.createMembers(portal, USERDEFS)
+
         # Login and create some test content
         setRoles(portal, TEST_USER_ID, ['Manager'])
         login(portal, TEST_USER_NAME)
         portal.invokeFactory('Folder', 'folder')
+
+        # create some test contacts
+        create_test_contact_data(portal)
 
         # Commit so that the test browser sees these objects
         portal.portal_catalog.clearFindAndRebuild()
