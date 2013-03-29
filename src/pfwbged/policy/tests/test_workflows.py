@@ -134,11 +134,16 @@ class TestSecurity(IntegrationTestCase, BaseWorkflowTest):
                                           )
         api.user.grant_roles(username='editor', obj=outgoingmail, roles=['Editor'])
         api.user.grant_roles(username='reader', obj=outgoingmail, roles=['Reader'])
-        # TODO: rolefield uses 'validate' : not working when creating a content in code ?
 
         for (transition, state) in OUTGOINGMAIL_TRACK:
             if transition:
-                api.content.transition(obj=outgoingmail, transition=transition)
+                if transition == 'finish':
+                    version = api.content.create(container=outgoingmail,
+                                                 type='dmsmainfile',
+                                                 title="Version")
+                    api.content.transition(obj=version, transition='finish_without_validation')
+                else:
+                    api.content.transition(obj=outgoingmail, transition=transition)
             if state:
                 self.assertHasState(outgoingmail, state)
                 self.assertCheckPermissions(outgoingmail, OUTGOINGMAIL_PERMISSIONS[state],
@@ -164,38 +169,6 @@ class TestSecurity(IntegrationTestCase, BaseWorkflowTest):
                 self.assertCheckPermissions(doc, DOCUMENT_PERMISSIONS[state],
                                             USERDEFS, stateid=state)
 
-    def test_document_guards(self):
-        """Test guards for pfwbgeddocument_workflow transitions"""
-        self.login('manager')
-        portal = api.portal.get()
-        folder = portal['folder']
-        doc = api.content.create(container=folder,
-                                 type='pfwbdocument',
-                                 title="Document",
-                                 treating_groups="editor",
-                                 recipient_groups="reader")
-        api.user.grant_roles(username='editor', obj=doc, roles=['Editor'])
-        api.user.grant_roles(username='reader', obj=doc, roles=['Reader'])
-        self.login('reader')
-        try:
-            api.content.transition(obj=doc, transition='declare-acceptable')
-        except:
-            pass
-        self.assertHasState(doc, 'published')
-
-        self.login('editor')
-        try:
-            api.content.transition(obj=doc, transition='declare-acceptable')
-        except:
-            pass
-        self.assertHasState(doc, 'published')
-
-        self.login('greffier')
-        try:
-            api.content.transition(obj=doc, transition='declare-acceptable')
-        except:
-            pass
-        self.assertHasState(doc, 'acceptable')
 
     def __TODO_test_versionnote_workflow(self):
         pass

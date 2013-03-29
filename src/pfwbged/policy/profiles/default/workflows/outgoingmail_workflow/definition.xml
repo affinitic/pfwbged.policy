@@ -71,6 +71,7 @@
   <guard>
    <guard-role>Editor</guard-role>
    <guard-role>Manager</guard-role>
+   <guard-expression>here/@@ready_to_send</guard-expression>
   </guard>
  </transition>
  <transition transition_id="send" title="Send" new_state="sent" trigger="USER" before_script="" after_script="" i18n:attributes="title">

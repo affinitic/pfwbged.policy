@@ -12,6 +12,8 @@
 
     <grok:grok package="." />
 
+    <include package=".browser" />
+
     <include package="collective.dms.basecontent" />
     <include package="collective.dms.mailcontent" />
     <include package="collective.task" />
