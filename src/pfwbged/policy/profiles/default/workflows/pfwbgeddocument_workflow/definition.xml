@@ -1,114 +1,61 @@
 <?xml version="1.0"?>
 <dc-workflow workflow_id="pfwbgeddocument_workflow"
              title="Workflow for PFWB GED Documents"
-             description="First, the document is private, then it is published for the service and then declared acceptable"
+             description="The document is published. It can be declared as acceptable as a parlemntary document"
              state_variable="review_state"
-             initial_state="private"
+             initial_state="published"
              manager_bypass="False"
              xmlns:i18n="http://xml.zope.org/namespaces/i18n"
              i18n:domain="plone">
  <permission>Access contents information</permission>
- <permission>Change portal events</permission>
  <permission>Modify portal content</permission>
  <permission>View</permission>
- <state state_id="pending" title="Published for the service">
-  <description>Waiting to be reviewed, not editable by the owner.</description>
-  <exit-transition transition_id="publish"/>
+ <state state_id="published" title="Published">
+  <description>The document is published.</description>
+  <exit-transition transition_id="declare-acceptable"/>
   <permission-map name="Access contents information" acquired="False">
    <permission-role>Manager</permission-role>
-   <permission-role>Owner</permission-role>
    <permission-role>Editor</permission-role>
    <permission-role>Reader</permission-role>
-   <permission-role>Contributor</permission-role>
    <permission-role>Reviewer</permission-role>
-   <permission-role>Site Administrator</permission-role>
-  </permission-map>
-  <permission-map name="Change portal events" acquired="False">
-   <permission-role>Manager</permission-role>
-   <permission-role>Reviewer</permission-role>
-   <permission-role>Site Administrator</permission-role>
   </permission-map>
   <permission-map name="Modify portal content" acquired="False">
    <permission-role>Manager</permission-role>
+   <permission-role>Editor</permission-role>
    <permission-role>Reviewer</permission-role>
-   <permission-role>Site Administrator</permission-role>
   </permission-map>
   <permission-map name="View" acquired="False">
    <permission-role>Manager</permission-role>
-   <permission-role>Owner</permission-role>
    <permission-role>Editor</permission-role>
    <permission-role>Reader</permission-role>
-   <permission-role>Contributor</permission-role>
    <permission-role>Reviewer</permission-role>
-   <permission-role>Site Administrator</permission-role>
   </permission-map>
  </state>
- <state state_id="private" title="Private">
-  <description>Can only be seen and edited by the owner.</description>
-  <exit-transition transition_id="publish"/>
-  <exit-transition transition_id="submit"/>
+ <state state_id="acceptable" title="Declared acceptable">
+  <description>Declared acceptable as a parlementary document.</description>
   <permission-map name="Access contents information" acquired="False">
    <permission-role>Manager</permission-role>
-   <permission-role>Owner</permission-role>
    <permission-role>Editor</permission-role>
    <permission-role>Reader</permission-role>
-   <permission-role>Contributor</permission-role>
-   <permission-role>Site Administrator</permission-role>
-  </permission-map>
-  <permission-map name="Change portal events" acquired="False">
-   <permission-role>Manager</permission-role>
-   <permission-role>Owner</permission-role>
-   <permission-role>Editor</permission-role>
-   <permission-role>Site Administrator</permission-role>
+   <permission-role>Reviewer</permission-role>
   </permission-map>
   <permission-map name="Modify portal content" acquired="False">
    <permission-role>Manager</permission-role>
-   <permission-role>Owner</permission-role>
    <permission-role>Editor</permission-role>
-   <permission-role>Site Administrator</permission-role>
+   <permission-role>Reviewer</permission-role>
   </permission-map>
   <permission-map name="View" acquired="False">
    <permission-role>Manager</permission-role>
-   <permission-role>Owner</permission-role>
    <permission-role>Editor</permission-role>
    <permission-role>Reader</permission-role>
-   <permission-role>Contributor</permission-role>
-   <permission-role>Site Administrator</permission-role>
+   <permission-role>Reviewer</permission-role>
   </permission-map>
  </state>
- <state state_id="published" title="Declared acceptable">
-  <description>Visible to everyone, not editable by the owner.</description>
-  <permission-map name="Access contents information" acquired="False">
-   <permission-role>Anonymous</permission-role>
-  </permission-map>
-  <permission-map name="Change portal events" acquired="False">
-   <permission-role>Manager</permission-role>
-   <permission-role>Owner</permission-role>
-   <permission-role>Editor</permission-role>
-   <permission-role>Site Administrator</permission-role>
-  </permission-map>
-  <permission-map name="Modify portal content" acquired="False">
-   <permission-role>Manager</permission-role>
-   <permission-role>Owner</permission-role>
-   <permission-role>Editor</permission-role>
-   <permission-role>Site Administrator</permission-role>
-  </permission-map>
-  <permission-map name="View" acquired="False">
-   <permission-role>Anonymous</permission-role>
-  </permission-map>
- </state>
- <transition transition_id="publish" title="Declare acceptable" new_state="published" trigger="USER" before_script="" after_script="">
-  <description>The document will be visible by everyone and no longer editable.</description>
+ <transition transition_id="declare-acceptable" title="Declare acceptable" new_state="acceptable" trigger="USER" before_script="" after_script="">
+  <description>The document is acceptable as a parlementary document.</description>
   <action url="" category="workflow" icon="" i18n:translate="">Declare acceptable</action>
   <guard>
-   <guard-permission>Review portal content</guard-permission>
-  </guard>
- </transition>
- <transition transition_id="submit" title="Submit to service" new_state="pending" trigger="USER" before_script="" after_script="">
-  <description>The document will be visible by the service</description>
-  <action url="" category="workflow" icon="" i18n:translate="">Submit to service</action>
-  <guard>
-   <guard-permission>Request review</guard-permission>
+   <guard-permission>Reviewer</guard-permission>
   </guard>
  </transition>
  <worklist worklist_id="reviewer_queue" title="">
