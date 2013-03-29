@@ -44,6 +44,7 @@ def outgoing_mail_created(context, event):
 def version_note_finished(context, event):
     """Launched when version note is finished"""
     if event.new_state.id == 'finished':
+        context.reindexObject(idxs=['review_state'])
         portal_catalog = api.portal.get_tool('portal_catalog')
         document = context.getParentNode()
         # if parent is an outgoing mail, change its state to ready_to_send
