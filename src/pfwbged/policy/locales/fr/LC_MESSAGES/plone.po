@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: pfwbged.policy\n"
-"POT-Creation-Date: 2013-03-28 16:21+0000\n"
+"POT-Creation-Date: 2013-04-06 16:33+0000\n"
 "PO-Revision-Date: 2013-03-28 17:22+0100\n"
 "Last-Translator: Cédric Messiant <cedricmessiant@ecreall.com>\n"
 "Language-Team: French\n"
@@ -99,10 +99,6 @@ msgstr "Envoyé"
 #: ../profiles/default/workflows/versionnote_workflow/definition.xml
 msgid "Submit"
 msgstr "Soumettre"
-
-#: ../profiles/default/workflows/pfwbgeddocument_workflow/definition.xml
-msgid "Submit to service"
-msgstr "Publier au service"
 
 #: ../profiles/default/workflows/incomingmail_workflow/definition.xml
 msgid "To assign"

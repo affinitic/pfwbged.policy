@@ -11,8 +11,8 @@ from collective.dms.mailcontent.dmsmail import IDmsIncomingMail,\
     IDmsOutgoingMail
 from zope.lifecycleevent.interfaces import IObjectCreatedEvent
 from collective.dms.basecontent.dmsfile import IDmsFile
-from collective.z3cform.rolefield.field import LocalRolesToPrincipalsDataManager
-from collective.task.content.task import ITask
+
+from pfwbged.policy import _
 
 
 @grok.subscribe(IDmsIncomingMail, IAfterTransitionEvent)
@@ -28,7 +28,7 @@ def incoming_mail_attributed(context, event):
         deadline = datetime.date.today() + datetime.timedelta(days=context.deadline)
         for group_name in treating_groups:
             params = {'responsible': [group_name],
-                      'title': 'Process mail',
+                      'title': _(u'Process mail'),
                       'deadline': deadline,
                       }
             newid = chooser.chooseName('process-mail', context)
@@ -36,14 +36,8 @@ def incoming_mail_attributed(context, event):
             task = context[newid]
             #datamanager = LocalRolesToPrincipalsDataManager(task, ITask['responsible'])
             #datamanager.set((group_name,))
-            # manually sets Editor group to responsible user or group
-            responsible = api.user.get(username=group_name)
-            if responsible is not None:
-                api.user.grant_roles(user=responsible, obj=task, roles=['Editor',])
-            else:
-                responsible = api.group.get(groupname=group_name)
-                if responsible is not None:
-                    api.group.grant_roles(group=responsible, obj=task, roles=['Editor',])
+            # manually sets Editor role to responsible user or group :-(
+            task.manage_setLocalRoles(group_name, ['Editor',])
 
 
 @grok.subscribe(IDmsOutgoingMail, IObjectCreatedEvent)

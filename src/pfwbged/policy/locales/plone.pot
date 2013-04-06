@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-03-28 16:21+0000\n"
+"POT-Creation-Date: 2013-04-06 16:33+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -100,10 +100,6 @@ msgstr ""
 
 #: ../profiles/default/workflows/versionnote_workflow/definition.xml
 msgid "Submit"
-msgstr ""
-
-#: ../profiles/default/workflows/pfwbgeddocument_workflow/definition.xml
-msgid "Submit to service"
 msgstr ""
 
 #: ../profiles/default/workflows/incomingmail_workflow/definition.xml
