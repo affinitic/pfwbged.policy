@@ -3,13 +3,15 @@ import datetime
 from five import grok
 
 from zope.container.interfaces import INameChooser
+from zope.i18n import translate
+from zope.lifecycleevent.interfaces import IObjectCreatedEvent
+
 from plone import api
 
 from Products.DCWorkflow.interfaces import IAfterTransitionEvent
 
 from collective.dms.mailcontent.dmsmail import IDmsIncomingMail,\
     IDmsOutgoingMail
-from zope.lifecycleevent.interfaces import IObjectCreatedEvent
 from collective.dms.basecontent.dmsfile import IDmsFile
 
 from pfwbged.policy import _
@@ -28,7 +30,8 @@ def incoming_mail_attributed(context, event):
         deadline = datetime.date.today() + datetime.timedelta(days=context.deadline)
         for group_name in treating_groups:
             params = {'responsible': [group_name],
-                      'title': _(u'Process mail'),
+                      'title': translate(_(u'Process mail'),
+                                         context=context.REQUEST),
                       'deadline': deadline,
                       }
             newid = chooser.chooseName('process-mail', context)
