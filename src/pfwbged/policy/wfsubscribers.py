@@ -41,7 +41,7 @@ def incoming_mail_attributed(context, event):
             #datamanager.set((group_name,))
             # manually sets Editor role to responsible user or group :-(
             task.manage_addLocalRoles(group_name, ['Editor',])
-            task.reindexObject()
+            task.reindexObjectSecurity()
 
 
 @grok.subscribe(IDmsOutgoingMail, IObjectCreatedEvent)
