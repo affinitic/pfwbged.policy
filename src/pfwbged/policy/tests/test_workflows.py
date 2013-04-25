@@ -35,11 +35,11 @@ OUTGOINGMAIL_PERMISSIONS = {
                 },
     'ready_to_send': {'Access contents information': ('manager', 'editor', 'reader', 'greffier'),
                       'View': ('manager', 'editor', 'reader', 'greffier'),
-                      'Modify portal content': ('manager', 'editor'),
+                      'Modify portal content': ('manager', 'editor', 'greffier'),
                     },
     'sent': {'Access contents information': ('manager', 'editor', 'reader', 'greffier'),
              'View': ('manager', 'editor', 'reader', 'greffier'),
-             'Modify portal content': ('manager', 'editor'),
+             'Modify portal content': ('manager', 'editor', 'greffier'),
              },
     }
 
