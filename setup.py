@@ -46,6 +46,7 @@ setup(
         'collective.dms.mailcontent',
         'collective.task',
         'collective.contact.core',
+        'collective.local.workspace',
         'pfwbged.basecontent',
         'plone.app.contenttypes',
     ],
