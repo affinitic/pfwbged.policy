@@ -31,7 +31,7 @@ INCOMINGMAIL_TRACK = [('', 'registering'),
 OUTGOINGMAIL_PERMISSIONS = {
     'writing': {'Access contents information': ('manager', 'editor', 'reader', 'greffier'),
                 'View': ('manager', 'editor', 'reader', 'greffier'),
-                'Modify portal content': ('manager', 'editor'),
+                'Modify portal content': ('manager', 'editor', 'greffier'),
                 },
     'ready_to_send': {'Access contents information': ('manager', 'editor', 'reader', 'greffier'),
                       'View': ('manager', 'editor', 'reader', 'greffier'),
