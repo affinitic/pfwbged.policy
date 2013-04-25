@@ -22,6 +22,10 @@
     <include package="pfwbged.basecontent" />
     <include package="plone.app.contenttypes" />
 
+    <class class="collective.task.content.Task">
+      <implements interface="Products.CMFPlone.interfaces.breadcrumbs.IHideFromBreadcrumbs" />
+    </class>
+
     <genericsetup:registerProfile
         name="default"
         title="pfwbged.policy"
