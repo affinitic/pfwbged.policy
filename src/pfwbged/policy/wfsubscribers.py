@@ -5,6 +5,7 @@ from five import grok
 from zope.container.interfaces import INameChooser
 from zope.i18n import translate
 from zope.lifecycleevent.interfaces import IObjectCreatedEvent
+from zope.interface import alsoProvides
 
 from plone import api
 
@@ -15,6 +16,7 @@ from collective.dms.mailcontent.dmsmail import IDmsIncomingMail,\
 from collective.dms.basecontent.dmsfile import IDmsFile
 
 from pfwbged.policy import _
+from pfwbged.policy.interfaces import IIncomingMailAttributed
 
 
 @grok.subscribe(IDmsIncomingMail, IAfterTransitionEvent)
@@ -37,6 +39,7 @@ def incoming_mail_attributed(context, event):
             newid = chooser.chooseName('process-mail', context)
             context.invokeFactory('task', newid, **params)
             task = context[newid]
+            alsoProvides(task, IIncomingMailAttributed)
             #datamanager = LocalRolesToPrincipalsDataManager(task, ITask['responsible'])
             #datamanager.set((group_name,))
             # manually sets Editor role to responsible user or group :-(

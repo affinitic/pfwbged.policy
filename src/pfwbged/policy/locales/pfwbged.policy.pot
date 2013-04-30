@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-04-06 16:33+0000\n"
+"POT-Creation-Date: 2013-04-30 06:28+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,11 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: pfwbged.policy\n"
 
-#: ../wfsubscribers.py:31
+#: ../templates/createoutgoingmail.pt:4
+msgid "Create outgoing mail"
+msgstr ""
+
+#: ../wfsubscribers.py:35
 msgid "Process mail"
 msgstr ""
 
