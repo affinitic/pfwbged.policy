@@ -49,6 +49,7 @@ setup(
         'collective.local.workspace',
         'pfwbged.basecontent',
         'plone.app.contenttypes',
+        'collective.solr',
     ],
     extras_require={
         'test': [

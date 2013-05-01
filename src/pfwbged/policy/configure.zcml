@@ -19,6 +19,7 @@
     <include package="collective.task" />
     <include package="collective.contact.core" />
     <include package="collective.local.workspace" />
+    <include package="collective.solr" />
     <include package="pfwbged.basecontent" />
     <include package="plone.app.contenttypes" />
 
