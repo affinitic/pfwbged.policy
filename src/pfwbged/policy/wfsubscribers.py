@@ -92,10 +92,10 @@ def outgoingmail_sent(context, event):
 
         tasks = portal_catalog.searchResults(portal_type='task',
                 path='/'.join(incomingmail.getPhysicalPath()),
-                object_provides=IIncomingMailAttributed.__identifier__
                 )
         for task_brain in tasks:
             task = task_brain.getObject()
+            # FIXME we should check that the first task provides IIncomingMailAttributed
             if api.content.get_state(obj=task) == 'in-progress':
                 api.content.transition(obj=task, transition='mark-as-done')
 
