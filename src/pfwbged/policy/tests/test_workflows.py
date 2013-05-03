@@ -169,6 +169,11 @@ class TestSecurity(IntegrationTestCase, BaseWorkflowTest):
                 self.assertCheckPermissions(doc, DOCUMENT_PERMISSIONS[state],
                                             USERDEFS, stateid=state)
 
-
     def __TODO_test_versionnote_workflow(self):
+        pass
+
+    def __TODO_test_outgoingmail_sent_mark_task_as_done(self):
+        pass
+
+    def __TODO_test_task_done_incomingmail_answered(self):
         pass

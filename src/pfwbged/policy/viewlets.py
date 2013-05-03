@@ -1,19 +1,20 @@
+from Acquisition import aq_chain, aq_parent
 from zope.component import getUtility
 from zc.relation.interfaces import ICatalog
 from zope.intid.interfaces import IIntIds
-from Acquisition import aq_chain, aq_parent
 from five import grok
 
 from plone.app.layout.viewlets.interfaces import IBelowContentBody
 
 from pfwbged.policy.interfaces import IIncomingMailAttributed
+from collective.task.content.task import ITask
 
 from collective.dms.mailcontent.dmsmail import IDmsIncomingMail
 from Products.CMFCore.utils import getToolByName
 
 
 class CreateOutgoingMailViewlet(grok.Viewlet):
-    grok.context(IIncomingMailAttributed)
+    grok.context(ITask)
     template = grok.PageTemplateFile("templates/createoutgoingmail.pt")
     grok.viewletmanager(IBelowContentBody)
     show_button = False
@@ -34,15 +35,25 @@ class CreateOutgoingMailViewlet(grok.Viewlet):
         return len(refs)
 
     def update(self):
+        # first_task is the task created by the to_assign transition
+        # from incoming mail workflow
+        first_task = self.context
         for obj in aq_chain(self.context):
             obj = aq_parent(obj)
             if IDmsIncomingMail.providedBy(obj):
                 break
 
+            first_task = obj
+
+        if (not IDmsIncomingMail.providedBy(obj) or
+            not IIncomingMailAttributed.providedBy(first_task)):
+            return
+
         incomingmail = obj
+        task = self.context
         wtool = getToolByName(self.context, "portal_workflow")
-        review_state = wtool.getInfoFor(self.context, 'review_state')
-        if review_state == 'in-progress' and not self.is_outgoingmail_created(incomingmail):
+        task_state = wtool.getInfoFor(task, 'review_state')
+        if task_state == 'in-progress' and not self.is_outgoingmail_created(incomingmail):
             self.show_button = True
             self.portal_url = getToolByName(self.context, "portal_url")()
             self.title = "Re: " + incomingmail.title
