@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: pfwbged.policy\n"
-"POT-Creation-Date: 2013-04-30 06:28+0000\n"
-"PO-Revision-Date: 2013-04-30 08:28+0100\n"
+"POT-Creation-Date: 2013-05-13 07:29+0000\n"
+"PO-Revision-Date: 2013-05-13 09:30+0100\n"
 "Last-Translator: Vincent Fretin <vincent.fretin@gmail.com>\n"
 "Language-Team: Ecréall\n"
 "MIME-Version: 1.0\n"
@@ -18,7 +18,11 @@ msgstr ""
 msgid "Create outgoing mail"
 msgstr "Créer un courrier sortant"
 
-#: ../wfsubscribers.py:35
+#: ../viewlets.py:83
+msgid "Go back to document"
+msgstr "Retourner sur le document"
+
+#: ../wfsubscribers.py:38
 msgid "Process mail"
 msgstr "Traiter ce courrier"
 
