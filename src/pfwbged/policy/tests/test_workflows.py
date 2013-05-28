@@ -169,6 +169,30 @@ class TestSecurity(IntegrationTestCase, BaseWorkflowTest):
                 self.assertCheckPermissions(doc, DOCUMENT_PERMISSIONS[state],
                                             USERDEFS, stateid=state)
 
+    def test_delete_mail_with_subtasks(self):
+        """Test delete mail with task and subtasks"""
+        self.login('manager')
+        portal = api.portal.get()
+        folder = portal['folder']
+        api.content.create(container=folder, type='dmsincomingmail',
+                           id='mymail', title="My mail",
+                           treating_groups="editor")
+        mymail = folder['mymail']
+        api.user.grant_roles(username='editor', obj=mymail, roles=['Editor'])
+        api.content.transition(obj=mymail, transition='to_assign')
+        api.content.transition(obj=mymail, transition='to_process')
+        task = mymail['process-mail']
+        api.content.transition(obj=task, transition='attribute')
+        api.content.create(container=task, type='task', id='subtask1', title="Subtask 1")
+        subtask1 = task['subtask1']
+        api.content.transition(obj=subtask1, transition='ask-for-refusal')
+        api.content.transition(obj=subtask1, transition='accept-refusal')
+        self.assertEqual(api.content.get_state(obj=task), 'todo')
+        self.assertEqual(api.content.get_state(obj=subtask1), 'abandoned')
+        api.content.create(container=task, type='task', id='subtask2', title="Subtask 2")
+        api.content.delete(obj=mymail)
+        self.assertNotIn('mymail', folder)
+
     def __TODO_test_versionnote_workflow(self):
         pass
 
