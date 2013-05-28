@@ -42,6 +42,7 @@
         title="pfwbged.policy post_install import step"
         description="Post install import step from pfwbged.policy"
         handler=".setuphandlers.post_install">
+        <depends name="typeinfo" />
     </genericsetup:importStep>
 
 </configure>
