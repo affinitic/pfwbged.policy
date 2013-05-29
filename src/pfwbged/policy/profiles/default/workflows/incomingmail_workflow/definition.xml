@@ -115,6 +115,7 @@
   <guard>
    <guard-role>Editor</guard-role>
    <guard-role>Manager</guard-role>
+   <guard-expression>here/@@can_answer</guard-expression>
   </guard>
  </transition>
  <transition transition_id="back_to_assigning" title="" new_state="assigning" trigger="USER" before_script="" after_script="">

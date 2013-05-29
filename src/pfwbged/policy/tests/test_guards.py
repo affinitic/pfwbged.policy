@@ -1,5 +1,9 @@
 import os.path
 
+from zope.component import getUtility
+from zope.intid.interfaces import IIntIds
+from z3c.relationfield.relation import RelationValue
+
 from plone import api
 
 from ecreall.helpers.testing.workflow import BaseWorkflowTest
@@ -15,14 +19,23 @@ class TestGuards(IntegrationTestCase, BaseWorkflowTest):
 
     def setUp(self):
         super(TestGuards, self).setUp()
+        intids = getUtility(IIntIds)
         self.login('manager')
         portal = api.portal.get()
         folder = portal['folder']
+        self.incomingmail = api.content.create(container=folder,
+                                               type="dmsincomingmail",
+                                               title="Incoming mail",
+                                               treating_groups="editor",
+                                               recipient_groups="reader",
+                                               )
+        incomingmail_id = intids.getId(self.incomingmail)
         self.outgoingmail = api.content.create(container=folder,
                                                type='dmsoutgoingmail',
                                                title="Outgoing mail",
                                                treating_groups="editor",
                                                recipient_groups="reader",
+                                               in_reply_to=[RelationValue(incomingmail_id)],
                                                )
 
     def test_ready_to_send(self):
@@ -45,6 +58,22 @@ class TestGuards(IntegrationTestCase, BaseWorkflowTest):
         api.content.transition(obj=version3, transition='finish_without_validation')
         result = mail.restrictedTraverse('@@ready_to_send')()
         self.assertEqual(result, True)
+
+    def test_can_answer(self):
+        mail = self.incomingmail
+        outgoingmail = self.outgoingmail
+        can_answer = mail.restrictedTraverse('@@can_answer')
+        self.assertEqual(can_answer(), False)
+        # create a version for outgoing mail
+        version1 = api.content.create(container=outgoingmail,
+                                      type='dmsmainfile',
+                                      title="Version 1")
+        self.assertEqual(can_answer(), False)
+        api.content.transition(obj=version1, transition='finish_without_validation')
+        self.assertEqual(can_answer(), False)
+        # send the outgoing mail
+        api.content.transition(obj=outgoingmail, transition='send')
+        self.assertEqual(can_answer(), True)
 
     def test_document_guards(self):
         """Test guards for pfwbgeddocument_workflow transitions"""
