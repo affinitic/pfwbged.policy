@@ -89,10 +89,11 @@ def outgoingmail_sent(context, event):
         if incomingmail.portal_type != 'dmsincomingmail':
             return
 
-        for ref in context.related_task:
-            task = ref.to_object
-            if api.content.get_state(obj=task) == 'in-progress':
-                api.content.transition(obj=task, transition='mark-as-done')
+        if context.related_task is not None:
+            for ref in context.related_task:
+                task = ref.to_object
+                if api.content.get_state(obj=task) == 'in-progress':
+                    api.content.transition(obj=task, transition='mark-as-done')
 
 
 @grok.subscribe(ITask, IAfterTransitionEvent)
