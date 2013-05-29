@@ -3,6 +3,7 @@ from zope.component import getUtility
 from zope.intid.interfaces import IIntIds
 from z3c.relationfield.relation import RelationValue
 
+from Products.CMFCore.WorkflowCore import WorkflowException
 from plone import api
 
 from ecreall.helpers.testing.workflow import BaseWorkflowTest
@@ -28,7 +29,6 @@ INCOMINGMAIL_TRACK = [('', 'registering'),
                       ('to_noaction', 'noaction'),
                       ('back_to_assigning', 'assigning'),
                       ('to_process', 'processing'),
-                      ('answer', 'answered'),
                       ]
 
 OUTGOINGMAIL_PERMISSIONS = {
@@ -123,6 +123,10 @@ class TestSecurity(IntegrationTestCase, BaseWorkflowTest):
                 self.assertHasState(incomingmail, state)
                 self.assertCheckPermissions(incomingmail, INCOMINGMAIL_PERMISSIONS[state],
                                             USERDEFS, stateid=state)
+        self.assertHasState(incomingmail, 'processing')
+        wf_tool = api.portal.get_tool('portal_workflow')
+        with self.assertRaises(WorkflowException):
+            wf_tool.doActionFor(incomingmail, 'answer')
 
     def test_outgoingmail_workflow(self):
         self.login('manager')
