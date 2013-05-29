@@ -1,4 +1,7 @@
 # -*- coding: utf8 -*-
+from zope.component import getUtility
+from zope.intid.interfaces import IIntIds
+from z3c.relationfield.relation import RelationValue
 
 from plone import api
 
@@ -196,8 +199,33 @@ class TestSecurity(IntegrationTestCase, BaseWorkflowTest):
     def __TODO_test_versionnote_workflow(self):
         pass
 
-    def __TODO_test_outgoingmail_sent_mark_task_as_done(self):
-        pass
+    def test_outgoingmail_sent_mark_task_as_done(self):
+        self.login('manager')
+        intids = getUtility(IIntIds)
+        portal = api.portal.get()
+        folder = portal['folder']
+        self.incomingmail = api.content.create(container=folder,
+                                               type="dmsincomingmail",
+                                               title="Incoming mail")
+        incomingmail_intid = intids.getId(self.incomingmail)
+        task = api.content.create(container=folder, type='task',
+                                  id='task', title="My task")
+        self.assertEqual(api.content.get_state(task), 'todo')
+        api.content.transition(obj=task, transition='take-responsibility')
+        self.assertEqual(api.content.get_state(task), 'in-progress')
+        task_intid = intids.getId(task)
+        outgoing = api.content.create(container=folder, type='dmsoutgoingmail',
+                                      id='outgoingmail', title="Outgoing mail",
+                                      in_reply_to=[RelationValue(incomingmail_intid)],
+                                      related_task=[RelationValue(task_intid)])
+        self.assertEqual(api.content.get_state(task), 'in-progress')
+        v1 = api.content.create(container=outgoing, type='dmsmainfile', id='v1',
+                                title='Version one')
+        self.assertEqual(api.content.get_state(task), 'in-progress')
+        api.content.transition(obj=v1, transition='finish_without_validation')
+        self.assertEqual(api.content.get_state(task), 'in-progress')
+        api.content.transition(obj=outgoing, transition='send')
+        self.assertEqual(api.content.get_state(task), 'done')
 
     def __TODO_test_task_done_incomingmail_answered(self):
         pass

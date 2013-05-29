@@ -82,7 +82,6 @@ def outgoingmail_sent(context, event):
     Mark as done task from incoming mail.
     """
     if event.new_state.id == 'sent':
-        portal_catalog = api.portal.get_tool('portal_catalog')
         if not context.in_reply_to:
             return
 
@@ -90,12 +89,8 @@ def outgoingmail_sent(context, event):
         if incomingmail.portal_type != 'dmsincomingmail':
             return
 
-        tasks = portal_catalog.searchResults(portal_type='task',
-                path='/'.join(incomingmail.getPhysicalPath()),
-                )
-        for task_brain in tasks:
-            task = task_brain.getObject()
-            # FIXME we should check that the first task provides IIncomingMailAttributed
+        for ref in context.related_task:
+            task = ref.to_object
             if api.content.get_state(obj=task) == 'in-progress':
                 api.content.transition(obj=task, transition='mark-as-done')
 

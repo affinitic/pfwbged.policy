@@ -16,5 +16,8 @@
     <input type="hidden" name="form.widgets.treating_groups:list"
         value="treating_groups"
         tal:attributes="value viewlet/treating_groups" />
+    <input type="hidden" name="form.widgets.IRelatedTask.related_task:list"
+        value="related_task"
+        tal:attributes="value viewlet/related_task" />
   </form>
 </div>
