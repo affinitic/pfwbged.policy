@@ -9,7 +9,7 @@
  <object name="versionnote_workflow" meta_type="Workflow"/>
  <bindings>
   <default>
-   <bound-workflow workflow_id="intranet_workflow"/>
+   <bound-workflow workflow_id="pfwbgeddocument_workflow"/>
   </default>
   <type type_id="Folder">
    <bound-workflow workflow_id="pfwbgedfolder_workflow"/>
