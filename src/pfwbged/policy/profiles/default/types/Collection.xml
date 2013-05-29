@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<object name="Collection" meta_type="Dexterity FTI"
+   i18n:domain="plone.app.collection"
+   xmlns:i18n="http://xml.zope.org/namespaces/i18n">
+ <property name="default_view">standard_view</property>
+ <property name="view_methods" purge="False">
+  <element value="tasks_view"/>
+ </property>
+</object>
