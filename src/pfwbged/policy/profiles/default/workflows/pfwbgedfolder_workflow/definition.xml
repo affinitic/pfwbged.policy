@@ -20,6 +20,18 @@
    <permission-role>Member</permission-role>
   </permission-map>
  </state>
+ <state state_id="internal" title="Internal">
+  <exit-transition transition_id="publish"/>
+ </state>
+ <state state_id="external" title="Internal">
+  <exit-transition transition_id="publish"/>
+ </state>
+ <state state_id="pending" title="Internal">
+  <exit-transition transition_id="publish"/>
+ </state>
+ <state state_id="internally_published" title="Internally published">
+  <exit-transition transition_id="publish"/>
+ </state>
  <transition transition_id="make_private" title="Make private" new_state="private" trigger="USER" before_script="" after_script="">
   <action url="" category="workflow" icon="">Make private</action>
   <guard>
