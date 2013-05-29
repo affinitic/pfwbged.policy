@@ -10,6 +10,9 @@
   <default>
    <bound-workflow workflow_id="intranet_workflow"/>
   </default>
+  <type type_id="Folder">
+   <bound-workflow workflow_id="pfwbgedfolder_workflow"/>
+  </type>
   <type type_id="dmsincomingmail">
    <bound-workflow workflow_id="incomingmail_workflow"/>
   </type>
