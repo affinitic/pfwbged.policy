@@ -5,6 +5,7 @@
  <object name="incomingmail_workflow" meta_type="Workflow"/>
  <object name="outgoingmail_workflow" meta_type="Workflow"/>
  <object name="pfwbgeddocument_workflow" meta_type="Workflow"/>
+ <object name="pfwbgedfolder_workflow" meta_type="Workflow"/>
  <object name="versionnote_workflow" meta_type="Workflow"/>
  <bindings>
   <default>
