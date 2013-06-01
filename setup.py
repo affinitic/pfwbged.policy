@@ -27,6 +27,7 @@ setup(
         "Environment :: Web Environment",
         "Framework :: Plone",
         "Framework :: Plone :: 4.2",
+        "Framework :: Plone :: 4.3",
         "Programming Language :: Python",
         "Programming Language :: Python :: 2.7",
     ],
@@ -42,14 +43,15 @@ setup(
     zip_safe=False,
     install_requires=[
         'setuptools',
+        'collective.contact.core',
         'collective.dms.basecontent',
         'collective.dms.mailcontent',
-        'collective.task',
-        'collective.contact.core',
         'collective.local.workspace',
+        'collective.solr',
+        'collective.task',
+        'five.grok',
         'pfwbged.basecontent',
         'plone.app.contenttypes',
-        'collective.solr',
     ],
     extras_require={
         'test': [
