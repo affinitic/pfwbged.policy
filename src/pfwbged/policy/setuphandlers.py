@@ -2,6 +2,7 @@
 from plone import api
 from Products.CMFPlone.interfaces.constrains import ISelectableConstrainTypes
 from plone.app.dexterity.behaviors import constrains
+from plone.dexterity.interfaces import IDexterityContainer
 
 
 def isNotCurrentProfile(context):
@@ -28,16 +29,24 @@ def post_install(context):
     if 'events' in portal:
         portal.manage_delObjects(['events'])
     if 'Members' in portal:
-        portal.Members.setExcludeFromNav(True)
-        portal.Members.reindexObject()
+        if not IDexterityContainer.providedBy(portal.Members):
+            del portal['Members']
+            portal.invokeFactory('Folder', 'Members', title="Membres")
+
+#        portal.Members.setExcludeFromNav(True)
+#        portal.Members.excludeFromNav = True
+#        portal.Members.reindexObject()
+
+    if 'annuaire' not in portal:
+        portal.invokeFactory('directory', 'annuaire', title="Annuaire")
 
     if 'courriers' not in portal:
-        portal.invokeFactory('Folder', 'courriers', title="Courriers",)
+        portal.invokeFactory('Folder', 'courriers', title="Courriers")
 
     setup_constrains(portal['courriers'], ['dmsincomingmail', 'dmsoutgoingmail'])
 
     if 'service-informatique' not in portal:
-        portal.invokeFactory('workspace', 'service-informatique', title="Service informatique",)
+        portal.invokeFactory('workspace', 'service-informatique', title="Service informatique")
 
     # grant Contributor role to all Authenticated Users
     api.group.grant_roles(groupname='AuthenticatedUsers', roles=['Contributor'])
