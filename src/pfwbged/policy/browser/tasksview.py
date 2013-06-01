@@ -5,6 +5,7 @@ from zope.cachedescriptors.property import CachedProperty
 from plone.app.querystring.querybuilder import QueryBuilder
 
 from collective.dms.basecontent.browser.listing import TasksTable as BaseTasksTable
+from pfwbged.policy import _
 
 grok.templatedir('templates')
 

@@ -4,4 +4,15 @@
     xmlns:plone="http://namespaces.plone.org/plone"
     i18n_domain="pfwbged.policy">
 
+  <include package="plone.app.contentmenu" />
+
+  <browser:menuItems
+      for="plone.app.contenttypes.interfaces.ICollection"
+      menu="plone_displayviews">
+    <browser:menuItem
+      title="Tasks view"
+      action="tasks_view"
+      />
+  </browser:menuItems>
+
 </configure>

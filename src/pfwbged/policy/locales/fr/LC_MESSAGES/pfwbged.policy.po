@@ -26,3 +26,6 @@ msgstr "Retourner sur le document"
 msgid "Process mail"
 msgstr "Traiter ce courrier"
 
+#: browser/configure.zcml
+msgid "Tasks view"
+msgstr "Vue tâches"
