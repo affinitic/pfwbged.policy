@@ -6,7 +6,8 @@ from five import grok
 
 from zope.container.interfaces import INameChooser
 from zope.i18n import translate
-from zope.lifecycleevent.interfaces import IObjectCreatedEvent
+from zope.lifecycleevent.interfaces import IObjectCreatedEvent,\
+    IObjectModifiedEvent
 from zope.interface import alsoProvides
 
 from plone import api
@@ -20,34 +21,61 @@ from collective.task.content.task import ITask
 
 from pfwbged.policy import _
 from pfwbged.policy.interfaces import IIncomingMailAttributed
+from collective.z3cform.rolefield.field import LocalRolesToPrincipalsDataManager
+
+
+def create_tasks(container, groups, deadline):
+    """Create 'process mail' tasks for a list of groups or users"""
+    chooser = INameChooser(container)
+    for group_name in groups:
+        params = {'responsible': [],
+                  'title': translate(_(u'Process mail'),
+                                     context=container.REQUEST),
+                  'deadline': deadline,
+                  }
+        newid = chooser.chooseName('process-mail', container)
+        container.invokeFactory('task', newid, **params)
+        task = container[newid]
+        alsoProvides(task, IIncomingMailAttributed)
+        datamanager = LocalRolesToPrincipalsDataManager(task, ITask['responsible'])
+        datamanager.set((group_name,))
 
 
 @grok.subscribe(IDmsIncomingMail, IAfterTransitionEvent)
 def incoming_mail_attributed(context, event):
     """Launched when a mail is attributed to some groups or users"""
     if event.transition is not None and event.transition.id == 'to_process':
+        # first, copy treated_by and in_copy into treating_groups and recipient_groups
+        treating_groups = list(frozenset(context.treating_groups + context.treated_by))
+        treating_dm = LocalRolesToPrincipalsDataManager(context, IDmsIncomingMail['treating_groups'])
+        treating_dm.set(treating_groups)
+        recipient_groups = list(frozenset(context.recipient_groups + context.in_copy))
+        recipient_dm = LocalRolesToPrincipalsDataManager(context, IDmsIncomingMail['recipient_groups'])
+        recipient_dm.set(recipient_groups)
+
         already_in_charge = []
         for task in context.objectValues('task'):
             already_in_charge.extend(task.responsible)
-        treating_groups = set(context.treating_groups) - set(already_in_charge)
+        new_treating_groups = frozenset(context.treating_groups) - frozenset(already_in_charge)
         # create a task for each group which has not already a task for this mail
-        chooser = INameChooser(context)
-        deadline = datetime.date.today() + datetime.timedelta(days=context.deadline)
-        for group_name in treating_groups:
-            params = {'responsible': [group_name],
-                      'title': translate(_(u'Process mail'),
-                                         context=context.REQUEST),
-                      'deadline': deadline,
-                      }
-            newid = chooser.chooseName('process-mail', context)
-            context.invokeFactory('task', newid, **params)
-            task = context[newid]
-            alsoProvides(task, IIncomingMailAttributed)
-            #datamanager = LocalRolesToPrincipalsDataManager(task, ITask['responsible'])
-            #datamanager.set((group_name,))
-            # manually sets Editor role to responsible user or group :-(
-            task.manage_addLocalRoles(group_name, ['Editor',])
-            task.reindexObjectSecurity()
+        deadline_date = datetime.date.today() + datetime.timedelta(days=context.deadline)
+        create_tasks(context, new_treating_groups, deadline_date)
+
+
+@grok.subscribe(IDmsIncomingMail, IObjectModifiedEvent)
+def incoming_mail_modified(context, event):
+    current_state = api.content.get_state(context)
+    if current_state not in ['registering', 'assigning', 'noaction']:
+        new_treating = frozenset(context.treated_by) - frozenset(context.treating_groups)
+        treating_groups = context.treating_groups + list(new_treating)
+        treating_dm = LocalRolesToPrincipalsDataManager(context, IDmsIncomingMail['treating_groups'])
+        treating_dm.set(treating_groups)
+        new_recipients = frozenset(context.in_copy) - frozenset(context.recipient_groups)
+        recipient_groups = context.recipient_groups + list(new_recipients)
+        recipient_dm = LocalRolesToPrincipalsDataManager(context, IDmsIncomingMail['recipient_groups'])
+        recipient_dm.set(recipient_groups)
+        deadline_date = datetime.date.today() + datetime.timedelta(days=context.deadline)
+        create_tasks(context, new_treating, deadline_date)
 
 
 @grok.subscribe(IDmsOutgoingMail, IObjectCreatedEvent)
