@@ -58,8 +58,7 @@ def incoming_mail_attributed(context, event):
             already_in_charge.extend(task.responsible)
         new_treating_groups = frozenset(context.treating_groups) - frozenset(already_in_charge)
         # create a task for each group which has not already a task for this mail
-        deadline_date = datetime.date.today() + datetime.timedelta(days=context.deadline)
-        create_tasks(context, new_treating_groups, deadline_date)
+        create_tasks(context, new_treating_groups, context.deadline)
 
 
 @grok.subscribe(IDmsIncomingMail, IObjectModifiedEvent)
@@ -74,8 +73,7 @@ def incoming_mail_modified(context, event):
         recipient_groups = context.recipient_groups + list(new_recipients)
         recipient_dm = LocalRolesToPrincipalsDataManager(context, IDmsIncomingMail['recipient_groups'])
         recipient_dm.set(recipient_groups)
-        deadline_date = datetime.date.today() + datetime.timedelta(days=context.deadline)
-        create_tasks(context, new_treating, deadline_date)
+        create_tasks(context, new_treating, context.deadline)
 
 
 @grok.subscribe(IDmsOutgoingMail, IObjectCreatedEvent)
