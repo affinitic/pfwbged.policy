@@ -97,7 +97,7 @@ class TestSecurity(IntegrationTestCase, BaseWorkflowTest):
         self.assertIn('Contributor', api.user.get_roles(username='reader'))
         portal = api.portal.get()
         params = {'title': "My Document"}
-        portal.invokeFactory('pfwbdocument', 'mydoc', **params)
+        portal.invokeFactory('dmsdocument', 'mydoc', **params)
 
     def test_incomingmail_workflow(self):
         self.login('manager')
@@ -111,6 +111,8 @@ class TestSecurity(IntegrationTestCase, BaseWorkflowTest):
                                           sender=sgt_pepper,
                                           treating_groups=['editor'],
                                           recipient_groups=['reader'],
+                                          treated_by=[],
+                                          in_copy=[],
                                           )
 
         api.user.grant_roles(username='editor', obj=incomingmail, roles=['Editor'])
@@ -136,8 +138,10 @@ class TestSecurity(IntegrationTestCase, BaseWorkflowTest):
         outgoingmail = api.content.create(container=folder,
                                           type='dmsoutgoingmail',
                                           title="Outgoing mail",
-                                          treating_groups="editor",
-                                          recipient_groups="reader",
+                                          treating_groups=["editor"],
+                                          recipient_groups=["reader"],
+                                          treated_by=[],
+                                          in_copy=[],
                                           )
         api.user.grant_roles(username='editor', obj=outgoingmail, roles=['Editor'])
         api.user.grant_roles(username='reader', obj=outgoingmail, roles=['Reader'])
@@ -161,10 +165,13 @@ class TestSecurity(IntegrationTestCase, BaseWorkflowTest):
         portal = api.portal.get()
         folder = portal['folder']
         doc = api.content.create(container=folder,
-                                 type='pfwbdocument',
+                                 type='dmsdocument',
                                  title="Document",
                                  treating_groups="editor",
-                                 recipient_groups="reader")
+                                 recipient_groups="reader",
+                                 treated_by=[],
+                                 in_copy=[],
+                                 )
         api.user.grant_roles(username='editor', obj=doc, roles=['Editor'])
         api.user.grant_roles(username='reader', obj=doc, roles=['Reader'])
 
@@ -183,13 +190,17 @@ class TestSecurity(IntegrationTestCase, BaseWorkflowTest):
         folder = portal['folder']
         api.content.create(container=folder, type='dmsincomingmail',
                            id='mymail', title="My mail",
-                           treating_groups="editor")
+                           treated_by=["editor"],
+                           treating_groups=[],
+                           in_copy=[],
+                           recipient_groups=[])
         mymail = folder['mymail']
         api.user.grant_roles(username='editor', obj=mymail, roles=['Editor'])
         api.content.transition(obj=mymail, transition='to_assign')
         api.content.transition(obj=mymail, transition='to_process')
         task = mymail['process-mail']
         api.content.transition(obj=task, transition='attribute')
+        self.assertEqual(mymail.treating_groups, mymail.treated_by)
         api.content.create(container=task, type='task', id='subtask1', title="Subtask 1")
         subtask1 = task['subtask1']
         api.content.transition(obj=subtask1, transition='ask-for-refusal')
@@ -210,7 +221,11 @@ class TestSecurity(IntegrationTestCase, BaseWorkflowTest):
         folder = portal['folder']
         self.incomingmail = api.content.create(container=folder,
                                                type="dmsincomingmail",
-                                               title="Incoming mail")
+                                               title="Incoming mail",
+                                               treated_by=[],
+                                               treating_groups=[],
+                                               in_copy=[],
+                                               recipient_groups=[])
         incomingmail_intid = intids.getId(self.incomingmail)
         task = api.content.create(container=folder, type='task',
                                   id='task', title="My task")

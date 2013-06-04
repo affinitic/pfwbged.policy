@@ -81,7 +81,7 @@ class TestGuards(IntegrationTestCase, BaseWorkflowTest):
         portal = api.portal.get()
         folder = portal['folder']
         doc = api.content.create(container=folder,
-                                 type='pfwbdocument',
+                                 type='dmsdocument',
                                  title="Document",
                                  treating_groups="editor",
                                  recipient_groups="reader")
