@@ -47,10 +47,9 @@ def post_install(context):
                                           {'token': u'sous-chef', 'name': u'Sous-chef'},
                                           {'token': u'gerant', 'name': u'G\xe9rant'}]
 
-    if 'courriers' not in portal:
-        portal.invokeFactory('Folder', 'courriers', title="Courriers")
-
-    setup_constrains(portal['courriers'], ['dmsincomingmail', 'dmsoutgoingmail'])
+    if 'documents' not in portal:
+        portal.invokeFactory('Folder', 'documents', title="Documents")
+    #setup_constrains(portal['courriers'], ['dmsincomingmail', 'dmsoutgoingmail'])
 
     if 'service-informatique' not in portal:
         portal.invokeFactory('workspace', 'service-informatique', title="Service informatique")
