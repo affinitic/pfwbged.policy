@@ -39,6 +39,13 @@ def post_install(context):
 
     if 'annuaire' not in portal:
         portal.invokeFactory('directory', 'annuaire', title="Annuaire")
+        portal.annuaire.organization_levels = [{'token': u'service', 'name': u'Service'},
+                                               {'token': u'departement', 'name': u'D\xe9partement'}]
+        portal.annuaire.organization_types = [{'token': u'entreprise', 'name': u'Entreprise'},
+                                              {'token': u'mairie', 'name': u'Mairie'}]
+        portal.annuaire.position_types = [{'token': u'chef', 'name': u'Chef'},
+                                          {'token': u'sous-chef', 'name': u'Sous-chef'},
+                                          {'token': u'gerant', 'name': u'G\xe9rant'}]
 
     if 'courriers' not in portal:
         portal.invokeFactory('Folder', 'courriers', title="Courriers")
