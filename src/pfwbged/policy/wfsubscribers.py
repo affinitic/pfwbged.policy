@@ -41,6 +41,15 @@ def create_tasks(container, groups, deadline):
         datamanager.set((group_name,))
 
 
+def get_tasks(obj):
+    """Get all "first level" tasks related to obj"""
+    catalog = api.portal.get_tool('portal_catalog')
+    container_path = '/'.join(obj.getPhysicalPath())
+    tasks = catalog.searchResults({'path': {'query': container_path},
+                                   'portal_type': 'task'})
+    return tasks
+
+
 @grok.subscribe(IDmsIncomingMail, IAfterTransitionEvent)
 def incoming_mail_attributed(context, event):
     """Launched when a mail is attributed to some groups or users"""
@@ -124,16 +133,17 @@ def outgoingmail_sent(context, event):
 
 @grok.subscribe(ITask, IAfterTransitionEvent)
 def task_done(context, event):
-    """Launched when task is done.
-    Mark as answered incoming mail.
+    """Launched when task is done or abandoned.
+    Mark incoming mail as answered if all related tasks are done or abandoned
+    (a task has to be done at least).
     """
-    if event.new_state.id == 'done':
+    if event.new_state.id in ['abandoned', 'done']:
         first_task = context
+        # go up in the acquisition chain to find the first task (i.e. the one which is just below the incoming mail)
         for obj in aq_chain(context):
             obj = aq_parent(obj)
             if IDmsIncomingMail.providedBy(obj):
                 break
-
             first_task = obj
 
         if (not IDmsIncomingMail.providedBy(obj) or
@@ -141,5 +151,17 @@ def task_done(context, event):
             return
 
         incomingmail = obj
-        if api.content.get_state(obj=incomingmail) == 'processing':
+
+        # the mail is marked as answered only if all tasks are done or abandoned and one task is done
+        one_task_done = False
+        tasks = get_tasks(incomingmail)
+        for brain in tasks:
+            task = brain.getObject()
+            state = api.content.get_state(task)
+            if state not in ('abandoned', 'done'):
+                return
+            elif state == 'done':
+                one_task_done = True
+
+        if one_task_done and api.content.get_state(obj=incomingmail) == 'processing':
             api.content.transition(obj=incomingmail, transition='answer')

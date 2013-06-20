@@ -1,5 +1,7 @@
 # -*- coding: utf8 -*-
+import datetime
 from zope.component import getUtility
+from zope.interface import alsoProvides
 from zope.intid.interfaces import IIntIds
 from z3c.relationfield.relation import RelationValue
 
@@ -8,6 +10,7 @@ from plone import api
 
 from ecreall.helpers.testing.workflow import BaseWorkflowTest
 
+from pfwbged.policy.interfaces import IIncomingMailAttributed
 from ..testing import IntegrationTestCase
 from ..testing import USERDEFS
 
@@ -227,8 +230,8 @@ class TestSecurity(IntegrationTestCase, BaseWorkflowTest):
                                                in_copy=[],
                                                recipient_groups=[])
         incomingmail_intid = intids.getId(self.incomingmail)
-        task = api.content.create(container=folder, type='task',
-                                  id='task', title="My task")
+        task = api.content.create(container=self.incomingmail,
+                                  type='task', id='task', title="My task")
         self.assertEqual(api.content.get_state(task), 'todo')
         api.content.transition(obj=task, transition='take-responsibility')
         self.assertEqual(api.content.get_state(task), 'in-progress')
@@ -246,5 +249,141 @@ class TestSecurity(IntegrationTestCase, BaseWorkflowTest):
         api.content.transition(obj=outgoing, transition='send')
         self.assertEqual(api.content.get_state(task), 'done')
 
-    def __TODO_test_task_done_incomingmail_answered(self):
-        pass
+    def test_tasks_created_after_attribution(self):
+        self.login('manager')
+        portal = api.portal.get()
+        folder = portal['folder']
+        self.incomingmail = api.content.create(container=folder,
+                                               type="dmsincomingmail",
+                                               title="Incoming mail",
+                                               treated_by=[],
+                                               treating_groups=['editor', 'editor2', 'editor3'],
+                                               recipient_groups=[])
+        incomingmail = self.incomingmail
+        api.content.transition(obj=incomingmail, transition='to_assign')
+        api.content.transition(obj=incomingmail, transition='to_process')
+        self.assertEqual(api.content.get_state(incomingmail), 'processing')
+        tasks = incomingmail.listFolderContents()
+        self.assertEqual(len(tasks), 3)
+        responsibles = ['editor', 'editor2', 'editor3']
+        for task in tasks:
+            self.assertTrue(IIncomingMailAttributed.providedBy(task))
+            self.assertIn(task.responsible[0], responsibles)
+
+    def test_all_tasks_done(self):
+        """If all tasks related to an incoming mail are done, the mail is answered"""
+        self.login('manager')
+        intids = getUtility(IIntIds)
+        portal = api.portal.get()
+        folder = portal['folder']
+        self.incomingmail = api.content.create(container=folder,
+                                               type="dmsincomingmail",
+                                               title="Incoming mail",
+                                               treated_by=[],
+                                               treating_groups=[],
+                                               recipient_groups=[])
+        incomingmail_intid = intids.getId(self.incomingmail)
+        task1 = api.content.create(container=self.incomingmail, responsible=[],
+                                  type='task', id='task1', title="My task 1")
+        alsoProvides(task1, IIncomingMailAttributed)
+        task2 = api.content.create(container=self.incomingmail, responsible=[],
+                                  type='task', id='task2', title="My task 2")
+
+        api.content.transition(obj=self.incomingmail, transition='to_assign')
+        api.content.transition(obj=self.incomingmail, transition='to_process')
+
+        api.content.transition(obj=task1, transition='take-responsibility')
+        task1_intid = intids.getId(task1)
+        outgoing1 = api.content.create(container=folder, type='dmsoutgoingmail',
+                                       id='outgoingmail1', title="Outgoing mail",
+                                       in_reply_to=[RelationValue(incomingmail_intid)],
+                                       related_task=[RelationValue(task1_intid)])
+        v11 = api.content.create(container=outgoing1, type='dmsmainfile', id='v11',
+                                title='Version one')
+        api.content.transition(obj=v11, transition='finish_without_validation')
+
+        api.content.transition(obj=task2, transition='take-responsibility')
+
+        ################### KeyError : from_object
+#        task2_intid = intids.getId(task2)
+#        outgoing2 = api.content.create(container=folder, type='dmsoutgoingmail',
+#                                       id='outgoingmail2', title="Outgoing mail",
+#                                       in_reply_to=[RelationValue(incomingmail_intid)],
+#                                       related_task=[RelationValue(task2_intid)])
+#        v21 = api.content.create(container=outgoing2, type='dmsmainfile', id='v21',
+#                                title='Version one')
+#        api.content.transition(obj=v21, transition='finish_without_validation')
+
+        self.assertEqual(api.content.get_state(self.incomingmail),
+                         'processing')
+        api.content.transition(obj=outgoing1, transition='send')
+        self.assertEqual(api.content.get_state(task1), 'done')
+
+        self.assertEqual(api.content.get_state(self.incomingmail),
+                         'processing')
+        alsoProvides(task2, IIncomingMailAttributed)
+        api.content.transition(obj=task2, transition='mark-as-done')
+        #api.content.transition(obj=outgoing2, transition='send')  # KeyError from_object
+        self.assertEqual(api.content.get_state(task2), 'done')
+
+        self.assertEqual(api.content.get_state(self.incomingmail),
+                         'answered')
+
+    def test_all_tasks_abandoned(self):
+        """If all tasks are abandoned, the mail is not answered"""
+        self.login('manager')
+        intids = getUtility(IIntIds)
+        portal = api.portal.get()
+        folder = portal['folder']
+        self.incomingmail = api.content.create(container=folder,
+                                               type="dmsincomingmail",
+                                               title="Incoming mail",
+                                               treated_by=[],
+                                               treating_groups=['editor', 'editor2'],
+                                               recipient_groups=[])
+        incomingmail = self.incomingmail
+        api.content.transition(obj=incomingmail, transition='to_assign')
+        api.content.transition(obj=incomingmail, transition='to_process')
+        tasks = incomingmail.listFolderContents()
+        for task in tasks:
+            self.assertEqual(api.content.get_state(incomingmail), 'processing')
+            api.content.transition(obj=task, transition='abandon')
+        self.assertEqual(api.content.get_state(incomingmail), 'processing')
+
+    def test_tasks_done_and_abandoned(self):
+        """If a task is done and a task is abandoned, the mail is answered"""
+        self.login('manager')
+        intids = getUtility(IIntIds)
+        portal = api.portal.get()
+        folder = portal['folder']
+        self.incomingmail = api.content.create(container=folder,
+                                               type="dmsincomingmail",
+                                               title="Incoming mail",
+                                               treated_by=[],
+                                               treating_groups=['editor', 'editor2'],
+                                               recipient_groups=[])
+        incomingmail = self.incomingmail
+        incomingmail_intid = intids.getId(incomingmail)
+        api.content.transition(obj=incomingmail, transition='to_assign')
+        api.content.transition(obj=incomingmail, transition='to_process')
+        self.assertEqual(api.content.get_state(incomingmail), 'processing')
+
+        tasks = incomingmail.listFolderContents()
+
+        task = tasks[0]
+        api.content.transition(obj=task, transition='take-responsibility')
+        task_intid = intids.getId(task)
+        outgoing = api.content.create(container=folder, type='dmsoutgoingmail',
+                                      id='outgoingmail', title="Outgoing mail",
+                                      in_reply_to=[RelationValue(incomingmail_intid)],
+                                      related_task=[RelationValue(task_intid)])
+        v1 = api.content.create(container=outgoing, type='dmsmainfile', id='v1',
+                                title='Version one')
+        api.content.transition(obj=v1, transition='finish_without_validation')
+        api.content.transition(obj=outgoing, transition='send')
+        self.assertEqual(api.content.get_state(task), 'done')
+        self.assertEqual(api.content.get_state(incomingmail), 'processing')
+
+        task = tasks[1]
+        api.content.transition(obj=task, transition='abandon')
+        self.assertEqual(api.content.get_state(incomingmail), 'answered')

@@ -24,6 +24,8 @@ import pfwbged.policy
 USERDEFS = [{'user': 'secretary', 'roles': ('Member', ), 'groups': ()},
             {'user': 'greffier', 'roles': ('Member', 'Reviewer'), 'groups': ()},
             {'user': 'editor', 'roles': ('Member', ), 'groups': ()},
+            {'user': 'editor2', 'roles': ('Member', ), 'groups': ()},
+            {'user': 'editor3', 'roles': ('Member', ), 'groups': ()},
             {'user': 'reader', 'roles': ('Member', ), 'groups': ()},
             {'user': 'manager', 'roles': ('Member', 'Manager'), 'groups': ()},
             ]
