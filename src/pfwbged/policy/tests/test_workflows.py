@@ -115,7 +115,6 @@ class TestSecurity(IntegrationTestCase, BaseWorkflowTest):
                                           treating_groups=['editor'],
                                           recipient_groups=['reader'],
                                           treated_by=[],
-                                          in_copy=[],
                                           )
 
         api.user.grant_roles(username='editor', obj=incomingmail, roles=['Editor'])
@@ -144,7 +143,6 @@ class TestSecurity(IntegrationTestCase, BaseWorkflowTest):
                                           treating_groups=["editor"],
                                           recipient_groups=["reader"],
                                           treated_by=[],
-                                          in_copy=[],
                                           )
         api.user.grant_roles(username='editor', obj=outgoingmail, roles=['Editor'])
         api.user.grant_roles(username='reader', obj=outgoingmail, roles=['Reader'])
@@ -173,7 +171,6 @@ class TestSecurity(IntegrationTestCase, BaseWorkflowTest):
                                  treating_groups="editor",
                                  recipient_groups="reader",
                                  treated_by=[],
-                                 in_copy=[],
                                  )
         api.user.grant_roles(username='editor', obj=doc, roles=['Editor'])
         api.user.grant_roles(username='reader', obj=doc, roles=['Reader'])
@@ -195,7 +192,6 @@ class TestSecurity(IntegrationTestCase, BaseWorkflowTest):
                            id='mymail', title="My mail",
                            treated_by=["editor"],
                            treating_groups=[],
-                           in_copy=[],
                            recipient_groups=[])
         mymail = folder['mymail']
         api.user.grant_roles(username='editor', obj=mymail, roles=['Editor'])
@@ -227,7 +223,6 @@ class TestSecurity(IntegrationTestCase, BaseWorkflowTest):
                                                title="Incoming mail",
                                                treated_by=[],
                                                treating_groups=[],
-                                               in_copy=[],
                                                recipient_groups=[])
         incomingmail_intid = intids.getId(self.incomingmail)
         task = api.content.create(container=self.incomingmail,

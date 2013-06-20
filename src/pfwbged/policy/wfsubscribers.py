@@ -58,9 +58,9 @@ def incoming_mail_attributed(context, event):
         treating_groups = list(frozenset(context.treating_groups + context.treated_by))
         treating_dm = LocalRolesToPrincipalsDataManager(context, IDmsIncomingMail['treating_groups'])
         treating_dm.set(treating_groups)
-        recipient_groups = list(frozenset(context.recipient_groups + context.in_copy))
-        recipient_dm = LocalRolesToPrincipalsDataManager(context, IDmsIncomingMail['recipient_groups'])
-        recipient_dm.set(recipient_groups)
+        #recipient_groups = list(frozenset(context.recipient_groups + context.in_copy))
+        #recipient_dm = LocalRolesToPrincipalsDataManager(context, IDmsIncomingMail['recipient_groups'])
+        #recipient_dm.set(recipient_groups)
 
         already_in_charge = []
         for task in context.objectValues('task'):
@@ -78,10 +78,10 @@ def incoming_mail_modified(context, event):
         treating_groups = context.treating_groups + list(new_treating)
         treating_dm = LocalRolesToPrincipalsDataManager(context, IDmsIncomingMail['treating_groups'])
         treating_dm.set(treating_groups)
-        new_recipients = frozenset(context.in_copy) - frozenset(context.recipient_groups)
-        recipient_groups = context.recipient_groups + list(new_recipients)
-        recipient_dm = LocalRolesToPrincipalsDataManager(context, IDmsIncomingMail['recipient_groups'])
-        recipient_dm.set(recipient_groups)
+        #new_recipients = frozenset(context.in_copy) - frozenset(context.recipient_groups)
+        #recipient_groups = context.recipient_groups + list(new_recipients)
+        #recipient_dm = LocalRolesToPrincipalsDataManager(context, IDmsIncomingMail['recipient_groups'])
+        #recipient_dm.set(recipient_groups)
         create_tasks(context, new_treating, context.deadline)
 
 
