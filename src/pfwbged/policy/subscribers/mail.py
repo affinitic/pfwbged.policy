@@ -18,10 +18,10 @@ from collective.dms.mailcontent.dmsmail import IDmsIncomingMail,\
     IDmsOutgoingMail
 from collective.dms.basecontent.dmsfile import IDmsFile
 from collective.task.content.task import ITask
+from collective.z3cform.rolefield.field import LocalRolesToPrincipalsDataManager
 
 from pfwbged.policy import _
 from pfwbged.policy.interfaces import IIncomingMailAttributed
-from collective.z3cform.rolefield.field import LocalRolesToPrincipalsDataManager
 
 
 def create_tasks(container, groups, deadline):
@@ -92,25 +92,6 @@ def outgoing_mail_created(context, event):
     api.user.grant_roles(user=creator, roles=['Editor'], obj=context)
 
 
-@grok.subscribe(IDmsFile, IAfterTransitionEvent)
-def version_note_finished(context, event):
-    """Launched when version note is finished"""
-    if event.new_state.id == 'finished':
-        context.reindexObject(idxs=['review_state'])
-        portal_catalog = api.portal.get_tool('portal_catalog')
-        document = context.getParentNode()
-        # if parent is an outgoing mail, change its state to ready_to_send
-        if document.portal_type == 'dmsoutgoingmail' and api.content.get_state(obj=document) == 'writing':
-            api.content.transition(obj=document, transition='finish')
-        version_notes = portal_catalog.searchResults(portal_type='dmsmainfile',
-                path='/'.join(document.getPhysicalPath()))
-        # make obsolete other versions
-        for version_brain in version_notes:
-            version = version_brain.getObject()
-            if api.content.get_state(obj=version) == 'validated':
-                api.content.transition(obj=version, transition='obsolete')
-
-
 @grok.subscribe(IDmsOutgoingMail, IAfterTransitionEvent)
 def outgoingmail_sent(context, event):
     """Launched when outgoing mail is sent.
@@ -129,6 +110,25 @@ def outgoingmail_sent(context, event):
                 task = ref.to_object
                 if api.content.get_state(obj=task) == 'in-progress':
                     api.content.transition(obj=task, transition='mark-as-done')
+
+
+@grok.subscribe(IDmsFile, IAfterTransitionEvent)
+def version_note_finished(context, event):
+    """Launched when version note is finished"""
+    if event.new_state.id == 'finished':
+        context.reindexObject(idxs=['review_state'])
+        portal_catalog = api.portal.get_tool('portal_catalog')
+        document = context.getParentNode()
+        # if parent is an outgoing mail, change its state to ready_to_send
+        if document.portal_type == 'dmsoutgoingmail' and api.content.get_state(obj=document) == 'writing':
+            api.content.transition(obj=document, transition='finish')
+        version_notes = portal_catalog.searchResults(portal_type='dmsmainfile',
+                path='/'.join(document.getPhysicalPath()))
+        # make obsolete other versions
+        for version_brain in version_notes:
+            version = version_brain.getObject()
+            if api.content.get_state(obj=version) == 'validated':
+                api.content.transition(obj=version, transition='obsolete')
 
 
 @grok.subscribe(ITask, IAfterTransitionEvent)
