@@ -46,6 +46,7 @@ setup(
         'collective.contact.core',
         'collective.dms.basecontent',
         'collective.dms.mailcontent',
+        'collective.documentviewer',
         'collective.local.workspace',
         'collective.solr',
         'collective.task',
