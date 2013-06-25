@@ -1,5 +1,15 @@
 <?xml version="1.0"?>
 <registry>
+  <record name="collective.js.jqueryui.controlpanel.IJQueryUIPlugins.ui_autocomplete"
+		  interface="collective.js.jqueryui.controlpanel.IJQueryUIPlugins"
+		  field="ui_autocomplete">
+    <field type="plone.registry.field.Bool">
+      <default>False</default>
+      <required>False</required>
+      <title>Autocomplete</title>
+    </field>
+    <value>False</value>
+  </record>
   <record field="comment_required"
           interface="collective.wfcomment.interfaces.IWorkflowCommentSettings"
           name="collective.wfcomment.interfaces.IWorkflowCommentSettings.comment_required">
