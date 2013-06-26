@@ -48,6 +48,7 @@ setup(
         'collective.dms.mailcontent',
         'collective.documentviewer',
         'collective.edm.listing',
+        'collective.externaleditor',
         'collective.local.workspace',
         'collective.solr',
         'collective.task',
