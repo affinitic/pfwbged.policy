@@ -15,6 +15,7 @@
   <exit-transition transition_id="submit"/>
  </state>
  <state state_id="finished" title="Finished" i18n:attributes="title">
+  <exit-transition transition_id="obsolete"/>
   <permission-map name="Modify portal content" acquired="False">
    <permission-role>Manager</permission-role>
   </permission-map>
@@ -43,11 +44,15 @@
  <transition transition_id="finish" title="Finish" new_state="finished" trigger="USER" before_script="" after_script="" i18n:attributes="title">
   <action url="" category="workflow" icon="" i18n:translate="">Finish</action>
   <guard>
+    <guard-role>Owner</guard-role>
+    <guard-role>Reviewer</guard-role>
   </guard>
  </transition>
  <transition transition_id="finish_without_validation" title="Finish" new_state="finished" trigger="USER" before_script="" after_script="" i18n:attributes="title">
   <action url="" category="workflow" icon="" i18n:translate="">Finish</action>
   <guard>
+    <guard-role>Owner</guard-role>
+    <guard-expression>here/@@no_validation_in_progress</guard-expression>
   </guard>
  </transition>
  <transition transition_id="obsolete" title="Make obsolete" new_state="obsolete" trigger="USER" before_script="" after_script="" i18n:attributes="title">
@@ -58,18 +63,13 @@
  <transition transition_id="refuse" title="Refuse" new_state="draft" trigger="USER" before_script="" after_script="" i18n:attributes="title">
   <action url="" category="workflow" icon="" i18n:translate="">Refuse</action>
   <guard>
-   <guard-role>Reviewer</guard-role>
-   <guard-role>Manager</guard-role>
   </guard>
  </transition>
- <transition transition_id="submit" title="Submit" new_state="pending" trigger="USER" before_script="" after_script="" i18n:attributes="title">
-  <action url="" category="workflow" icon="" i18n:translate="">Submit</action>
+ <transition transition_id="submit" title="Ask validation" new_state="pending" trigger="USER" before_script="" after_script="" i18n:attributes="title">
+  <action url="%(content_url)s/@@ask_validation" category="workflow" icon="" i18n:translate="">Ask validation</action>
   <guard>
-  </guard>
- </transition>
- <transition transition_id="unvalidate" title="Unvalidate" new_state="draft" trigger="USER" before_script="" after_script="" i18n:attributes="title">
-  <action url="" category="workflow" icon="" i18n:translate="">Unvalidate</action>
-  <guard>
+    <guard-role>Owner</guard-role>
+    <guard-expression>here/@@no_validation_in_progress</guard-expression>
   </guard>
  </transition>
  <transition transition_id="validate" title="Validate" new_state="validated" trigger="USER" before_script="" after_script="" i18n:attributes="title">
