@@ -8,6 +8,7 @@ from plone import api
 
 from collective.dms.mailcontent.dmsmail import IDmsOutgoingMail,\
     IDmsIncomingMail
+from collective.dms.basecontent.dmsfile import IDmsFile
 
 
 class OutgoingMailReadyToSend(grok.View):
@@ -44,3 +45,25 @@ class CanAnswerIncomingMail(grok.View):
             if api.content.get_state(obj=outgoing_mail) == 'sent':
                 return True
         return False
+
+
+# Version note workflow guards
+class NoValidationInProgress(grok.View):
+    """Guard that verify that we don't have a validation process in progress"""
+    grok.name('no_validation_in_progress')
+    grok.context(IDmsFile)
+    grok.require('zope2.View')
+
+    def render(self):
+        state = api.content.get_state(self.context)
+        if state == 'draft':
+            # OK if there is no pending or validated version in this document
+            catalog = api.portal.get_tool('portal_catalog')
+            document = self.context.getParentNode()
+            document_path = '/'.join(document.getPhysicalPath())
+            brains = catalog.searchResults({'portal_type': 'dmsfile',
+                                            'review_state': 'pending'},
+                                           path={'query': document_path, 'depth': 1})
+            if brains:
+                return False
+        return True
