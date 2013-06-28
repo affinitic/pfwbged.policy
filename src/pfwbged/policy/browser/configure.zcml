@@ -20,4 +20,11 @@
       />
   </browser:menuItems>
 
+  <browser:page
+    name="ask_validation"
+    for="collective.dms.basecontent.dmsfile.IDmsFile"
+    class=".ask_validation.AskValidation"
+    permission="zope2.View"
+    />
+
 </configure>
