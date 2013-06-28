@@ -6,7 +6,7 @@
   <browser:menu
     id="plone_contentmenu_workflow"
     title="The 'workflow' menu - allows the user to execute workflow transitions"
-    class=".menu.WorkflowMenu"
+    class=".menu.CustomMenu"
     />
 
 </configure>
