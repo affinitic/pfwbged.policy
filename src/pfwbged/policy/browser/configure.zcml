@@ -6,6 +6,11 @@
 
   <include package="plone.app.contentmenu" />
 
+  <browser:resource
+    name="pfwbged_overlays.js"
+    file="static/js/pfwbged_overlays.js"
+    />
+
   <browser:menuItems
       for="plone.app.contenttypes.interfaces.ICollection"
       menu="plone_displayviews">
