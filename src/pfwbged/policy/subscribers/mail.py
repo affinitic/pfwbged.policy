@@ -127,7 +127,7 @@ def version_note_finished(context, event):
         # make obsolete other versions
         for version_brain in version_notes:
             version = version_brain.getObject()
-            if api.content.get_state(obj=version) == 'validated':
+            if api.content.get_state(obj=version) in ('draft', 'pending', 'validated'):
                 api.content.transition(obj=version, transition='obsolete')
 
 
