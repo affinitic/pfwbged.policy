@@ -13,6 +13,7 @@
  <state state_id="draft" title="Draft" i18n:attributes="title">
   <exit-transition transition_id="finish_without_validation"/>
   <exit-transition transition_id="submit"/>
+  <exit-transition transition_id="ask_opinion"/>
  </state>
  <state state_id="finished" title="Finished" i18n:attributes="title">
   <exit-transition transition_id="obsolete"/>
@@ -63,6 +64,13 @@
  <transition transition_id="refuse" title="Refuse" new_state="draft" trigger="USER" before_script="" after_script="" i18n:attributes="title">
   <action url="" category="workflow" icon="" i18n:translate="">Refuse</action>
   <guard>
+  </guard>
+ </transition>
+ <transition transition_id="ask_opinion" title="Ask opinion" new_state="draft" trigger="USER" before_script="" after_script="" i18n:attributes="title">
+  <action url="%(content_url)s/@@ask_opinion" category="workflow" icon="" i18n:translate="">Ask opinion</action>
+  <guard>
+    <guard-role>Owner</guard-role>
+    <guard-role>Manager</guard-role>
   </guard>
  </transition>
  <transition transition_id="submit" title="Ask validation" new_state="pending" trigger="USER" before_script="" after_script="" i18n:attributes="title">

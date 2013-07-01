@@ -27,4 +27,11 @@
     permission="zope2.View"
     />
 
+  <browser:page
+    name="ask_opinion"
+    for="collective.dms.basecontent.dmsfile.IDmsFile"
+    class=".ask_opinion.AskOpinion"
+    permission="zope2.View"
+    />
+
 </configure>
