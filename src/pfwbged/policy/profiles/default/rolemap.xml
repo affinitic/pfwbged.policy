@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<rolemap>
+  <permissions>
+    <permission name="Add portal content" acquire="True">
+      <role name="Manager"/>
+      <role name="Member"/>
+      <role name="Site Administrator"/>
+    </permission>
+  </permissions>
+</rolemap>

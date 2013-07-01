@@ -54,5 +54,5 @@ def post_install(context):
     if 'service-informatique' not in portal:
         portal.invokeFactory('workspace', 'service-informatique', title="Service informatique")
 
-    # grant Contributor role to all Authenticated Users
-    api.group.grant_roles(groupname='AuthenticatedUsers', roles=['Contributor'])
+    # revoke Contributor role to all Authenticated Users
+    api.group.revoke_roles(groupname='AuthenticatedUsers', roles=['Contributor'])
