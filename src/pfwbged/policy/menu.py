@@ -50,6 +50,13 @@ class WorkflowSubMenuItem(grok.MultiAdapter, menu.WorkflowSubMenuItem):
     def _currentStateTitle(self):
         return u""
 
+    def available(self):
+        """Menu is always visible"""
+        return True
+
+    def action(self):
+        return self.context.absolute_url() + '/content_status_history'
+
 
 class CustomMenu(menu.WorkflowMenu):
     """Custom menu : actions, workflow and factories menu, all in one"""
