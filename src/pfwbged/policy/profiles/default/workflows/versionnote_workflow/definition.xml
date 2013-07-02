@@ -37,7 +37,6 @@
   <exit-transition transition_id="finish"/>
   <exit-transition transition_id="obsolete"/>
   <exit-transition transition_id="submit"/>
-  <exit-transition transition_id="unvalidate"/>
   <permission-map name="Modify portal content" acquired="False">
    <permission-role>Manager</permission-role>
   </permission-map>
