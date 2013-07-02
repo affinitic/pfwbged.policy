@@ -25,7 +25,8 @@ class AskOpinion(DefaultAddForm):
         self.request.form["form.widgets.ITarget.target"] = ('/'.join(version.getPhysicalPath()),)
         if 'form.widgets.title' not in self.request.form:
              self.request.form["form.widgets.title"] = translate(_(u"Opinion application for version ${version}",
-                                                                 mapping={'version': version.Title()}), context=self.request)
+                                                                 mapping={'version': version.Title()}),
+                                                                 context=self.request)
 
         super(AskOpinion, self).updateWidgets()
         if 'workflow_action' in self.request:

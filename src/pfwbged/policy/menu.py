@@ -1,7 +1,10 @@
 from five import grok
 from zope.component import getMultiAdapter
+from zope.component import getUtility
 from zope.component import queryMultiAdapter
+from zope.i18nmessageid import MessageFactory
 from zope.interface import Interface
+from zope.intid.interfaces import IIntIds
 from zope.publisher.interfaces.browser import IDefaultBrowserLayer
 
 from plone import api
@@ -11,15 +14,30 @@ from plone.app.contentmenu import menu, interfaces
 from Products.CMFPlone.interfaces.constrains import IConstrainTypes
 from Products.CMFCore.utils import getToolByName
 
+from collective.dms.basecontent.dmsdocument import IDmsDocument
+from collective.task.content.information import IInformation
+from collective.task.content.opinion import IOpinion
+
 from . import _
 
 
+PMF = MessageFactory('plone')
+
 add_actions_mapping = {'dmsmainfile': _(u"Create a new version"),
                        'information': _(u'Send for information'),
-                       #'opinion': _(u'Ask opinion'),
-                       #'task': _(u'Ask treatment'),
-                       #'validation': _(u'Ask validation'),
                        }
+
+
+def get_wf_action_title(action, context):
+    """Get workflow action title"""
+    if action['id'] == 'mark-as-done':
+        if IInformation.providedBy(context):
+            return _(u"Mark as read")
+        elif IOpinion.providedBy(context):
+            version = context.target.to_object.Title()
+            return _(u"Return opinion about ${version}",
+                     mapping={'version': version})
+    return action['title']
 
 
 class ActionsSubMenuItem(grok.MultiAdapter, menu.ActionsSubMenuItem):
@@ -84,15 +102,25 @@ class CustomMenu(menu.WorkflowMenu):
                     context.absolute_url(), action['id'])
                 cssClass = ''
 
+            if action['id'] in ('submit', 'ask_opinion'):
+                cssClass += " overlay-form-reload"
+
             description = ''
 
             transition = action.get('transition', None)
             if transition is not None:
                 description = transition.description
 
+            title = get_wf_action_title(action, context)
+
+            if IOpinion.providedBy(context) and action['id'] == 'mark-as-done':
+                actionUrl = context.absolute_url()
+                cssClass = 'overlay-comment-form'
+                # move this stuff elsewhere, make the redirect work (overrider le handleSave de la viewlet plone.app.discussion)
+
             if action['allowed']:
                 results.append({
-                    'title': action['title'],
+                    'title': title,
                     'description': description,
                     'action': actionUrl,
                     'selected': False,
@@ -126,7 +154,7 @@ class CustomMenu(menu.WorkflowMenu):
         _results = factories_view.addable_types(include=include)
         for result in _results:
             if result['id'] in ('dmsmainfile', 'information'):
-                result['extra']['class'] += ' pfwb-overlay-form-reload'
+                result['extra']['class'] += ' overlay-form-reload'
                 result['title'] = add_actions_mapping[result['id']]
             elif result['id'] in ('validation', 'opinion', 'task'):
                 continue
@@ -177,10 +205,10 @@ class CustomMenu(menu.WorkflowMenu):
                                         name='plone_context_state')
         if context_state.is_structural_folder() and context_state.is_default_page():
             results.append({
-                'title': _(u'default_page_folder',
+                'title': PMF(u'default_page_folder',
                     default=u'Add item to default page'),
                 'description':
-                    _(u'desc_default_page_folder',
+                    PMF(u'desc_default_page_folder',
                         default=u'If the default page is also a folder, '
                                 u'add items to it from here.'),
                 'action': context.absolute_url() + '/@@folder_factories',
@@ -233,29 +261,43 @@ class CustomMenu(menu.WorkflowMenu):
                 })
         return results
 
+    def getWorkflowActionsForType(self, context, request, portal_type):
+        """Get workflow actions for a portal type"""
+        catalog = api.portal.get_tool('portal_catalog')
+        actions = []
+        container_path = '/'.join(context.getPhysicalPath())
+        brains = catalog.searchResults({'path': container_path,
+                                        'portal_type': portal_type})
+        for brain in brains:
+            obj = brain.getObject()
+            actions.extend(self.getWorkflowActionsForObject(obj, request))
+
+        return actions
+
+
     def getMenuItems(self, context, request):
-        results = []
-        results.extend(self.getWorkflowActionsForObject(context, request))
-        results.extend(self.getAddActionsForObject(context, request))
-        results.extend(self.getActionsForObject(context, request))
+        actions = []
+        actions.extend(self.getWorkflowActionsForObject(context, request))
 
-        for obj in context.listFolderContents():
-            results.extend(self.getWorkflowActionsForObject(obj, request))
+        fsmi = menu.FactoriesSubMenuItem(context, request)
+        if fsmi.available():
+            actions.extend(self.getAddActionsForObject(context, request))
 
-#        for obj in context.values():
-#            results.extend(self.getMenuItemsForObject(obj, request))
+        actions.extend(self.getActionsForObject(context, request))
 
-#        url = context.absolute_url()
+        catalog = api.portal.get_tool('portal_catalog')
 
-#        results.append({
-#            'title': 'valider avis',
-#            'description': '',
-#            'action': url + '/monavis/change_state',
-#            'selected': False,
-#            'icon': None,
-#            'extra': {'id': 'workflow-transition-monavis',
-#                      'separator': None,
-#                      'class': ''},
-#            'submenu': None,
-#        })
-        return results
+        if IDmsDocument.providedBy(context):
+            # wf actions on versions
+            actions.extend(self.getWorkflowActionsForType(context, request, 'dmsmainfile'))
+
+            # wf actions on tasks
+            actions.extend(self.getWorkflowActionsForType(context, request, 'task'))
+
+            # wf actions on opinions
+            actions.extend(self.getWorkflowActionsForType(context, request, 'opinion'))
+
+            # wf actions on informations
+            actions.extend(self.getWorkflowActionsForType(context, request, 'information'))
+
+        return actions
