@@ -28,6 +28,7 @@ add_actions_mapping = {'dmsmainfile': _(u"Create a new version"),
                        }
 
 
+
 def get_wf_action_title(action, context):
     """Get workflow action title"""
     if action['id'] == 'mark-as-done':
@@ -271,7 +272,10 @@ class CustomMenu(menu.WorkflowMenu):
         for brain in brains:
             obj = brain.getObject()
             actions.extend(self.getWorkflowActionsForObject(obj, request))
-
+        # actions on content redirect to document after transition
+        for action in actions:
+            action['action'] = action['action'].replace("content_status_modify",
+                                                       "redirect_to_dmsdocument")
         return actions
 
 
