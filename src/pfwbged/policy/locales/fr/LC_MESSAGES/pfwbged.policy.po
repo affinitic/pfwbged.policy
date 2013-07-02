@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: pfwbged.policy\n"
-"POT-Creation-Date: 2013-05-13 07:29+0000\n"
+"POT-Creation-Date: 2013-07-02 14:12+0000\n"
 "PO-Revision-Date: 2013-05-13 09:30+0100\n"
 "Last-Translator: Vincent Fretin <vincent.fretin@gmail.com>\n"
 "Language-Team: Ecréall\n"
@@ -14,18 +14,71 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: DOMAIN\n"
 
+#: ../menu.py:66
+msgid "Actions"
+msgstr "Actions"
+
+#: ../menu.py:162
+msgid "Add ${title}"
+msgstr "Ajouter ${title}"
+
+#: ../browser/ask_opinion.py:57
+msgid "Ask opinion"
+msgstr "Demander un avis"
+
+#: ../browser/ask_validation.py:58
+msgid "Ask validation"
+msgstr "Demander une validation"
+
+#: ../customize.py:11
+msgid "Can edit"
+msgstr "Modifiable par"
+
+#: ../customize.py:16
+msgid "Can view"
+msgstr "Visible par"
+
+#: ../menu.py:26
+msgid "Create a new version"
+msgstr "Créer une nouvelle version"
+
 #: ../templates/createoutgoingmail.pt:4
 msgid "Create outgoing mail"
 msgstr "Créer un courrier sortant"
 
-#: ../viewlets.py:83
+#: ../viewlets.py:84
 msgid "Go back to document"
 msgstr "Retourner sur le document"
 
-#: ../wfsubscribers.py:38
+#: ../menu.py:35
+msgid "Mark as read"
+msgstr "Marquer comme lu"
+
+#: ../browser/ask_opinion.py:27
+msgid "Opinion application for version ${version}"
+msgstr "Demande d'avis pour la version ${version}"
+
+#: ../subscribers/mail.py:32
 msgid "Process mail"
 msgstr "Traiter ce courrier"
+
+#: ../browser/comments.py:43
+msgid "Render opinion"
+msgstr "Rendre un avis"
+
+#: ../menu.py:38
+msgid "Return opinion about ${version}"
+msgstr "Rendre un avis sur la version ${version}"
+
+#: ../menu.py:27
+msgid "Send for information"
+msgstr "Transmettre pour information"
 
 #: browser/configure.zcml
 msgid "Tasks view"
 msgstr "Vue tâches"
+
+#: ../browser/ask_validation.py:27
+msgid "Validation application for version ${version}"
+msgstr "Demande de validation pour la version ${version}"
+

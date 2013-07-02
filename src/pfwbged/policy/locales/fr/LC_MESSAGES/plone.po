@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: pfwbged.policy\n"
-"POT-Creation-Date: 2013-05-13 07:29+0000\n"
+"POT-Creation-Date: 2013-07-02 14:12+0000\n"
 "PO-Revision-Date: 2013-03-28 17:22+0100\n"
 "Last-Translator: Cédric Messiant <cedricmessiant@ecreall.com>\n"
 "Language-Team: French\n"
@@ -22,6 +22,14 @@ msgstr "Répondre"
 #: ../profiles/default/workflows/incomingmail_workflow/definition.xml
 msgid "Answered"
 msgstr "Répondu"
+
+#: ../profiles/default/workflows/versionnote_workflow/definition.xml
+msgid "Ask opinion"
+msgstr "Demander une avis"
+
+#: ../profiles/default/workflows/versionnote_workflow/definition.xml
+msgid "Ask validation"
+msgstr "Demander une validation"
 
 #: ../profiles/default/workflows/incomingmail_workflow/definition.xml
 msgid "Assigning"
@@ -64,6 +72,10 @@ msgstr "Finalisé"
 msgid "Make obsolete"
 msgstr "Rendre obsolète"
 
+#: ../profiles/default/actions.xml
+msgid "My Folder"
+msgstr "Mon dossier"
+
 #: ../profiles/default/workflows/incomingmail_workflow/definition.xml
 msgid "No action"
 msgstr "Sans suite"
@@ -96,10 +108,6 @@ msgstr "Envoyer"
 msgid "Sent"
 msgstr "Envoyé"
 
-#: ../profiles/default/workflows/versionnote_workflow/definition.xml
-msgid "Submit"
-msgstr "Soumettre"
-
 #: ../profiles/default/workflows/incomingmail_workflow/definition.xml
 msgid "To assign"
 msgstr "À attribuer"
@@ -107,10 +115,6 @@ msgstr "À attribuer"
 #: ../profiles/default/workflows/incomingmail_workflow/definition.xml
 msgid "To process"
 msgstr "À traiter"
-
-#: ../profiles/default/workflows/versionnote_workflow/definition.xml
-msgid "Unvalidate"
-msgstr "Dévalider"
 
 #: ../profiles/default/workflows/versionnote_workflow/definition.xml
 msgid "Validate"

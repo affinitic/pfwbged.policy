@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-05-13 07:29+0000\n"
+"POT-Creation-Date: 2013-07-02 14:12+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,15 +17,71 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: pfwbged.policy\n"
 
+#: ../menu.py:66
+msgid "Actions"
+msgstr ""
+
+#: ../menu.py:162
+msgid "Add ${title}"
+msgstr ""
+
+#: ../browser/ask_opinion.py:57
+msgid "Ask opinion"
+msgstr ""
+
+#: ../browser/ask_validation.py:58
+msgid "Ask validation"
+msgstr ""
+
+#: ../customize.py:11
+msgid "Can edit"
+msgstr ""
+
+#: ../customize.py:16
+msgid "Can view"
+msgstr ""
+
+#: ../menu.py:26
+msgid "Create a new version"
+msgstr ""
+
 #: ../templates/createoutgoingmail.pt:4
 msgid "Create outgoing mail"
 msgstr ""
 
-#: ../viewlets.py:83
+#: ../viewlets.py:84
 msgid "Go back to document"
 msgstr ""
 
-#: ../wfsubscribers.py:38
+#: ../menu.py:35
+msgid "Mark as read"
+msgstr ""
+
+#: ../browser/ask_opinion.py:27
+msgid "Opinion application for version ${version}"
+msgstr ""
+
+#: ../subscribers/mail.py:32
 msgid "Process mail"
+msgstr ""
+
+#: ../browser/comments.py:43
+msgid "Render opinion"
+msgstr ""
+
+#: ../menu.py:38
+msgid "Return opinion about ${version}"
+msgstr ""
+
+#: ../menu.py:27
+msgid "Send for information"
+msgstr ""
+
+#: browser/configure.zcml
+msgid "Tasks view"
+msgstr ""
+
+#: ../browser/ask_validation.py:27
+msgid "Validation application for version ${version}"
 msgstr ""
 

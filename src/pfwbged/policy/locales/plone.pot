@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-05-13 07:29+0000\n"
+"POT-Creation-Date: 2013-07-02 14:12+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,6 +23,14 @@ msgstr ""
 
 #: ../profiles/default/workflows/incomingmail_workflow/definition.xml
 msgid "Answered"
+msgstr ""
+
+#: ../profiles/default/workflows/versionnote_workflow/definition.xml
+msgid "Ask opinion"
+msgstr ""
+
+#: ../profiles/default/workflows/versionnote_workflow/definition.xml
+msgid "Ask validation"
 msgstr ""
 
 #: ../profiles/default/workflows/incomingmail_workflow/definition.xml
@@ -66,6 +74,10 @@ msgstr ""
 msgid "Make obsolete"
 msgstr ""
 
+#: ../profiles/default/actions.xml
+msgid "My Folder"
+msgstr ""
+
 #: ../profiles/default/workflows/incomingmail_workflow/definition.xml
 msgid "No action"
 msgstr ""
@@ -98,20 +110,12 @@ msgstr ""
 msgid "Sent"
 msgstr ""
 
-#: ../profiles/default/workflows/versionnote_workflow/definition.xml
-msgid "Submit"
-msgstr ""
-
 #: ../profiles/default/workflows/incomingmail_workflow/definition.xml
 msgid "To assign"
 msgstr ""
 
 #: ../profiles/default/workflows/incomingmail_workflow/definition.xml
 msgid "To process"
-msgstr ""
-
-#: ../profiles/default/workflows/versionnote_workflow/definition.xml
-msgid "Unvalidate"
 msgstr ""
 
 #: ../profiles/default/workflows/versionnote_workflow/definition.xml
