@@ -22,8 +22,9 @@ from collective.dms.basecontent.dmsfile import IDmsFile
 def set_role_on_document(context, event):
     if not ITask.providedBy(context):
         document = context.getParentNode()
-        cansee_dm = LocalRolesToPrincipalsDataManager(document, IDmsDocument['recipient_groups'])
-        cansee_dm.set(tuple(context.responsible))
+        if IDmsDocument.providedBy(document):
+            cansee_dm = LocalRolesToPrincipalsDataManager(document, IDmsDocument['recipient_groups'])
+            cansee_dm.set(tuple(context.responsible))
     # do we have to set Editor role on document for ITask ? (if so, remove something for IDmsMail ?)
 
 @grok.subscribe(IDmsFile, IAfterTransitionEvent)
