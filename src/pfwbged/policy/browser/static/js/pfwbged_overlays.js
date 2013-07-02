@@ -1,5 +1,5 @@
 $(document).ready(function(){
-    $(document).find('.pfwb-overlay-form-reload').prepOverlay({
+    $(document).find('.overlay-form-reload').prepOverlay({
         subtype: 'ajax',
         filter: common_content_filter,
         closeselector: '#form-buttons-cancel',
@@ -8,6 +8,18 @@ $(document).ready(function(){
         config: {
             closeOnClick: false,
             closeOnEsc: false
+        }
+    });
+    $(document).find('.overlay-comment-form').prepOverlay({
+        subtype: 'ajax',
+        filter: common_content_filter,
+        closeselector: '#form-buttons-cancel',
+        formselector: '#commenting form',
+        redirect: $.plonepopups.redirectbasehref,
+        noform: function(el) {return jQuery.plonepopups.noformerrorshow(el, 'redirect');},
+        config: {
+            closeOnClick: true,
+            closeOnEsc: true
         }
     });
 });
