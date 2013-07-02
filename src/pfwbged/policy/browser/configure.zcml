@@ -11,6 +11,11 @@
     file="static/js/pfwbged_overlays.js"
     />
 
+  <browser:resource
+    name="pfwbged_style.css"
+    file="static/css/pfwbged_style.css"
+    />
+
   <browser:menuItems
       for="plone.app.contenttypes.interfaces.ICollection"
       menu="plone_displayviews">
