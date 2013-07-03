@@ -3,7 +3,7 @@ from Acquisition import aq_parent
 
 from plone import api
 
-from Products.CMFCore.interfaces._content import IContentish
+from Products.CMFCore.interfaces import IContentish
 
 from collective.dms.basecontent.dmsdocument import IDmsDocument
 

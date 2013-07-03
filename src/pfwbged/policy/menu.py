@@ -117,7 +117,6 @@ class CustomMenu(menu.WorkflowMenu):
             if IOpinion.providedBy(context) and action['id'] == 'mark-as-done':
                 actionUrl = context.absolute_url()
                 cssClass = 'overlay-comment-form'
-                # move this stuff elsewhere, make the redirect work (overrider le handleSave de la viewlet plone.app.discussion)
 
             if action['allowed']:
                 results.append({
