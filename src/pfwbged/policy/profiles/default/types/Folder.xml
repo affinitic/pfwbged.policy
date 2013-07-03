@@ -6,4 +6,8 @@
   <element
      value="Products.CMFPlone.interfaces.constrains.ISelectableConstrainTypes"/>
  </property>
+ <property name="default_view">edm_folder_listing</property>
+ <property name="view_methods">
+   <element value="edm_folder_listing"/>
+ </property>
 </object>

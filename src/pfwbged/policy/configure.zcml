@@ -32,6 +32,10 @@
     </class>
 -->
 
+    <class class="plone.dexterity.content.Container">
+      <implements interface="collective.quickupload.interfaces.IQuickUploadNotCapable" />
+    </class>
+
     <include package="plone.app.contentmenu" />
     <includeOverrides file="overrides.zcml" />
 
