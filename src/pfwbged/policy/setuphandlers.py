@@ -1,8 +1,17 @@
 # -*- coding: utf-8 -*-
+import os
+from zope.interface import alsoProvides
+
 from plone import api
 from Products.CMFPlone.interfaces.constrains import ISelectableConstrainTypes
 from plone.app.dexterity.behaviors import constrains
 from plone.dexterity.interfaces import IDexterityContainer
+
+from eea.facetednavigation.interfaces import (
+    IFacetedNavigable,
+    IDisableSmartFacets,
+    IHidePloneLeftColumn,
+    IHidePloneRightColumn)
 
 
 def isNotCurrentProfile(context):
@@ -46,6 +55,13 @@ def post_install(context):
         portal.annuaire.position_types = [{'token': u'chef', 'name': u'Chef'},
                                           {'token': u'sous-chef', 'name': u'Sous-chef'},
                                           {'token': u'gerant', 'name': u'G\xe9rant'}]
+    annuaire = portal.annuaire
+    alsoProvides(annuaire, IFacetedNavigable)
+    alsoProvides(annuaire, IDisableSmartFacets)
+    alsoProvides(annuaire, IHidePloneLeftColumn)
+    alsoProvides(annuaire, IHidePloneRightColumn)
+    annuaire.unrestrictedTraverse('@@faceted_exportimport').import_xml(
+            import_file=open(os.path.dirname(__file__) + '/annuaire-faceted.xml'))
 
     if 'documents' not in portal:
         portal.invokeFactory('Folder', 'documents', title="Documents")
