@@ -33,7 +33,7 @@ def get_wf_action_title(action, context):
     """Get workflow action title"""
     if action['id'] == 'mark-as-done':
         if IInformation.providedBy(context):
-            return _(u"Mark as read")
+            return _(u"Mark document as read")
         elif IOpinion.providedBy(context):
             version = context.target.to_object.Title()
             return _(u"Return opinion about ${version}",
@@ -223,14 +223,22 @@ class CustomMenu(menu.WorkflowMenu):
 
         return results
 
-
-    def getActionsForObject(self, context, request):
+    def getActionsForObject(self, context, request, is_subobject=False):
         """Get other actions"""
         results = []
 
         context_state = getMultiAdapter((context, request),
             name='plone_context_state')
-        editActions = context_state.actions('object_buttons')
+
+        if is_subobject:
+            # only take portal_type actions
+            ttool = api.portal.get_tool("portal_types")
+            editActions = ttool.listActionInfos(object=context,
+                                                category='object_buttons',
+                                                max=-1)
+        else:
+            editActions = context_state.actions('object_buttons')
+
         if not editActions:
             return results
 
@@ -277,7 +285,6 @@ class CustomMenu(menu.WorkflowMenu):
                                                        "redirect_to_dmsdocument")
         return actions
 
-
     def getMenuItems(self, context, request):
         actions = []
         actions.extend(self.getWorkflowActionsForObject(context, request))
@@ -291,6 +298,9 @@ class CustomMenu(menu.WorkflowMenu):
         catalog = api.portal.get_tool('portal_catalog')
 
         if IDmsDocument.providedBy(context):
+            for item in context.listFolderContents():
+                actions.extend(self.getActionsForObject(item, request, is_subobject=True))
+
             # wf actions on versions
             actions.extend(self.getWorkflowActionsForType(context, request, 'dmsmainfile'))
 
