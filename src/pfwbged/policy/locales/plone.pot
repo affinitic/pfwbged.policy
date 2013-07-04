@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-07-02 14:12+0000\n"
+"POT-Creation-Date: 2013-07-04 08:33+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -43,6 +43,10 @@ msgstr ""
 
 #: ../profiles/default/workflows/incomingmail_workflow/definition.xml
 msgid "Back to registering"
+msgstr ""
+
+#: ../profiles/default/types/dmsmainfile.xml
+msgid "Create signed version"
 msgstr ""
 
 #: ../profiles/default/workflows/pfwbgeddocument_workflow/definition.xml

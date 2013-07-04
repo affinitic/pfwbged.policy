@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: pfwbged.policy\n"
-"POT-Creation-Date: 2013-07-02 14:12+0000\n"
-"PO-Revision-Date: 2013-03-28 17:22+0100\n"
+"POT-Creation-Date: 2013-07-04 08:33+0000\n"
+"PO-Revision-Date: 2013-07-04 10:33+0100\n"
 "Last-Translator: Cédric Messiant <cedricmessiant@ecreall.com>\n"
 "Language-Team: French\n"
 "MIME-Version: 1.0\n"
@@ -42,6 +42,10 @@ msgstr "Retour à attribuer"
 #: ../profiles/default/workflows/incomingmail_workflow/definition.xml
 msgid "Back to registering"
 msgstr "Retour à indicater"
+
+#: ../profiles/default/types/dmsmainfile.xml
+msgid "Create signed version"
+msgstr "Créer la version signée"
 
 #: ../profiles/default/workflows/pfwbgeddocument_workflow/definition.xml
 msgid "Declare acceptable"
