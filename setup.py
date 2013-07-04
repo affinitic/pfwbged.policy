@@ -44,6 +44,7 @@ setup(
     install_requires=[
         'setuptools',
         'collective.contact.core',
+        'collective.contact.facetednav',
         'collective.dms.basecontent',
         'collective.dms.mailcontent',
         'collective.documentviewer',

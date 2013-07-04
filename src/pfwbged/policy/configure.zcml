@@ -20,7 +20,7 @@
     <include package="collective.edm.listing" />
     <include package="collective.externaleditor" />
     <include package="collective.task" />
-    <include package="collective.contact.core" />
+    <include package="collective.contact.facetednav" />
     <include package="collective.local.workspace" />
     <include package="collective.solr" />
     <include package="pfwbged.basecontent" />
