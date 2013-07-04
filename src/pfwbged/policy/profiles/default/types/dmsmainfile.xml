@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<object name="dmsmainfile"
+        meta_type="Dexterity FTI"
+        i18n:domain="plone"
+        xmlns:i18n="http://xml.zope.org/namespaces/i18n">
+  <action title="Create signed version" i18n:attributes="title" action_id="create_signed_version"
+    category="object_buttons"
+    condition_expr="python:checkPermission(&quot;collective.dms.basecontent: Add DmsFile&quot;, object.getParentNode()) and object.restrictedTraverse('@@plone_context_state').workflow_state() == 'finished' and not object.signed"
+    description="" icon_expr="" link_target=""
+    url_expr="string:${object_url}/create_signed_version" visible="True">
+  <permission value="View"/>
+ </action>
+</object>
