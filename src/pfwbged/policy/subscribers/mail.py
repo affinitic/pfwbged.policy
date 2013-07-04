@@ -113,6 +113,14 @@ def outgoingmail_sent(context, event):
                     api.content.transition(obj=task, transition='mark-as-done')
 
 
+@grok.subscribe(IDmsFile, IObjectAddedEvent)
+def incoming_version_added(context, event):
+    """A new version in an incoming mail is automatically finished"""
+    if IDmsIncomingMail.providedBy(context.getParentNode()):
+        api.content.transition(context, 'finish_without_validation')
+        context.signed = True
+
+
 @grok.subscribe(IDmsFile, IAfterTransitionEvent)
 def version_note_finished(context, event):
     """Launched when version note is finished"""
