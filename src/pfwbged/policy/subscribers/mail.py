@@ -7,7 +7,7 @@ from five import grok
 from zope.container.interfaces import INameChooser
 from zope.i18n import translate
 from zope.lifecycleevent.interfaces import IObjectCreatedEvent,\
-    IObjectModifiedEvent
+    IObjectModifiedEvent, IObjectAddedEvent
 from zope.interface import alsoProvides
 
 from plone import api
@@ -22,6 +22,7 @@ from collective.z3cform.rolefield.field import LocalRolesToPrincipalsDataManager
 
 from pfwbged.policy import _
 from pfwbged.policy.interfaces import IIncomingMailAttributed
+from pfwbged.basecontent.behaviors import IPfwbIncomingMail
 
 
 def create_tasks(container, groups, deadline):
@@ -50,7 +51,7 @@ def get_tasks(obj):
     return tasks
 
 
-@grok.subscribe(IDmsIncomingMail, IAfterTransitionEvent)
+@grok.subscribe(IPfwbIncomingMail, IAfterTransitionEvent)
 def incoming_mail_attributed(context, event):
     """Launched when a mail is attributed to some groups or users"""
     if event.transition is not None and event.transition.id == 'to_process':
@@ -70,7 +71,7 @@ def incoming_mail_attributed(context, event):
         create_tasks(context, new_treating_groups, context.deadline)
 
 
-@grok.subscribe(IDmsIncomingMail, IObjectModifiedEvent)
+@grok.subscribe(IPfwbIncomingMail, IObjectModifiedEvent)
 def incoming_mail_modified(context, event):
     current_state = api.content.get_state(context)
     if current_state not in ['registering', 'assigning', 'noaction']:
