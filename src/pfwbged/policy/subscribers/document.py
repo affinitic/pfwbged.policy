@@ -4,6 +4,7 @@ from zc.relation.interfaces import ICatalog
 from zope.component import getUtility
 from zope.intid.interfaces import IIntIds
 from zope.lifecycleevent.interfaces import IObjectAddedEvent
+from OFS.interfaces import IObjectWillBeRemovedEvent
 
 from plone import api
 
@@ -45,3 +46,15 @@ def change_validation_state(context, event):
             validation = ref.from_object
             if api.content.get_state(validation) == 'todo':
                 api.content.transition(validation, 'validate')
+
+@grok.subscribe(IDmsFile, IObjectWillBeRemovedEvent)
+def delete_tasks(context, event):
+    """Delete validations and opinions when a version is deleted"""
+    intids = getUtility(IIntIds)
+    catalog = getUtility(ICatalog)
+    version_intid = intids.getId(context)
+    query = {'to_id': version_intid,
+             'from_interfaces_flattened': IBaseTask,
+             'from_attribute': 'target'}
+    for rv in catalog.findRelations(query):
+        api.content.delete(obj=rv.from_object)
