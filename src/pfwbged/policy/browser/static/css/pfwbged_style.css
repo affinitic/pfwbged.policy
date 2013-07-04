@@ -1,3 +1,7 @@
 .template-view .empty.field {
     display: none;
 }
+
+.template-view .overlay-ajax .empty.field {
+    display: block;
+}
