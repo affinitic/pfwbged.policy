@@ -36,6 +36,8 @@ class TasksTable(BaseTasksTable):
 class TasksView(grok.View):
     grok.context(Interface)
     grok.name('tasks_view')
+    grok.require('zope2.View')
+
     template = grok.PageTemplateFile('templates/tasks_view.pt')
     __table__ = TasksTable
 
