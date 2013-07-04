@@ -26,6 +26,11 @@
     <include package="pfwbged.basecontent" />
     <include package="plone.app.contenttypes" />
 
+    <!-- minimal eea.factednavigation -->
+    <exclude package="eea.facetednavigation" />
+    <include package="eea.facetednavigation" file="meta.zcml" />
+    <include package="eea.facetednavigation" file="minimal.zcml" />
+
 <!--
     <class class="collective.task.content.Task">
       <implements interface="Products.CMFPlone.interfaces.breadcrumbs.IHideFromBreadcrumbs" />
