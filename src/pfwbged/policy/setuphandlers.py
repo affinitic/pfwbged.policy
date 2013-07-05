@@ -66,6 +66,3 @@ def post_install(context):
     if 'documents' not in portal:
         portal.invokeFactory('Folder', 'documents', title="Documents")
     #setup_constrains(portal['courriers'], ['dmsincomingmail', 'dmsoutgoingmail'])
-
-    # revoke Contributor role to all Authenticated Users
-    api.group.revoke_roles(groupname='AuthenticatedUsers', roles=['Contributor'])
