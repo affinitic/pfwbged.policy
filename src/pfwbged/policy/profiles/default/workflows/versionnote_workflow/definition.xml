@@ -58,7 +58,7 @@
   </guard>
  </transition>
  <transition transition_id="obsolete" title="Make obsolete" new_state="obsolete" trigger="USER" before_script="" after_script="" i18n:attributes="title">
-  <action url="" category="workflow" icon="" i18n:translate="">Make obsolete</action>
+  <action url="" category="hidden_workflow" icon="" i18n:translate="">Make obsolete</action>
   <guard>
   </guard>
  </transition>
