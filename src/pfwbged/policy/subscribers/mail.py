@@ -88,7 +88,7 @@ def incoming_mail_modified(context, event):
 
 @grok.subscribe(IDmsOutgoingMail, IObjectCreatedEvent)
 def outgoing_mail_created(context, event):
-    """Set Editor role on the mail to the creator of the outgoing mail"""
+    # Set Editor role on the mail to its creator
     creator = api.user.get_current()
     api.user.grant_roles(user=creator, roles=['Editor'], obj=context)
 
