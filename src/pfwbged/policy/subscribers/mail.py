@@ -120,6 +120,7 @@ def incoming_version_added(context, event):
         api.content.transition(context, 'finish_without_validation')
         context.incomingmail = True
         context.__ac_local_roles_block__ = False
+        context.reindexObjectSecurity()
 
 
 @grok.subscribe(IDmsFile, IAfterTransitionEvent)
