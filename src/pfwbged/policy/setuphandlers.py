@@ -37,10 +37,10 @@ def post_install(context):
         portal.manage_delObjects(['news'])
     if 'events' in portal:
         portal.manage_delObjects(['events'])
-    if 'Members' in portal:
-        if not IDexterityContainer.providedBy(portal.Members):
-            del portal['Members']
-            portal.invokeFactory('Folder', 'Members', title="Membres")
+#    if 'Members' in portal:
+#        if not IDexterityContainer.providedBy(portal.Members):
+#            del portal['Members']
+#            portal.invokeFactory('Folder', 'Members', title="Membres")
 
 #        portal.Members.setExcludeFromNav(True)
 #        portal.Members.excludeFromNav = True
