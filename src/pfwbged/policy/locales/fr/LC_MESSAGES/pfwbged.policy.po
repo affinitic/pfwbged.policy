@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: pfwbged.policy\n"
-"POT-Creation-Date: 2013-07-05 06:42+0000\n"
+"POT-Creation-Date: 2013-07-05 13:23+0000\n"
 "PO-Revision-Date: 2013-07-05 08:43+0100\n"
 "Last-Translator: Cédric Messiant <cedricmessiant@ecreall.com>\n"
 "Language-Team: Ecréall\n"
@@ -54,14 +54,9 @@ msgstr "Visible par"
 msgid "Create a new version"
 msgstr "Créer une nouvelle version"
 
-#: ../profiles/default/types/task.xml
 #: ../templates/createoutgoingmail.pt:4
 msgid "Create outgoing mail"
 msgstr "Créer un courrier sortant"
-
-#: ../profiles/default/types/dmsmainfile.xml
-msgid "Create signed version"
-msgstr "Créer la version signée"
 
 #: ../menu.py:282
 msgid "Create signed version for version ${version}"
