@@ -118,7 +118,8 @@ def incoming_version_added(context, event):
     """A new version in an incoming mail is automatically finished"""
     if IDmsIncomingMail.providedBy(context.getParentNode()):
         api.content.transition(context, 'finish_without_validation')
-        context.signed = True
+        context.incomingmail = True
+        context.__ac_local_roles_block__ = False
 
 
 @grok.subscribe(IDmsFile, IAfterTransitionEvent)
