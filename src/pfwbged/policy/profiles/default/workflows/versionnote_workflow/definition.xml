@@ -15,14 +15,55 @@
   <exit-transition transition_id="submit"/>
   <exit-transition transition_id="ask_opinion"/>
   <exit-transition transition_id="obsolete"/>
+  <permission-map name="View" acquired="False">
+   <permission-role>Editor</permission-role>
+   <permission-role>Manager</permission-role>
+   <permission-role>Reader</permission-role>
+   <permission-role>Reviewer</permission-role>
+  </permission-map>
+  <permission-map name="Access contents information" acquired="False">
+   <permission-role>Editor</permission-role>
+   <permission-role>Manager</permission-role>
+   <permission-role>Reader</permission-role>
+   <permission-role>Reviewer</permission-role>
+  </permission-map>
+  <permission-map name="Modify portal content" acquired="False">
+   <permission-role>Editor</permission-role>
+   <permission-role>Manager</permission-role>
+  </permission-map>
  </state>
  <state state_id="finished" title="Finished" i18n:attributes="title">
   <exit-transition transition_id="obsolete"/>
+  <permission-map name="View" acquired="False">
+   <permission-role>Editor</permission-role>
+   <permission-role>Manager</permission-role>
+   <permission-role>Reader</permission-role>
+   <permission-role>Reviewer</permission-role>
+  </permission-map>
+  <permission-map name="Access contents information" acquired="False">
+   <permission-role>Editor</permission-role>
+   <permission-role>Manager</permission-role>
+   <permission-role>Reader</permission-role>
+   <permission-role>Reviewer</permission-role>
+  </permission-map>
   <permission-map name="Modify portal content" acquired="False">
+   <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
   </permission-map>
  </state>
  <state state_id="obsolete" title="Obsolete" i18n:attributes="title">
+  <permission-map name="View" acquired="False">
+   <permission-role>Editor</permission-role>
+   <permission-role>Manager</permission-role>
+   <permission-role>Reader</permission-role>
+   <permission-role>Reviewer</permission-role>
+  </permission-map>
+  <permission-map name="Access contents information" acquired="False">
+   <permission-role>Editor</permission-role>
+   <permission-role>Manager</permission-role>
+   <permission-role>Reader</permission-role>
+   <permission-role>Reviewer</permission-role>
+  </permission-map>
   <permission-map name="Modify portal content" acquired="False">
    <permission-role>Manager</permission-role>
   </permission-map>
@@ -31,7 +72,20 @@
   <exit-transition transition_id="refuse"/>
   <exit-transition transition_id="validate"/>
   <exit-transition transition_id="obsolete"/>
+  <permission-map name="View" acquired="False">
+   <permission-role>Editor</permission-role>
+   <permission-role>Manager</permission-role>
+   <permission-role>Reader</permission-role>
+   <permission-role>Reviewer</permission-role>
+  </permission-map>
+  <permission-map name="Access contents information" acquired="False">
+   <permission-role>Editor</permission-role>
+   <permission-role>Manager</permission-role>
+   <permission-role>Reader</permission-role>
+   <permission-role>Reviewer</permission-role>
+  </permission-map>
   <permission-map name="Modify portal content" acquired="False">
+   <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
   </permission-map>
  </state>
@@ -39,7 +93,20 @@
   <exit-transition transition_id="finish"/>
   <exit-transition transition_id="obsolete"/>
   <exit-transition transition_id="submit"/>
+  <permission-map name="View" acquired="False">
+   <permission-role>Editor</permission-role>
+   <permission-role>Manager</permission-role>
+   <permission-role>Reader</permission-role>
+   <permission-role>Reviewer</permission-role>
+  </permission-map>
+  <permission-map name="Access contents information" acquired="False">
+   <permission-role>Editor</permission-role>
+   <permission-role>Manager</permission-role>
+   <permission-role>Reader</permission-role>
+   <permission-role>Reviewer</permission-role>
+  </permission-map>
   <permission-map name="Modify portal content" acquired="False">
+   <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
   </permission-map>
  </state>
