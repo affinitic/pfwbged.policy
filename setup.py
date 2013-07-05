@@ -54,6 +54,7 @@ setup(
         'collective.solr',
         'collective.task',
         'five.grok',
+        'ftw.dashboard.dragndrop',
         'pfwbged.basecontent',
         'plone.app.contenttypes',
     ],

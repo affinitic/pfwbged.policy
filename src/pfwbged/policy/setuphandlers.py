@@ -46,6 +46,8 @@ def post_install(context):
         portal.invokeFactory('Folder', 'Members', title="Membres")
         portal.Members.exclude_from_nav = True
         portal.Members.reindexObject()
+        # enable user folders
+        portal.portal_membership.memberareaCreationFlag = True
 
     if 'annuaire' not in portal:
         portal.invokeFactory('directory', 'annuaire', title="Annuaire")
