@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: pfwbged.policy\n"
-"POT-Creation-Date: 2013-07-04 08:33+0000\n"
-"PO-Revision-Date: 2013-07-04 09:24+0100\n"
+"POT-Creation-Date: 2013-07-05 06:42+0000\n"
+"PO-Revision-Date: 2013-07-05 08:43+0100\n"
 "Last-Translator: Cédric Messiant <cedricmessiant@ecreall.com>\n"
 "Language-Team: Ecréall\n"
 "MIME-Version: 1.0\n"
@@ -14,11 +14,15 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: DOMAIN\n"
 
-#: ../menu.py:67
+#: ../menu.py:119
+msgid "${action} the version ${version}"
+msgstr "${action} la version ${version}"
+
+#: ../menu.py:57
 msgid "Actions"
 msgstr "Actions"
 
-#: ../menu.py:162
+#: ../menu.py:192
 msgid "Add ${title}"
 msgstr "Ajouter ${title}"
 
@@ -26,9 +30,17 @@ msgstr "Ajouter ${title}"
 msgid "Ask opinion"
 msgstr "Demander un avis"
 
+#: ../menu.py:125
+msgid "Ask opinion about version ${version}"
+msgstr "Demander un avis sur la version ${version}"
+
 #: ../browser/ask_validation.py:58
 msgid "Ask validation"
 msgstr "Demander une validation"
+
+#: ../menu.py:127
+msgid "Ask validation about version ${version}"
+msgstr "Demander une validation sur la version ${version}"
 
 #: ../customize.py:11
 msgid "Can edit"
@@ -38,19 +50,32 @@ msgstr "Modifiable par"
 msgid "Can view"
 msgstr "Visible par"
 
-#: ../menu.py:26
+#: ../menu.py:29
 msgid "Create a new version"
 msgstr "Créer une nouvelle version"
 
+#: ../profiles/default/types/task.xml
 #: ../templates/createoutgoingmail.pt:4
 msgid "Create outgoing mail"
 msgstr "Créer un courrier sortant"
+
+#: ../profiles/default/types/dmsmainfile.xml
+msgid "Create signed version"
+msgstr "Créer la version signée"
+
+#: ../menu.py:282
+msgid "Create signed version for version ${version}"
+msgstr "Créer la version signée pour la version ${version}"
+
+#: ../menu.py:133
+msgid "Finish version ${version}"
+msgstr "Finaliser la version ${version}"
 
 #: ../viewlets.py:84
 msgid "Go back to document"
 msgstr "Retourner sur le document"
 
-#: ../menu.py:36
+#: ../menu.py:110
 msgid "Mark document as read"
 msgstr "Marquer le document comme lu"
 
@@ -58,25 +83,33 @@ msgstr "Marquer le document comme lu"
 msgid "Opinion application for version ${version}"
 msgstr "Demande d'avis pour la version ${version}"
 
-#: ../subscribers/mail.py:32
+#: ../subscribers/mail.py:33
 msgid "Process mail"
 msgstr "Traiter ce courrier"
+
+#: ../menu.py:131
+msgid "Refuse version ${version}"
+msgstr "Refuser la version ${version}"
 
 #: ../browser/comments.py:43
 msgid "Render opinion"
 msgstr "Rendre un avis"
 
-#: ../menu.py:39
+#: ../menu.py:115
 msgid "Return opinion about ${version}"
 msgstr "Rendre un avis sur la version ${version}"
 
-#: ../menu.py:27
+#: ../menu.py:30
 msgid "Send for information"
 msgstr "Transmettre pour information"
 
 #: browser/configure.zcml
 msgid "Tasks view"
 msgstr "Vue tâches"
+
+#: ../menu.py:129
+msgid "Validate version ${version}"
+msgstr "Valider la version ${version}"
 
 #: ../browser/ask_validation.py:27
 msgid "Validation application for version ${version}"

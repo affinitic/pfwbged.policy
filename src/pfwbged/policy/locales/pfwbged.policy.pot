@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-07-04 08:33+0000\n"
+"POT-Creation-Date: 2013-07-05 06:42+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,11 +17,15 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: pfwbged.policy\n"
 
-#: ../menu.py:67
+#: ../menu.py:119
+msgid "${action} the version ${version}"
+msgstr ""
+
+#: ../menu.py:57
 msgid "Actions"
 msgstr ""
 
-#: ../menu.py:162
+#: ../menu.py:192
 msgid "Add ${title}"
 msgstr ""
 
@@ -29,8 +33,16 @@ msgstr ""
 msgid "Ask opinion"
 msgstr ""
 
+#: ../menu.py:125
+msgid "Ask opinion about version ${version}"
+msgstr ""
+
 #: ../browser/ask_validation.py:58
 msgid "Ask validation"
+msgstr ""
+
+#: ../menu.py:127
+msgid "Ask validation about version ${version}"
 msgstr ""
 
 #: ../customize.py:11
@@ -41,19 +53,32 @@ msgstr ""
 msgid "Can view"
 msgstr ""
 
-#: ../menu.py:26
+#: ../menu.py:29
 msgid "Create a new version"
 msgstr ""
 
+#: ../profiles/default/types/task.xml
 #: ../templates/createoutgoingmail.pt:4
 msgid "Create outgoing mail"
+msgstr ""
+
+#: ../profiles/default/types/dmsmainfile.xml
+msgid "Create signed version"
+msgstr ""
+
+#: ../menu.py:282
+msgid "Create signed version for version ${version}"
+msgstr ""
+
+#: ../menu.py:133
+msgid "Finish version ${version}"
 msgstr ""
 
 #: ../viewlets.py:84
 msgid "Go back to document"
 msgstr ""
 
-#: ../menu.py:36
+#: ../menu.py:110
 msgid "Mark document as read"
 msgstr ""
 
@@ -61,24 +86,32 @@ msgstr ""
 msgid "Opinion application for version ${version}"
 msgstr ""
 
-#: ../subscribers/mail.py:32
+#: ../subscribers/mail.py:33
 msgid "Process mail"
+msgstr ""
+
+#: ../menu.py:131
+msgid "Refuse version ${version}"
 msgstr ""
 
 #: ../browser/comments.py:43
 msgid "Render opinion"
 msgstr ""
 
-#: ../menu.py:39
+#: ../menu.py:115
 msgid "Return opinion about ${version}"
 msgstr ""
 
-#: ../menu.py:27
+#: ../menu.py:30
 msgid "Send for information"
 msgstr ""
 
 #: browser/configure.zcml
 msgid "Tasks view"
+msgstr ""
+
+#: ../menu.py:129
+msgid "Validate version ${version}"
 msgstr ""
 
 #: ../browser/ask_validation.py:27

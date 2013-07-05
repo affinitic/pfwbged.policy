@@ -23,7 +23,7 @@ class CreateSignedVersion(grok.View):
         if 'higher_version' not in annotations:
             version_number = 1
         else:
-            version_number = annotations['higher_version'].value
+            version_number = annotations['higher_version'].value + 1
         # create a new version
         new_version_id = container.invokeFactory("dmsmainfile", version_number,
                                                  title=str(version_number))

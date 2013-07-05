@@ -15,6 +15,9 @@ from Products.CMFPlone.interfaces.constrains import IConstrainTypes
 from Products.CMFCore.utils import getToolByName
 
 from collective.dms.basecontent.dmsdocument import IDmsDocument
+from collective.dms.basecontent.dmsfile import IDmsFile
+from collective.task.behaviors import ITarget
+from collective.task.content.validation import IValidation
 from collective.task.content.information import IInformation
 from collective.task.content.opinion import IOpinion
 
@@ -26,19 +29,6 @@ PMF = MessageFactory('plone')
 add_actions_mapping = {'dmsmainfile': _(u"Create a new version"),
                        'information': _(u'Send for information'),
                        }
-
-
-
-def get_wf_action_title(action, context):
-    """Get workflow action title"""
-    if action['id'] == 'mark-as-done':
-        if IInformation.providedBy(context):
-            return _(u"Mark document as read")
-        elif IOpinion.providedBy(context):
-            version = context.target.to_object.Title()
-            return _(u"Return opinion about ${version}",
-                     mapping={'version': version})
-    return action['title']
 
 
 class ActionsSubMenuItem(grok.MultiAdapter, menu.ActionsSubMenuItem):
@@ -103,20 +93,51 @@ class CustomMenu(menu.WorkflowMenu):
                     context.absolute_url(), action['id'])
                 cssClass = ''
 
+            description = ''
+
             if action['id'] in ('submit', 'ask_opinion'):
                 cssClass += " overlay-form-reload"
-
-            description = ''
 
             transition = action.get('transition', None)
             if transition is not None:
                 description = transition.description
 
-            title = get_wf_action_title(action, context)
+            if ITarget.providedBy(context):
+                version = context.target.to_object.Title()
 
-            if IOpinion.providedBy(context) and action['id'] == 'mark-as-done':
-                actionUrl = context.absolute_url()
-                cssClass = 'overlay-comment-form'
+            if IInformation.providedBy(context):
+                if action['id'] == 'mark-as-done':
+                    title = _(u"Mark document as read")
+            elif IOpinion.providedBy(context):
+                if action['id'] == 'mark-as-done':
+                    actionUrl = context.absolute_url()
+                    cssClass = 'overlay-comment-form'
+                    title = _(u"Return opinion about ${version}",
+                              mapping={'version': version})
+            elif IValidation.providedBy(context):
+                action = action['title']
+                title = _(u"${action} the version ${version}",
+                          mapping={'action': action,
+                                   'version': version})
+            elif IDmsFile.providedBy(context):
+                action_name = action['title']
+                version = context.Title()
+                dmsfile_wfactions_mapping = {'ask_opinion': _(u"Ask opinion about version ${version}",
+                                                              mapping={'version': version}),
+                                             'submit': _(u"Ask validation about version ${version}",
+                                                         mapping={'version': version}),
+                                             'validate': _(u"Validate version ${version}",
+                                                           mapping={'version': version}),
+                                             'refuse': _(u"Refuse version ${version}",
+                                                         mapping={'version': version}),
+                                             'finish': _(u"Finish version ${version}",
+                                                         mapping={'version': version}),
+                                             'finish_without_validation': _(u"Finish version ${version}",
+                                                                            mapping={'version': version}),
+                                             }
+                title = dmsfile_wfactions_mapping[action['id']]
+            else:
+                title= action['title']
 
             if action['allowed']:
                 results.append({
@@ -153,11 +174,20 @@ class CustomMenu(menu.WorkflowMenu):
         results = []
         _results = factories_view.addable_types(include=include)
         for result in _results:
+            if result['id'] == 'dmsmainfile':
+                # don't add add action if there is already a finished version
+                catalog = api.portal.get_tool('portal_catalog')
+                container_path = '/'.join(context.getPhysicalPath())
+                brains = catalog.searchResults({'path': container_path,
+                                                'portal_type': 'dmsmainfile',
+                                                'review_state': 'finished'})
+                if brains:
+                    continue
+            elif result['id'] in ('validation', 'opinion', 'task'):
+                continue
             if result['id'] in ('dmsmainfile', 'information'):
                 result['extra']['class'] += ' overlay-form-reload'
                 result['title'] = add_actions_mapping[result['id']]
-            elif result['id'] in ('validation', 'opinion', 'task'):
-                continue
             else:
                 result['title'] = _(u"Add ${title}", mapping={"title": result['title']})
             results.append(result)
@@ -246,6 +276,9 @@ class CustomMenu(menu.WorkflowMenu):
         portal_url = getToolByName(context, 'portal_url')()
 
         for action in editActions:
+            if action['id'] == 'create_signed_version':
+                action['title'] = _(u"Create signed version for version ${version}",
+                                    mapping={'version': context.Title()})
             if action['allowed']:
                 aid = action['id']
                 cssClass = 'actionicon-object_buttons-%s' % aid
