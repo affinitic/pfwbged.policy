@@ -267,7 +267,9 @@ class CustomMenu(menu.WorkflowMenu):
                                                 category='object_buttons',
                                                 max=-1)
         else:
-            editActions = context_state.actions('object_buttons')
+            editActions = []
+            _editActions = context_state.actions('object_buttons')
+            editActions = [action for action in _editActions if action['id'] not in ('paste', 'cut', 'copy')]
 
         if not editActions:
             return results
