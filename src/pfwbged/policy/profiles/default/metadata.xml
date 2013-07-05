@@ -7,7 +7,6 @@
     <dependency>profile-collective.dms.mailcontent:default</dependency>
     <dependency>profile-collective.edm.listing:default</dependency>
     <dependency>profile-collective.externaleditor:default</dependency>
-    <dependency>profile-collective.local.workspace:default</dependency>
     <dependency>profile-collective.task:default</dependency>
     <dependency>profile-collective.solr:default</dependency>
     <dependency>profile-pfwbged.basecontent:default</dependency>
