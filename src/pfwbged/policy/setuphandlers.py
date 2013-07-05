@@ -67,8 +67,5 @@ def post_install(context):
         portal.invokeFactory('Folder', 'documents', title="Documents")
     #setup_constrains(portal['courriers'], ['dmsincomingmail', 'dmsoutgoingmail'])
 
-    if 'service-informatique' not in portal:
-        portal.invokeFactory('workspace', 'service-informatique', title="Service informatique")
-
     # revoke Contributor role to all Authenticated Users
     api.group.revoke_roles(groupname='AuthenticatedUsers', roles=['Contributor'])
