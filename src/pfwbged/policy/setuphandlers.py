@@ -13,6 +13,8 @@ from eea.facetednavigation.interfaces import (
     IHidePloneLeftColumn,
     IHidePloneRightColumn)
 
+from . import _
+
 
 def isNotCurrentProfile(context):
     return context.readDataFile("pfwbgedpolicy_marker.txt") is None
@@ -23,6 +25,164 @@ def setup_constrains(container, allowed_types):
     behavior.setConstrainTypesMode(constrains.ENABLED)
     behavior.setImmediatelyAddableTypes(allowed_types)
     return True
+
+
+def get_collection_query(type, role):
+    """Return query to build collection for a given type and role"""
+    current_user = api.user.get_current().getId()
+    mapping = {'information': {'enquirer': [u'todo', u'done'],
+                               'responsible': [u'todo', u'done']},
+               'opinion': {'enquirer': [u'todo', u'done'],
+                           'responsible': [u'todo', u'done']},
+               'task': {'enquirer': [u'abandoned', u'attributed', u'done',
+                                     u'in-progress', u'refusal-requested', u'todo'],
+                        'responsible': [u'abandoned', u'attributed', u'done',
+                                        u'in-progress', u'refusal-requested', u'todo'],},
+               'validation': {'enquirer': [u'todo', u'validated', u'refused'],
+                              'responsible': [u'todo', u'validated', u'refused'],},
+               }
+    return [{u'i': u'portal_type',
+              u'o': u'plone.app.querystring.operation.selection.is',
+              u'v': [type]},
+             {u'i': u'review_state',
+              u'o': u'plone.app.querystring.operation.selection.is',
+              u'v': mapping[type][role]},
+             {u'i': role,
+              u'o': u'plone.app.querystring.operation.selection.is',
+              u'v': current_user,
+              },
+            ]
+
+
+def create_tasks_collections(context):
+    """Create collections for tasks, informations, validations, opinions"""
+    # parameters that are the same for all types of 'tasks'
+    sort_on = u'modified'
+    sort_reversed = True
+    limit = 200
+    item_count = 20
+    portal = api.portal.get()
+    container = portal.Members
+    # tasks
+    type = u'task'
+    role = u'enquirer'
+    id = '%s-%s' % (type, role)
+    if id not in container:
+        query = get_collection_query(type, role)
+        api.content.create(container=container,
+                           type="Collection",
+                           id=id,
+                           title=_(u"Tasks that I asked for"),
+                           sort_on=sort_on,
+                           sort_reversed=sort_reversed,
+                           limit=limit,
+                           item_count=item_count,
+                           query=query,
+                           )
+    role = u'responsible'
+    id = '%s-%s' % (type, role)
+    if id not in container:
+        query = get_collection_query(type, role)
+        api.content.create(container=container,
+                           type="Collection",
+                           id=id,
+                           title=_(u"My tasks"),
+                           sort_on=sort_on,
+                           sort_reversed=sort_reversed,
+                           limit=limit,
+                           item_count=item_count,
+                           query=query,
+                           )
+    # informations
+    type = u'information'
+    role = u'enquirer'
+    id = '%s-%s' % (type, role)
+    if id not in container:
+        query = get_collection_query(type, role)
+        api.content.create(container=container,
+                           type="Collection",
+                           id=id,
+                           title=_(u"Informations that I have sent"),
+                           sort_on=sort_on,
+                           sort_reversed=sort_reversed,
+                           limit=limit,
+                           item_count=item_count,
+                           query=query,
+                           )
+    role = u'responsible'
+    id = '%s-%s' % (type, role)
+    if id not in container:
+        query = get_collection_query(type, role)
+        api.content.create(container=container,
+                           type="Collection",
+                           id=id,
+                           title=_(u"Documents to read"),
+                           sort_on=sort_on,
+                           sort_reversed=sort_reversed,
+                           limit=limit,
+                           item_count=item_count,
+                           query=query,
+                           )
+    # opinions
+    type = u'opinion'
+    role = u'enquirer'
+    id = '%s-%s' % (type, role)
+    if id not in container:
+        query = get_collection_query(type, role)
+        api.content.create(container=container,
+                           type="Collection",
+                           id=id,
+                           title=_(u"Opinion applications that I have made"),
+                           sort_on=sort_on,
+                           sort_reversed=sort_reversed,
+                           limit=limit,
+                           item_count=item_count,
+                           query=query,
+                           )
+    role = u'responsible'
+    id = '%s-%s' % (type, role)
+    if id not in container:
+        query = get_collection_query(type, role)
+        api.content.create(container=container,
+                           type="Collection",
+                           id=id,
+                           title=_(u"Opinion applications to which I must answer"),
+                           sort_on=sort_on,
+                           sort_reversed=sort_reversed,
+                           limit=limit,
+                           item_count=item_count,
+                           query=query,
+                           )
+    # validations
+    type = u'validation'
+    role = u'enquirer'
+    id = '%s-%s' % (type, role)
+    if id not in container:
+        query = get_collection_query(type, role)
+        api.content.create(container=container,
+                           type="Collection",
+                           id=id,
+                           title=_(u"Validation applications that I have made"),
+                           sort_on=sort_on,
+                           sort_reversed=sort_reversed,
+                           limit=limit,
+                           item_count=item_count,
+                           query=query,
+                           )
+    role = u'responsible'
+    id = '%s-%s' % (type, role)
+    if id not in container:
+        query = get_collection_query(type, role)
+        api.content.create(container=container,
+                           type="Collection",
+                           id=id,
+                           title=_(u"Validation applications to which I must answer"),
+                           sort_on=sort_on,
+                           sort_reversed=sort_reversed,
+                           limit=limit,
+                           item_count=item_count,
+                           query=query,
+                           )
 
 
 def post_install(context):
@@ -70,3 +230,6 @@ def post_install(context):
     if 'documents' not in portal:
         portal.invokeFactory('Folder', 'documents', title="Documents")
     #setup_constrains(portal['courriers'], ['dmsincomingmail', 'dmsoutgoingmail'])
+
+    # create information, task, opinion, validation collections
+    create_tasks_collections(context)

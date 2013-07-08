@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: pfwbged.policy\n"
-"POT-Creation-Date: 2013-07-05 13:23+0000\n"
-"PO-Revision-Date: 2013-07-05 08:43+0100\n"
+"POT-Creation-Date: 2013-07-08 09:10+0000\n"
+"PO-Revision-Date: 2013-07-08 11:13+0100\n"
 "Last-Translator: Cédric Messiant <cedricmessiant@ecreall.com>\n"
 "Language-Team: Ecréall\n"
 "MIME-Version: 1.0\n"
@@ -62,6 +62,10 @@ msgstr "Créer un courrier sortant"
 msgid "Create signed version for version ${version}"
 msgstr "Créer la version signée pour la version ${version}"
 
+#: ../setuphandlers.py:119
+msgid "Documents to read"
+msgstr "Documents à lire"
+
 #: ../menu.py:133
 msgid "Finish version ${version}"
 msgstr "Finaliser la version ${version}"
@@ -70,13 +74,29 @@ msgstr "Finaliser la version ${version}"
 msgid "Go back to document"
 msgstr "Retourner sur le document"
 
+#: ../setuphandlers.py:105
+msgid "Informations that I have sent"
+msgstr "Documents que j'ai transmis pour information"
+
 #: ../menu.py:110
 msgid "Mark document as read"
 msgstr "Marquer le document comme lu"
 
+#: ../setuphandlers.py:89
+msgid "My tasks"
+msgstr "Mes tâches"
+
 #: ../browser/ask_opinion.py:27
 msgid "Opinion application for version ${version}"
 msgstr "Demande d'avis pour la version ${version}"
+
+#: ../setuphandlers.py:135
+msgid "Opinion applications that I have made"
+msgstr "Demandes d'avis que j'ai faites"
+
+#: ../setuphandlers.py:149
+msgid "Opinion applications to which I must answer"
+msgstr "Demandes d'avis auxquelles je dois répondre"
 
 #: ../subscribers/mail.py:33
 msgid "Process mail"
@@ -98,6 +118,10 @@ msgstr "Rendre un avis sur la version ${version}"
 msgid "Send for information"
 msgstr "Transmettre pour information"
 
+#: ../setuphandlers.py:75
+msgid "Tasks that I asked for"
+msgstr "Tâches que j'ai demandées"
+
 #: browser/configure.zcml
 msgid "Tasks view"
 msgstr "Vue tâches"
@@ -109,4 +133,12 @@ msgstr "Valider la version ${version}"
 #: ../browser/ask_validation.py:27
 msgid "Validation application for version ${version}"
 msgstr "Demande de validation pour la version ${version}"
+
+#: ../setuphandlers.py:165
+msgid "Validation applications that I have made"
+msgstr "Demandes de validation que j'ai faites"
+
+#: ../setuphandlers.py:179
+msgid "Validation applications to which I must answer"
+msgstr "Demandes de validation auxquelles je dois répondre"
 
