@@ -237,3 +237,8 @@ def post_install(context):
 
     # create information, task, opinion, validation collections
     create_tasks_collections(context)
+
+    # configure external editor
+    portal.externaleditor_enabled_types = ['File', 'dmsmainfile']
+    portal.ext_editor = True
+    portal.portal_actions.document_actions.extedit.visible = False
