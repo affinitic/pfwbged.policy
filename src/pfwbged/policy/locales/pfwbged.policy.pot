@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-07-08 09:10+0000\n"
+"POT-Creation-Date: 2013-07-08 09:34+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -65,10 +65,6 @@ msgstr ""
 msgid "Create signed version for version ${version}"
 msgstr ""
 
-#: ../setuphandlers.py:119
-msgid "Documents to read"
-msgstr ""
-
 #: ../menu.py:133
 msgid "Finish version ${version}"
 msgstr ""
@@ -77,28 +73,12 @@ msgstr ""
 msgid "Go back to document"
 msgstr ""
 
-#: ../setuphandlers.py:105
-msgid "Informations that I have sent"
-msgstr ""
-
 #: ../menu.py:110
 msgid "Mark document as read"
 msgstr ""
 
-#: ../setuphandlers.py:89
-msgid "My tasks"
-msgstr ""
-
 #: ../browser/ask_opinion.py:27
 msgid "Opinion application for version ${version}"
-msgstr ""
-
-#: ../setuphandlers.py:135
-msgid "Opinion applications that I have made"
-msgstr ""
-
-#: ../setuphandlers.py:149
-msgid "Opinion applications to which I must answer"
 msgstr ""
 
 #: ../subscribers/mail.py:33
@@ -121,10 +101,6 @@ msgstr ""
 msgid "Send for information"
 msgstr ""
 
-#: ../setuphandlers.py:75
-msgid "Tasks that I asked for"
-msgstr ""
-
 #: browser/configure.zcml
 msgid "Tasks view"
 msgstr ""
@@ -135,13 +111,5 @@ msgstr ""
 
 #: ../browser/ask_validation.py:27
 msgid "Validation application for version ${version}"
-msgstr ""
-
-#: ../setuphandlers.py:165
-msgid "Validation applications that I have made"
-msgstr ""
-
-#: ../setuphandlers.py:179
-msgid "Validation applications to which I must answer"
 msgstr ""
 

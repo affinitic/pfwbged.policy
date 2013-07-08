@@ -13,8 +13,6 @@ from eea.facetednavigation.interfaces import (
     IHidePloneLeftColumn,
     IHidePloneRightColumn)
 
-from . import _
-
 
 def isNotCurrentProfile(context):
     return context.readDataFile("pfwbgedpolicy_marker.txt") is None
@@ -72,7 +70,7 @@ def create_tasks_collections(context):
         api.content.create(container=container,
                            type="Collection",
                            id=id,
-                           title=_(u"Tasks that I asked for"),
+                           title=u"Tâches que j'ai demandées",
                            sort_on=sort_on,
                            sort_reversed=sort_reversed,
                            limit=limit,
@@ -86,7 +84,7 @@ def create_tasks_collections(context):
         api.content.create(container=container,
                            type="Collection",
                            id=id,
-                           title=_(u"My tasks"),
+                           title=u"Mes tâches",
                            sort_on=sort_on,
                            sort_reversed=sort_reversed,
                            limit=limit,
@@ -102,7 +100,7 @@ def create_tasks_collections(context):
         api.content.create(container=container,
                            type="Collection",
                            id=id,
-                           title=_(u"Informations that I have sent"),
+                           title=u"Documents que j'ai transmis pour information",
                            sort_on=sort_on,
                            sort_reversed=sort_reversed,
                            limit=limit,
@@ -116,7 +114,7 @@ def create_tasks_collections(context):
         api.content.create(container=container,
                            type="Collection",
                            id=id,
-                           title=_(u"Documents to read"),
+                           title=u"À lire",
                            sort_on=sort_on,
                            sort_reversed=sort_reversed,
                            limit=limit,
@@ -132,7 +130,7 @@ def create_tasks_collections(context):
         api.content.create(container=container,
                            type="Collection",
                            id=id,
-                           title=_(u"Opinion applications that I have made"),
+                           title=u"Demandes d'avis que j'ai faites",
                            sort_on=sort_on,
                            sort_reversed=sort_reversed,
                            limit=limit,
@@ -146,7 +144,7 @@ def create_tasks_collections(context):
         api.content.create(container=container,
                            type="Collection",
                            id=id,
-                           title=_(u"Opinion applications to which I must answer"),
+                           title=u"Demandes d'avis auxquelles je dois répondre",
                            sort_on=sort_on,
                            sort_reversed=sort_reversed,
                            limit=limit,
@@ -162,7 +160,7 @@ def create_tasks_collections(context):
         api.content.create(container=container,
                            type="Collection",
                            id=id,
-                           title=_(u"Validation applications that I have made"),
+                           title=u"Demandes de validation que j'ai faites",
                            sort_on=sort_on,
                            sort_reversed=sort_reversed,
                            limit=limit,
@@ -176,7 +174,7 @@ def create_tasks_collections(context):
         api.content.create(container=container,
                            type="Collection",
                            id=id,
-                           title=_(u"Validation applications to which I must answer"),
+                           title=u"Demandes de validation auxquelles je dois répondre",
                            sort_on=sort_on,
                            sort_reversed=sort_reversed,
                            limit=limit,
