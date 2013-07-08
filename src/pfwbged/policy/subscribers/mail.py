@@ -70,20 +70,20 @@ def incoming_mail_attributed(context, event):
         # create a task for each group which has not already a task for this mail
         create_tasks(context, new_treating_groups, context.deadline)
 
-
-@grok.subscribe(IPfwbIncomingMail, IObjectModifiedEvent)
-def incoming_mail_modified(context, event):
-    current_state = api.content.get_state(context)
-    if current_state not in ['registering', 'assigning', 'noaction']:
-        new_treating = frozenset(context.treated_by) - frozenset(context.treating_groups)
-        treating_groups = context.treating_groups + list(new_treating)
-        treating_dm = LocalRolesToPrincipalsDataManager(context, IDmsIncomingMail['treating_groups'])
-        treating_dm.set(treating_groups)
-        new_recipients = frozenset(context.in_copy) - frozenset(context.recipient_groups)
-        recipient_groups = context.recipient_groups + list(new_recipients)
-        recipient_dm = LocalRolesToPrincipalsDataManager(context, IDmsIncomingMail['recipient_groups'])
-        recipient_dm.set(recipient_groups)
-        create_tasks(context, new_treating, context.deadline)
+#
+#@grok.subscribe(IPfwbIncomingMail, IObjectModifiedEvent)
+#def incoming_mail_modified(context, event):
+#    current_state = api.content.get_state(context)
+#    if current_state not in ['registering', 'assigning', 'noaction']:
+#        new_treating = frozenset(context.treated_by) - frozenset(context.treating_groups)
+#        treating_groups = list(context.treating_groups) + list(new_treating)
+#        treating_dm = LocalRolesToPrincipalsDataManager(context, IDmsIncomingMail['treating_groups'])
+#        treating_dm.set(treating_groups)
+#        new_recipients = frozenset(context.in_copy) - frozenset(context.recipient_groups)
+#        recipient_groups = list(context.recipient_groups) + list(new_recipients)
+#        recipient_dm = LocalRolesToPrincipalsDataManager(context, IDmsIncomingMail['recipient_groups'])
+#        recipient_dm.set(recipient_groups)
+#        create_tasks(context, new_treating, context.deadline)
 
 
 @grok.subscribe(IDmsOutgoingMail, IObjectCreatedEvent)
