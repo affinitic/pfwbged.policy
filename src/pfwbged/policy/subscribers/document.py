@@ -2,6 +2,7 @@ from five import grok
 
 from zc.relation.interfaces import ICatalog
 from zope.component import getUtility
+from zope.component.interfaces import ComponentLookupError
 from zope.intid.interfaces import IIntIds
 from zope.lifecycleevent.interfaces import IObjectAddedEvent
 from OFS.interfaces import IObjectWillBeRemovedEvent
@@ -50,7 +51,10 @@ def change_validation_state(context, event):
 @grok.subscribe(IDmsFile, IObjectWillBeRemovedEvent)
 def delete_tasks(context, event):
     """Delete validations and opinions when a version is deleted"""
-    intids = getUtility(IIntIds)
+    try:
+        intids = getUtility(IIntIds)
+    except ComponentLookupError:  # when we remove the Plone site
+        return
     catalog = getUtility(ICatalog)
     version_intid = intids.getId(context)
     query = {'to_id': version_intid,
