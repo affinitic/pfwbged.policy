@@ -8,9 +8,9 @@ from plone.app.layout.viewlets.interfaces import IAboveContentBody
 
 from Products.CMFCore.interfaces._content import IContentish
 from Products.CMFCore.WorkflowCore import WorkflowException
+from plone.app.layout.globals.interfaces import IViewView
 
 from pfwbged.policy.interfaces import IPfwbgedPolicyLayer
-
 
 PMF = MessageFactory('plone')
 
@@ -21,6 +21,7 @@ class ReviewStateViewlet(grok.Viewlet):
 
     grok.name('review_state')
     grok.viewletmanager(IAboveContentBody)
+    grok.view(IViewView)
     grok.layer(IPfwbgedPolicyLayer)
 
     def render(self):
