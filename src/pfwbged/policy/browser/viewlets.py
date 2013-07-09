@@ -24,16 +24,16 @@ class ReviewStateViewlet(grok.Viewlet):
     grok.layer(IPfwbgedPolicyLayer)
 
     def render(self):
-        data = {}
-        data['label'] = translate(PMF(u"State"), context=self.request)
-        state = api.content.get_state(self.context)
-        portal_type = self.context.portal_type
         try:
+            state = api.content.get_state(self.context)
+            portal_type = self.context.portal_type
             wtool = api.portal.get_tool('portal_workflow')
             state_title = wtool.getTitleForStateOnType(state, portal_type)
             state_title = translate(PMF(state_title), context=self.request)
         except WorkflowException:
-            state_title =  u""
+            return u""
+        data = {}
+        data['label'] = translate(PMF(u"State"), context=self.request)
         data['review_state'] = state_title
         return """<div id="formfield-form-widgets-review_state" class="field z3cformInlineValidation kssattr-fieldname-review_state" data-fieldname="review_state">
     <label class="horizontal" for="form-widgets-review_state">%(label)s</label>
