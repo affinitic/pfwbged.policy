@@ -11,6 +11,9 @@
   <default>
    <bound-workflow workflow_id="pfwbgeddocument_workflow"/>
   </default>
+  <type type_id="Collection">
+   <bound-workflow workflow_id=""/>
+  </type>
   <type type_id="Folder">
    <bound-workflow workflow_id="pfwbgedfolder_workflow"/>
   </type>
