@@ -75,7 +75,6 @@ def create_tasks_collections(context):
                            item_count=item_count,
                            query=query,
                            )
-        api.group.grant_roles(groupname='AuthenticatedUsers', roles=['Reader'])
     role = u'responsible'
     id = '%s-%s' % (type, role)
     if id not in container:
@@ -90,7 +89,6 @@ def create_tasks_collections(context):
                            item_count=item_count,
                            query=query,
                            )
-        api.group.grant_roles(groupname='AuthenticatedUsers', roles=['Reader'])
     # informations
     type = u'information'
     role = u'enquirer'
@@ -107,7 +105,6 @@ def create_tasks_collections(context):
                            item_count=item_count,
                            query=query,
                            )
-        api.group.grant_roles(groupname='AuthenticatedUsers', roles=['Reader'])
     role = u'responsible'
     id = '%s-%s' % (type, role)
     if id not in container:
@@ -122,7 +119,6 @@ def create_tasks_collections(context):
                            item_count=item_count,
                            query=query,
                            )
-        api.group.grant_roles(groupname='AuthenticatedUsers', roles=['Reader'])
     # opinions
     type = u'opinion'
     role = u'enquirer'
@@ -139,7 +135,6 @@ def create_tasks_collections(context):
                            item_count=item_count,
                            query=query,
                            )
-        api.group.grant_roles(groupname='AuthenticatedUsers', roles=['Reader'])
     role = u'responsible'
     id = '%s-%s' % (type, role)
     if id not in container:
@@ -154,7 +149,6 @@ def create_tasks_collections(context):
                            item_count=item_count,
                            query=query,
                            )
-        api.group.grant_roles(groupname='AuthenticatedUsers', roles=['Reader'])
     # validations
     type = u'validation'
     role = u'enquirer'
@@ -171,7 +165,6 @@ def create_tasks_collections(context):
                            item_count=item_count,
                            query=query,
                            )
-        api.group.grant_roles(groupname='AuthenticatedUsers', roles=['Reader'])
     role = u'responsible'
     id = '%s-%s' % (type, role)
     if id not in container:
@@ -186,7 +179,6 @@ def create_tasks_collections(context):
                            item_count=item_count,
                            query=query,
                            )
-        api.group.grant_roles(groupname='AuthenticatedUsers', roles=['Reader'])
 
 
 def post_install(context):
