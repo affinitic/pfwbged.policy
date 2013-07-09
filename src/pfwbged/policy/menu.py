@@ -115,9 +115,9 @@ class CustomMenu(menu.WorkflowMenu):
                     title = _(u"Return opinion about ${version}",
                               mapping={'version': version})
             elif IValidation.providedBy(context):
-                action = action['title']
+                action_name = action['title']
                 title = _(u"${action} the version ${version}",
-                          mapping={'action': action,
+                          mapping={'action': action_name,
                                    'version': version})
             elif IDmsFile.providedBy(context):
                 action_name = action['title']
