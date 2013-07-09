@@ -29,9 +29,5 @@
   <type type_id="dmsmainfile">
    <bound-workflow workflow_id="versionnote_workflow"/>
   </type>
-  <type type_id="workspace">
-   <bound-workflow workflow_id="pfwbgedfolder_workflow"/>
-   <bound-workflow workflow_id="workspace_workflow"/>
-  </type>
  </bindings>
 </object>
