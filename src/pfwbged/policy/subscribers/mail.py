@@ -91,6 +91,7 @@ def outgoing_mail_created(context, event):
     # Set Editor role on the mail to its creator
     creator = api.user.get_current()
     api.user.grant_roles(user=creator, roles=['Editor'], obj=context)
+    context.reindexObjectSecurity()
 
 
 @grok.subscribe(IDmsOutgoingMail, IAfterTransitionEvent)
