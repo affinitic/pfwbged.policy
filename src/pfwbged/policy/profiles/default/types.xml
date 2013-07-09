@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<object meta_type="Plone Types Tool" name="portal_types">
+ <property name="title">Controls the available content types in your portal</property>
+
+ <!-- We remove old ATContentTypes if they exist.
+      Instances of these types can still be looked at since the
+      skin-templates in CMFPlone are there but they cannot be edited -->
+ <object name="Document" remove="True"/>
+ <object name="Event" remove="True"/>
+ <object name="Link" remove="True"/>
+ <object name="News Item" remove="True"/>
+
+</object>
