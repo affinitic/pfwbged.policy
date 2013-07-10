@@ -25,6 +25,12 @@ class TasksTable(BaseTasksTable):
             (self.context, self.request, self), IValues)
         return adapter.values
 
+    def setUpColumns(self):
+        columns = super(TasksTable, self).setUpColumns()
+        column_names = [column.__name__ for column in columns]
+        selected_columns = self.request.get('columns', column_names)
+        return [column for column in columns if column.__name__ in selected_columns]
+
 
 class ValuesFromFolder(grok.MultiAdapter, ValuesMixin):
     grok.adapts(IFolder, IBrowserRequest, TasksTable)
