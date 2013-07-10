@@ -5,6 +5,7 @@ from zope.cachedescriptors.property import CachedProperty
 from plone.app.querystring.querybuilder import QueryBuilder
 
 from collective.dms.basecontent.browser.listing import TasksTable as BaseTasksTable
+from collective.dms.basecontent.browser import column
 from pfwbged.policy import _
 
 grok.templatedir('templates')
@@ -31,6 +32,17 @@ class TasksTable(BaseTasksTable):
                             batch=batch, b_start=b_start, b_size=b_size,
                             sort_on=self.context.sort_on, sort_order=sort_order,
                             limit=self.context.limit, brains=brains)
+
+
+class DocumentTitleColumn(column.TitleColumn):
+    grok.name('dms.title')
+    grok.adapts(Interface, Interface, TasksTable)
+
+    def getLinkContent(self, item):
+        return item.document_title.decode('utf8') + ' / ' + item.Title.decode('utf8')
+
+    def getLinkURL(self, item):
+        return self.request.physicalPathToURL(item.document_path)
 
 
 class TasksView(grok.View):
