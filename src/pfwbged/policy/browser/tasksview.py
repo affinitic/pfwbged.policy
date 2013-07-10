@@ -53,23 +53,15 @@ class ValuesFromCollection(grok.MultiAdapter, ValuesMixin):
     @property
     def values(self):
         b_start = int(self.request.get('b_start', 0))
-#        batch = self.context.results(b_start=b_start)
-        # items are plone.app.contentlisting.catalog.CatalogContentListingObject instances
-        # use item.getDataOrigin() to get the brain
-#        results = [b.getDataOrigin() for b in batch]
-#        return results
-        return self.results(b_start=b_start, brains=True)
-
-    # copied from plone.app.collection.collection to add a brains parameter
-    def results(self, batch=True, b_start=0, b_size=None, brains=False):
+        b_size = int(self.request.get('b_size', self.context.item_count))
+        sort_on = self.request.get('sort_on', self.context.sort_on)
+        sort_order = self.request.get('sort_order',
+                'reverse' if self.context.sort_reversed else 'ascending')
         querybuilder = QueryBuilder(self.context, self.request)
-        sort_order = 'reverse' if self.context.sort_reversed else 'ascending'
-        if not b_size:
-            b_size = self.context.item_count
         return querybuilder(query=self.context.query,
-                            batch=batch, b_start=b_start, b_size=b_size,
-                            sort_on=self.context.sort_on, sort_order=sort_order,
-                            limit=self.context.limit, brains=brains)
+                            batch=True, b_start=b_start, b_size=b_size,
+                            sort_on=sort_on, sort_order=sort_order,
+                            limit=self.context.limit, brains=True)
 
 
 class DocumentTitleColumn(column.TitleColumn):
