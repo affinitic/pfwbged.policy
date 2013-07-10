@@ -2,17 +2,31 @@ from five import grok
 
 from zope.interface import Interface
 from zope.cachedescriptors.property import CachedProperty
+from zope.component import getMultiAdapter
+from zope.publisher.interfaces.browser import IBrowserRequest
 from plone.app.querystring.querybuilder import QueryBuilder
+from plone.app.contenttypes.interfaces import ICollection
 
 from collective.dms.basecontent.browser.listing import TasksTable as BaseTasksTable
 from collective.dms.basecontent.browser import column
-from pfwbged.policy import _
+from z3c.table.interfaces import IValues
+from z3c.table.value import ValuesMixin
 
 grok.templatedir('templates')
 
 
 class TasksTable(BaseTasksTable):
     @CachedProperty
+    def values(self):
+        adapter = getMultiAdapter(
+            (self.context, self.request, self), IValues)
+        return adapter.values
+
+
+class ValuesFromCollection(grok.MultiAdapter, ValuesMixin):
+    grok.adapts(ICollection, IBrowserRequest, TasksTable)
+
+    @property
     def values(self):
         b_start = int(self.request.get('b_start', 0))
 #        batch = self.context.results(b_start=b_start)
@@ -24,7 +38,7 @@ class TasksTable(BaseTasksTable):
 
     # copied from plone.app.collection.collection to add a brains parameter
     def results(self, batch=True, b_start=0, b_size=None, brains=False):
-        querybuilder = QueryBuilder(self, self.request)
+        querybuilder = QueryBuilder(self.context, self.request)
         sort_order = 'reverse' if self.context.sort_reversed else 'ascending'
         if not b_size:
             b_size = self.context.item_count
