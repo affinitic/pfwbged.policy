@@ -25,8 +25,11 @@ def set_role_on_document(context, event):
     if not ITask.providedBy(context):
         document = context.getParentNode()
         if IDmsDocument.providedBy(document):
+            new_recipients = document.recipient_groups
+            new_recipients.append(context.responsible[0])
             cansee_dm = LocalRolesToPrincipalsDataManager(document, IDmsDocument['recipient_groups'])
-            cansee_dm.set(tuple(context.responsible))
+            cansee_dm.set(new_recipients)
+            document.reindexObjectSecurity()
     # do we have to set Editor role on document for ITask ? (if so, remove something for IDmsMail ?)
 
 @grok.subscribe(IDmsFile, IAfterTransitionEvent)

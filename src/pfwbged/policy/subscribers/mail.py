@@ -40,6 +40,7 @@ def create_tasks(container, groups, deadline):
         alsoProvides(task, IIncomingMailAttributed)
         datamanager = LocalRolesToPrincipalsDataManager(task, ITask['responsible'])
         datamanager.set((group_name,))
+        task.reindexObjectSecurity()
 
 
 def get_tasks(obj):
@@ -62,6 +63,7 @@ def incoming_mail_attributed(context, event):
         recipient_groups = list(frozenset(context.recipient_groups + context.in_copy))
         recipient_dm = LocalRolesToPrincipalsDataManager(context, IDmsIncomingMail['recipient_groups'])
         recipient_dm.set(recipient_groups)
+        context.reindexObjectSecurity()
 
         already_in_charge = []
         for task in context.objectValues('task'):
@@ -83,6 +85,7 @@ def incoming_mail_attributed(context, event):
 #        recipient_groups = list(context.recipient_groups) + list(new_recipients)
 #        recipient_dm = LocalRolesToPrincipalsDataManager(context, IDmsIncomingMail['recipient_groups'])
 #        recipient_dm.set(recipient_groups)
+#        context.reindexObjectSecurity()
 #        create_tasks(context, new_treating, context.deadline)
 
 
