@@ -9,5 +9,7 @@
  <object name="Event" remove="True"/>
  <object name="Link" remove="True"/>
  <object name="News Item" remove="True"/>
+ <object name="File" remove="True"/>
+ <object name="Image" remove="True"/>
 
 </object>
