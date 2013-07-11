@@ -40,7 +40,8 @@ class CanAnswerIncomingMail(grok.View):
         refs_catalog = getUtility(ICatalog)
         intids = getUtility(IIntIds)
         mail_id = intids.getId(self.context)
-        for ref in refs_catalog.findRelations({'to_id': mail_id}):
+        for ref in refs_catalog.findRelations({'to_id': mail_id,
+                                               'from_interfaces_flattened': IDmsOutgoingMail}):
             outgoing_mail = ref.from_object
             if api.content.get_state(obj=outgoing_mail) == 'sent':
                 return True
