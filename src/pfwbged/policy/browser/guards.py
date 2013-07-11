@@ -9,6 +9,7 @@ from plone import api
 from collective.dms.mailcontent.dmsmail import IDmsOutgoingMail,\
     IDmsIncomingMail
 from collective.dms.basecontent.dmsfile import IDmsFile
+from collective.task.content.validation import IValidation
 
 
 class OutgoingMailReadyToSend(grok.View):
@@ -68,3 +69,22 @@ class NoValidationInProgress(grok.View):
             if brains:
                 return False
         return True
+
+
+class CanValidateOrRefuse(grok.View):
+    grok.name("can_validate_or_refuse")
+    grok.context(IDmsFile)
+    grok.require('zope2.View')
+
+    def render(self):
+        refs_catalog = getUtility(ICatalog)
+        intids = getUtility(IIntIds)
+        version_id = intids.getId(self.context)
+        # validate or refuse in available transition on validation
+        for ref in refs_catalog.findRelations({'to_id': version_id,
+                                               'from_interfaces_flattened': IValidation}):
+            validation = ref.from_object
+            if api.content.get_state(validation) == 'todo':
+                if api.user.get_current().getId() == validation.responsible[0]:
+                    return True
+        return False
