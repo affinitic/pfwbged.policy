@@ -144,6 +144,8 @@ def version_note_finished(context, event):
             version = version_brain._unrestrictedGetObject()
             if api.content.get_state(obj=version) in ('draft', 'pending', 'validated'):
                 api.content.transition(obj=version, transition='obsolete')
+        context.__ac_local_roles_block__ = False
+        context.reindexObjectSecurity()
 
 
 @grok.subscribe(ITask, IAfterTransitionEvent)
