@@ -32,6 +32,7 @@
   <permission-map name="Modify portal content" acquired="False">
    <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
+   <permission-role>Owner</permission-role>
   </permission-map>
  </state>
  <state state_id="finished" title="Finished" i18n:attributes="title">
@@ -51,7 +52,6 @@
    <permission-role>Owner</permission-role>
   </permission-map>
   <permission-map name="Modify portal content" acquired="False">
-   <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
   </permission-map>
  </state>
@@ -93,7 +93,6 @@
    <permission-role>Owner</permission-role>
   </permission-map>
   <permission-map name="Modify portal content" acquired="False">
-   <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
   </permission-map>
  </state>
@@ -116,7 +115,6 @@
    <permission-role>Owner</permission-role>
   </permission-map>
   <permission-map name="Modify portal content" acquired="False">
-   <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
   </permission-map>
  </state>
