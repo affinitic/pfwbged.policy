@@ -40,7 +40,7 @@ def create_tasks(container, groups, deadline):
         alsoProvides(task, IIncomingMailAttributed)
         datamanager = LocalRolesToPrincipalsDataManager(task, ITask['responsible'])
         datamanager.set((group_name,))
-        task.reindexObjectSecurity()
+        task.reindexObject()
 
 
 def get_tasks(obj):
