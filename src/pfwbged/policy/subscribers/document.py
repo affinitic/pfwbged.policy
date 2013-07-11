@@ -1,3 +1,4 @@
+from Acquisition import aq_parent
 from five import grok
 
 from zc.relation.interfaces import ICatalog
@@ -63,4 +64,6 @@ def delete_tasks(context, event):
              'from_interfaces_flattened': IBaseTask,
              'from_attribute': 'target'}
     for rv in catalog.findRelations(query):
-        api.content.delete(obj=rv.from_object)
+        obj = rv.from_object
+        #obj.aq_parent.manage_delObjects([obj.getId()])  # we don't want to verify Delete object permission on object
+        del aq_parent(obj)[obj.getId()]
