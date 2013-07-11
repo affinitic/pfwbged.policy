@@ -137,11 +137,11 @@ def version_note_finished(context, event):
         # if parent is an outgoing mail, change its state to ready_to_send
         if document.portal_type == 'dmsoutgoingmail' and api.content.get_state(obj=document) == 'writing':
             api.content.transition(obj=document, transition='finish')
-        version_notes = portal_catalog.searchResults(portal_type='dmsmainfile',
+        version_notes = portal_catalog.unrestrictedSearchResults(portal_type='dmsmainfile',
                 path='/'.join(document.getPhysicalPath()))
         # make obsolete other versions
         for version_brain in version_notes:
-            version = version_brain.getObject()
+            version = version_brain._unrestrictedGetObject()
             if api.content.get_state(obj=version) in ('draft', 'pending', 'validated'):
                 api.content.transition(obj=version, transition='obsolete')
 
