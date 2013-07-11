@@ -28,6 +28,7 @@ PMF = MessageFactory('plone')
 
 add_actions_mapping = {'dmsmainfile': _(u"Create a new version"),
                        'information': _(u'Send for information'),
+                       'pfwbgedlink': _(u'File in a folder'),
                        }
 
 
@@ -185,7 +186,7 @@ class CustomMenu(menu.WorkflowMenu):
                     continue
             elif result['id'] in ('validation', 'opinion', 'task'):
                 continue
-            if result['id'] in ('dmsmainfile', 'information'):
+            if result['id'] in ('dmsmainfile', 'information', 'pfwbgedlink'):
                 result['extra']['class'] += ' overlay-form-reload'
                 result['title'] = add_actions_mapping[result['id']]
             else:
