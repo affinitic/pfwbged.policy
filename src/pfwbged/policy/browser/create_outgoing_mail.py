@@ -2,10 +2,6 @@ from Acquisition import aq_parent
 
 from five import grok
 
-from zc.relation.interfaces import ICatalog
-from zope.component import getUtility
-from zope.intid.interfaces import IIntIds
-
 from plone import api
 
 from collective.dms.mailcontent.dmsmail import IDmsIncomingMail
@@ -31,20 +27,6 @@ class CreateOutgoingMail(grok.View):
                 raise NoIDmsIncomingMailFound
         return parent
 
-    def outgoingmail_created(self, task):
-        intids = getUtility(IIntIds)
-        catalog = getUtility(ICatalog)
-        refs = []
-        try:
-            task_intid = intids.getId(task)
-        except KeyError:
-            pass
-        else:
-            for ref in catalog.findRelations({'to_id': task_intid,
-                                              'from_attribute': 'related_task'}):
-                refs.append(ref)
-        return bool(refs)
-
     def render(self):
         task = self.context
         incomingmail = self.find_incomingmail()
@@ -54,17 +36,13 @@ class CreateOutgoingMail(grok.View):
                                         "path": container_path,
                                         "review_state": "in-progress"})
 
-        wtool = api.portal.get_tool("portal_workflow")
-        task_state = api.content.get_state(task)
-
-        if task_state == 'in-progress' and not self.outgoingmail_created(task):
-            values = {}
-            values['title'] = "Re: " + incomingmail.title
-            values['recipients'] = '/'.join(incomingmail.sender.to_object.getPhysicalPath())
-            values['in_reply_to'] = '/'.join(incomingmail.getPhysicalPath())
-            values['treating_groups'] = task.responsible[0]
-            values['related_task'] = task.getId()
-            values_url = """
+        values = {}
+        values['title'] = "Re: " + incomingmail.title
+        values['recipients'] = '/'.join(incomingmail.sender.to_object.getPhysicalPath())
+        values['in_reply_to'] = '/'.join(incomingmail.getPhysicalPath())
+        values['treating_groups'] = task.responsible[0]
+        values['related_task'] = task.getId()
+        values_url = """
 form.widgets.IDublinCore.title=%(title)s&
 form.widgets.recipients:list=%(recipients)s&
 form.widgets.in_reply_to:list=%(in_reply_to)s&

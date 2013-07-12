@@ -10,6 +10,18 @@ $(document).ready(function(){
             closeOnEsc: false
         }
     });
+    $(document).find('.overlay-form-redirect').prepOverlay({
+        subtype: 'ajax',
+        filter: common_content_filter,
+        closeselector: '#form-buttons-cancel',
+        formselector: '#form',
+        redirect: $.plonepopups.redirectbasehref,
+        noform: function(el) {return jQuery.plonepopups.noformerrorshow(el, 'redirect');},
+        config: {
+            closeOnClick: false,
+            closeOnEsc: false
+        }
+    });
     $(document).find('.overlay-comment-form').prepOverlay({
         subtype: 'ajax',
         filter: common_content_filter,

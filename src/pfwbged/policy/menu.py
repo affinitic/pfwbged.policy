@@ -1,4 +1,5 @@
 from five import grok
+from zc.relation.interfaces import ICatalog
 from zope.component import getMultiAdapter
 from zope.component import getUtility
 from zope.component import queryMultiAdapter
@@ -30,6 +31,22 @@ add_actions_mapping = {'dmsmainfile': _(u"Create a new version"),
                        'information': _(u'Send for information'),
                        'pfwbgedlink': _(u'File in a folder'),
                        }
+
+
+def outgoingmail_created(task):
+    """Return true if an outgoing mail has been created for this task"""
+    intids = getUtility(IIntIds)
+    catalog = getUtility(ICatalog)
+    refs = []
+    try:
+        task_intid = intids.getId(task)
+    except KeyError:
+        pass
+    else:
+        for ref in catalog.findRelations({'to_id': task_intid,
+                                          'from_attribute': 'related_task'}):
+            refs.append(ref)
+    return bool(refs)
 
 
 class ActionsSubMenuItem(grok.MultiAdapter, menu.ActionsSubMenuItem):
@@ -96,7 +113,7 @@ class CustomMenu(menu.WorkflowMenu):
 
             description = ''
 
-            if action['id'] in ('submit', 'ask_opinion'):
+            if action['id'] in ('submit', 'ask_opinion', 'attribute'):
                 cssClass += " overlay-form-reload"
 
             transition = action.get('transition', None)
@@ -163,6 +180,8 @@ class CustomMenu(menu.WorkflowMenu):
         haveMore = False
         include = None
 
+        cssClass = ''
+
         addContext = factories_view.add_context()
         allowedTypes = _allowedTypes(request, addContext)
 
@@ -186,9 +205,12 @@ class CustomMenu(menu.WorkflowMenu):
                     continue
             elif result['id'] in ('validation', 'opinion', 'task'):
                 continue
+
             if result['id'] in ('dmsmainfile', 'information', 'pfwbgedlink'):
                 result['extra']['class'] += ' overlay-form-reload'
                 result['title'] = add_actions_mapping[result['id']]
+            elif result['id'] in ('dmsappendixfile'):
+                result['extra']['class'] += ' overlay-form-reload'
             else:
                 result['title'] = _(u"Add ${title}", mapping={"title": result['title']})
             results.append(result)
@@ -264,9 +286,11 @@ class CustomMenu(menu.WorkflowMenu):
         if is_subobject:
             # only take portal_type actions
             ttool = api.portal.get_tool("portal_types")
-            editActions = ttool.listActionInfos(object=context,
+            _editActions = ttool.listActionInfos(object=context,
                                                 category='object_buttons',
                                                 max=-1)
+            editActions = [action for action in _editActions if action['id'] != 'create_outgoing_mail' or not outgoingmail_created(context)]
+
         else:
             editActions = []
             _editActions = context_state.actions('object_buttons')
@@ -275,6 +299,8 @@ class CustomMenu(menu.WorkflowMenu):
         if not editActions:
             return results
 
+        cssClass = ""
+
         actionicons = getToolByName(context, 'portal_actionicons')
         portal_url = getToolByName(context, 'portal_url')()
 
@@ -282,9 +308,13 @@ class CustomMenu(menu.WorkflowMenu):
             if action['id'] == 'create_signed_version':
                 action['title'] = _(u"Create signed version for version ${version}",
                                     mapping={'version': context.Title()})
+            elif action['id'] == 'create_outgoing_mail':
+                # make it overlay !
+                cssClass += ' overlay-form-redirect'
+
             if action['allowed']:
                 aid = action['id']
-                cssClass = 'actionicon-object_buttons-%s' % aid
+                cssClass += ' actionicon-object_buttons-%s' % aid
                 icon = action.get('icon', None)
                 if not icon:
                     # allow fallback to action icons tool
