@@ -41,7 +41,7 @@ class CreateOutgoingMail(grok.View):
         values['recipients'] = '/'.join(incomingmail.sender.to_object.getPhysicalPath())
         values['in_reply_to'] = '/'.join(incomingmail.getPhysicalPath())
         values['treating_groups'] = task.responsible[0]
-        values['related_task'] = task.getId()
+        values['related_task'] = '/'.join(task.getPhysicalPath())
         values_url = """
 form.widgets.IDublinCore.title=%(title)s&
 form.widgets.recipients:list=%(recipients)s&
