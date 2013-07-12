@@ -18,54 +18,55 @@ from Products.CMFCore.utils import getToolByName
 from pfwbged.policy import _
 
 
-class CreateOutgoingMailViewlet(grok.Viewlet):
-    grok.context(ITask)
-    template = grok.PageTemplateFile("templates/createoutgoingmail.pt")
-    grok.viewletmanager(IBelowContentBody)
-    show_button = False
-
-    def outgoingmail_created(self, task):
-        intids = getUtility(IIntIds)
-        catalog = getUtility(ICatalog)
-        refs = []
-        try:
-            task_intid = intids.getId(task)
-        except KeyError:
-            pass
-        else:
-            for ref in catalog.findRelations({'to_id': task_intid,
-                                              'from_attribute': 'related_task'}):
-                refs.append(ref)
-        return bool(refs)
-
-    def update(self):
-        # first_task is the task created by the to_assign transition
-        # from incoming mail workflow
-        first_task = self.context
-        for obj in aq_chain(self.context):
-            obj = aq_parent(obj)
-            if IDmsIncomingMail.providedBy(obj):
-                break
-
-            first_task = obj
-
-        if (not IDmsIncomingMail.providedBy(obj) or
-            not IIncomingMailAttributed.providedBy(first_task)):
-            return
-
-        incomingmail = obj
-        task = self.context
-        wtool = getToolByName(self.context, "portal_workflow")
-        task_state = wtool.getInfoFor(task, 'review_state')
-
-        if task_state == 'in-progress' and not self.outgoingmail_created(task):
-            self.show_button = True
-            self.portal_url = getToolByName(self.context, "portal_url")()
-            self.title = "Re: " + incomingmail.title
-            self.recipients = '/'.join(incomingmail.sender.to_object.getPhysicalPath())
-            self.in_reply_to = '/'.join(incomingmail.getPhysicalPath())
-            self.treating_groups = self.context.responsible[0]
-            self.related_task = '/'.join(task.getPhysicalPath())
+### should not be used anymore, we use create_outgoing_mail action instead !
+#class CreateOutgoingMailViewlet(grok.Viewlet):
+#    grok.context(ITask)
+#    template = grok.PageTemplateFile("templates/createoutgoingmail.pt")
+#    grok.viewletmanager(IBelowContentBody)
+#    show_button = False
+#
+#    def outgoingmail_created(self, task):
+#        intids = getUtility(IIntIds)
+#        catalog = getUtility(ICatalog)
+#        refs = []
+#        try:
+#            task_intid = intids.getId(task)
+#        except KeyError:
+#            pass
+#        else:
+#            for ref in catalog.findRelations({'to_id': task_intid,
+#                                              'from_attribute': 'related_task'}):
+#                refs.append(ref)
+#        return bool(refs)
+#
+#    def update(self):
+#        # first_task is the task created by the to_assign transition
+#        # from incoming mail workflow
+#        first_task = self.context
+#        for obj in aq_chain(self.context):
+#            obj = aq_parent(obj)
+#            if IDmsIncomingMail.providedBy(obj):
+#                break
+#
+#            first_task = obj
+#
+#        if (not IDmsIncomingMail.providedBy(obj) or
+#            not IIncomingMailAttributed.providedBy(first_task)):
+#            return
+#
+#        incomingmail = obj
+#        task = self.context
+#        wtool = getToolByName(self.context, "portal_workflow")
+#        task_state = wtool.getInfoFor(task, 'review_state')
+#
+#        if task_state == 'in-progress' and not self.outgoingmail_created(task):
+#            self.show_button = True
+#            self.portal_url = getToolByName(self.context, "portal_url")()
+#            self.title = "Re: " + incomingmail.title
+#            self.recipients = '/'.join(incomingmail.sender.to_object.getPhysicalPath())
+#            self.in_reply_to = '/'.join(incomingmail.getPhysicalPath())
+#            self.treating_groups = self.context.responsible[0]
+#            self.related_task = '/'.join(task.getPhysicalPath())
 
 
 class GoBackToDocumentViewlet(grok.Viewlet):
