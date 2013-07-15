@@ -78,7 +78,8 @@ class DocumentTitleColumn(column.TitleColumn):
         if item.document_title is Missing.Value:
             return super(DocumentTitleColumn, self).getLinkContent(item)
 
-        return item.document_title.decode('utf8') + ' / ' + item.Title.decode('utf8')
+        return item.document_title.decode('utf8') + ' / ' + \
+                column.get_value(item, 'Title').decode('utf8')
 
     def getLinkURL(self, item):
         if item.document_title is Missing.Value:
