@@ -37,17 +37,17 @@ class CreateOutgoingMail(grok.View):
                                         "review_state": "in-progress"})
 
         values = {}
-        values['title'] = "Re: " + incomingmail.title
-        values['recipients'] = '/'.join(incomingmail.sender.to_object.getPhysicalPath())
-        values['in_reply_to'] = '/'.join(incomingmail.getPhysicalPath())
+        values['title'] = u"Re: " + incomingmail.title
+        values['recipients'] = u'/'.join(incomingmail.sender.to_object.getPhysicalPath())
+        values['in_reply_to'] = u'/'.join(incomingmail.getPhysicalPath())
         values['treating_groups'] = task.responsible[0]
-        values['related_task'] = '/'.join(task.getPhysicalPath())
-        values_url = """
+        values['related_task'] = u'/'.join(task.getPhysicalPath())
+        values_url = u"""
 form.widgets.IDublinCore.title=%(title)s&
 form.widgets.recipients:list=%(recipients)s&
 form.widgets.in_reply_to:list=%(in_reply_to)s&
 form.widgets.IRelatedTask.related_task=%(related_task)s&
 form.widgets.treating_groups=%(treating_groups)s""" % values
         folder_url = incomingmail.getParentNode().absolute_url()
-        url = folder_url+"/++add++dmsoutgoingmail?"+values_url
+        url = folder_url + "/++add++dmsoutgoingmail?" + values_url.encode('utf-8')
         self.request.response.redirect(url)
