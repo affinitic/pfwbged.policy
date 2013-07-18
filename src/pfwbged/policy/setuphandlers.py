@@ -222,6 +222,7 @@ def post_install(context):
         alsoProvides(annuaire, IHidePloneRightColumn)
         annuaire.unrestrictedTraverse('@@faceted_exportimport').import_xml(
                 import_file=open(os.path.dirname(__file__) + '/annuaire-faceted.xml'))
+    portal.portal_types.directory.global_allow = False
 
     if 'documents' not in portal:
         portal.invokeFactory('Folder', 'documents', title="Documents")
