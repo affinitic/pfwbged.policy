@@ -228,8 +228,12 @@ def post_install(context):
     #setup_constrains(portal['courriers'], ['dmsincomingmail', 'dmsoutgoingmail'])
 
     # everyone can see annuaire and documents
-    api.content.transition(obj=portal['annuaire'], transition="publish")
-    api.content.transition(obj=portal['documents'], transition="publish")
+    if api.content.get_state(portal['annuaire']) == 'private':
+        api.content.transition(obj=portal['annuaire'], transition="publish")
+    if api.content.get_state(portal['documents']) == 'private':
+        api.content.transition(obj=portal['documents'], transition="publish")
+    if api.content.get_state(portal['Members']) == 'private':
+        api.content.transition(obj=portal['Members'], transition="publish")
 
     # create information, task, opinion, validation collections
     create_tasks_collections(context)
