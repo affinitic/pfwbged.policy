@@ -4,12 +4,16 @@
   <dependencies>
     <dependency>profile-collective.contact.facetednav:default</dependency>
     <dependency>profile-collective.dms.basecontent:default</dependency>
+    <dependency>profile-collective.dms.batchimport:default</dependency>
     <dependency>profile-collective.dms.mailcontent:default</dependency>
     <dependency>profile-collective.edm.listing:default</dependency>
     <dependency>profile-collective.externaleditor:default</dependency>
     <dependency>profile-collective.task:default</dependency>
     <dependency>profile-collective.solr:default</dependency>
     <dependency>profile-pfwbged.basecontent:default</dependency>
+    <dependency>profile-pfwbged.theme:default</dependency>
+    <dependency>profile-pfwbged.collection:default</dependency>
+    <dependency>profile-pfwbged.folder:default</dependency>
     <dependency>profile-plone.app.contenttypes:default</dependency>
     <dependency>profile-plone.app.dexterity:default</dependency>
   </dependencies>

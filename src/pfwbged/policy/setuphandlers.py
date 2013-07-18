@@ -66,7 +66,7 @@ def create_tasks_collections(context):
     if id not in container:
         query = get_collection_query(type, role)
         collection = api.content.create(container=container,
-                           type="Collection",
+                           type="pfwbgedcollection",
                            id=id,
                            title=u"Tâches que j'ai demandées",
                            sort_on=sort_on,
@@ -75,13 +75,12 @@ def create_tasks_collections(context):
                            item_count=item_count,
                            query=query,
                            )
-        collection.setLayout('tasks_view')
     role = u'responsible'
     id = '%s-%s' % (type, role)
     if id not in container:
         query = get_collection_query(type, role)
         collection = api.content.create(container=container,
-                           type="Collection",
+                           type="pfwbgedcollection",
                            id=id,
                            title=u"Mes tâches",
                            sort_on=sort_on,
@@ -90,7 +89,6 @@ def create_tasks_collections(context):
                            item_count=item_count,
                            query=query,
                            )
-        collection.setLayout('tasks_view')
     # informations
     type = u'information'
     role = u'enquirer'
@@ -98,7 +96,7 @@ def create_tasks_collections(context):
     if id not in container:
         query = get_collection_query(type, role)
         collection = api.content.create(container=container,
-                           type="Collection",
+                           type="pfwbgedcollection",
                            id=id,
                            title=u"Documents que j'ai transmis pour information",
                            sort_on=sort_on,
@@ -107,13 +105,12 @@ def create_tasks_collections(context):
                            item_count=item_count,
                            query=query,
                            )
-        collection.setLayout('tasks_view')
     role = u'responsible'
     id = '%s-%s' % (type, role)
     if id not in container:
         query = get_collection_query(type, role)
         collection = api.content.create(container=container,
-                           type="Collection",
+                           type="pfwbgedcollection",
                            id=id,
                            title=u"À lire",
                            sort_on=sort_on,
@@ -122,7 +119,6 @@ def create_tasks_collections(context):
                            item_count=item_count,
                            query=query,
                            )
-        collection.setLayout('tasks_view')
     # opinions
     type = u'opinion'
     role = u'enquirer'
@@ -130,7 +126,7 @@ def create_tasks_collections(context):
     if id not in container:
         query = get_collection_query(type, role)
         collection = api.content.create(container=container,
-                           type="Collection",
+                           type="pfwbgedcollection",
                            id=id,
                            title=u"Demandes d'avis que j'ai faites",
                            sort_on=sort_on,
@@ -139,13 +135,12 @@ def create_tasks_collections(context):
                            item_count=item_count,
                            query=query,
                            )
-        collection.setLayout('tasks_view')
     role = u'responsible'
     id = '%s-%s' % (type, role)
     if id not in container:
         query = get_collection_query(type, role)
         collection = api.content.create(container=container,
-                           type="Collection",
+                           type="pfwbgedcollection",
                            id=id,
                            title=u"Demandes d'avis auxquelles je dois répondre",
                            sort_on=sort_on,
@@ -154,7 +149,6 @@ def create_tasks_collections(context):
                            item_count=item_count,
                            query=query,
                            )
-        collection.setLayout('tasks_view')
     # validations
     type = u'validation'
     role = u'enquirer'
@@ -162,7 +156,7 @@ def create_tasks_collections(context):
     if id not in container:
         query = get_collection_query(type, role)
         collection = api.content.create(container=container,
-                           type="Collection",
+                           type="pfwbgedcollection",
                            id=id,
                            title=u"Demandes de validation que j'ai faites",
                            sort_on=sort_on,
@@ -171,13 +165,12 @@ def create_tasks_collections(context):
                            item_count=item_count,
                            query=query,
                            )
-        collection.setLayout('tasks_view')
     role = u'responsible'
     id = '%s-%s' % (type, role)
     if id not in container:
         query = get_collection_query(type, role)
         collection = api.content.create(container=container,
-                           type="Collection",
+                           type="pfwbgedcollection",
                            id=id,
                            title=u"Demandes de validation auxquelles je dois répondre",
                            sort_on=sort_on,
@@ -186,7 +179,6 @@ def create_tasks_collections(context):
                            item_count=item_count,
                            query=query,
                            )
-        collection.setLayout('tasks_view')
 
 
 def post_install(context):
