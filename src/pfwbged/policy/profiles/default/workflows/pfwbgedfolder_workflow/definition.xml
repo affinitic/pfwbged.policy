@@ -70,11 +70,17 @@
  <transition transition_id="make_private" title="Make private" new_state="private" trigger="USER" before_script="" after_script="">
   <action url="" category="workflow" icon="">Make private</action>
   <guard>
+    <guard-role>Manager</guard-role>
+    <guard-role>Owner</guard-role>
+    <guard-role>Site Administrator</guard-role>
   </guard>
  </transition>
  <transition transition_id="publish" title="Publish" new_state="published" trigger="USER" before_script="" after_script="">
   <action url="" category="hidden_workflow" icon="">Publish</action>
   <guard>
+    <guard-role>Manager</guard-role>
+    <guard-role>Owner</guard-role>
+    <guard-role>Site Administrator</guard-role>
   </guard>
  </transition>
  <variable variable_id="action" for_catalog="False" for_status="True" update_always="True">
