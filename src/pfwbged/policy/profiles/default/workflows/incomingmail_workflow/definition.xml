@@ -35,6 +35,7 @@
   <exit-transition transition_id="to_process"/>
   <permission-map name="Access contents information" acquired="False">
    <permission-role>Editor</permission-role>
+   <permission-role>Greffier</permission-role>
    <permission-role>Manager</permission-role>
    <permission-role>Owner</permission-role>
    <permission-role>Reader</permission-role>
@@ -42,11 +43,13 @@
   </permission-map>
   <permission-map name="Modify portal content" acquired="False">
    <permission-role>Editor</permission-role>
+   <permission-role>Greffier</permission-role>
    <permission-role>Manager</permission-role>
    <permission-role>Reviewer</permission-role>
   </permission-map>
   <permission-map name="View" acquired="False">
    <permission-role>Editor</permission-role>
+   <permission-role>Greffier</permission-role>
    <permission-role>Manager</permission-role>
    <permission-role>Owner</permission-role>
    <permission-role>Reader</permission-role>
@@ -152,8 +155,9 @@
  <transition transition_id="to_assign" title="" new_state="assigning" trigger="USER" before_script="" after_script="">
   <action url="%(content_url)s/content_status_modify?workflow_action=to_assign" category="workflow" icon="" i18n:translate="">To assign</action>
   <guard>
-   <guard-role>Reviewer</guard-role>
    <guard-role>Manager</guard-role>
+   <guard-role>Owner</guard-role>
+   <guard-role>Reviewer</guard-role>
   </guard>
  </transition>
  <transition transition_id="to_noaction" title="" new_state="noaction" trigger="USER" before_script="" after_script="">
@@ -166,8 +170,10 @@
  <transition transition_id="to_process" title="" new_state="processing" trigger="USER" before_script="" after_script="">
   <action url="%(content_url)s/content_status_modify?workflow_action=to_process" category="workflow" icon="" i18n:translate="">To process</action>
   <guard>
-   <guard-role>Reviewer</guard-role>
+   <guard-role>Greffier</guard-role>
    <guard-role>Manager</guard-role>
+   <guard-role>Owner</guard-role>
+   <guard-role>Reviewer</guard-role>
   </guard>
  </transition>
  <variable variable_id="action" for_catalog="False" for_status="True" update_always="True">
