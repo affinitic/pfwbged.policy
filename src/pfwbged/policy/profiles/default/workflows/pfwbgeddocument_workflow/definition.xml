@@ -12,7 +12,6 @@
  <permission>View</permission>
  <state state_id="published" title="Published">
   <description>The document is published.</description>
-  <exit-transition transition_id="declare-acceptable"/>
   <permission-map name="Access contents information" acquired="False">
    <permission-role>Manager</permission-role>
    <permission-role>Editor</permission-role>
