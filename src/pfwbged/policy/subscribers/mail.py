@@ -97,6 +97,13 @@ def outgoing_mail_created(context, event):
     context.reindexObjectSecurity()
 
 
+#def incoming_mail_created(context, event):
+#    # Set Reviewer role on the mail to its creator
+#    creator = api.user.get_current()
+#    api.user.grant_roles(user=creator, roles=['Reviewer'], obj=context)
+#    context.reindexObjectSecurity()
+#
+#
 @grok.subscribe(IDmsOutgoingMail, IAfterTransitionEvent)
 def outgoingmail_sent(context, event):
     """Launched when outgoing mail is sent.
