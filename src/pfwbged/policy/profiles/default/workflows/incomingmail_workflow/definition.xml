@@ -172,7 +172,6 @@
   <guard>
    <guard-role>Greffier</guard-role>
    <guard-role>Manager</guard-role>
-   <guard-role>Owner</guard-role>
    <guard-role>Reviewer</guard-role>
   </guard>
  </transition>
