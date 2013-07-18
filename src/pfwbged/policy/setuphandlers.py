@@ -227,6 +227,10 @@ def post_install(context):
         portal.invokeFactory('Folder', 'documents', title="Documents")
     #setup_constrains(portal['courriers'], ['dmsincomingmail', 'dmsoutgoingmail'])
 
+    # everyone can see annuaire and documents
+    api.content.transition(obj=portal['annuaire'], transition="publish")
+    api.content.transition(obj=portal['documents'], transition="publish")
+
     # create information, task, opinion, validation collections
     create_tasks_collections(context)
 
