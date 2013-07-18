@@ -8,6 +8,7 @@
              xmlns:i18n="http://xml.zope.org/namespaces/i18n"
              i18n:domain="plone">
  <permission>Access contents information</permission>
+ <permission>Delete objects</permission>
  <permission>Modify portal content</permission>
  <permission>View</permission>
  <state state_id="draft" title="Draft" i18n:attributes="title">
@@ -34,6 +35,11 @@
    <permission-role>Manager</permission-role>
    <permission-role>Owner</permission-role>
   </permission-map>
+  <permission-map name="Delete objects" acquired="False">
+   <permission-role>Editor</permission-role>
+   <permission-role>Manager</permission-role>
+   <permission-role>Owner</permission-role>
+  </permission-map>
  </state>
  <state state_id="finished" title="Finished" i18n:attributes="title">
   <exit-transition transition_id="obsolete"/>
@@ -54,6 +60,9 @@
   <permission-map name="Modify portal content" acquired="False">
    <permission-role>Manager</permission-role>
   </permission-map>
+  <permission-map name="Delete objects" acquired="False">
+   <permission-role>Manager</permission-role>
+  </permission-map>
  </state>
  <state state_id="obsolete" title="Obsolete" i18n:attributes="title">
   <permission-map name="View" acquired="False">
@@ -71,6 +80,9 @@
    <permission-role>Owner</permission-role>
   </permission-map>
   <permission-map name="Modify portal content" acquired="False">
+   <permission-role>Manager</permission-role>
+  </permission-map>
+  <permission-map name="Delete objects" acquired="False">
    <permission-role>Manager</permission-role>
   </permission-map>
  </state>
@@ -95,6 +107,9 @@
   <permission-map name="Modify portal content" acquired="False">
    <permission-role>Manager</permission-role>
   </permission-map>
+  <permission-map name="Delete objects" acquired="False">
+   <permission-role>Manager</permission-role>
+  </permission-map>
  </state>
  <state state_id="validated" title="Validated" i18n:attributes="title">
   <exit-transition transition_id="finish"/>
@@ -115,6 +130,9 @@
    <permission-role>Owner</permission-role>
   </permission-map>
   <permission-map name="Modify portal content" acquired="False">
+   <permission-role>Manager</permission-role>
+  </permission-map>
+  <permission-map name="Delete objects" acquired="False">
    <permission-role>Manager</permission-role>
   </permission-map>
  </state>
