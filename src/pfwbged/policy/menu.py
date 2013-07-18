@@ -364,7 +364,12 @@ class CustomMenu(menu.WorkflowMenu):
         catalog = api.portal.get_tool('portal_catalog')
 
         if IDmsDocument.providedBy(context):
-            for item in context.listFolderContents():
+            container_path = '/'.join(context.getPhysicalPath())
+            brains = catalog.searchResults({'path': {'query': container_path,
+                                                     'depth': -1},})
+
+            for brain in brains:
+                item = brain.getObject()
                 actions.extend(self.getActionsForObject(item, request, is_subobject=True))
 
             # wf actions on versions
