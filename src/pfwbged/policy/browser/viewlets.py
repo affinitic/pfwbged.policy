@@ -9,6 +9,7 @@ from plone.app.layout.viewlets.interfaces import IAboveContentBody
 from Products.CMFCore.interfaces._content import IContentish
 from Products.CMFCore.WorkflowCore import WorkflowException
 from plone.app.layout.globals.interfaces import IViewView
+from plone.app.contenttypes.interfaces import IFolder
 
 from pfwbged.policy.interfaces import IPfwbgedPolicyLayer
 
@@ -41,3 +42,15 @@ class ReviewStateViewlet(grok.Viewlet):
     <div class="fieldErrorBox"></div>
     <span id="form-widgets-review_state" class="review_state-field" style="width:280px;">%(review_state)s</span>
 </div>""" % data
+
+
+class FolderReviewStateViewlet(grok.Viewlet):
+
+    grok.name('review_state')
+    grok.context(IFolder)
+    grok.viewletmanager(IAboveContentBody)
+    grok.view(IViewView)
+    grok.layer(IPfwbgedPolicyLayer)
+
+    def render(self):
+        return u''

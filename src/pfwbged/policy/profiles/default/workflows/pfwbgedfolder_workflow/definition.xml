@@ -1,5 +1,10 @@
 <?xml version="1.0"?>
-<dc-workflow workflow_id="pfwbgedfolder_workflow" title="Workflow for PFWB GED Folders" description="The folder is published but users can make it private." state_variable="review_state" initial_state="published" manager_bypass="False">
+<dc-workflow workflow_id="pfwbgedfolder_workflow"
+             title="Workflow for PFWB GED Folders"
+             description="The folder is published but users can make it private."
+             state_variable="review_state"
+             initial_state="private"
+             manager_bypass="False">
  <permission>Access contents information</permission>
  <permission>Add portal content</permission>
  <permission>collective.dms.mailcontent: Add Incoming Mail</permission>
@@ -7,57 +12,77 @@
  <permission>Modify portal content</permission>
  <permission>View</permission>
  <state state_id="private" title="Private">
-  <exit-transition transition_id="publish"/>
   <permission-map name="View" acquired="False">
+   <permission-role>Contributor</permission-role>
+   <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
    <permission-role>Reader</permission-role>
+   <permission-role>Reviewer</permission-role>
+   <permission-role>Owner</permission-role>
   </permission-map>
   <permission-map name="Add portal content" acquired="False">
+   <permission-role>Contributor</permission-role>
+   <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
-   <permission-role>Member</permission-role>
+   <permission-role>Reader</permission-role>
+   <permission-role>Reviewer</permission-role>
+   <permission-role>Owner</permission-role>
   </permission-map>
   <permission-map name="collective.dms.mailcontent: Add Incoming Mail" acquired="False">
+   <permission-role>Contributor</permission-role>
+   <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
-   <permission-role>Member</permission-role>
+   <permission-role>Reader</permission-role>
+   <permission-role>Reviewer</permission-role>
+   <permission-role>Owner</permission-role>
   </permission-map>
   <permission-map name="collective.dms.mailcontent: Add Outgoing Mail" acquired="False">
+   <permission-role>Contributor</permission-role>
+   <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
-   <permission-role>Member</permission-role>
+   <permission-role>Reader</permission-role>
+   <permission-role>Reviewer</permission-role>
+   <permission-role>Owner</permission-role>
   </permission-map>
  </state>
  <state state_id="published" title="Published">
   <exit-transition transition_id="make_private"/>
   <permission-map name="View" acquired="False">
-   <permission-role>Manager</permission-role>
+   <permission-role>Contributor</permission-role>
    <permission-role>Editor</permission-role>
+   <permission-role>Manager</permission-role>
+   <permission-role>Member</permission-role>
    <permission-role>Reader</permission-role>
    <permission-role>Reviewer</permission-role>
-   <permission-role>Member</permission-role>
+   <permission-role>Owner</permission-role>
   </permission-map>
   <permission-map name="Add portal content" acquired="False">
+   <permission-role>Contributor</permission-role>
+   <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
    <permission-role>Member</permission-role>
+   <permission-role>Reader</permission-role>
+   <permission-role>Reviewer</permission-role>
+   <permission-role>Owner</permission-role>
   </permission-map>
   <permission-map name="collective.dms.mailcontent: Add Incoming Mail" acquired="False">
+   <permission-role>Contributor</permission-role>
+   <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
    <permission-role>Member</permission-role>
+   <permission-role>Reader</permission-role>
+   <permission-role>Reviewer</permission-role>
+   <permission-role>Owner</permission-role>
   </permission-map>
   <permission-map name="collective.dms.mailcontent: Add Outgoing Mail" acquired="False">
+   <permission-role>Contributor</permission-role>
+   <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
    <permission-role>Member</permission-role>
+   <permission-role>Reader</permission-role>
+   <permission-role>Reviewer</permission-role>
+   <permission-role>Owner</permission-role>
   </permission-map>
- </state>
- <state state_id="internal" title="Internal">
-  <exit-transition transition_id="publish"/>
- </state>
- <state state_id="external" title="Internal">
-  <exit-transition transition_id="publish"/>
- </state>
- <state state_id="pending" title="Internal">
-  <exit-transition transition_id="publish"/>
- </state>
- <state state_id="internally_published" title="Internally published">
-  <exit-transition transition_id="publish"/>
  </state>
  <transition transition_id="make_private" title="Make private" new_state="private" trigger="USER" before_script="" after_script="">
   <action url="" category="workflow" icon="">Make private</action>
@@ -69,18 +94,9 @@
   <guard>
   </guard>
  </transition>
- <worklist worklist_id="reviewer_queue" title="">
-  <description>Reviewer tasks</description>
-  <action url="%(portal_url)s/search?review_state=pending" category="global" icon="">Pending (%(count)d)</action>
-  <guard>
-   <guard-permission>Review portal content</guard-permission>
-  </guard>
-  <match name="review_state" values="pending"/>
- </worklist>
  <variable variable_id="action" for_catalog="False" for_status="True" update_always="True">
   <description>Previous transition</description>
   <default>
-
    <expression>transition/getId|nothing</expression>
   </default>
   <guard>
@@ -89,7 +105,6 @@
  <variable variable_id="actor" for_catalog="False" for_status="True" update_always="True">
   <description>The ID of the user who performed the previous transition</description>
   <default>
-
    <expression>user/getId</expression>
   </default>
   <guard>
@@ -98,7 +113,6 @@
  <variable variable_id="comments" for_catalog="False" for_status="True" update_always="True">
   <description>Comment about the last transition</description>
   <default>
-
    <expression>python:state_change.kwargs.get('comment', '')</expression>
   </default>
   <guard>
@@ -107,7 +121,6 @@
  <variable variable_id="review_history" for_catalog="False" for_status="False" update_always="False">
   <description>Provides access to workflow history</description>
   <default>
-
    <expression>state_change/getHistory</expression>
   </default>
   <guard>
@@ -118,7 +131,6 @@
  <variable variable_id="time" for_catalog="False" for_status="True" update_always="True">
   <description>When the previous transition was performed</description>
   <default>
-
    <expression>state_change/getDateTime</expression>
   </default>
   <guard>
