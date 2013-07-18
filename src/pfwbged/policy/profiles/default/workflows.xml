@@ -14,6 +14,12 @@
   <type type_id="Collection">
    <bound-workflow workflow_id=""/>
   </type>
+  <type type_id="pfwbgedcollection">
+   <bound-workflow workflow_id=""/>
+  </type>
+  <type type_id="pfwbgedlink">
+   <bound-workflow workflow_id=""/>
+  </type>
   <type type_id="Folder">
    <bound-workflow workflow_id="pfwbgedfolder_workflow"/>
   </type>
