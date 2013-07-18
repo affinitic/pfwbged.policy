@@ -1,6 +1,9 @@
 <?xml version="1.0"?>
 <dc-workflow workflow_id="pfwbgedfolder_workflow" title="Workflow for PFWB GED Folders" description="The folder is published but users can make it private." state_variable="review_state" initial_state="published" manager_bypass="False">
  <permission>Access contents information</permission>
+ <permission>Add portal content</permission>
+ <permission>collective.dms.mailcontent: Add Incoming Mail</permission>
+ <permission>collective.dms.mailcontent: Add Outgoing Mail</permission>
  <permission>Modify portal content</permission>
  <permission>View</permission>
  <state state_id="private" title="Private">
@@ -8,6 +11,18 @@
   <permission-map name="View" acquired="False">
    <permission-role>Manager</permission-role>
    <permission-role>Reader</permission-role>
+  </permission-map>
+  <permission-map name="Add portal content" acquired="False">
+   <permission-role>Manager</permission-role>
+   <permission-role>Member</permission-role>
+  </permission-map>
+  <permission-map name="collective.dms.mailcontent: Add Incoming Mail" acquired="False">
+   <permission-role>Manager</permission-role>
+   <permission-role>Member</permission-role>
+  </permission-map>
+  <permission-map name="collective.dms.mailcontent: Add Outgoing Mail" acquired="False">
+   <permission-role>Manager</permission-role>
+   <permission-role>Member</permission-role>
   </permission-map>
  </state>
  <state state_id="published" title="Published">
@@ -17,6 +32,18 @@
    <permission-role>Editor</permission-role>
    <permission-role>Reader</permission-role>
    <permission-role>Reviewer</permission-role>
+   <permission-role>Member</permission-role>
+  </permission-map>
+  <permission-map name="Add portal content" acquired="False">
+   <permission-role>Manager</permission-role>
+   <permission-role>Member</permission-role>
+  </permission-map>
+  <permission-map name="collective.dms.mailcontent: Add Incoming Mail" acquired="False">
+   <permission-role>Manager</permission-role>
+   <permission-role>Member</permission-role>
+  </permission-map>
+  <permission-map name="collective.dms.mailcontent: Add Outgoing Mail" acquired="False">
+   <permission-role>Manager</permission-role>
    <permission-role>Member</permission-role>
   </permission-map>
  </state>
