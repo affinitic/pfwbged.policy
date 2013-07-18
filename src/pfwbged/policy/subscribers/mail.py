@@ -99,9 +99,9 @@ def outgoing_mail_created(context, event):
 
 @grok.subscribe(IDmsIncomingMail, IObjectAddedEvent)
 def incoming_mail_created(context, event):
-    # Set Owner and Editor role on the mail to its creator
+    # Set Owner role on the mail to its creator
     creator = api.user.get_current()
-    api.user.grant_roles(user=creator, roles=['Editor', 'Owner'], obj=context)
+    api.user.grant_roles(user=creator, roles=['Owner'], obj=context)
     context.reindexObjectSecurity()
 
 
