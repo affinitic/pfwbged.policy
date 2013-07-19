@@ -172,6 +172,7 @@
   <action url="%(content_url)s/@@ask_validation" category="workflow" icon="" i18n:translate="">Ask validation</action>
   <guard>
     <guard-role>Owner</guard-role>
+    <guard-role>Reviewer</guard-role>
     <guard-expression>here/@@no_validation_in_progress</guard-expression>
   </guard>
  </transition>
