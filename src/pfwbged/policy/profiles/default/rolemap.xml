@@ -16,5 +16,8 @@
       <role name="Manager"/>
       <role name="Site Administrator"/>
     </permission>
+    <permission name="CMFEditions: Access previous versions" acquire="True">
+      <role name="Member"/>
+    </permission>
   </permissions>
 </rolemap>
