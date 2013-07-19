@@ -42,7 +42,6 @@ class BaseTaskCommentsViewlet(CommentsViewlet):
 def can_render_opinion(form):
     """Return True if the current user can render an opinion"""
     opinion = form.context
-    responsible = form.context.responsible[0]
     current_user = api.user.get_current()
     roles = api.user.get_roles(user=current_user, obj=opinion)
     return api.content.get_state(opinion) != 'done' and 'Editor' in roles
@@ -58,6 +57,7 @@ class OpinionCommentForm(BaseTaskCommentForm):
         """After comment, execute transition if wanted"""
         super(OpinionCommentForm, self).handleComment(self, action)
         api.content.transition(self.context, 'mark-as-done')
+        self.context.reindexObject(idxs=['review_state'])
 
     @button.buttonAndHandler(PADMF(u"add_comment_button", default=u"Comment"),
                              name='comment')
@@ -147,6 +147,7 @@ class TaskCommentForm(BaseTaskCommentForm):
         if not errors:
             workflow_action = data['workflow_action']
             api.content.transition(self.context, workflow_action)
+            self.context.reindexObject(idxs=['review_state'])
             document = get_document(self.context)
             self.request.response.redirect(document.absolute_url())
 

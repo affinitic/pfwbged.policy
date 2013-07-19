@@ -123,6 +123,7 @@ def outgoingmail_sent(context, event):
                 task = ref.to_object
                 if api.content.get_state(obj=task) == 'in-progress':
                     api.content.transition(obj=task, transition='mark-as-done')
+                    task.reindexObject(idxs=['review_state'])
 
 
 @grok.subscribe(IDmsFile, IObjectAddedEvent)
@@ -130,6 +131,7 @@ def incoming_version_added(context, event):
     """A new version in an incoming mail is automatically finished"""
     if IDmsIncomingMail.providedBy(context.getParentNode()):
         api.content.transition(context, 'finish_without_validation')
+        context.reindexObject(idxs=['review_state'])
         context.incomingmail = True
         context.__ac_local_roles_block__ = False
         context.reindexObjectSecurity()
@@ -145,6 +147,7 @@ def version_note_finished(context, event):
         # if parent is an outgoing mail, change its state to ready_to_send
         if document.portal_type == 'dmsoutgoingmail' and api.content.get_state(obj=document) == 'writing':
             api.content.transition(obj=document, transition='finish')
+            document.reindexObject(idxs=['review_state'])
         version_notes = portal_catalog.unrestrictedSearchResults(portal_type='dmsmainfile',
                 path='/'.join(document.getPhysicalPath()))
         # make obsolete other versions
@@ -152,6 +155,7 @@ def version_note_finished(context, event):
             version = version_brain._unrestrictedGetObject()
             if api.content.get_state(obj=version) in ('draft', 'pending', 'validated'):
                 api.content.transition(obj=version, transition='obsolete')
+                version.reindexObject(idxs=['review_state'])
         context.__ac_local_roles_block__ = False
         context.reindexObjectSecurity()
 
@@ -191,3 +195,4 @@ def task_done(context, event):
         if one_task_done and api.content.get_state(obj=incomingmail) == 'processing' \
             and incomingmail.restrictedTraverse('@@can_answer')():
                 api.content.transition(obj=incomingmail, transition='answer')
+                incomingmail.reindexObject(idxs=['review_state'])

@@ -33,6 +33,7 @@ class RedirectToDmsDocument(grok.View):
         transition = self.request.get('workflow_action')
         if transition is not None:
             api.content.transition(self.context, transition)
+            self.context.reindexObject(idxs=['review_state'])
         try:
             document = self.find_document()
             self.request.response.redirect(document.absolute_url())

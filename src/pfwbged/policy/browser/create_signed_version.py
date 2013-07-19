@@ -30,6 +30,7 @@ class CreateSignedVersion(grok.View):
         new_version = container[new_version_id]
         new_version.signed = True
         api.content.transition(new_version, "finish_without_validation")
+        new_version.reindexObject(idxs=['review_state'])
         local_roles = copied_version.__ac_local_roles__
         new_version.__ac_local_roles__ = deepcopy(local_roles)
         new_version.reindexObject()

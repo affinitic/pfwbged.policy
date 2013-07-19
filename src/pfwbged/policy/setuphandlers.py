@@ -231,10 +231,13 @@ def post_install(context):
     # everyone can see annuaire and documents
     if api.content.get_state(portal['annuaire']) == 'private':
         api.content.transition(obj=portal['annuaire'], transition="publish")
+        portal['annuaire'].reindexObject(idxs=['review_state'])
     if api.content.get_state(portal['documents']) == 'private':
         api.content.transition(obj=portal['documents'], transition="publish")
+        portal['documents'].reindexObject(idxs=['review_state'])
     if api.content.get_state(portal['Members']) == 'private':
         api.content.transition(obj=portal['Members'], transition="publish")
+        portal['Members'].reindexObject(idxs=['review_state'])
 
     # create information, task, opinion, validation collections
     create_tasks_collections(context)

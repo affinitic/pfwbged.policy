@@ -47,6 +47,7 @@ class AskValidation(DefaultAddForm):
         new_object = addContentToContainer(container, object)
         # execute transition on version
         api.content.transition(self.context, transition='submit')
+        self.context.reindexObject(idxs=['review_state'])
 
         if fti.immediate_view:
             self.immediate_view = "%s/%s/%s" % (container.absolute_url(), new_object.id, fti.immediate_view,)

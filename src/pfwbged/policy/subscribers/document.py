@@ -45,11 +45,13 @@ def change_validation_state(context, event):
             validation = ref.from_object
             if api.content.get_state(validation) == 'todo':
                 api.content.transition(validation, 'refuse')
+                validation.reindexObject(idxs=['review_state'])
     elif event.new_state.id == 'validated':
         for ref in catalog.findRelations(query):
             validation = ref.from_object
             if api.content.get_state(validation) == 'todo':
                 api.content.transition(validation, 'validate')
+                validation.reindexObject(idxs=['review_state'])
 
 @grok.subscribe(IDmsFile, IObjectWillBeRemovedEvent)
 def delete_tasks(context, event):
