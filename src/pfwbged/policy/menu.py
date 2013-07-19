@@ -372,8 +372,8 @@ class CustomMenu(menu.WorkflowMenu):
 
         if IDmsDocument.providedBy(context):
             container_path = '/'.join(context.getPhysicalPath())
-            brains = catalog.searchResults({'path': {'query': container_path,
-                                                     'depth': -1},})
+            brains = catalog.searchResults({'path': {'query': container_path},
+                'portal_type': ('dmsmainfile', 'opinion', 'task', 'validation', 'information')})
 
             for brain in brains:
                 item = brain.getObject()
