@@ -73,6 +73,7 @@
   <action url="" category="workflow" icon="" i18n:translate="">Finish</action>
   <guard>
    <guard-role>Editor</guard-role>
+   <guard-role>Greffier</guard-role>
    <guard-role>Manager</guard-role>
    <guard-expression>here/@@ready_to_send</guard-expression>
   </guard>
