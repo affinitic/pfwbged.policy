@@ -92,8 +92,6 @@ def not_has_workflow_action(form):
     return not ('workflow_action' in form.request or \
                 form.request.get('form.widgets.workflow_action', False))
 
-#form.request.get('form.widgets.workflow_action', False)
-
 
 class TaskCommentForm(BaseTaskCommentForm):
 
