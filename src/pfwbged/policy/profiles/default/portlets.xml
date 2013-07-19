@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<portlets>
+
+  <assignment name="navigation" category="context" key="/"
+      manager="plone.leftcolumn"
+      remove="True">
+  </assignment>
+
+  <assignment name="news" category="context" key="/"
+      manager="plone.rightcolumn"
+      remove="True">
+  </assignment>
+
+  <assignment name="events" category="context" key="/"
+      manager="plone.rightcolumn"
+      remove="True">
+  </assignment>
+
+</portlets>
