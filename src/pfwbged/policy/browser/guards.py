@@ -85,6 +85,7 @@ class CanValidateOrRefuse(grok.View):
                                                'from_interfaces_flattened': IValidation}):
             validation = ref.from_object
             if api.content.get_state(validation) == 'todo':
-                if api.user.get_current().getId() == validation.responsible[0]:
+                roles = api.user.get_roles(user=api.user.get_current(), obj=validation)
+                if 'Editor' in roles:
                     return True
         return False

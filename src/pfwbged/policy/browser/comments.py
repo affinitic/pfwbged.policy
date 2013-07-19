@@ -41,9 +41,11 @@ class BaseTaskCommentsViewlet(CommentsViewlet):
 
 def can_render_opinion(form):
     """Return True if the current user can render an opinion"""
+    opinion = form.context
     responsible = form.context.responsible[0]
-    current_user = api.user.get_current().id
-    return api.content.get_state(form.context) != 'done' and current_user == responsible
+    current_user = api.user.get_current()
+    roles = api.user.get_roles(user=current_user, obj=opinion)
+    return api.content.get_state(opinion) != 'done' and 'Editor' in roles
 
 
 class OpinionCommentForm(BaseTaskCommentForm):
