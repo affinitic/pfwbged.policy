@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-07-19 15:00+0000\n"
+"POT-Creation-Date: 2013-07-19 20:18+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: pfwbged.policy\n"
 
-#: ../menu.py:144
+#: ../menu.py:151
 msgid "${action} the version ${version}"
 msgstr ""
 
@@ -25,11 +25,11 @@ msgstr ""
 msgid "Accept refusal"
 msgstr ""
 
-#: ../menu.py:76
+#: ../menu.py:83
 msgid "Actions"
 msgstr ""
 
-#: ../menu.py:222
+#: ../menu.py:217
 msgid "Add ${title}"
 msgstr ""
 
@@ -41,15 +41,15 @@ msgstr ""
 msgid "Ask opinion"
 msgstr ""
 
-#: ../menu.py:150
+#: ../menu.py:35
 msgid "Ask opinion about version ${version}"
 msgstr ""
 
-#: ../browser/ask_validation.py:58
+#: ../browser/ask_validation.py:59
 msgid "Ask validation"
 msgstr ""
 
-#: ../menu.py:152
+#: ../menu.py:36
 msgid "Ask validation about version ${version}"
 msgstr ""
 
@@ -65,19 +65,23 @@ msgstr ""
 msgid "Create a new version"
 msgstr ""
 
-#: ../menu.py:316
+#: ../menu.py:311
 msgid "Create signed version for version ${version}"
+msgstr ""
+
+#: ../browser/history.py:13
+msgid "Create version ${version}"
 msgstr ""
 
 #: ../menu.py:33
 msgid "File in a folder"
 msgstr ""
 
-#: ../menu.py:158
+#: ../menu.py:39
 msgid "Finish version ${version}"
 msgstr ""
 
-#: ../menu.py:129
+#: ../menu.py:136
 msgid "Mark document as read"
 msgstr ""
 
@@ -93,15 +97,15 @@ msgstr ""
 msgid "Refuse refusal"
 msgstr ""
 
-#: ../menu.py:156
+#: ../menu.py:38
 msgid "Refuse version ${version}"
 msgstr ""
 
-#: ../browser/comments.py:51
+#: ../browser/comments.py:52
 msgid "Render opinion"
 msgstr ""
 
-#: ../menu.py:134
+#: ../menu.py:141
 msgid "Return opinion about ${version}"
 msgstr ""
 
@@ -113,7 +117,7 @@ msgstr ""
 msgid "Tasks view"
 msgstr ""
 
-#: ../menu.py:154
+#: ../menu.py:37
 msgid "Validate version ${version}"
 msgstr ""
 

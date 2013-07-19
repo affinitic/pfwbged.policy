@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: pfwbged.policy\n"
-"POT-Creation-Date: 2013-07-19 15:00+0000\n"
-"PO-Revision-Date: 2013-07-19 16:59+0100\n"
-"Last-Translator: Cédric Messiant <cedricmessiant@ecreall.com>\n"
+"POT-Creation-Date: 2013-07-19 20:18+0000\n"
+"PO-Revision-Date: 2013-07-19 22:19+0100\n"
+"Last-Translator: Vincent Fretin <vincent.fretin@gmail.com>\n"
 "Language-Team: Ecréall\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
@@ -14,7 +14,7 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: DOMAIN\n"
 
-#: ../menu.py:144
+#: ../menu.py:151
 msgid "${action} the version ${version}"
 msgstr "${action} la version ${version}"
 
@@ -22,11 +22,11 @@ msgstr "${action} la version ${version}"
 msgid "Accept refusal"
 msgstr "Accepter le refus"
 
-#: ../menu.py:76
+#: ../menu.py:83
 msgid "Actions"
 msgstr "Actions"
 
-#: ../menu.py:222
+#: ../menu.py:217
 msgid "Add ${title}"
 msgstr "Ajouter ${title}"
 
@@ -38,15 +38,15 @@ msgstr "Demander le refus"
 msgid "Ask opinion"
 msgstr "Demander un avis"
 
-#: ../menu.py:150
+#: ../menu.py:35
 msgid "Ask opinion about version ${version}"
 msgstr "Demander un avis sur la version ${version}"
 
-#: ../browser/ask_validation.py:58
+#: ../browser/ask_validation.py:59
 msgid "Ask validation"
 msgstr "Demander une validation"
 
-#: ../menu.py:152
+#: ../menu.py:36
 msgid "Ask validation about version ${version}"
 msgstr "Demander une validation sur la version ${version}"
 
@@ -62,19 +62,23 @@ msgstr "Visible par"
 msgid "Create a new version"
 msgstr "Créer une nouvelle version"
 
-#: ../menu.py:316
+#: ../menu.py:311
 msgid "Create signed version for version ${version}"
 msgstr "Créer la version signée pour la version ${version}"
 
+#: ../browser/history.py:13
+msgid "Create version ${version}"
+msgstr "Création de la version ${version}"
+
 #: ../menu.py:33
 msgid "File in a folder"
-msgstr ""
+msgstr "Ranger dans un dossier"
 
-#: ../menu.py:158
+#: ../menu.py:39
 msgid "Finish version ${version}"
 msgstr "Finaliser la version ${version}"
 
-#: ../menu.py:129
+#: ../menu.py:136
 msgid "Mark document as read"
 msgstr "Marquer le document comme lu"
 
@@ -90,15 +94,15 @@ msgstr "Traiter ce courrier"
 msgid "Refuse refusal"
 msgstr "Refuser le refus"
 
-#: ../menu.py:156
+#: ../menu.py:38
 msgid "Refuse version ${version}"
 msgstr "Refuser la version ${version}"
 
-#: ../browser/comments.py:51
+#: ../browser/comments.py:52
 msgid "Render opinion"
 msgstr "Rendre un avis"
 
-#: ../menu.py:134
+#: ../menu.py:141
 msgid "Return opinion about ${version}"
 msgstr "Rendre un avis sur la version ${version}"
 
@@ -110,7 +114,7 @@ msgstr "Transmettre pour information"
 msgid "Tasks view"
 msgstr "Vue tâches"
 
-#: ../menu.py:154
+#: ../menu.py:37
 msgid "Validate version ${version}"
 msgstr "Valider la version ${version}"
 

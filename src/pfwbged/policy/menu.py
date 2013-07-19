@@ -25,13 +25,20 @@ from collective.task.content.task import ITask
 
 from . import _
 
-
+IGNORE_ = _
 PMF = MessageFactory('plone')
 
 add_actions_mapping = {'dmsmainfile': _(u"Create a new version"),
                        'information': _(u'Send for information'),
                        'pfwbgedlink': _(u'File in a folder'),
                        }
+dmsfile_wfactions_mapping = {'ask_opinion': _(u"Ask opinion about version ${version}"),
+                             'submit': _(u"Ask validation about version ${version}"),
+                             'validate': _(u"Validate version ${version}"),
+                             'refuse': _(u"Refuse version ${version}"),
+                             'finish': _(u"Finish version ${version}"),
+                             'finish_without_validation': _(u"Finish version ${version}"),
+                             }
 
 
 def outgoingmail_created(task):
@@ -147,22 +154,10 @@ class CustomMenu(menu.WorkflowMenu):
             elif IDmsFile.providedBy(context):
                 action_name = action['title']
                 version = context.Title()
-                dmsfile_wfactions_mapping = {'ask_opinion': _(u"Ask opinion about version ${version}",
-                                                              mapping={'version': version}),
-                                             'submit': _(u"Ask validation about version ${version}",
-                                                         mapping={'version': version}),
-                                             'validate': _(u"Validate version ${version}",
-                                                           mapping={'version': version}),
-                                             'refuse': _(u"Refuse version ${version}",
-                                                         mapping={'version': version}),
-                                             'finish': _(u"Finish version ${version}",
-                                                         mapping={'version': version}),
-                                             'finish_without_validation': _(u"Finish version ${version}",
-                                                                            mapping={'version': version}),
-                                             }
                 title = dmsfile_wfactions_mapping[action['id']]
+                title = IGNORE_(title, mapping={'version': version})
             else:
-                title= action['title']
+                title = action['title']
 
             if action['allowed']:
                 results.append({

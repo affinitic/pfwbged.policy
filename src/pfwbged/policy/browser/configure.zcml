@@ -72,4 +72,11 @@
       permission="zope2.View"
       />
 
+  <browser:view
+      for="collective.dms.basecontent.dmsdocument.IDmsDocument"
+      name="contenthistory"
+      class=".history.ContentHistoryView"
+      permission="zope2.View"
+      />
+
 </configure>
