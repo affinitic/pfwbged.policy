@@ -12,6 +12,7 @@ from plone.app.layout.globals.interfaces import IViewView
 from plone.app.contenttypes.interfaces import IFolder
 
 from pfwbged.policy.interfaces import IPfwbgedPolicyLayer
+from collective.contact.core.content.directory import IDirectory
 
 PMF = MessageFactory('plone')
 
@@ -48,6 +49,18 @@ class FolderReviewStateViewlet(grok.Viewlet):
 
     grok.name('review_state')
     grok.context(IFolder)
+    grok.viewletmanager(IAboveContentBody)
+    grok.view(IViewView)
+    grok.layer(IPfwbgedPolicyLayer)
+
+    def render(self):
+        return u''
+
+
+class DirectoryReviewStateViewlet(grok.Viewlet):
+
+    grok.name('review_state')
+    grok.context(IDirectory)
     grok.viewletmanager(IAboveContentBody)
     grok.view(IViewView)
     grok.layer(IPfwbgedPolicyLayer)
