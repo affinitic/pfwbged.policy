@@ -188,5 +188,6 @@ def task_done(context, event):
             elif state == 'done':
                 one_task_done = True
 
-        if one_task_done and api.content.get_state(obj=incomingmail) == 'processing':
-            api.content.transition(obj=incomingmail, transition='answer')
+        if one_task_done and api.content.get_state(obj=incomingmail) == 'processing' \
+            and incomingmail.restrictedTraverse('@@can_answer')():
+                api.content.transition(obj=incomingmail, transition='answer')
