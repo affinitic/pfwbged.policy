@@ -21,6 +21,7 @@ from collective.task.behaviors import ITarget
 from collective.task.content.validation import IValidation
 from collective.task.content.information import IInformation
 from collective.task.content.opinion import IOpinion
+from collective.task.content.task import ITask
 
 from . import _
 
@@ -132,6 +133,12 @@ class CustomMenu(menu.WorkflowMenu):
                     cssClass = 'overlay-comment-form'
                     title = _(u"Return opinion about ${version}",
                               mapping={'version': version})
+            elif ITask.providedBy(context):
+                if action['id'] in ('ask-for-refusal',
+                                    'accept-refusal',
+                                    'refuse-refusal'):
+                    cssClass = 'overlay-comment-form'
+                title= action['title']
             elif IValidation.providedBy(context):
                 action_name = action['title']
                 title = _(u"${action} the version ${version}",

@@ -10,25 +10,6 @@
     </field>
     <value>False</value>
   </record>
-  <record field="comment_required"
-          interface="collective.wfcomment.interfaces.IWorkflowCommentSettings"
-          name="collective.wfcomment.interfaces.IWorkflowCommentSettings.comment_required">
-    <value>False</value>
-  </record>
-  <record field="enable_for_all_transitions"
-          interface="collective.wfcomment.interfaces.IWorkflowCommentSettings"
-          name="collective.wfcomment.interfaces.IWorkflowCommentSettings.enable_for_all_transitions">
-    <value>False</value>
-  </record>
-  <record field="transitions"
-          interface="collective.wfcomment.interfaces.IWorkflowCommentSettings"
-          name="collective.wfcomment.interfaces.IWorkflowCommentSettings.transitions">
-    <value>
-      <element>ask-for-refusal</element>
-      <element>accept-refusal</element>
-      <element>refuse-refusal</element>
-    </value>
-  </record>
   <record name="plone.app.discussion.interfaces.IDiscussionSettings.anonymous_comments" interface="plone.app.discussion.interfaces.IDiscussionSettings" field="anonymous_comments">
     <field type="plone.registry.field.Bool">
       <default>False</default>

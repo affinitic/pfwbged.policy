@@ -61,4 +61,15 @@
       permission="zope2.View"
       />
 
+  <!-- Custom comments viewlet for ITask -->
+  <browser:viewlet
+      name="plone.comments"
+      for="collective.task.content.task.ITask"
+      layer="plone.app.discussion.interfaces.IDiscussionLayer"
+      manager="plone.app.layout.viewlets.interfaces.IBelowContent"
+      view="plone.app.layout.globals.interfaces.IViewView"
+      class=".comments.TaskCommentsViewlet"
+      permission="zope2.View"
+      />
+
 </configure>
