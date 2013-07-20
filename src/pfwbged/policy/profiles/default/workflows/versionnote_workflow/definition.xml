@@ -49,9 +49,11 @@
   </permission-map>
   <permission-map name="Modify portal content" acquired="False">
    <permission-role>Manager</permission-role>
+   <permission-role>Owner</permission-role>
   </permission-map>
   <permission-map name="Delete objects" acquired="False">
    <permission-role>Manager</permission-role>
+   <permission-role>Owner</permission-role>
   </permission-map>
  </state>
  <state state_id="obsolete" title="Obsolete" i18n:attributes="title">
