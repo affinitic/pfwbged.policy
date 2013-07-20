@@ -310,6 +310,7 @@ class CustomMenu(menu.WorkflowMenu):
             if action['id'] == 'create_signed_version':
                 action['title'] = _(u"Create signed version for version ${version}",
                                     mapping={'version': context.Title()})
+                cssClass += " overlay-form-reload"
             elif action['id'] == 'create_outgoing_mail':
                 # make it overlay !
                 cssClass += ' overlay-form-redirect'
