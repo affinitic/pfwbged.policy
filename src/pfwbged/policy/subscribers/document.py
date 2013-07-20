@@ -23,6 +23,10 @@ from collective.dms.basecontent.dmsfile import IDmsFile
 
 @grok.subscribe(IBaseTask, IObjectAddedEvent)
 def set_role_on_document(context, event):
+    """Add Reader role to document for the responsible of an
+    information, opinion, validation.
+    """
+    # recipient_groups is the "Visible par" field
     if not ITask.providedBy(context):
         document = context.getParentNode()
         if IDmsDocument.providedBy(document):
@@ -32,8 +36,13 @@ def set_role_on_document(context, event):
             document.reindexObjectSecurity()
     # do we have to set Editor role on document for ITask ? (if so, remove something for IDmsMail ?)
 
+
 @grok.subscribe(IDmsFile, IAfterTransitionEvent)
 def change_validation_state(context, event):
+    """If version state is draft, change validation state from todo to refused (transition refuse).
+    If version state is validated, change validation state from todo to validated (transition validate).
+
+    """
     intids = getUtility(IIntIds)
     catalog = getUtility(ICatalog)
     version_intid = intids.getId(context)
@@ -53,9 +62,11 @@ def change_validation_state(context, event):
                 api.content.transition(validation, 'validate')
                 validation.reindexObject(idxs=['review_state'])
 
+
 @grok.subscribe(IDmsFile, IObjectWillBeRemovedEvent)
 def delete_tasks(context, event):
-    """Delete validations and opinions when a version is deleted"""
+    """Delete validations and opinions when a version is deleted.
+    """
     try:
         intids = getUtility(IIntIds)
     except ComponentLookupError:  # when we remove the Plone site

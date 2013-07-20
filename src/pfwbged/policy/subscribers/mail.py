@@ -1,13 +1,10 @@
-import datetime
-
 from Acquisition import aq_chain, aq_parent
 
 from five import grok
 
 from zope.container.interfaces import INameChooser
 from zope.i18n import translate
-from zope.lifecycleevent.interfaces import IObjectCreatedEvent,\
-    IObjectModifiedEvent, IObjectAddedEvent
+from zope.lifecycleevent.interfaces import IObjectAddedEvent
 from zope.interface import alsoProvides
 
 from plone import api
@@ -26,7 +23,8 @@ from pfwbged.basecontent.behaviors import IPfwbIncomingMail
 
 
 def create_tasks(container, groups, deadline):
-    """Create 'process mail' tasks for a list of groups or users"""
+    """Create 'process mail' tasks for a list of groups or users.
+    """
     chooser = INameChooser(container)
     for group_name in groups:
         params = {'responsible': [],
@@ -44,7 +42,8 @@ def create_tasks(container, groups, deadline):
 
 
 def get_tasks(obj):
-    """Get all "first level" tasks related to obj"""
+    """Get all "first level" tasks related to obj.
+    """
     catalog = api.portal.get_tool('portal_catalog')
     container_path = '/'.join(obj.getPhysicalPath())
     tasks = catalog.searchResults({'path': {'query': container_path},
@@ -54,7 +53,8 @@ def get_tasks(obj):
 
 @grok.subscribe(IPfwbIncomingMail, IAfterTransitionEvent)
 def incoming_mail_attributed(context, event):
-    """Launched when a mail is attributed to some groups or users"""
+    """Launched when a mail is attributed to some groups or users.
+    """
     if event.transition is not None and event.transition.id == 'to_process':
         # first, copy treated_by and in_copy into treating_groups and recipient_groups
         treating_groups = list(frozenset(context.treating_groups + context.treated_by))
@@ -91,7 +91,8 @@ def incoming_mail_attributed(context, event):
 
 @grok.subscribe(IDmsOutgoingMail, IObjectAddedEvent)
 def outgoing_mail_created(context, event):
-    # Set Editor role on the mail to its creator
+    """Set Editor role on the outgoing mail to its creator.
+    """
     creator = api.user.get_current()
     api.user.grant_roles(user=creator, roles=['Editor'], obj=context)
     context.reindexObjectSecurity()
@@ -99,7 +100,8 @@ def outgoing_mail_created(context, event):
 
 @grok.subscribe(IDmsIncomingMail, IObjectAddedEvent)
 def incoming_mail_created(context, event):
-    # Set Owner role on the mail to its creator
+    """Set Owner role on the incoming mail to its creator.
+    """
     creator = api.user.get_current()
     api.user.grant_roles(user=creator, roles=['Owner'], obj=context)
     context.reindexObjectSecurity()
@@ -128,7 +130,8 @@ def outgoingmail_sent(context, event):
 
 @grok.subscribe(IDmsFile, IObjectAddedEvent)
 def incoming_version_added(context, event):
-    """A new version in an incoming mail is automatically finished"""
+    """A new version in an incoming mail is automatically finished.
+    """
     if IDmsIncomingMail.providedBy(context.getParentNode()):
         api.content.transition(context, 'finish_without_validation')
         context.reindexObject(idxs=['review_state'])
@@ -139,7 +142,8 @@ def incoming_version_added(context, event):
 
 @grok.subscribe(IDmsFile, IAfterTransitionEvent)
 def version_note_finished(context, event):
-    """Launched when version note is finished"""
+    """Launched when version note is finished.
+    """
     if event.new_state.id == 'finished':
         context.reindexObject(idxs=['review_state'])
         portal_catalog = api.portal.get_tool('portal_catalog')
