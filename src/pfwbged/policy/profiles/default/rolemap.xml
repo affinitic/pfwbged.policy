@@ -19,5 +19,14 @@
     <permission name="CMFEditions: Access previous versions" acquire="True">
       <role name="Member"/>
     </permission>
+    <permission name="collective.dms.basecontent: Add DmsFile" acquire="True">
+      <role name="Owner"/>
+      <role name="Manager"/>
+      <role name="Contributor"/>
+      <role name="Editor"/>
+      <role name="Reviewer"/>
+      <role name="Site Administrator"/>
+      <role name="Greffier"/>
+    </permission>
   </permissions>
 </rolemap>
