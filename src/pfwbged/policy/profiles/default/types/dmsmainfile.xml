@@ -5,7 +5,7 @@
         xmlns:i18n="http://xml.zope.org/namespaces/i18n">
   <action title="Create signed version" i18n:attributes="title" action_id="create_signed_version"
     category="object_buttons"
-    condition_expr="python:checkPermission(&quot;collective.dms.basecontent: Add DmsFile&quot;, object.getParentNode()) and object.restrictedTraverse('@@plone_context_state').workflow_state() == 'finished' and not object.signed and not object.incomingmail"
+    condition_expr="python:portal.portal_membership.getAuthenticatedMember().has_role(['Owner', 'Reviewer'], object) and checkPermission('collective.dms.basecontent: Add DmsFile', object.getParentNode()) and object.restrictedTraverse('@@plone_context_state').workflow_state() == 'finished' and not object.signed and not object.incomingmail"
     description="" icon_expr="" link_target=""
     url_expr="string:${object_url}/create_signed_version" visible="True">
   <permission value="View"/>
