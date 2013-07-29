@@ -11,6 +11,7 @@ from plone.app.querystring.querybuilder import QueryBuilder
 from plone.app.contenttypes.interfaces import ICollection, IFolder
 
 from collective.dms.basecontent.browser.listing import TasksTable as BaseTasksTable
+from collective.dms.basecontent.browser.listing import InformationsTable as BaseInformationsTable
 from collective.dms.basecontent.browser import column
 from z3c.table.interfaces import IValues
 from z3c.table.value import ValuesMixin
@@ -30,6 +31,10 @@ class TasksTable(BaseTasksTable):
         column_names = [column.__name__ for column in columns]
         selected_columns = self.request.get('columns', column_names)
         return [column for column in columns if column.__name__ in selected_columns]
+
+
+class InformationsTable(TasksTable, BaseInformationsTable):
+    pass
 
 
 class ValuesFromFolder(grok.MultiAdapter, ValuesMixin):

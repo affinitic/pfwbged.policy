@@ -89,36 +89,6 @@ def create_tasks_collections(context):
                            item_count=item_count,
                            query=query,
                            )
-    # informations
-    type = u'information'
-    role = u'enquirer'
-    id = '%s-%s' % (type, role)
-    if id not in container:
-        query = get_collection_query(type, role)
-        collection = api.content.create(container=container,
-                           type="pfwbgedcollection",
-                           id=id,
-                           title=u"Documents que j'ai transmis pour information",
-                           sort_on=sort_on,
-                           sort_reversed=sort_reversed,
-                           limit=limit,
-                           item_count=item_count,
-                           query=query,
-                           )
-    role = u'responsible'
-    id = '%s-%s' % (type, role)
-    if id not in container:
-        query = get_collection_query(type, role)
-        collection = api.content.create(container=container,
-                           type="pfwbgedcollection",
-                           id=id,
-                           title=u"À lire",
-                           sort_on=sort_on,
-                           sort_reversed=sort_reversed,
-                           limit=limit,
-                           item_count=item_count,
-                           query=query,
-                           )
     # opinions
     type = u'opinion'
     role = u'enquirer'
@@ -173,6 +143,37 @@ def create_tasks_collections(context):
                            type="pfwbgedcollection",
                            id=id,
                            title=u"Demandes de validation auxquelles je dois répondre",
+                           sort_on=sort_on,
+                           sort_reversed=sort_reversed,
+                           limit=limit,
+                           item_count=item_count,
+                           query=query,
+                           )
+    # informations
+    sort_on = u'created'
+    type = u'information'
+    role = u'enquirer'
+    id = '%s-%s' % (type, role)
+    if id not in container:
+        query = get_collection_query(type, role)
+        collection = api.content.create(container=container,
+                           type="pfwbgedcollection",
+                           id=id,
+                           title=u"Documents que j'ai transmis pour information",
+                           sort_on=sort_on,
+                           sort_reversed=sort_reversed,
+                           limit=limit,
+                           item_count=item_count,
+                           query=query,
+                           )
+    role = u'responsible'
+    id = '%s-%s' % (type, role)
+    if id not in container:
+        query = get_collection_query(type, role)
+        collection = api.content.create(container=container,
+                           type="pfwbgedcollection",
+                           id=id,
+                           title=u"À lire",
                            sort_on=sort_on,
                            sort_reversed=sort_reversed,
                            limit=limit,
