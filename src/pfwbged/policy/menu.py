@@ -119,6 +119,9 @@ class CustomMenu(menu.WorkflowMenu):
                     context.absolute_url(), action['id'])
                 cssClass = ''
 
+            if action is workflowActions[0]:
+                cssClass += ' first-workflow-action'
+
             description = ''
 
             if action['id'] in ('submit', 'ask_opinion', 'attribute'):
@@ -277,6 +280,9 @@ class CustomMenu(menu.WorkflowMenu):
                 'submenu': None,
                 })
 
+        if results:
+            results[0]['extra']['class'] += ' first-add-action'
+
         return results
 
     def getActionsForObject(self, context, request, is_subobject=False):
@@ -302,12 +308,14 @@ class CustomMenu(menu.WorkflowMenu):
         if not editActions:
             return results
 
-        cssClass = ""
-
         actionicons = getToolByName(context, 'portal_actionicons')
         portal_url = getToolByName(context, 'portal_url')()
 
         for action in editActions:
+            cssClass = ""
+            if action is editActions[0]:
+                cssClass = "first-action"
+
             if action['id'] == 'create_signed_version':
                 action['title'] = _(u"Create signed version for version ${version}",
                                     mapping={'version': context.Title()})
@@ -387,5 +395,9 @@ class CustomMenu(menu.WorkflowMenu):
 
             # wf actions on informations
             actions.extend(self.getWorkflowActionsForType(context, request, 'information'))
+
+        for action in actions:
+            if not action.get('icon'):
+                action['extra']['class'] += ' no-icon'
 
         return actions
