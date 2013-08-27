@@ -53,6 +53,7 @@ setup(
         'collective.local.workspace',
         'collective.solr',
         'collective.task',
+        'collective.onlogin',
         'five.grok',
         'pfwbged.basecontent',
         'plone.app.contenttypes',
