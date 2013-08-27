@@ -16,15 +16,23 @@
     <include package=".browser" />
 
     <include package="collective.dms.basecontent" />
+    <include package="collective.dms.batchimport" />
     <include package="collective.dms.mailcontent" />
     <include package="collective.edm.listing" />
     <include package="collective.externaleditor" />
     <include package="collective.task" />
     <include package="collective.contact.facetednav" />
     <include package="collective.local.workspace" />
+    <include package="collective.onlogin" />
     <include package="collective.solr" />
+    <include package="eea.facetednavigation" />
     <include package="pfwbged.basecontent" />
+    <include package="pfwbged.collection" />
+    <include package="pfwbged.folder" />
+    <include package="pfwbged.theme" />
+
     <include package="plone.app.contenttypes" />
+
 
     <!-- minimal eea.factednavigation -->
     <exclude package="eea.facetednavigation" />
