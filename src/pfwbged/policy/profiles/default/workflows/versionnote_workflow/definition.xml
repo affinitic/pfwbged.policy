@@ -135,8 +135,8 @@
     <guard-role>Reviewer</guard-role>
   </guard>
  </transition>
- <transition transition_id="finish_without_validation" title="Finish" new_state="finished" trigger="USER" before_script="" after_script="" i18n:attributes="title">
-  <action url="" category="workflow" icon="" i18n:translate="">Finish</action>
+ <transition transition_id="finish_without_validation" title="Validate and finish" new_state="finished" trigger="USER" before_script="" after_script="" i18n:attributes="title">
+  <action url="" category="workflow" icon="" i18n:translate="">Validate and finish</action>
   <guard>
     <guard-role>Owner</guard-role>
     <guard-expression>here/@@no_validation_in_progress</guard-expression>

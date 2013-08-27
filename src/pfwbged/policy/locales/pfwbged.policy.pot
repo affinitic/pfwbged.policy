@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-07-19 20:18+0000\n"
+"POT-Creation-Date: 2013-08-27 11:38+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: pfwbged.policy\n"
 
-#: ../menu.py:151
+#: ../menu.py:154
 msgid "${action} the version ${version}"
 msgstr ""
 
@@ -25,11 +25,11 @@ msgstr ""
 msgid "Accept refusal"
 msgstr ""
 
-#: ../menu.py:83
+#: ../menu.py:86
 msgid "Actions"
 msgstr ""
 
-#: ../menu.py:217
+#: ../menu.py:221
 msgid "Add ${title}"
 msgstr ""
 
@@ -41,7 +41,7 @@ msgstr ""
 msgid "Ask opinion"
 msgstr ""
 
-#: ../menu.py:35
+#: ../menu.py:38
 msgid "Ask opinion about version ${version}"
 msgstr ""
 
@@ -49,7 +49,7 @@ msgstr ""
 msgid "Ask validation"
 msgstr ""
 
-#: ../menu.py:36
+#: ../menu.py:39
 msgid "Ask validation about version ${version}"
 msgstr ""
 
@@ -61,11 +61,11 @@ msgstr ""
 msgid "Can view"
 msgstr ""
 
-#: ../menu.py:31
+#: ../menu.py:33
 msgid "Create a new version"
 msgstr ""
 
-#: ../menu.py:311
+#: ../menu.py:315
 msgid "Create signed version for version ${version}"
 msgstr ""
 
@@ -73,15 +73,15 @@ msgstr ""
 msgid "Create version ${version}"
 msgstr ""
 
-#: ../menu.py:33
+#: ../menu.py:35
 msgid "File in a folder"
 msgstr ""
 
-#: ../menu.py:39
+#: ../menu.py:42
 msgid "Finish version ${version}"
 msgstr ""
 
-#: ../menu.py:136
+#: ../menu.py:139
 msgid "Mark document as read"
 msgstr ""
 
@@ -89,7 +89,7 @@ msgstr ""
 msgid "Opinion application for version ${version}"
 msgstr ""
 
-#: ../subscribers/mail.py:33
+#: ../subscribers/mail.py:31
 msgid "Process mail"
 msgstr ""
 
@@ -97,7 +97,7 @@ msgstr ""
 msgid "Refuse refusal"
 msgstr ""
 
-#: ../menu.py:38
+#: ../menu.py:41
 msgid "Refuse version ${version}"
 msgstr ""
 
@@ -105,11 +105,11 @@ msgstr ""
 msgid "Render opinion"
 msgstr ""
 
-#: ../menu.py:141
+#: ../menu.py:144
 msgid "Return opinion about ${version}"
 msgstr ""
 
-#: ../menu.py:32
+#: ../menu.py:34
 msgid "Send for information"
 msgstr ""
 
@@ -117,7 +117,11 @@ msgstr ""
 msgid "Tasks view"
 msgstr ""
 
-#: ../menu.py:37
+#: ../menu.py:43
+msgid "Validate and finish version ${version}"
+msgstr ""
+
+#: ../menu.py:40
 msgid "Validate version ${version}"
 msgstr ""
 

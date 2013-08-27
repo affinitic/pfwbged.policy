@@ -1,19 +1,20 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: pfwbged.policy\n"
-"POT-Creation-Date: 2013-07-19 20:18+0000\n"
-"PO-Revision-Date: 2013-07-05 15:23+0100\n"
+"POT-Creation-Date: 2013-08-27 11:38+0000\n"
+"PO-Revision-Date: 2013-08-27 11:16+0100\n"
 "Last-Translator: Cédric Messiant <cedricmessiant@ecreall.com>\n"
 "Language-Team: French\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 "Language-Code: fr\n"
 "Language-Name: French\n"
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: plone\n"
 "X-is-fallback-for: fr-fr fr-be fr-ca\n"
+"X-Generator: Poedit 1.5.4\n"
 
 #: ../profiles/default/workflows/incomingmail_workflow/definition.xml
 msgid "Answer"
@@ -80,6 +81,10 @@ msgstr "Finaliser"
 msgid "Finished"
 msgstr "Finalisé"
 
+#: ../profiles/default/actions.xml
+msgid "Home"
+msgstr ""
+
 #: ../profiles/default/workflows/versionnote_workflow/definition.xml
 msgid "Make obsolete"
 msgstr "Rendre obsolète"
@@ -131,6 +136,10 @@ msgstr "À traiter"
 #: ../profiles/default/workflows/versionnote_workflow/definition.xml
 msgid "Validate"
 msgstr "Valider"
+
+#: ../profiles/default/workflows/versionnote_workflow/definition.xml
+msgid "Validate and finish"
+msgstr "Valider et finaliser"
 
 #: ../profiles/default/workflows/versionnote_workflow/definition.xml
 msgid "Validated"

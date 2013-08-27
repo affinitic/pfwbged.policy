@@ -25,19 +25,22 @@ from collective.task.content.task import ITask
 
 from . import _
 
+
 IGNORE_ = _
+
 PMF = MessageFactory('plone')
 
 add_actions_mapping = {'dmsmainfile': _(u"Create a new version"),
                        'information': _(u'Send for information'),
                        'pfwbgedlink': _(u'File in a folder'),
                        }
+
 dmsfile_wfactions_mapping = {'ask_opinion': _(u"Ask opinion about version ${version}"),
                              'submit': _(u"Ask validation about version ${version}"),
                              'validate': _(u"Validate version ${version}"),
                              'refuse': _(u"Refuse version ${version}"),
                              'finish': _(u"Finish version ${version}"),
-                             'finish_without_validation': _(u"Finish version ${version}"),
+                             'finish_without_validation': _(u"Validate and finish version ${version}"),
                              }
 
 
