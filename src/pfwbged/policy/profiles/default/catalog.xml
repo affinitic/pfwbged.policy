@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<object name="portal_catalog" meta_type="Plone Catalog Tool">
+  <index name="has_final_unsigned_version" meta_type="FieldIndex">
+    <indexed_attr value="has_final_unsigned_version"/>
+  </index>
+  <column value="has_final_unsigned_version"/>
+</object>
