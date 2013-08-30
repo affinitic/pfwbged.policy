@@ -29,7 +29,7 @@ GROUPDEFS = [{'group': 'chef_info', 'roles': ('',),
              ]
 
 
-USERDEFS = [{'user': 'secretary', 'roles': ('Member', ), 'groups': ()},
+USERDEFS = [{'user': 'secretaire', 'roles': ('Member', ), 'groups': ()},
             {'user': 'greffier', 'roles': ('Greffier', 'Member', 'Reviewer'),
              'groups': ()},
             {'user': 'editor', 'roles': ('Member', ), 'groups': ()},
@@ -38,6 +38,9 @@ USERDEFS = [{'user': 'secretary', 'roles': ('Member', ), 'groups': ()},
             {'user': 'reader', 'roles': ('Member', ), 'groups': ()},
             {'user': 'manager', 'roles': ('Member', 'Manager'), 'groups': ()},
             # for robot tests
+            {'user': 'info', 'roles': ('Member', ), 'groups': ('chef_info',)},
+            {'user': 'finances', 'roles': ('Member', ),
+             'groups': ('chef_finances',)},
             {'user': 'christine', 'roles': ('Member', ),
              'groups': ('chef_info',)},
             {'user': 'robert', 'roles': ('Member', ), 'groups': ()},
