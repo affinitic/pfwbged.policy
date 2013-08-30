@@ -10,6 +10,9 @@
 
     <five:registerPackage package="." initialize=".initialize" />
 
+    <include package="plone.directives.form" file="meta.zcml" />
+    <include package="plone.directives.form" />
+
     <include package="five.grok" />
     <grok:grok package="." />
 
