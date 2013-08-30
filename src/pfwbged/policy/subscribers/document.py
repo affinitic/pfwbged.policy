@@ -82,3 +82,10 @@ def delete_tasks(context, event):
         obj = rv.from_object
         #obj.aq_parent.manage_delObjects([obj.getId()])  # we don't want to verify Delete object permission on object
         del aq_parent(obj)[obj.getId()]
+
+
+@grok.subscribe(IDmsFile, IObjectAddedEvent)
+def version_is_signed_at_creation(context, event):
+    """If checkbox signed is checked, finish version without validation after creation"""
+    if context.signed:
+        api.content.transition(context, 'finish_without_validation')
