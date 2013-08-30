@@ -45,7 +45,9 @@ def change_validation_state(context, event):
     """
     intids = getUtility(IIntIds)
     catalog = getUtility(ICatalog)
-    version_intid = intids.getId(context)
+    version_intid = intids.queryId(context)
+    if version_intid is None:
+        return
     query = {'to_id': version_intid,
              'from_interfaces_flattened': IValidation,
              'from_attribute': 'target'}
