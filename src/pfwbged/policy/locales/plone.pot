@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-08-27 11:38+0000\n"
+"POT-Creation-Date: 2013-08-30 10:15+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -43,6 +43,10 @@ msgstr ""
 
 #: ../profiles/default/workflows/incomingmail_workflow/definition.xml
 msgid "Back to registering"
+msgstr ""
+
+#: ../profiles/default/workflows/incomingmail_workflow/definition.xml
+msgid "Considered"
 msgstr ""
 
 #: ../profiles/default/types/task.xml

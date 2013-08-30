@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: pfwbged.policy\n"
-"POT-Creation-Date: 2013-08-27 11:38+0000\n"
-"PO-Revision-Date: 2013-08-27 11:16+0100\n"
-"Last-Translator: Cédric Messiant <cedricmessiant@ecreall.com>\n"
+"POT-Creation-Date: 2013-08-30 10:15+0000\n"
+"PO-Revision-Date: 2013-08-30 12:16+0100\n"
+"Last-Translator: Cédric Messiant <cedric.messiant@gmail.com>\n"
 "Language-Team: French\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
@@ -44,6 +44,10 @@ msgstr "Retour à attribuer"
 msgid "Back to registering"
 msgstr "Retour à indicater"
 
+#: ../profiles/default/workflows/incomingmail_workflow/definition.xml
+msgid "Considered"
+msgstr "Pris en compte"
+
 #: ../profiles/default/types/task.xml
 msgid "Create outgoing mail"
 msgstr "Créer une réponse à ce courrier"
@@ -70,7 +74,7 @@ msgstr "En rédaction"
 
 #: ../profiles/default/actions.xml
 msgid "Edit"
-msgstr ""
+msgstr "Modifier"
 
 #: ../profiles/default/workflows/outgoingmail_workflow/definition.xml
 #: ../profiles/default/workflows/versionnote_workflow/definition.xml
@@ -83,7 +87,7 @@ msgstr "Finalisé"
 
 #: ../profiles/default/actions.xml
 msgid "Home"
-msgstr ""
+msgstr "Accueil"
 
 #: ../profiles/default/workflows/versionnote_workflow/definition.xml
 msgid "Make obsolete"
@@ -152,4 +156,3 @@ msgstr "En cours de validation"
 #: ../profiles/default/workflows/outgoingmail_workflow/definition.xml
 msgid "Writing"
 msgstr "En rédaction"
-

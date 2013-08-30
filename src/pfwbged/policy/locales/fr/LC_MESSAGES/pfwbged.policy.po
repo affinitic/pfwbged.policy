@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: pfwbged.policy\n"
-"POT-Creation-Date: 2013-08-27 11:38+0000\n"
+"POT-Creation-Date: 2013-08-30 10:15+0000\n"
 "PO-Revision-Date: 2013-08-27 11:17+0100\n"
 "Last-Translator: Vincent Fretin <vincent.fretin@gmail.com>\n"
 "Language-Team: Ecréall\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Domain: DOMAIN\n"
 "X-Generator: Poedit 1.5.4\n"
 
-#: ../menu.py:154
+#: ../menu.py:157
 msgid "${action} the version ${version}"
 msgstr "${action} la version ${version}"
 
@@ -27,7 +27,7 @@ msgstr "Accepter le refus"
 msgid "Actions"
 msgstr "Actions"
 
-#: ../menu.py:221
+#: ../menu.py:224
 msgid "Add ${title}"
 msgstr "Ajouter ${title}"
 
@@ -63,7 +63,7 @@ msgstr "Visible par"
 msgid "Create a new version"
 msgstr "Créer une nouvelle version"
 
-#: ../menu.py:315
+#: ../menu.py:323
 msgid "Create signed version for version ${version}"
 msgstr "Créer la version signée pour la version ${version}"
 
@@ -79,7 +79,7 @@ msgstr "Ranger dans un dossier"
 msgid "Finish version ${version}"
 msgstr "Finaliser la version ${version}"
 
-#: ../menu.py:139
+#: ../menu.py:142
 msgid "Mark document as read"
 msgstr "Marquer le document comme lu"
 
@@ -103,7 +103,7 @@ msgstr "Refuser la version ${version}"
 msgid "Render opinion"
 msgstr "Rendre un avis"
 
-#: ../menu.py:144
+#: ../menu.py:147
 msgid "Return opinion about ${version}"
 msgstr "Rendre un avis sur la version ${version}"
 

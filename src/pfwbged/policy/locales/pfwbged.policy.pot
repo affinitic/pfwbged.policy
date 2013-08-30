@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-08-27 11:38+0000\n"
+"POT-Creation-Date: 2013-08-30 10:15+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: pfwbged.policy\n"
 
-#: ../menu.py:154
+#: ../menu.py:157
 msgid "${action} the version ${version}"
 msgstr ""
 
@@ -29,7 +29,7 @@ msgstr ""
 msgid "Actions"
 msgstr ""
 
-#: ../menu.py:221
+#: ../menu.py:224
 msgid "Add ${title}"
 msgstr ""
 
@@ -65,7 +65,7 @@ msgstr ""
 msgid "Create a new version"
 msgstr ""
 
-#: ../menu.py:315
+#: ../menu.py:323
 msgid "Create signed version for version ${version}"
 msgstr ""
 
@@ -81,7 +81,7 @@ msgstr ""
 msgid "Finish version ${version}"
 msgstr ""
 
-#: ../menu.py:139
+#: ../menu.py:142
 msgid "Mark document as read"
 msgstr ""
 
@@ -105,7 +105,7 @@ msgstr ""
 msgid "Render opinion"
 msgstr ""
 
-#: ../menu.py:144
+#: ../menu.py:147
 msgid "Return opinion about ${version}"
 msgstr ""
 
