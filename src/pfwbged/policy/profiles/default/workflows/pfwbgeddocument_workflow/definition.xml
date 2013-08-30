@@ -1,77 +1,152 @@
 <?xml version="1.0"?>
 <dc-workflow workflow_id="pfwbgeddocument_workflow"
-             title="Workflow for PFWB GED Documents"
-             description="The document is published. It can be declared as acceptable as a parlemntary document"
+             title="Workflow for other documents"
+             description=""
              state_variable="review_state"
-             initial_state="published"
+             initial_state="assigning"
              manager_bypass="False"
              xmlns:i18n="http://xml.zope.org/namespaces/i18n"
              i18n:domain="plone">
  <permission>Access contents information</permission>
  <permission>Modify portal content</permission>
  <permission>View</permission>
- <state state_id="published" title="Published">
-  <description>The document is published.</description>
+ <state state_id="assigning" title="To process" i18n:attributes="title">
+  <exit-transition transition_id="back_to_registering"/>
+  <exit-transition transition_id="directly_noaction"/>
+  <exit-transition transition_id="to_process"/>
   <permission-map name="Access contents information" acquired="False">
-   <permission-role>Manager</permission-role>
    <permission-role>Editor</permission-role>
+   <permission-role>Manager</permission-role>
    <permission-role>Owner</permission-role>
    <permission-role>Reader</permission-role>
    <permission-role>Reviewer</permission-role>
+   <permission-role>Site Administrator</permission-role>
   </permission-map>
   <permission-map name="Modify portal content" acquired="False">
-   <permission-role>Manager</permission-role>
    <permission-role>Editor</permission-role>
+   <permission-role>Manager</permission-role>
    <permission-role>Owner</permission-role>
    <permission-role>Reviewer</permission-role>
+   <permission-role>Site Administrator</permission-role>
   </permission-map>
   <permission-map name="View" acquired="False">
-   <permission-role>Manager</permission-role>
    <permission-role>Editor</permission-role>
+   <permission-role>Manager</permission-role>
    <permission-role>Owner</permission-role>
    <permission-role>Reader</permission-role>
    <permission-role>Reviewer</permission-role>
+   <permission-role>Site Administrator</permission-role>
   </permission-map>
  </state>
- <state state_id="acceptable" title="Declared acceptable">
-  <description>Declared acceptable as a parlementary document.</description>
+ <state state_id="considered" title="Considered" i18n:attributes="title">
+  <exit-transition transition_id="back_to_assigning"/>
   <permission-map name="Access contents information" acquired="False">
-   <permission-role>Manager</permission-role>
    <permission-role>Editor</permission-role>
+   <permission-role>Manager</permission-role>
    <permission-role>Owner</permission-role>
    <permission-role>Reader</permission-role>
    <permission-role>Reviewer</permission-role>
+   <permission-role>Site Administrator</permission-role>
   </permission-map>
   <permission-map name="Modify portal content" acquired="False">
-   <permission-role>Manager</permission-role>
    <permission-role>Editor</permission-role>
-   <permission-role>Owner</permission-role>
+   <permission-role>Manager</permission-role>
    <permission-role>Reviewer</permission-role>
+   <permission-role>Site Administrator</permission-role>
   </permission-map>
   <permission-map name="View" acquired="False">
-   <permission-role>Manager</permission-role>
    <permission-role>Editor</permission-role>
+   <permission-role>Manager</permission-role>
    <permission-role>Owner</permission-role>
    <permission-role>Reader</permission-role>
    <permission-role>Reviewer</permission-role>
+   <permission-role>Site Administrator</permission-role>
   </permission-map>
  </state>
- <transition transition_id="declare-acceptable" title="Declare acceptable" new_state="acceptable" trigger="USER" before_script="" after_script="">
-  <description>The document is acceptable as a parlementary document.</description>
-  <action url="" category="workflow" icon="" i18n:translate="">Declare acceptable</action>
+ <state state_id="noaction" title="No action" i18n:attributes="title">
+  <exit-transition transition_id="back_to_assigning"/>
+  <permission-map name="Access contents information" acquired="False">
+   <permission-role>Editor</permission-role>
+   <permission-role>Manager</permission-role>
+   <permission-role>Owner</permission-role>
+   <permission-role>Reader</permission-role>
+   <permission-role>Reviewer</permission-role>
+   <permission-role>Site Administrator</permission-role>
+  </permission-map>
+  <permission-map name="Modify portal content" acquired="False">
+   <permission-role>Editor</permission-role>
+   <permission-role>Manager</permission-role>
+   <permission-role>Reviewer</permission-role>
+   <permission-role>Site Administrator</permission-role>
+  </permission-map>
+  <permission-map name="View" acquired="False">
+   <permission-role>Editor</permission-role>
+   <permission-role>Manager</permission-role>
+   <permission-role>Owner</permission-role>
+   <permission-role>Reader</permission-role>
+   <permission-role>Reviewer</permission-role>
+   <permission-role>Site Administrator</permission-role>
+  </permission-map>
+ </state>
+ <state state_id="processed" title="Processed" i18n:attributes="title">
+ </state>
+ <state state_id="processing" title="Processing" i18n:attributes="title">
+  <exit-transition transition_id="process"/>
+  <exit-transition transition_id="to_considered"/>
+  <exit-transition transition_id="to_noaction"/>
+  <permission-map name="Access contents information" acquired="False">
+   <permission-role>Editor</permission-role>
+   <permission-role>Manager</permission-role>
+   <permission-role>Owner</permission-role>
+   <permission-role>Reader</permission-role>
+   <permission-role>Reviewer</permission-role>
+   <permission-role>Site Administrator</permission-role>
+  </permission-map>
+  <permission-map name="Modify portal content" acquired="False">
+   <permission-role>Editor</permission-role>
+   <permission-role>Manager</permission-role>
+   <permission-role>Reviewer</permission-role>
+   <permission-role>Site Administrator</permission-role>
+  </permission-map>
+  <permission-map name="View" acquired="False">
+   <permission-role>Editor</permission-role>
+   <permission-role>Manager</permission-role>
+   <permission-role>Owner</permission-role>
+   <permission-role>Reader</permission-role>
+   <permission-role>Reviewer</permission-role>
+   <permission-role>Site Administrator</permission-role>
+  </permission-map>
+ </state>
+ <transition transition_id="back_to_assigning" title="" new_state="assigning" trigger="USER" before_script="" after_script="">
+  <action url="%(content_url)s/content_status_modify?workflow_action=back_to_assigning" category="workflow" icon="" i18n:translate="">Back to to process</action>
   <guard>
-   <guard-role>Manager</guard-role>
-   <guard-role>Reviewer</guard-role>
   </guard>
  </transition>
- <worklist worklist_id="reviewer_queue" title="">
-  <description>Reviewer tasks</description>
-  <action url="%(portal_url)s/search?review_state=pending" category="global" icon="">Pending (%(count)d)</action>
+ <transition transition_id="directly_noaction" title="" new_state="noaction" trigger="USER" before_script="" after_script="">
+  <action url="%(content_url)s/content_status_modify?workflow_action=directly_noaction" category="invisible" icon="" i18n:translate="">No action</action>
   <guard>
-   <guard-permission>Review portal content</guard-permission>
   </guard>
-  <match name="review_state" values="pending"/>
- </worklist>
+ </transition>
+ <transition transition_id="process" title="Process" new_state="processed" trigger="USER" before_script="" after_script="">
+  <action url="%(content_url)s/content_status_modify?workflow_action=process" category="invisible" icon="" i18n:translate="">Process</action>
+  <guard>
+  </guard>
+ </transition>
+ <transition transition_id="to_considered" title="" new_state="considered" trigger="USER" before_script="" after_script="">
+  <action url="%(content_url)s/content_status_modify?workflow_action=to_considered" category="workflow" icon="" i18n:translate="">Considered</action>
+  <guard>
+  </guard>
+ </transition>
+ <transition transition_id="to_noaction" title="" new_state="noaction" trigger="USER" before_script="" after_script="">
+  <action url="%(content_url)s/content_status_modify?workflow_action=to_noaction" category="workflow" icon="" i18n:translate="">No action</action>
+  <guard>
+  </guard>
+ </transition>
+ <transition transition_id="to_process" title="" new_state="processing" trigger="USER" before_script="" after_script="">
+  <action url="%(content_url)s/content_status_modify?workflow_action=to_process" category="invisible" icon="" i18n:translate="">To process</action>
+  <guard>
+  </guard>
+ </transition>
  <variable variable_id="action" for_catalog="False" for_status="True" update_always="True">
   <description>Previous transition</description>
   <default>

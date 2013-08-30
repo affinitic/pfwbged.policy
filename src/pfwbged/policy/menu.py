@@ -22,6 +22,8 @@ from collective.task.content.validation import IValidation
 from collective.task.content.information import IInformation
 from collective.task.content.opinion import IOpinion
 from collective.task.content.task import ITask
+from collective.task.indexers import get_document
+from pfwbged.basecontent.behaviors import IPfwbIncomingMail
 
 from . import _
 
@@ -58,6 +60,11 @@ def outgoingmail_created(task):
                                           'from_attribute': 'related_task'}):
             refs.append(ref)
     return bool(refs)
+
+
+def is_linked_to_an_incoming_mail(task):
+    document = get_document(task)
+    return IPfwbIncomingMail.providedBy(document)
 
 
 class ActionsSubMenuItem(grok.MultiAdapter, menu.ActionsSubMenuItem):
@@ -301,7 +308,7 @@ class CustomMenu(menu.WorkflowMenu):
             _editActions = ttool.listActionInfos(object=context,
                                                 category='object_buttons',
                                                 max=-1)
-            editActions = [action for action in _editActions if action['id'] != 'create_outgoing_mail' or not outgoingmail_created(context)]
+            editActions = [action for action in _editActions if action['id'] != 'create_outgoing_mail' or (is_linked_to_an_incoming_mail(context) and not outgoingmail_created(context))]
 
         else:
             editActions = []

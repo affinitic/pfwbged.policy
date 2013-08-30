@@ -33,6 +33,9 @@ class CreateSignedVersion(grok.View):
         new_version.reindexObject(idxs=['review_state'])
         local_roles = copied_version.__ac_local_roles__
         new_version.__ac_local_roles__ = deepcopy(local_roles)
+        api.user.grant_roles(user=api.user.get_current(),
+                             roles=['Owner'],
+                             obj=new_version)
         new_version.reindexObject()
         # copy local roles
         self.request.response.redirect(new_version.absolute_url() + "/edit")

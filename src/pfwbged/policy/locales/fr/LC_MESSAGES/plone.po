@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: pfwbged.policy\n"
-"POT-Creation-Date: 2013-08-30 10:15+0000\n"
-"PO-Revision-Date: 2013-08-30 12:16+0100\n"
+"POT-Creation-Date: 2013-08-30 17:32+0000\n"
+"PO-Revision-Date: 2013-08-30 19:33+0100\n"
 "Last-Translator: Cédric Messiant <cedric.messiant@gmail.com>\n"
 "Language-Team: French\n"
 "MIME-Version: 1.0\n"
@@ -44,7 +44,12 @@ msgstr "Retour à attribuer"
 msgid "Back to registering"
 msgstr "Retour à indicater"
 
+#: ../profiles/default/workflows/pfwbgeddocument_workflow/definition.xml
+msgid "Back to to process"
+msgstr "Retour en à traiter"
+
 #: ../profiles/default/workflows/incomingmail_workflow/definition.xml
+#: ../profiles/default/workflows/pfwbgeddocument_workflow/definition.xml
 msgid "Considered"
 msgstr "Pris en compte"
 
@@ -55,10 +60,6 @@ msgstr "Créer une réponse à ce courrier"
 #: ../profiles/default/types/dmsmainfile.xml
 msgid "Create signed version"
 msgstr "Créer la version signée"
-
-#: ../profiles/default/workflows/pfwbgeddocument_workflow/definition.xml
-msgid "Declare acceptable"
-msgstr "Déclarer recevable"
 
 #: collective.dms.basecontent:./profiles/default/types/dmsmainfile.xml
 msgid "Dms main file of an Dms document"
@@ -98,6 +99,7 @@ msgid "My Folder"
 msgstr "Mon dossier"
 
 #: ../profiles/default/workflows/incomingmail_workflow/definition.xml
+#: ../profiles/default/workflows/pfwbgeddocument_workflow/definition.xml
 msgid "No action"
 msgstr "Sans suite"
 
@@ -105,7 +107,16 @@ msgstr "Sans suite"
 msgid "Obsolete"
 msgstr "Obsolète"
 
+#: ../profiles/default/workflows/pfwbgeddocument_workflow/definition.xml
+msgid "Process"
+msgstr "Traiter"
+
+#: ../profiles/default/workflows/pfwbgeddocument_workflow/definition.xml
+msgid "Processed"
+msgstr "Traité"
+
 #: ../profiles/default/workflows/incomingmail_workflow/definition.xml
+#: ../profiles/default/workflows/pfwbgeddocument_workflow/definition.xml
 msgid "Processing"
 msgstr "En cours de traitement"
 
@@ -134,6 +145,7 @@ msgid "To assign"
 msgstr "À attribuer"
 
 #: ../profiles/default/workflows/incomingmail_workflow/definition.xml
+#: ../profiles/default/workflows/pfwbgeddocument_workflow/definition.xml
 msgid "To process"
 msgstr "À traiter"
 

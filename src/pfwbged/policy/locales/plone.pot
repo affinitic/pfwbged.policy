@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-08-30 10:15+0000\n"
+"POT-Creation-Date: 2013-08-30 17:32+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -45,7 +45,12 @@ msgstr ""
 msgid "Back to registering"
 msgstr ""
 
+#: ../profiles/default/workflows/pfwbgeddocument_workflow/definition.xml
+msgid "Back to to process"
+msgstr ""
+
 #: ../profiles/default/workflows/incomingmail_workflow/definition.xml
+#: ../profiles/default/workflows/pfwbgeddocument_workflow/definition.xml
 msgid "Considered"
 msgstr ""
 
@@ -55,10 +60,6 @@ msgstr ""
 
 #: ../profiles/default/types/dmsmainfile.xml
 msgid "Create signed version"
-msgstr ""
-
-#: ../profiles/default/workflows/pfwbgeddocument_workflow/definition.xml
-msgid "Declare acceptable"
 msgstr ""
 
 #: collective.dms.basecontent:./profiles/default/types/dmsmainfile.xml
@@ -99,6 +100,7 @@ msgid "My Folder"
 msgstr ""
 
 #: ../profiles/default/workflows/incomingmail_workflow/definition.xml
+#: ../profiles/default/workflows/pfwbgeddocument_workflow/definition.xml
 msgid "No action"
 msgstr ""
 
@@ -106,7 +108,16 @@ msgstr ""
 msgid "Obsolete"
 msgstr ""
 
+#: ../profiles/default/workflows/pfwbgeddocument_workflow/definition.xml
+msgid "Process"
+msgstr ""
+
+#: ../profiles/default/workflows/pfwbgeddocument_workflow/definition.xml
+msgid "Processed"
+msgstr ""
+
 #: ../profiles/default/workflows/incomingmail_workflow/definition.xml
+#: ../profiles/default/workflows/pfwbgeddocument_workflow/definition.xml
 msgid "Processing"
 msgstr ""
 
@@ -135,6 +146,7 @@ msgid "To assign"
 msgstr ""
 
 #: ../profiles/default/workflows/incomingmail_workflow/definition.xml
+#: ../profiles/default/workflows/pfwbgeddocument_workflow/definition.xml
 msgid "To process"
 msgstr ""
 

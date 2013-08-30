@@ -1,7 +1,9 @@
-from Acquisition import aq_parent
+from Acquisition import aq_chain, aq_parent
 from five import grok
 
 from zc.relation.interfaces import ICatalog
+from zope.container.interfaces import INameChooser
+from zope.i18n import translate
 from zope.component import getUtility
 from zope.component.interfaces import ComponentLookupError
 from zope.intid.interfaces import IIntIds
@@ -19,6 +21,14 @@ from collective.task.content.task import ITask
 from collective.task.content.validation import IValidation
 from collective.task.interfaces import IBaseTask
 from collective.dms.basecontent.dmsfile import IDmsFile
+
+from pfwbged.basecontent.behaviors import IPfwbDocument
+from pfwbged.policy import _
+
+
+def has_pfwbgeddocument_workflow(obj):
+    wtool = api.portal.get_tool('portal_workflow')
+    return 'pfwbgeddocument_workflow' in wtool.getChainFor(obj)
 
 
 @grok.subscribe(IBaseTask, IObjectAddedEvent)
@@ -89,3 +99,97 @@ def version_is_signed_at_creation(context, event):
     """If checkbox signed is checked, finish version without validation after creation"""
     if context.signed:
         api.content.transition(context, 'finish_without_validation')
+
+
+### Workflow for other documents
+@grok.subscribe(IPfwbDocument, IObjectAddedEvent)
+def create_task_after_creation(context, event):
+    """Create a task attributed to creator after document creation"""
+    creator = context.Creator()
+    params = {'responsible': [],
+              'title': translate(_(u'Process document'),
+                                 context=context.REQUEST),
+              }
+    task_id = context.invokeFactory('task', 'process-document', **params)
+    task = context[task_id]
+    datamanager = LocalRolesToPrincipalsDataManager(task, ITask['responsible'])
+    datamanager.set((creator,))
+    task.reindexObject()
+
+
+@grok.subscribe(ITask, IAfterTransitionEvent)
+def task_in_progress(context, event):
+    """When a task change state, change parent state
+    """
+    if event.new_state.id == 'in-progress':
+        # go up in the acquisition chain to find the first task (i.e. the one which is just below the document)
+        for obj in aq_chain(context):
+            obj = aq_parent(obj)
+            if IPfwbDocument.providedBy(obj):
+                break
+        # only applies to "other documents"
+        if not has_pfwbgeddocument_workflow(obj):
+            return
+        document = obj
+        api.content.transition(obj=document, transition='to_process')
+        document.reindexObject(idxs=['review_state'])
+
+
+@grok.subscribe(IDmsFile, IAfterTransitionEvent)
+def version_note_finished(context, event):
+    """Launched when version note is finished.
+    """
+    if event.new_state.id == 'finished':
+        context.reindexObject(idxs=['review_state'])
+        portal_catalog = api.portal.get_tool('portal_catalog')
+        document = context.getParentNode()
+        state = api.content.get_state(obj=document)
+        # if parent is an outgoing mail, change its state to ready_to_send
+        if document.portal_type == 'dmsoutgoingmail' and state == 'writing':
+            api.content.transition(obj=document, transition='finish')
+            document.reindexObject(idxs=['review_state'])
+        elif IPfwbDocument.providedBy(document) and has_pfwbgeddocument_workflow(document) and state == 'processing':
+            api.content.transition(obj=document, transition='process')
+            document.reindexObject(idxs=['review_state'])
+
+        version_notes = portal_catalog.unrestrictedSearchResults(portal_type='dmsmainfile',
+                                                                 path='/'.join(document.getPhysicalPath()))
+        # make obsolete other versions
+        for version_brain in version_notes:
+            version = version_brain._unrestrictedGetObject()
+            if api.content.get_state(obj=version) in ('draft', 'pending', 'validated'):
+                api.content.transition(obj=version, transition='obsolete')
+                version.reindexObject(idxs=['review_state'])
+        context.__ac_local_roles_block__ = False
+        context.reindexObjectSecurity()
+
+
+@grok.subscribe(IPfwbDocument, IAfterTransitionEvent)
+def document_is_processed(context, event):
+    """When document is processed, close all tasks"""
+    portal_catalog = api.portal.get_tool('portal_catalog')
+    if has_pfwbgeddocument_workflow(context) and event.new_state.id not in ('processing',):
+        tasks = portal_catalog.unrestrictedSearchResults(portal_type='task',
+                                                         path='/'.join(context.getPhysicalPath()))
+        for brain in tasks:
+            task = brain._unrestrictedGetObject()
+            if api.content.get_state(obj=task) == 'in-progress':
+                api.content.transition(obj=task, transition='mark-as-done')
+
+
+@grok.subscribe(IPfwbDocument, IAfterTransitionEvent)
+def document_is_reopened(context, event):
+    """When a document is reoponed, create a new task"""
+    if has_pfwbgeddocument_workflow(context) and event.transition is not None and event.new_state.id == 'assigning':
+        creator = api.user.get_current().getId()
+        params = {'responsible': [],
+                  'title': translate(_(u'Process document'),
+                                     context=context.REQUEST),
+                  }
+        chooser = INameChooser(context)
+        task_id = chooser.chooseName('process-document', context)
+        task_id = context.invokeFactory('task', task_id, **params)
+        task = context[task_id]
+        datamanager = LocalRolesToPrincipalsDataManager(task, ITask['responsible'])
+        datamanager.set((creator,))
+        task.reindexObject()

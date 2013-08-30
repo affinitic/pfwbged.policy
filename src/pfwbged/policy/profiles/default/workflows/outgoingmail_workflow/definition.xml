@@ -72,6 +72,7 @@
  <transition transition_id="finish" title="Finish" new_state="ready_to_send" trigger="USER" before_script="" after_script="" i18n:attributes="title">
   <action url="" category="workflow" icon="" i18n:translate="">Finish</action>
   <guard>
+   <guard-role>Contributor</guard-role>
    <guard-role>Editor</guard-role>
    <guard-role>Greffier</guard-role>
    <guard-role>Manager</guard-role>

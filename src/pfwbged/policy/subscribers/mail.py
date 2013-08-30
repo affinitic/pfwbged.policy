@@ -140,30 +140,6 @@ def incoming_version_added(context, event):
         context.reindexObjectSecurity()
 
 
-@grok.subscribe(IDmsFile, IAfterTransitionEvent)
-def version_note_finished(context, event):
-    """Launched when version note is finished.
-    """
-    if event.new_state.id == 'finished':
-        context.reindexObject(idxs=['review_state'])
-        portal_catalog = api.portal.get_tool('portal_catalog')
-        document = context.getParentNode()
-        # if parent is an outgoing mail, change its state to ready_to_send
-        if document.portal_type == 'dmsoutgoingmail' and api.content.get_state(obj=document) == 'writing':
-            api.content.transition(obj=document, transition='finish')
-            document.reindexObject(idxs=['review_state'])
-        version_notes = portal_catalog.unrestrictedSearchResults(portal_type='dmsmainfile',
-                path='/'.join(document.getPhysicalPath()))
-        # make obsolete other versions
-        for version_brain in version_notes:
-            version = version_brain._unrestrictedGetObject()
-            if api.content.get_state(obj=version) in ('draft', 'pending', 'validated'):
-                api.content.transition(obj=version, transition='obsolete')
-                version.reindexObject(idxs=['review_state'])
-        context.__ac_local_roles_block__ = False
-        context.reindexObjectSecurity()
-
-
 @grok.subscribe(ITask, IAfterTransitionEvent)
 def task_done(context, event):
     """Launched when task is done or abandoned.
