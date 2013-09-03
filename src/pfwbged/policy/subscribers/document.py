@@ -99,6 +99,7 @@ def version_is_signed_at_creation(context, event):
     """If checkbox signed is checked, finish version without validation after creation"""
     if context.signed:
         api.content.transition(context, 'finish_without_validation')
+        context.reindexObject(idxs=['review_state'])
 
 
 ### Workflow for other documents
@@ -133,6 +134,16 @@ def task_in_progress(context, event):
         document = obj
         api.content.transition(obj=document, transition='to_process')
         document.reindexObject(idxs=['review_state'])
+    elif event.new_state.id == 'abandoned':
+        obj = aq_parent(context)
+        if not IPfwbDocument.providedBy(obj):
+            return
+        # only applies to "other documents"
+        if not has_pfwbgeddocument_workflow(obj):
+            return
+        document = obj
+        api.content.transition(obj=document, transition='directly_noaction')
+        document.reindexObject(idxs=['review_state'])
 
 
 @grok.subscribe(IDmsFile, IAfterTransitionEvent)
@@ -148,9 +159,21 @@ def version_note_finished(context, event):
         if document.portal_type == 'dmsoutgoingmail' and state == 'writing':
             api.content.transition(obj=document, transition='finish')
             document.reindexObject(idxs=['review_state'])
-        elif IPfwbDocument.providedBy(document) and has_pfwbgeddocument_workflow(document) and state == 'processing':
-            api.content.transition(obj=document, transition='process')
-            document.reindexObject(idxs=['review_state'])
+        elif IPfwbDocument.providedBy(document) and has_pfwbgeddocument_workflow(document):
+            if state == 'processing':
+                api.content.transition(obj=document, transition='process')
+                document.reindexObject(idxs=['review_state'])
+            elif state == "assigning":
+                tasks = portal_catalog.unrestrictedSearchResults(portal_type='task',
+                                                                 path='/'.join(document.getPhysicalPath()))
+                for brain in tasks:
+                    task = brain._unrestrictedGetObject()
+                    if api.content.get_state(obj=task) == 'todo':
+                        api.content.transition(obj=task, transition='take-responsibility')
+                        task.reindexObject(idxs=['review_state'])
+                # the document is now in processing state because the task is in progress
+                api.content.transition(obj=document, transition='process')
+                document.reindexObject(idxs=['review_state'])
 
         version_notes = portal_catalog.unrestrictedSearchResults(portal_type='dmsmainfile',
                                                                  path='/'.join(document.getPhysicalPath()))
@@ -175,6 +198,7 @@ def document_is_processed(context, event):
             task = brain._unrestrictedGetObject()
             if api.content.get_state(obj=task) == 'in-progress':
                 api.content.transition(obj=task, transition='mark-as-done')
+                task.reindexObject(idxs=['review_state'])
 
 
 @grok.subscribe(IPfwbDocument, IAfterTransitionEvent)
