@@ -11,7 +11,8 @@ Test Setup  Run keywords  Open test browser  Setup Plone site
 Test Teardown  Close all browsers
 
 *** Variables ***
-${tests_path}  /home/cedricmessiant/workspace/buildouts/pfwbged.buildout/src/pfwbged.policy/src/pfwbged/policy/tests
+${tests_path}  /home/vincentfretin/workspace/pfwbged.buildout/src/pfwbged.policy/src/pfwbged/policy/tests
+#${tests_path}  /home/cedricmessiant/workspace/buildouts/pfwbged.buildout/src/pfwbged.policy/src/pfwbged/policy/tests
 
 *** Keywords ***
 Setup Plone site
@@ -407,7 +408,7 @@ Scenario
     Select version  3
     Execute action  plone-contentmenu-actions-create_signed_version
     Overlay is opened
-    Wait for condition  return $('.overlay #form-widgets-signed-0')
+    Wait for condition  return $('.overlay #form-widgets-signed-0').length
     Checkbox Should Be Selected  css=.overlay #form-widgets-signed-0
     Choose File  form-widgets-file-input  ${tests_path}/document-test.odt
     Save form
