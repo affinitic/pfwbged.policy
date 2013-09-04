@@ -106,6 +106,10 @@ def version_is_signed_at_creation(context, event):
 @grok.subscribe(IPfwbDocument, IObjectAddedEvent)
 def create_task_after_creation(context, event):
     """Create a task attributed to creator after document creation"""
+    # only applies to "other documents"
+    if not has_pfwbgeddocument_workflow(context):
+        return
+
     creator = context.Creator()
     params = {'responsible': [],
               'title': translate(_(u'Process document'),
