@@ -3,12 +3,10 @@ from zope.i18n import translate
 
 from Acquisition import aq_inner, aq_parent
 
-from plone import api
 from plone.dexterity.browser.add import DefaultAddForm
 from plone.dexterity.interfaces import IDexterityFTI
 from plone.dexterity.utils import addContentToContainer, getAdditionalSchemata
 
-from collective.task.content.opinion import IOpinion
 
 from pfwbged.policy import _
 

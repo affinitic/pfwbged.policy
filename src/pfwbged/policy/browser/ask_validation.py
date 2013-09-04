@@ -8,7 +8,6 @@ from plone.dexterity.browser.add import DefaultAddForm
 from plone.dexterity.interfaces import IDexterityFTI
 from plone.dexterity.utils import addContentToContainer, getAdditionalSchemata
 
-from collective.task.content.validation import IValidation
 
 from pfwbged.policy import _
 
