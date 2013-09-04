@@ -228,7 +228,7 @@
   </guard>
  </transition>
  <transition transition_id="to_process" title="" new_state="processing" trigger="USER" before_script="" after_script="">
-  <action url="%(content_url)s/content_status_modify?workflow_action=to_process" category="workflow" icon="" i18n:translate="">To process</action>
+  <action url="%(content_url)s/@@to_process?workflow_action=to_process" category="workflow" icon="" i18n:translate="">To process</action>
   <guard>
    <guard-role>Greffier</guard-role>
    <guard-role>Manager</guard-role>

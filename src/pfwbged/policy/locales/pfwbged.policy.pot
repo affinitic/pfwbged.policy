@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-08-30 17:32+0000\n"
+"POT-Creation-Date: 2013-09-04 09:37+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,39 +17,39 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: pfwbged.policy\n"
 
-#: ../menu.py:157
+#: ../menu.py:164
 msgid "${action} the version ${version}"
 msgstr ""
 
-#: ../browser/comments.py:100
+#: ../browser/comments.py:98
 msgid "Accept refusal"
 msgstr ""
 
-#: ../menu.py:86
+#: ../menu.py:93
 msgid "Actions"
 msgstr ""
 
-#: ../menu.py:224
+#: ../menu.py:231
 msgid "Add ${title}"
 msgstr ""
 
-#: ../browser/comments.py:101
+#: ../browser/comments.py:99
 msgid "Ask for refusal"
 msgstr ""
 
-#: ../browser/ask_opinion.py:57
+#: ../browser/ask_opinion.py:55
 msgid "Ask opinion"
 msgstr ""
 
-#: ../menu.py:38
+#: ../menu.py:40
 msgid "Ask opinion about version ${version}"
 msgstr ""
 
-#: ../browser/ask_validation.py:59
+#: ../browser/ask_validation.py:58
 msgid "Ask validation"
 msgstr ""
 
-#: ../menu.py:39
+#: ../menu.py:41
 msgid "Ask validation about version ${version}"
 msgstr ""
 
@@ -61,11 +61,19 @@ msgstr ""
 msgid "Can view"
 msgstr ""
 
-#: ../menu.py:33
+#: ../browser/to_process.py:63
+msgid "Cancel"
+msgstr ""
+
+#: ../browser/to_process.py:25
+msgid "Comment"
+msgstr ""
+
+#: ../menu.py:35
 msgid "Create a new version"
 msgstr ""
 
-#: ../menu.py:323
+#: ../menu.py:330
 msgid "Create signed version for version ${version}"
 msgstr ""
 
@@ -73,23 +81,23 @@ msgstr ""
 msgid "Create version ${version}"
 msgstr ""
 
-#: ../menu.py:35
+#: ../menu.py:37
 msgid "File in a folder"
 msgstr ""
 
-#: ../menu.py:42
+#: ../menu.py:44
 msgid "Finish version ${version}"
 msgstr ""
 
-#: ../menu.py:142
+#: ../menu.py:149
 msgid "Mark document as read"
 msgstr ""
 
-#: ../browser/ask_opinion.py:27
+#: ../browser/ask_opinion.py:25
 msgid "Opinion application for version ${version}"
 msgstr ""
 
-#: ../subscribers/document.py:109
+#: ../subscribers/document.py:111
 msgid "Process document"
 msgstr ""
 
@@ -97,23 +105,27 @@ msgstr ""
 msgid "Process mail"
 msgstr ""
 
-#: ../browser/comments.py:102
+#: ../browser/comments.py:100
 msgid "Refuse refusal"
 msgstr ""
 
-#: ../menu.py:41
+#: ../menu.py:43
 msgid "Refuse version ${version}"
 msgstr ""
 
-#: ../browser/comments.py:52
+#: ../browser/comments.py:50
 msgid "Render opinion"
 msgstr ""
 
-#: ../menu.py:147
+#: ../menu.py:154
 msgid "Return opinion about ${version}"
 msgstr ""
 
-#: ../menu.py:34
+#: ../browser/to_process.py:46
+msgid "Save"
+msgstr ""
+
+#: ../menu.py:36
 msgid "Send for information"
 msgstr ""
 
@@ -121,15 +133,23 @@ msgstr ""
 msgid "Tasks view"
 msgstr ""
 
-#: ../menu.py:43
+#: ../menu.py:45
 msgid "Validate and finish version ${version}"
 msgstr ""
 
-#: ../menu.py:40
+#: ../menu.py:42
 msgid "Validate version ${version}"
 msgstr ""
 
-#: ../browser/ask_validation.py:27
+#: ../browser/ask_validation.py:26
 msgid "Validation application for version ${version}"
+msgstr ""
+
+#: ../browser/to_process.py:21
+msgid "Workflow action"
+msgstr ""
+
+#: ../browser/to_process.py:26
+msgid "You can enter a note."
 msgstr ""
 

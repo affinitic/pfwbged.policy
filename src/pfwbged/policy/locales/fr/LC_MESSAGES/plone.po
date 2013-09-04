@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: pfwbged.policy\n"
-"POT-Creation-Date: 2013-08-30 17:32+0000\n"
+"POT-Creation-Date: 2013-09-04 09:37+0000\n"
 "PO-Revision-Date: 2013-08-30 19:33+0100\n"
 "Last-Translator: Cédric Messiant <cedric.messiant@gmail.com>\n"
 "Language-Team: French\n"
@@ -168,3 +168,4 @@ msgstr "En cours de validation"
 #: ../profiles/default/workflows/outgoingmail_workflow/definition.xml
 msgid "Writing"
 msgstr "En rédaction"
+

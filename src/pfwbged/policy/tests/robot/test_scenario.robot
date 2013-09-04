@@ -125,6 +125,9 @@ Open favorite
     Click element  css=#favorites a[href$='${name}']
     Wait Until Page Contains Element  id=searchresults
 
+Close Overlay
+    Click Element  css=div.overlay div.close
+
 Overlay should close
     Element should not remain visible  id=exposeMask
     Wait until keyword succeeds  60  1  Page should not contain element  css=div.overlay
@@ -229,7 +232,21 @@ Scenario
     Log in as  greffier
     Go to  ${PLONE_URL}/documents/new-mail
     Execute transition  to_process
+    Overlay is opened
+    Input Text  form.widgets.comment  merci de traiter
+    Save form
+    Wait Until Page Contains  En cours de traitement
     State should be  En cours de traitement
+    # the task has been created
+    Page Should Contain  Traiter ce courrier
+    # verify the comment has been added to the created task
+    # by opening the overlay and close it
+    Page Should Not Contain  Traiter le document
+    Click Link  Traiter ce courrier
+    Overlay is opened
+    Page Should Contain  merci de traiter
+    Close Overlay
+    Overlay should close
 
     [Documentation]  Finances group member sees document
     Log in as  finances

@@ -22,7 +22,7 @@ from pfwbged.policy.interfaces import IIncomingMailAttributed
 from pfwbged.basecontent.behaviors import IPfwbIncomingMail
 
 
-def create_tasks(container, groups, deadline):
+def create_tasks(container, groups, deadline, note=""):
     """Create 'process mail' tasks for a list of groups or users.
     """
     chooser = INameChooser(container)
@@ -31,6 +31,7 @@ def create_tasks(container, groups, deadline):
                   'title': translate(_(u'Process mail'),
                                      context=container.REQUEST),
                   'deadline': deadline,
+                  'note': note,
                   }
         newid = chooser.chooseName('process-mail', container)
         container.invokeFactory('task', newid, **params)
@@ -51,26 +52,24 @@ def get_tasks(obj):
     return tasks
 
 
-@grok.subscribe(IPfwbIncomingMail, IAfterTransitionEvent)
-def incoming_mail_attributed(context, event):
+def incoming_mail_attributed(context, comment):
     """Launched when a mail is attributed to some groups or users.
     """
-    if event.transition is not None and event.transition.id == 'to_process':
-        # first, copy treated_by and in_copy into treating_groups and recipient_groups
-        treating_groups = list(frozenset((context.treating_groups or []) + (context.treated_by or [])))
-        treating_dm = LocalRolesToPrincipalsDataManager(context, IDmsIncomingMail['treating_groups'])
-        treating_dm.set(treating_groups)
-        recipient_groups = list(frozenset((context.recipient_groups or []) + (context.in_copy or [])))
-        recipient_dm = LocalRolesToPrincipalsDataManager(context, IDmsIncomingMail['recipient_groups'])
-        recipient_dm.set(recipient_groups)
-        context.reindexObjectSecurity()
+    # first, copy treated_by and in_copy into treating_groups and recipient_groups
+    treating_groups = list(frozenset((context.treating_groups or []) + (context.treated_by or [])))
+    treating_dm = LocalRolesToPrincipalsDataManager(context, IDmsIncomingMail['treating_groups'])
+    treating_dm.set(treating_groups)
+    recipient_groups = list(frozenset((context.recipient_groups or []) + (context.in_copy or [])))
+    recipient_dm = LocalRolesToPrincipalsDataManager(context, IDmsIncomingMail['recipient_groups'])
+    recipient_dm.set(recipient_groups)
+    context.reindexObjectSecurity()
 
-        already_in_charge = []
-        for task in context.objectValues('task'):
-            already_in_charge.extend(task.responsible)
-        new_treating_groups = frozenset(context.treating_groups or []) - frozenset(already_in_charge)
-        # create a task for each group which has not already a task for this mail
-        create_tasks(context, new_treating_groups, context.deadline)
+    already_in_charge = []
+    for task in context.objectValues('task'):
+        already_in_charge.extend(task.responsible)
+    new_treating_groups = frozenset(context.treating_groups or []) - frozenset(already_in_charge)
+    # create a task for each group which has not already a task for this mail
+    create_tasks(context, new_treating_groups, context.deadline, comment)
 
 #
 #@grok.subscribe(IPfwbIncomingMail, IObjectModifiedEvent)

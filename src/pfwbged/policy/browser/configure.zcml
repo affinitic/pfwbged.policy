@@ -79,4 +79,11 @@
       permission="zope2.View"
       />
 
+  <browser:page
+      name="to_process"
+      for="pfwbged.basecontent.behaviors.IPfwbIncomingMail"
+      class=".to_process.WfCommentView"
+      permission="zope2.View"
+      />
+
 </configure>

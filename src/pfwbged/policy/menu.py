@@ -134,7 +134,7 @@ class CustomMenu(menu.WorkflowMenu):
 
             description = ''
 
-            if action['id'] in ('submit', 'ask_opinion', 'attribute'):
+            if action['id'] in ('submit', 'ask_opinion', 'attribute', 'to_process'):
                 cssClass += " overlay-form-reload"
 
             transition = action.get('transition', None)
