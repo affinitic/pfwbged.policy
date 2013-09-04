@@ -45,8 +45,6 @@ mail configured
     Input text  name=form.smtp_port  25
     Input text  name=form.email_from_name  Webmestre de Plone.fr
     Input text  name=form.email_from_address  webmestre@plone.fr
-#    Capture viewport screenshot  ${SSDIR}/parametrage/envoi-courriel.png
-#    Capture page screenshot  ${SSDIR}/parametrage/envoi-courriel.png
     Click Button  form.actions.save
 
 Log in as
@@ -54,7 +52,6 @@ Log in as
     Log in  ${username}  secret
 
 Open supermenu
-    # Open menu  Workfplone-contentmenu-workflow
     Open Workflow Menu
 
 Go to documents
