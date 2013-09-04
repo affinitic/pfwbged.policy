@@ -61,20 +61,30 @@ State should be
     [Arguments]  ${state}
     Element should contain  id=formfield-form-widgets-review_state  ${state}
 
-Enter deadline
-    ${yyyy}  ${mm}  ${dd} =  Get Time  year,month,day
-    Input Text  form-widgets-IDeadline-deadline-year   ${yyyy}
-    Select From List  form-widgets-IDeadline-deadline-month  ${mm}
-    Input Text  form-widgets-IDeadline-deadline-day    ${dd}
-    Input Text  form-widgets-IDeadline-deadline-hour    18
-    Input Text  form-widgets-IDeadline-deadline-minute    00
+Verify date
+    [Arguments]     ${field_name}  ${yyyy}  ${mm}  ${dd}  ${hour}=18  ${minute}=00
+    Textfield Value Should Be  ${field_name}-year  ${yyyy}
+    ${month}  Get Selected List Value  ${field_name}-month
+    Should Be Equal As Integers  ${mm}  ${month}
+    # transform '04' to '4'
+    ${day} =  Convert To Integer  ${dd}
+    ${day} =  Convert To String  ${day}
+    Textfield Value Should Be  ${field_name}-day  ${day}
+    Textfield Value Should Be  ${field_name}-hour  ${hour}
+    Textfield Value Should Be  ${field_name}-minute  ${minute}
 
 Enter date
-    [Arguments]     ${field_name}
-    ${yyyy}  ${mm}  ${dd} =  Get Time  year,month,day
-    Input Text  ${field_name}-year   ${yyyy}
-    Select From List  ${field_name}-month  ${mm}
-    Input Text  ${field_name}-day    ${dd}
+    [Arguments]     ${field_name}  ${yyyy}  ${mm}  ${dd}  ${hour}=18  ${minute}=00
+#    ${yyyy}  ${mm}  ${dd} =  Get Time  year,month,day
+    ${day} =  Convert To Integer  ${dd}
+    ${day} =  Convert To String  ${day}
+    ${month} =  Convert To Integer  ${mm}
+    ${month} =  Convert To String  ${month}
+    Input Text  ${field_name}-year  ${yyyy}
+    Select From List  ${field_name}-month  ${month}
+    Input Text  ${field_name}-day  ${day}
+    Input Text  ${field_name}-hour  ${hour}
+    Input Text  ${field_name}-minute  ${minute}
 
 Select date in calendar
     [Arguments]    ${field}  ${dd}
@@ -131,9 +141,14 @@ Add incoming mail
     Input Text    form-widgets-IDublinCore-title  ${title}
     Select contact  ${sender}
     Wait Until Page Contains Element  id=form-widgets-IDeadline-deadline-year
-    Enter deadline
-    Input Text  form-widgets-reception_date-hour    18
-    Input Text  form-widgets-reception_date-minute    00
+    ${yyyy}  ${mm}  ${dd} =  Get Time  year,month,day
+    ${day} =  Evaluate  ${dd} + 3
+    ${day} =  Convert To String  ${day}
+    Verify date  form-widgets-reception_date  ${yyyy}  ${mm}  ${dd}  18
+    Verify date  form-widgets-IDeadline-deadline  ${yyyy}  ${mm}  ${day}  12
+    # change reception date just to test it
+    Enter date  form-widgets-reception_date  2013  03  04  10  00
+    Verify date  form-widgets-reception_date  2013  03  04  10  00
     Save form
     Title is  ${title}
 
