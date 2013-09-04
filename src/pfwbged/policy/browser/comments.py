@@ -1,5 +1,4 @@
 from z3c.form import button
-from z3c.form import form
 from z3c.form.field import Fields
 from z3c.form.interfaces import HIDDEN_MODE
 from zope.i18nmessageid import MessageFactory
@@ -9,7 +8,6 @@ from plone import api
 from plone.app.discussion.browser.comments import CommentForm, CommentsViewlet
 from plone.supermodel import model
 
-from collective.task.content.task import ITask
 from collective.task.indexers import get_document
 
 from pfwbged.policy import _
