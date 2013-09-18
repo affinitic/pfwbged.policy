@@ -54,7 +54,6 @@ class PfwbgedPolicyLayer(PloneSandboxLayer):
     products = ['collective.task',
                 'collective.contact.facetednav',
                 'collective.documentviewer',
-                'collective.local.workspace',
                 'collective.solr',
                 'collective.task',
                 'collective.z3cform.chosen',

@@ -51,7 +51,6 @@ setup(
         'collective.documentviewer',
         'collective.edm.listing',
         'collective.externaleditor',
-        'collective.local.workspace',
         'collective.onlogin',
         'collective.solr',
         'collective.task',

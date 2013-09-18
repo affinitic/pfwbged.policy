@@ -25,7 +25,6 @@
     <include package="collective.externaleditor" />
     <include package="collective.task" />
     <include package="collective.contact.facetednav" />
-    <include package="collective.local.workspace" />
     <include package="collective.onlogin" />
     <include package="collective.solr" />
     <include package="eea.facetednavigation" />
