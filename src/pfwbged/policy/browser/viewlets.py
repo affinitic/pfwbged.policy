@@ -1,7 +1,9 @@
 from five import grok
 
+from zope.component import getUtility
 from zope.i18n import translate
 from zope.i18nmessageid import MessageFactory
+from zope.schema.interfaces import IVocabularyFactory
 
 from plone import api
 from plone.app.layout.viewlets.interfaces import IAboveContentBody
@@ -12,6 +14,7 @@ from plone.app.layout.globals.interfaces import IViewView
 from plone.app.contenttypes.interfaces import IFolder
 
 from pfwbged.policy.interfaces import IPfwbgedPolicyLayer
+from collective.dms.basecontent.dmsdocument import IDmsDocument
 from collective.contact.core.content.directory import IDirectory
 
 PMF = MessageFactory('plone')
@@ -43,6 +46,32 @@ class ReviewStateViewlet(grok.Viewlet):
     <div class="fieldErrorBox"></div>
     <span id="form-widgets-review_state" class="review_state-field" style="width:280px;">%(review_state)s</span>
 </div>""" % data
+
+
+class PortalTypeViewlet(grok.Viewlet):
+
+    grok.name('portal_type')
+    grok.context(IDmsDocument)
+    grok.viewletmanager(IAboveContentBody)
+    grok.view(IViewView)
+    grok.layer(IPfwbgedPolicyLayer)
+
+    def render(self):
+        data = {}
+        data['label'] = translate(PMF(u"Type"), context=self.request)
+        factory = getUtility(IVocabularyFactory, 'plone.app.vocabularies.ReallyUserFriendlyTypes')
+        vocabulary = factory(self.context)
+        try:
+            term = vocabulary.getTerm(self.context.portal_type)
+        except KeyError:
+            return ''
+        data['portal_type'] = term.title
+        return """<div id="formfield-form-widgets-portal_type" class="field z3cformInlineValidation kssattr-fieldname-portal_type" data-fieldname="portal_type">
+    <label class="horizontal" for="form-widgets-portal_type">%(label)s</label>
+    <div class="fieldErrorBox"></div>
+    <span id="form-widgets-portal_type" class="portal_type-field" style="width:280px;">%(portal_type)s</span>
+</div>""" % data
+
 
 
 class FolderReviewStateViewlet(grok.Viewlet):
