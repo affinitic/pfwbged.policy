@@ -145,7 +145,8 @@ Add incoming mail
     Select contact  ${sender}
     Wait Until Page Contains Element  id=form-widgets-IDeadline-deadline-year
     ${yyyy}  ${mm}  ${dd} =  Get Time  year,month,day
-    ${day} =  Evaluate  ${dd} + 3
+    ${day} =  Convert To Integer  ${dd}
+    ${day} =  Evaluate  ${day} + 3
     ${day} =  Convert To String  ${day}
     Verify date  form-widgets-reception_date  ${yyyy}  ${mm}  ${dd}  18
     Verify date  form-widgets-IDeadline-deadline  ${yyyy}  ${mm}  ${day}  12
