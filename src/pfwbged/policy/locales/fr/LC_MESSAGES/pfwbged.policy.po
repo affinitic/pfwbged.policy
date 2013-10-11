@@ -21,7 +21,7 @@ msgstr "${action} la version ${version}"
 
 #: ../browser/comments.py:98
 msgid "Accept refusal"
-msgstr "Accepter le refus"
+msgstr "Accepter la désattribution"
 
 #: ../menu.py:93
 msgid "Actions"
@@ -33,7 +33,7 @@ msgstr "Ajouter ${title}"
 
 #: ../browser/comments.py:99
 msgid "Ask for refusal"
-msgstr "Demander le refus"
+msgstr "Demander la désattribution"
 
 #: ../browser/ask_opinion.py:55
 msgid "Ask opinion"
@@ -105,7 +105,7 @@ msgstr "Traiter ce courrier"
 
 #: ../browser/comments.py:100
 msgid "Refuse refusal"
-msgstr "Refuser le refus"
+msgstr "Refuser la désattribution"
 
 #: ../menu.py:43
 msgid "Refuse version ${version}"
