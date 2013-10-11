@@ -140,8 +140,8 @@ Add incoming mail
     Go to documents
     Open supermenu
     Click link  id=dmsincomingmail
-    Wait Until Page Contains Element  id=form-widgets-IDublinCore-title
-    Input Text    form-widgets-IDublinCore-title  ${title}
+    Wait Until Page Contains Element  id=form-widgets-IBasic-title
+    Input Text    form-widgets-IBasic-title  ${title}
     Select contact  ${sender}
     Wait Until Page Contains Element  id=form-widgets-IDeadline-deadline-year
     ${yyyy}  ${mm}  ${dd} =  Get Time  year,month,day
