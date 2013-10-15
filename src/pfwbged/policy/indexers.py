@@ -12,8 +12,10 @@ def has_final_unsigned_version(obj, **kw):
             continue
         if child.signed is True:
             return False
-        if api.content.get_state(child) == 'finished':
-            result = True
+        try:
+            result = (api.content.get_state(child) == 'finished')
+        except:
+            pass
     return result
 
 grok.global_adapter(has_final_unsigned_version, name='has_final_unsigned_version')
