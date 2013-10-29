@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: pfwbged.policy\n"
-"POT-Creation-Date: 2013-09-04 09:37+0000\n"
+"POT-Creation-Date: 2013-10-29 15:03+0000\n"
 "PO-Revision-Date: 2013-09-04 11:37+0100\n"
 "Last-Translator: Vincent Fretin <vincent.fretin@gmail.com>\n"
 "Language-Team: Ecréall\n"
@@ -95,7 +95,7 @@ msgstr "Marquer le document comme lu"
 msgid "Opinion application for version ${version}"
 msgstr "Demande d'avis pour la version ${version}"
 
-#: ../subscribers/document.py:111
+#: ../subscribers/document.py:115
 msgid "Process document"
 msgstr "Traiter le document"
 
@@ -151,3 +151,34 @@ msgstr "Transition du workflow"
 msgid "You can enter a note."
 msgstr "Vous pouvez entrer une note."
 
+#: ../subscribers/document.py:250
+msgid "You received a request for action in the GED.
+
+Title: %(task_title)s
+
+Document: %(document_title)s
+
+Document Address: %(url)s
+
+Deadline: %(deadline)s
+
+Note:
+
+%(note)s
+
+"
+msgstr "Vous avez reçu une demande d'action dans la GED.
+
+Titre : %(task_title)s
+
+Document : %(document_title)s
+
+Adresse du document : %(url)s
+
+Échéance : %(deadline)s
+
+Note :
+
+%(note)s
+
+"
