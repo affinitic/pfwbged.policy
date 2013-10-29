@@ -17,7 +17,7 @@ from Products.DCWorkflow.interfaces import IAfterTransitionEvent
 from collective.z3cform.rolefield.field import LocalRolesToPrincipalsDataManager
 
 from collective.dms.basecontent.dmsdocument import IDmsDocument
-from collective.task.content.task import ITask
+from collective.task.content.task import IBaseTask, ITask
 from collective.task.content.validation import IValidation
 from collective.task.interfaces import IBaseTask
 from collective.dms.basecontent.dmsfile import IDmsFile
@@ -221,3 +221,55 @@ def document_is_reopened(context, event):
         datamanager = LocalRolesToPrincipalsDataManager(task, ITask['responsible'])
         datamanager.set((creator,))
         task.reindexObject()
+
+
+@grok.subscribe(IBaseTask, IObjectAddedEvent)
+def email_notification_of_tasks(context, event):
+    """Notify recipients of new tasks by email"""
+
+    # go up in the acquisition chain to find the document
+    document = None
+    for obj in aq_chain(context):
+        obj = aq_parent(obj)
+        if IPfwbDocument.providedBy(obj):
+            document = obj
+            break
+    if not document:
+        return
+
+    for enquirer in context.enquirer:
+        member = context.portal_membership.getMemberById(responsible)
+        if member:
+            email_from = member.getProperty('email', None)
+            if email_from:
+                break
+    else:
+        email_from = api.user.get_current().email or 'admin@localhost'
+
+    subject = '%s - %s' % (context.title, document.title)
+    body = _("""You received a request for action in the GED.
+
+Title: %(task_title)s
+
+Document: %(document_title)s
+
+Document Address: %(url)s
+
+Deadline: %(deadline)s
+
+Note:
+
+%(note)s
+
+""") % {'url': document.absolute_url(),
+        'task_title': context.title,
+        'document_title': document.title,
+        'deadline': context.deadline,
+        'note': context.note or '---'}
+
+    for responsible in context.responsible:
+        member = context.portal_membership.getMemberById(responsible)
+        if not member:
+            continue
+        email = member.getProperty('email', None)
+        context.MailHost.send(body, email, email_from, subject)
