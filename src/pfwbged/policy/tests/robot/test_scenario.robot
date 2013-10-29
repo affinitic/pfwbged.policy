@@ -144,12 +144,17 @@ Add incoming mail
     Input Text    form-widgets-IBasic-title  ${title}
     Select contact  ${sender}
     Wait Until Page Contains Element  id=form-widgets-IDeadline-deadline-year
+
     ${yyyy}  ${mm}  ${dd} =  Get Time  year,month,day
-    ${day} =  Convert To Integer  ${dd}
-    ${day} =  Evaluate  ${day} + 3
-    ${day} =  Convert To String  ${day}
     Verify date  form-widgets-reception_date  ${yyyy}  ${mm}  ${dd}  18
-    Verify date  form-widgets-IDeadline-deadline  ${yyyy}  ${mm}  ${day}  12
+
+    # ideally we would check the deadline but this would require proper date
+    # manipulation code, the following code is too naive:
+    #  ${day} =  Convert To Integer  ${dd}
+    #  ${day} =  Evaluate  ${day} + 3
+    #  ${day} =  Convert To String  ${day}
+    #  Verify date  form-widgets-IDeadline-deadline  ${yyyy}  ${mm}  ${day}  12
+
     # change reception date just to test it
     Enter date  form-widgets-reception_date  2013  03  04  10  00
     Verify date  form-widgets-reception_date  2013  03  04  10  00
