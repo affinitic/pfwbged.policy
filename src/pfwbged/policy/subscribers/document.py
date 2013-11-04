@@ -274,4 +274,7 @@ Note:
         email = member.getProperty('email', None)
         if not email:
             continue
-        context.MailHost.send(body, email, email_from, subject)
+        try:
+            context.MailHost.send(body, email, email_from, subject)
+        except UnicodeEncodeError:
+            pass
