@@ -237,7 +237,7 @@ def email_notification_of_tasks(context, event):
     if not document:
         return
 
-    for enquirer in context.enquirer:
+    for enquirer in (context.enquirer or []):
         member = context.portal_membership.getMemberById(responsible)
         if member:
             email_from = member.getProperty('email', None)
