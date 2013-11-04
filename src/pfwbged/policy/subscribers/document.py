@@ -272,4 +272,6 @@ Note:
         if not member:
             continue
         email = member.getProperty('email', None)
+        if not email:
+            continue
         context.MailHost.send(body, email, email_from, subject)
