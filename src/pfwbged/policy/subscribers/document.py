@@ -1,3 +1,5 @@
+import logging
+
 from Acquisition import aq_chain, aq_parent
 from five import grok
 
@@ -247,27 +249,22 @@ def email_notification_of_tasks(context, event):
         email_from = api.user.get_current().email or 'admin@localhost'
 
     subject = '%s - %s' % (context.title, document.title)
-    body = _("""You received a request for action in the GED.
+    body = _('You received a request for action in the GED.') + \
+            '\n\n' + \
+            _('Title: %s') % context.title + \
+            '\n\n' + \
+            _('Document: %s') % document.title + \
+            '\n\n' + \
+            _('Document Address: %s') % document.absolute_url() + \
+            '\n\n' + \
+            _('Deadline: %s') % context.deadline + \
+            '\n\n' + \
+            _('Note:') + \
+            '\n\n' + \
+            (context.note or '---')
+    body = body.encode('utf-8')
 
-Title: %(task_title)s
-
-Document: %(document_title)s
-
-Document Address: %(url)s
-
-Deadline: %(deadline)s
-
-Note:
-
-%(note)s
-
-""") % {'url': document.absolute_url(),
-        'task_title': context.title,
-        'document_title': document.title,
-        'deadline': context.deadline,
-        'note': context.note or '---'}
-
-    for responsible in context.responsible:
+    for responsible in (context.responsible or ['plop']):
         member = context.portal_membership.getMemberById(responsible)
         if not member:
             continue
@@ -275,6 +272,8 @@ Note:
         if not email:
             continue
         try:
-            context.MailHost.send(body, email, email_from, subject)
-        except UnicodeEncodeError:
-            pass
+            context.MailHost.send(body, email, email_from, subject, charset='utf-8')
+        except Exception as e:
+            # do not abort transaction in case of email error
+            log = logging.getLogger('pfwbged.policy')
+            log.exception(e)

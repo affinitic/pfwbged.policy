@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: pfwbged.policy\n"
-"POT-Creation-Date: 2013-10-29 15:03+0000\n"
+"POT-Creation-Date: 2013-11-05 10:28+0000\n"
 "PO-Revision-Date: 2013-09-04 11:37+0100\n"
 "Last-Translator: Vincent Fretin <vincent.fretin@gmail.com>\n"
 "Language-Team: Ecréall\n"
@@ -79,6 +79,18 @@ msgstr "Créer la version signée pour la version ${version}"
 msgid "Create version ${version}"
 msgstr "Création de la version ${version}"
 
+#: ../subscribers/document.py:258
+msgid "Deadline: %s"
+msgstr "Échéance : %s"
+
+#: ../subscribers/document.py:256
+msgid "Document Address: %s"
+msgstr "Adresse du document : %s"
+
+#: ../subscribers/document.py:254
+msgid "Document: %s"
+msgstr "Document : %s"
+
 #: ../menu.py:37
 msgid "File in a folder"
 msgstr "Ranger dans un dossier"
@@ -90,6 +102,10 @@ msgstr "Finaliser la version ${version}"
 #: ../menu.py:149
 msgid "Mark document as read"
 msgstr "Marquer le document comme lu"
+
+#: ../subscribers/document.py:260
+msgid "Note:"
+msgstr "Note :"
 
 #: ../browser/ask_opinion.py:25
 msgid "Opinion application for version ${version}"
@@ -131,6 +147,10 @@ msgstr "Transmettre pour information"
 msgid "Tasks view"
 msgstr "Vue tâches"
 
+#: ../subscribers/document.py:252
+msgid "Title: %s"
+msgstr "Titre : %s"
+
 #: ../menu.py:45
 msgid "Validate and finish version ${version}"
 msgstr "Valider et finaliser la version ${version}"
@@ -152,33 +172,6 @@ msgid "You can enter a note."
 msgstr "Vous pouvez entrer une note."
 
 #: ../subscribers/document.py:250
-msgid "You received a request for action in the GED.
+msgid "You received a request for action in the GED."
+msgstr "Vous avez reçu une demande d'action dans la GED."
 
-Title: %(task_title)s
-
-Document: %(document_title)s
-
-Document Address: %(url)s
-
-Deadline: %(deadline)s
-
-Note:
-
-%(note)s
-
-"
-msgstr "Vous avez reçu une demande d'action dans la GED.
-
-Titre : %(task_title)s
-
-Document : %(document_title)s
-
-Adresse du document : %(url)s
-
-Échéance : %(deadline)s
-
-Note :
-
-%(note)s
-
-"
