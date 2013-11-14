@@ -137,7 +137,7 @@ msgstr "Rendre un avis sur la version ${version}"
 
 #: ../browser/to_process.py:46
 msgid "Save"
-msgstr "OK"
+msgstr "Enregistrer"
 
 #: ../menu.py:36
 msgid "Send for information"
