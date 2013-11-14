@@ -4,4 +4,6 @@
     <indexed_attr value="has_final_unsigned_version"/>
   </index>
   <column value="has_final_unsigned_version"/>
+  <column value="sender_as_text"/>
+  <column value="recipients_as_text"/>
 </object>

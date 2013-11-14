@@ -19,3 +19,20 @@ def has_final_unsigned_version(obj, **kw):
     return result
 
 grok.global_adapter(has_final_unsigned_version, name='has_final_unsigned_version')
+
+@indexer(IDmsDocument)
+def sender_as_text(obj, **kw):
+    if not hasattr(obj, 'sender') or not obj.sender:
+        return None
+    return obj.sender.to_object.get_full_title()
+
+grok.global_adapter(sender_as_text, name='sender_as_text')
+
+
+@indexer(IDmsDocument)
+def recipients_as_text(obj, **kw):
+    if not hasattr(obj, 'recipients') or not obj.recipients:
+        return None
+    return ' / '.join([x.to_object.get_full_title() for x in obj.recipients])
+
+grok.global_adapter(recipients_as_text, name='recipients_as_text')
