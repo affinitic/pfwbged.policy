@@ -24,6 +24,7 @@ from collective.task.content.opinion import IOpinion
 from collective.task.content.task import ITask
 from collective.task.indexers import get_document
 from pfwbged.basecontent.behaviors import IPfwbIncomingMail
+from pfwbged.collection import ICollection
 
 from . import _
 
@@ -405,6 +406,31 @@ class CustomMenu(menu.WorkflowMenu):
 
             # wf actions on informations
             actions.extend(self.getWorkflowActionsForType(context, request, 'information'))
+
+        if ICollection.providedBy(context):
+            # edition of collections is done inline, remove edit action but add
+            # save and save as
+            had_edit = [x for x in actions if x.get('extra', {}).get('id') == 'plone-contentmenu-actions-edit']
+            actions = [x for x in actions if x.get('extra', {}).get('id') != 'plone-contentmenu-actions-edit']
+            if had_edit:
+                actions.append(
+                    {'submenu': None, 'description': '', 'extra': {
+                        'separator': None,
+                        'id': 'plone-contentmenu-actions-save',
+                        'class': ' actionicon-object_buttons-save'},
+                        'selected': False,
+                        'action': '#',
+                        'title': _('Save'),
+                        'icon': None})
+                actions.append(
+                    {'submenu': None, 'description': '', 'extra': {
+                        'separator': None,
+                        'id': 'plone-contentmenu-actions-saveas',
+                        'class': ' actionicon-object_buttons-saveas'},
+                        'selected': False,
+                        'action': '#',
+                        'title': _('Save As...'),
+                        'icon': None})
 
         for action in actions:
             if not action.get('icon'):
