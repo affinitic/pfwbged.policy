@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<object name="portal_skins" meta_type="Plone Skins Tool">
+ <object name="pfwbged_policy" meta_type="Filesystem Directory View"
+         directory="pfwbged.policy:skins/pfwbged_policy"/>
+  <skin-path name="*">
+    <layer name="pfwbged_policy" insert-after="custom"/>
+  </skin-path>
+</object>

@@ -4,6 +4,7 @@
     xmlns:grok="http://namespaces.zope.org/grok"
     xmlns:i18n="http://namespaces.zope.org/i18n"
     xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    xmlns:cmf="http://namespaces.zope.org/cmf"
     i18n_domain="pfwbged.policy">
 
     <i18n:registerTranslations directory="locales" />
@@ -69,5 +70,8 @@
         handler=".setuphandlers.post_install">
         <depends name="typeinfo" />
     </genericsetup:importStep>
+
+    <!-- Register Layer -->
+    <cmf:registerDirectory name="skins" directory="skins" recursive="True" />
 
 </configure>
