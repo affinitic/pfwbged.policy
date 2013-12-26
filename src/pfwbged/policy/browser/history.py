@@ -21,6 +21,8 @@ class ContentHistoryView(BaseHistoryView):
 
         catalog = api.portal.get_tool('portal_catalog')
         folder_path = '/'.join(self.context.getPhysicalPath())
+
+        # insert workflow history for all versions
         query = {'path': {'query' : folder_path},
                  'portal_type': 'dmsmainfile'}
         brains = catalog.unrestrictedSearchResults(query)
@@ -31,6 +33,24 @@ class ContentHistoryView(BaseHistoryView):
             results = super(ContentHistoryView, self).workflowHistory(complete)
             self._modify_title(results)
             review_history.extend(results)
-
         self.context = old_context
+
+        # append history entries for the various tasks
+        query = {'path': {'query' : folder_path},
+                 'portal_type': ['information', 'opinion', 'task', 'validation']}
+        brains = catalog.unrestrictedSearchResults(query)
+        for brain in brains:
+            task = brain.getObject()
+            review_history.append({
+                'actor': None,
+                'actorid': task.creators[0],
+                'actor_home': '',
+                'action': task.portal_type,
+                'time': task.creation_date,
+                'transition_title': task.title,
+                'type': None})
+
+        # makes sure the history is kept sorted
+        review_history.sort(lambda x, y: cmp(x.get('time'), y.get('time')))
+
         return review_history
