@@ -14,6 +14,7 @@ from plone.app.contentmenu import menu, interfaces
 
 from Products.CMFPlone.interfaces.constrains import IConstrainTypes
 from Products.CMFCore.utils import getToolByName
+from Products.CMFPlone.interfaces.siteroot import IPloneSiteRoot
 
 from collective.dms.basecontent.dmsdocument import IDmsDocument
 from collective.dms.basecontent.dmsfile import IDmsFile
@@ -201,6 +202,7 @@ class CustomMenu(menu.WorkflowMenu):
 
         addContext = factories_view.add_context()
         allowedTypes = _allowedTypes(request, addContext)
+        is_portal = IPloneSiteRoot.providedBy(context)
 
         constraints = IConstrainTypes(addContext, None)
         if constraints is not None:
@@ -211,6 +213,21 @@ class CustomMenu(menu.WorkflowMenu):
         results = []
         _results = factories_view.addable_types(include=include)
         for result in _results:
+
+            if is_portal and result['id'] not in ('Folder', 'dmsthesaurus'):
+                # we only advertise thesaurus and folders at the root
+                continue
+
+            if context.portal_type == 'Folder' and result['id'] != 'pfwbgedfolder':
+                # most likely the user folder, we only allow classifying
+                # folders to be created in here
+                continue
+
+            if not is_portal and result['id'] in ('Folder', 'dmsthesaurus'):
+                # we only allow thesaurus and (native plone) folders at the
+                # root
+                continue
+
             if result['id'] == 'dmsmainfile':
                 # don't add add action if there is already a finished version
                 catalog = api.portal.get_tool('portal_catalog')
@@ -221,6 +238,10 @@ class CustomMenu(menu.WorkflowMenu):
                 if brains:
                     continue
             elif result['id'] in ('validation', 'opinion', 'task'):
+                # tasks cannot be added manually
+                continue
+            elif result['id'] in ('pfwbgedcollection',):
+                # ditto for our custom collection objects
                 continue
 
             if result['id'] in ('dmsmainfile', 'information', 'pfwbgedlink'):
