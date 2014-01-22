@@ -63,6 +63,7 @@ setup(
         'pfwbged.folder',
         'plone.app.contenttypes',
         'z3c.jbot',
+        'Products.AROfficeTransforms',
     ],
     extras_require={
         'test': [

@@ -17,5 +17,6 @@
     <dependency>profile-pfwbged.folder:default</dependency>
     <dependency>profile-plone.app.contenttypes:default</dependency>
     <dependency>profile-plone.app.dexterity:default</dependency>
+    <dependency>profile-Products.AROfficeTransforms:default</dependency>
   </dependencies>
 </metadata>
