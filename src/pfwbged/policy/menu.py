@@ -218,11 +218,6 @@ class CustomMenu(menu.WorkflowMenu):
                 # we only advertise thesaurus and folders at the root
                 continue
 
-            if context.portal_type == 'Folder' and result['id'] != 'pfwbgedfolder':
-                # most likely the user folder, we only allow classifying
-                # folders to be created in here
-                continue
-
             if not is_portal and result['id'] in ('Folder', 'dmsthesaurus'):
                 # we only allow thesaurus and (native plone) folders at the
                 # root

@@ -3,6 +3,7 @@ import os
 from zope.interface import alsoProvides
 
 from plone import api
+from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.interfaces.constrains import ISelectableConstrainTypes
 from plone.app.dexterity.behaviors import constrains
 from plone.dexterity.interfaces import IDexterityContainer
@@ -227,6 +228,15 @@ def post_install(context):
 
     if 'documents' not in portal:
         portal.invokeFactory('Folder', 'documents', title="Documents")
+
+    # configure document types that can be added to the /documents folder, the
+    # list of allowed types is extracted from pfwbgedfolder type, so they
+    # always match.
+    typesTool = getToolByName(portal, 'portal_types')
+    fti = typesTool.getTypeInfo('pfwbgedfolder')
+    setup_constrains(portal['documents'],
+            [x for x in fti.allowed_content_types if x not in (
+                'pfwbgedfolder', 'pfwbgedlink',)])
 
     if 'dossiers' not in portal:
         portal.invokeFactory('Folder', 'dossiers', title="Dossiers")
