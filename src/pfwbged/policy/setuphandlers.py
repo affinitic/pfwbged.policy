@@ -247,3 +247,6 @@ def post_install(context):
     portal.externaleditor_enabled_types = ['File', 'dmsmainfile']
     portal.ext_editor = True
     portal.portal_actions.document_actions.extedit.visible = False
+
+    # configure portal_membership to use pfwbged.folder for user folders
+    portal.portal_membership.memberarea_type = 'pfwbgedfolder'
