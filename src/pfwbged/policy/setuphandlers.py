@@ -227,15 +227,21 @@ def post_install(context):
 
     if 'documents' not in portal:
         portal.invokeFactory('Folder', 'documents', title="Documents")
-    #setup_constrains(portal['courriers'], ['dmsincomingmail', 'dmsoutgoingmail'])
 
-    # everyone can see annuaire and documents
+    if 'dossiers' not in portal:
+        portal.invokeFactory('Folder', 'dossiers', title="Dossiers")
+    setup_constrains(portal['dossiers'], ['pfwbgedfolder'])
+
+    # everyone can see annuaire, documents, and dossiers
     if api.content.get_state(portal['annuaire']) == 'private':
         api.content.transition(obj=portal['annuaire'], transition="publish")
         portal['annuaire'].reindexObject(idxs=['review_state'])
     if api.content.get_state(portal['documents']) == 'private':
         api.content.transition(obj=portal['documents'], transition="publish")
         portal['documents'].reindexObject(idxs=['review_state'])
+    if api.content.get_state(portal['dossiers']) == 'private':
+        api.content.transition(obj=portal['dossiers'], transition="publish")
+        portal['dossiers'].reindexObject(idxs=['review_state'])
     if api.content.get_state(portal['Members']) == 'private':
         api.content.transition(obj=portal['Members'], transition="publish")
         portal['Members'].reindexObject(idxs=['review_state'])
