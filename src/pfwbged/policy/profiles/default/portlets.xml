@@ -16,4 +16,19 @@
       remove="True">
   </assignment>
 
+  <portlet addview="portlets.Calendar" remove="true" />
+  <portlet addview="portlets.Classic" remove="true" />
+  <portlet addview="portlets.Events" remove="true" />
+  <portlet addview="portlets.Login" remove="true" />
+  <portlet addview="portlets.Navigation" remove="true" />
+  <portlet addview="portlets.News" remove="true" />
+  <portlet addview="portlets.rss" remove="true" />
+  <portlet addview="portlets.Recent" remove="true" />
+  <portlet addview="portlets.Review" remove="true" />
+  <portlet addview="portlets.Search" remove="true" />
+  <portlet addview="portlets.Language" remove="true" />
+  <portlet addview="collective.quickupload.QuickUploadPortlet" remove="true" />
+  <portlet addview="plone.portlet.collection.Collection" remove="true" />
+  <portlet addview="plone.portlet.static.Static" remove="true" />
+
 </portlets>
