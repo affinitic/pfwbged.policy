@@ -1,8 +1,15 @@
 # -*- coding: utf-8 -*-
 import os
+
 from zope.interface import alsoProvides
+from zope.component import getMultiAdapter, getUtility
+from zope.container.interfaces import INameChooser
 
 from plone import api
+
+from plone.portlets.interfaces import IPortletManager
+from plone.portlets.interfaces import IPortletAssignmentMapping
+
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.interfaces.constrains import ISelectableConstrainTypes
 from plone.app.dexterity.behaviors import constrains
@@ -183,6 +190,27 @@ def create_tasks_collections(context):
                            )
 
 
+def setup_folder_portlets(folder):
+    column = getUtility(IPortletManager, name='plone.leftcolumn')
+    manager = getMultiAdapter((folder, column,), IPortletAssignmentMapping,
+            context=folder)
+
+    if not u'pfwbged.folder.portlet.Navigation' in manager:
+        import pfwbged.folder.portlet
+        assignment = pfwbged.folder.portlet.Assignment()
+        manager[u'pfwbged.folder.portlet.Navigation'] = assignment
+        order = [manager.keys()[-1]]+manager.keys()[:-1]
+        manager.updateOrder(list(order))
+
+    if not u'pfwbged.theme.folderlinks.FolderLinks' in manager:
+        import pfwbged.theme.folderlinks
+        assignment = pfwbged.theme.folderlinks.Assignment()
+        manager[u'pfwbged.theme.folderlinks.FolderLinks'] = assignment
+        order = [manager.keys()[-1]]+manager.keys()[:-1]
+        manager.updateOrder(list(order))
+
+
+
 def post_install(context):
     """Post install script"""
     if isNotCurrentProfile(context): return
@@ -241,6 +269,9 @@ def post_install(context):
     if 'dossiers' not in portal:
         portal.invokeFactory('Folder', 'dossiers', title="Dossiers")
     setup_constrains(portal['dossiers'], ['pfwbgedfolder'])
+
+    setup_folder_portlets(portal['Members'])
+    setup_folder_portlets(portal['dossiers'])
 
     # everyone can see annuaire, documents, and dossiers
     if api.content.get_state(portal['annuaire']) == 'private':
