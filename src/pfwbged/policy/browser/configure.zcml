@@ -2,9 +2,13 @@
     xmlns="http://namespaces.zope.org/zope"
     xmlns:browser="http://namespaces.zope.org/browser"
     xmlns:plone="http://namespaces.plone.org/plone"
+    xmlns:zcml="http://namespaces.zope.org/zcml"
     i18n_domain="pfwbged.policy">
 
   <include package="plone.app.contentmenu" />
+
+  <include package="Products.CMFCore" file="permissions.zcml"
+        zcml:condition="have plone-41" />
 
   <browser:resource
     name="pfwbged_overlays.js"
@@ -84,6 +88,13 @@
       for="pfwbged.basecontent.behaviors.IPfwbIncomingMail"
       class=".to_process.WfCommentView"
       permission="zope2.View"
+      />
+
+  <browser:view
+      name="importGroupFolders"
+      for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+      class=".utils.ImportGroupFolders"
+      permission="cmf.ManagePortal"
       />
 
 </configure>
