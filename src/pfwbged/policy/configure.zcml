@@ -25,10 +25,8 @@
     <include package="collective.edm.listing" />
     <include package="collective.externaleditor" />
     <include package="collective.task" />
-    <include package="collective.contact.facetednav" />
     <include package="collective.onlogin" />
     <include package="collective.solr" />
-    <include package="eea.facetednavigation" />
     <include package="pfwbged.basecontent" />
     <include package="pfwbged.collection" />
     <include package="pfwbged.folder" />
@@ -36,11 +34,6 @@
 
     <include package="plone.app.contenttypes" />
 
-
-    <!-- minimal eea.factednavigation -->
-    <exclude package="eea.facetednavigation" />
-    <include package="eea.facetednavigation" file="meta.zcml" />
-    <include package="eea.facetednavigation" file="minimal.zcml" />
 
 <!--
     <class class="collective.task.content.Task">

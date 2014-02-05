@@ -15,12 +15,6 @@ from Products.CMFPlone.interfaces.constrains import ISelectableConstrainTypes
 from plone.app.dexterity.behaviors import constrains
 from plone.dexterity.interfaces import IDexterityContainer
 
-from eea.facetednavigation.interfaces import (
-    IFacetedNavigable,
-    IDisableSmartFacets,
-    IHidePloneLeftColumn,
-    IHidePloneRightColumn)
-
 
 def isNotCurrentProfile(context):
     return context.readDataFile("pfwbgedpolicy_marker.txt") is None
@@ -235,6 +229,7 @@ def post_install(context):
         # enable user folders
         portal.portal_membership.memberareaCreationFlag = True
 
+    portal.portal_types.directory.global_allow = True
     if 'annuaire' not in portal:
         portal.invokeFactory('directory', 'annuaire', title="Annuaire")
         annuaire = portal.annuaire
@@ -246,13 +241,8 @@ def post_install(context):
                                    {'token': u'sous-chef', 'name': u'Sous-chef'},
                                    {'token': u'gerant', 'name': u'G\xe9rant'}]
         annuaire = portal.annuaire
-        alsoProvides(annuaire, IFacetedNavigable)
-        alsoProvides(annuaire, IDisableSmartFacets)
-        alsoProvides(annuaire, IHidePloneLeftColumn)
-        alsoProvides(annuaire, IHidePloneRightColumn)
-        annuaire.unrestrictedTraverse('@@faceted_exportimport').import_xml(
-                import_file=open(os.path.dirname(__file__) + '/annuaire-faceted.xml'))
     portal.portal_types.directory.global_allow = False
+    portal.portal_types.directory.default_view = 'table'
 
     if 'documents' not in portal:
         portal.invokeFactory('Folder', 'documents', title="Documents")

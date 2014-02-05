@@ -52,12 +52,10 @@ class PfwbgedPolicyLayer(PloneSandboxLayer):
 
     defaultBases = (PLONE_FIXTURE,)
     products = ['collective.task',
-                'collective.contact.facetednav',
                 'collective.documentviewer',
                 'collective.solr',
                 'collective.task',
                 'collective.z3cform.chosen',
-                'eea.facetednavigation',
                 'pfwbged.collection',
                 'pfwbged.folder',
                 'pfwbged.policy',
