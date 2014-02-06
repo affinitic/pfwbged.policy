@@ -124,6 +124,7 @@ Open favorite
     Element should become visible  id=favorites
     Click element  css=#favorites a[href$='${name}']
     Wait Until Page Contains Element  id=searchresults
+    Wait Until Page Contains Element  css=#searchresults .table-container
 
 Close Overlay
     Click Element  css=div.overlay div.close
