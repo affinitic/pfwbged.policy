@@ -124,7 +124,12 @@ Open favorite
     Element should become visible  id=favorites
     Click element  css=#favorites a[href$='${name}']
     Wait Until Page Contains Element  id=searchresults
+    # some ridiculous workarounds, to make sure robotframework is well aware
+    # of what is displayed on screen...
     Wait Until Page Contains Element  css=#searchresults .table-container
+    Wait Until Page Contains  termes de recherche
+    Click element  css=#batchsize-menu
+    Click element  css=#batchsize-menu
 
 Close Overlay
     Click Element  css=div.overlay div.close
