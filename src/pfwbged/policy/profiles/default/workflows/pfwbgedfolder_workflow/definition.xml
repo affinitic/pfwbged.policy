@@ -76,7 +76,7 @@
   </guard>
  </transition>
  <transition transition_id="publish" title="Publish" new_state="published" trigger="USER" before_script="" after_script="">
-  <action url="" category="hidden_workflow" icon="">Publish</action>
+  <action url="" category="workflow" icon="">Publish</action>
   <guard>
     <guard-role>Manager</guard-role>
     <guard-role>Owner</guard-role>
