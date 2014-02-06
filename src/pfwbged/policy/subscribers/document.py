@@ -256,12 +256,14 @@ def email_notification_of_tasks(context, event):
             _('Document: %s') % document.title + \
             '\n\n' + \
             _('Document Address: %s') % document.absolute_url() + \
-            '\n\n' + \
-            _('Deadline: %s') % context.deadline + \
-            '\n\n' + \
-            _('Note:') + \
-            '\n\n' + \
-            (context.note or '---')
+            '\n\n'
+    try:
+        body += _('Deadline: %s') % context.deadline + '\n\n'
+    except AttributeError:
+        pass
+
+    body += _('Note:') + '\n\n' + (context.note or '---')
+
     body = body.encode('utf-8')
 
     for responsible in (context.responsible or ['plop']):
