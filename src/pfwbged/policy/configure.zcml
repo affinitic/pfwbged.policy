@@ -67,4 +67,6 @@
     <!-- Register Layer -->
     <cmf:registerDirectory name="skins" directory="skins" recursive="True" />
 
+    <adapter factory=".customize.DefaultDashboard" />
+
 </configure>
