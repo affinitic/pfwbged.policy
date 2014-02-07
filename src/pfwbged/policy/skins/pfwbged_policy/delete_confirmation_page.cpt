@@ -21,11 +21,16 @@
            This item can not be deleted because it is currently locked by another user.
       </h1>
 
+      <tal:block condition="python: context.portal_type == 'pfwbgedlink'">
+        <h1 class="documentFirstHeading">Voulez-vous vraiment retirer cet élément du dossier ?</h1>
+      </tal:block>
+      <tal:block condition="python: context.portal_type != 'pfwbgedlink'">
       <tal:block condition="not:item_locked">
         <h1 class="documentFirstHeading"
             i18n:translate="alert_really_delete">
           Do you really want to delete this item?
         </h1>
+      </tal:block>
       </tal:block>
 
       <div id="content-core">
