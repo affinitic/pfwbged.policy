@@ -1,21 +1,21 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: pfwbged.policy\n"
-"POT-Creation-Date: 2013-11-05 10:28+0000\n"
+"POT-Creation-Date: 2014-02-07 15:28+0000\n"
 "PO-Revision-Date: 2013-09-04 11:37+0100\n"
-"Last-Translator: Vincent Fretin <vincent.fretin@gmail.com>\n"
-"Language-Team: Ecréall\n"
+"Last-Translator: Frederic Peters <fpeters@entrouvert.com>\n"
+"Language-Team: --\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"Language-Code: en\n"
-"Language-Name: English\n"
+"Language-Code: fr\n"
+"Language-Name: French\n"
 "Preferred-Encodings: utf-8 latin1\n"
-"Domain: DOMAIN\n"
+"Domain: pfwbged.policy\n"
 "X-Generator: Poedit 1.5.4\n"
 
-#: ../menu.py:164
+#: ../menu.py:166
 msgid "${action} the version ${version}"
 msgstr "${action} la version ${version}"
 
@@ -23,11 +23,11 @@ msgstr "${action} la version ${version}"
 msgid "Accept refusal"
 msgstr "Accepter la désattribution"
 
-#: ../menu.py:93
+#: ../menu.py:95
 msgid "Actions"
 msgstr "Actions"
 
-#: ../menu.py:231
+#: ../menu.py:248
 msgid "Add ${title}"
 msgstr "Ajouter ${title}"
 
@@ -39,7 +39,7 @@ msgstr "Demander la désattribution"
 msgid "Ask opinion"
 msgstr "Demander un avis"
 
-#: ../menu.py:40
+#: ../menu.py:42
 msgid "Ask opinion about version ${version}"
 msgstr "Demander un avis sur la version ${version}"
 
@@ -47,15 +47,15 @@ msgstr "Demander un avis sur la version ${version}"
 msgid "Ask validation"
 msgstr "Demander une validation"
 
-#: ../menu.py:41
+#: ../menu.py:43
 msgid "Ask validation about version ${version}"
 msgstr "Demander une validation sur la version ${version}"
 
-#: ../customize.py:11
+#: ../customize.py:21
 msgid "Can edit"
 msgstr "Modifiable par"
 
-#: ../customize.py:16
+#: ../customize.py:26
 msgid "Can view"
 msgstr "Visible par"
 
@@ -67,11 +67,11 @@ msgstr "Annuler"
 msgid "Comment"
 msgstr "Note"
 
-#: ../menu.py:35
+#: ../menu.py:37
 msgid "Create a new version"
 msgstr "Créer une nouvelle version"
 
-#: ../menu.py:330
+#: ../menu.py:347
 msgid "Create signed version for version ${version}"
 msgstr "Créer la version signée pour la version ${version}"
 
@@ -79,31 +79,39 @@ msgstr "Créer la version signée pour la version ${version}"
 msgid "Create version ${version}"
 msgstr "Création de la version ${version}"
 
-#: ../subscribers/document.py:258
+#: ../subscribers/document.py:261
 msgid "Deadline: %s"
 msgstr "Échéance : %s"
 
-#: ../subscribers/document.py:256
+#: ../subscribers/document.py:258
 msgid "Document Address: %s"
 msgstr "Adresse du document : %s"
 
-#: ../subscribers/document.py:254
+#: ../subscribers/document.py:256
 msgid "Document: %s"
 msgstr "Document : %s"
 
-#: ../menu.py:37
+#: ../menu.py:39
 msgid "File in a folder"
 msgstr "Ranger dans un dossier"
 
-#: ../menu.py:44
+#: ../menu.py:46
 msgid "Finish version ${version}"
 msgstr "Finaliser la version ${version}"
 
-#: ../menu.py:149
+#: ../customize.py:40
+msgid "Folders"
+msgstr "Dossiers"
+
+#: ../menu.py:151
 msgid "Mark document as read"
 msgstr "Marquer le document comme lu"
 
-#: ../subscribers/document.py:260
+#: ../customize.py:42
+msgid "My Tasks"
+msgstr "Mes tâches"
+
+#: ../subscribers/document.py:265
 msgid "Note:"
 msgstr "Note :"
 
@@ -111,7 +119,7 @@ msgstr "Note :"
 msgid "Opinion application for version ${version}"
 msgstr "Demande d'avis pour la version ${version}"
 
-#: ../subscribers/document.py:115
+#: ../subscribers/document.py:117
 msgid "Process document"
 msgstr "Traiter le document"
 
@@ -123,7 +131,7 @@ msgstr "Traiter ce courrier"
 msgid "Refuse refusal"
 msgstr "Refuser la désattribution"
 
-#: ../menu.py:43
+#: ../menu.py:45
 msgid "Refuse version ${version}"
 msgstr "Refuser la version ${version}"
 
@@ -131,15 +139,20 @@ msgstr "Refuser la version ${version}"
 msgid "Render opinion"
 msgstr "Rendre un avis"
 
-#: ../menu.py:154
+#: ../menu.py:156
 msgid "Return opinion about ${version}"
 msgstr "Rendre un avis sur la version ${version}"
 
 #: ../browser/to_process.py:46
+#: ../menu.py:439
 msgid "Save"
 msgstr "Enregistrer"
 
-#: ../menu.py:36
+#: ../menu.py:448
+msgid "Save As..."
+msgstr "Enregistrer sous…"
+
+#: ../menu.py:38
 msgid "Send for information"
 msgstr "Transmettre pour information"
 
@@ -147,15 +160,15 @@ msgstr "Transmettre pour information"
 msgid "Tasks view"
 msgstr "Vue tâches"
 
-#: ../subscribers/document.py:252
+#: ../subscribers/document.py:254
 msgid "Title: %s"
 msgstr "Titre : %s"
 
-#: ../menu.py:45
+#: ../menu.py:47
 msgid "Validate and finish version ${version}"
 msgstr "Valider et finaliser la version ${version}"
 
-#: ../menu.py:42
+#: ../menu.py:44
 msgid "Validate version ${version}"
 msgstr "Valider la version ${version}"
 
@@ -171,7 +184,7 @@ msgstr "Transition du workflow"
 msgid "You can enter a note."
 msgstr "Vous pouvez entrer une note."
 
-#: ../subscribers/document.py:250
+#: ../subscribers/document.py:252
 msgid "You received a request for action in the GED."
 msgstr "Vous avez reçu une demande d'action dans la GED."
 
