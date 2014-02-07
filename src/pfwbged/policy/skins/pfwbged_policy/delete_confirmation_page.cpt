@@ -24,13 +24,26 @@
       <tal:block condition="python: context.portal_type == 'pfwbgedlink'">
         <h1 class="documentFirstHeading">Voulez-vous vraiment retirer cet élément du dossier ?</h1>
       </tal:block>
-      <tal:block condition="python: context.portal_type != 'pfwbgedlink'">
+      <tal:block condition="python: context.portal_type == 'position'">
+        <h1 class="documentFirstHeading">Voulez-vous vraiment supprimer cette fonction ?</h1>
+      </tal:block>
+      <tal:block condition="python: context.portal_type not in ('pfwbgedlink', 'position')">
       <tal:block condition="not:item_locked">
         <h1 class="documentFirstHeading"
             i18n:translate="alert_really_delete">
           Do you really want to delete this item?
         </h1>
       </tal:block>
+      </tal:block>
+
+      <tal:block condition="python: context.portal_type == 'position'"
+                 define="held_positions python: context.get_held_positions()">
+        <p tal:condition="python: len(held_positions)">
+          Attention, cette position est actuellement occupée.
+        </p>
+        <ul tal:condition="python: len(held_positions)">
+          <li tal:repeat="holder held_positions"><span tal:content="python: holder.get_full_title()">plop</span> </li>
+        </ul>
       </tal:block>
 
       <div id="content-core">
