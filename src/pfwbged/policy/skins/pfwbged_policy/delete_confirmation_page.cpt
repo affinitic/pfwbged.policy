@@ -34,9 +34,6 @@
       </tal:block>
 
       <div id="content-core">
-          <ul>
-            <li tal:content="context/@@plone_context_state/object_title">The item title (ID)</li>
-          </ul>
 
           <form method="POST"
                 action="#"
