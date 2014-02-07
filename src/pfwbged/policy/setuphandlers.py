@@ -10,10 +10,13 @@ from plone import api
 from plone.portlets.interfaces import IPortletManager
 from plone.portlets.interfaces import IPortletAssignmentMapping
 
+from Products.Five.utilities.marker import mark
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.interfaces.constrains import ISelectableConstrainTypes
 from plone.app.dexterity.behaviors import constrains
 from plone.dexterity.interfaces import IDexterityContainer
+
+from . import interfaces
 
 
 def isNotCurrentProfile(context):
@@ -246,6 +249,7 @@ def post_install(context):
 
     if 'documents' not in portal:
         portal.invokeFactory('Folder', 'documents', title="Documents")
+    mark(portal['documents'], interfaces.IDocumentsFolder)
 
     # configure document types that can be added to the /documents folder, the
     # list of allowed types is extracted from pfwbgedfolder type, so they

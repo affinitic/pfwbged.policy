@@ -10,3 +10,6 @@ class IPfwbgedPolicyLayer(IDefaultPloneLayer):
 class IIncomingMailAttributed(Interface):
     """Marker interface added to a task.
     """
+
+class IDocumentsFolder(Interface):
+    """Marker interface for the main documents folder"""
