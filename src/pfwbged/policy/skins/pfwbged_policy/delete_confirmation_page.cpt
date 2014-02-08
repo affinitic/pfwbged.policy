@@ -36,14 +36,15 @@
       </tal:block>
       </tal:block>
 
-      <tal:block condition="python: context.portal_type == 'position'"
-                 define="held_positions python: context.get_held_positions()">
+      <tal:block condition="python: context.portal_type == 'position'">
+      <tal:block define="held_positions python: context.get_held_positions()">
         <p tal:condition="python: len(held_positions)">
           Attention, cette position est actuellement occupée.
         </p>
         <ul tal:condition="python: len(held_positions)">
           <li tal:repeat="holder held_positions"><span tal:content="python: holder.get_full_title()">plop</span> </li>
         </ul>
+      </tal:block>
       </tal:block>
 
       <div id="content-core">
