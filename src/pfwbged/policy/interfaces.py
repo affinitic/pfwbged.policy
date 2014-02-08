@@ -13,3 +13,7 @@ class IIncomingMailAttributed(Interface):
 
 class IDocumentsFolder(Interface):
     """Marker interface for the main documents folder"""
+
+
+class ISubpoolFolder(Interface):
+    """Marker interface for folders in the main documents folder"""

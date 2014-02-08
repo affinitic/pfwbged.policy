@@ -251,6 +251,12 @@ def post_install(context):
         portal.invokeFactory('Folder', 'documents', title="Documents")
     mark(portal['documents'], interfaces.IDocumentsFolder)
 
+    for i in range(0, 1000):
+        subfolder_id = '%04d' % i
+        if subfolder_id not in portal['documents']:
+            portal['documents'].invokeFactory('Folder', subfolder_id, title=subfolder_id)
+        mark(portal['documents'][subfolder_id], interfaces.ISubpoolFolder)
+
     # configure document types that can be added to the /documents folder, the
     # list of allowed types is extracted from pfwbgedfolder type, so they
     # always match.
