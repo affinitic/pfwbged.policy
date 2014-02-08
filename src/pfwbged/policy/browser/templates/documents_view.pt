@@ -1,0 +1,61 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="pfwbged.policy">
+<body>
+
+<metal:main fill-slot="main">
+
+    <h1 class="documentFirstHeading" tal:content="context/Title" />
+    <div tal:replace="structure provider:plone.belowcontenttitle" />
+
+    <div id="documents-table-view" tal:attributes="data-types view/document_types">
+
+    <div class="criteria-content" style="display:block;">
+        Rechercher : <input name="text-criteria-fulltext">
+    </div>
+
+    <div id="searchresults"/>
+
+
+    </div>
+
+<script>
+$.querywidget.updateSearch = function () {
+        var context_url = (function() {
+            var baseUrl, pieces;
+            baseUrl = $('base').attr('href');
+            if (!baseUrl) {
+                pieces = window.location.href.split('/');
+                pieces.pop();
+                baseUrl = pieces.join('/');
+            }
+            return baseUrl;
+        })();
+        var query = context_url + "/@@querybuilder_html_results?";
+        query += "query.i:records=portal_type&query.o:records=plone.app.querystring.operation.selection.is&";
+        $.map($('#documents-table-view').data('types').split(';'), function(a) {
+          query += "query.v:records:list=" + a + "&";
+        });
+        query += "query.i:records=SearchableText&query.o:records=plone.app.querystring.operation.string.contains&query.v:records=";
+        query += $('input[name="text-criteria-fulltext"]').val();
+        query += '&sort_on=sortable_title';
+        $.querywidget.runQuery(query);
+};
+
+$(function() {
+  $.querywidget.updateSearch();
+
+  $('input[name="text-criteria-fulltext"]').on('keyup', function() {
+   $.querywidget.updateSearch();
+  });
+
+});
+</script>
+</metal:main>
+
+</body>
+</html>
