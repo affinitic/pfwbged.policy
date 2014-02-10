@@ -255,6 +255,8 @@ def post_install(context):
         subfolder_id = '%04d' % i
         if subfolder_id not in portal['documents']:
             portal['documents'].invokeFactory('Folder', subfolder_id, title=subfolder_id)
+        if api.content.get_state(portal['documents'][subfolder_id]) == 'private':
+            api.content.transition(obj=portal['documents'][subfolder_id], transition="publish")
         mark(portal['documents'][subfolder_id], interfaces.ISubpoolFolder)
 
     # configure document types that can be added to the /documents folder, the
