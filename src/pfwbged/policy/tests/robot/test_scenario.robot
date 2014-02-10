@@ -236,7 +236,7 @@ Scenario
     # Select chef_finances for treating_groups
     Focus  css=#form_widgets_IPfwbIncomingMail_in_copy_select_chzn input
     Click element  id=form_widgets_IPfwbIncomingMail_in_copy_select_chzn_o_3
-    Select date in calendar  formfield-form-widgets-original_mail_date  5
+    Select date in calendar  formfield-form-widgets-mail_date  5
     Select date in calendar  formfield-form-widgets-reception_date  8
     Save form
     Wait Until Page Contains  New mail
