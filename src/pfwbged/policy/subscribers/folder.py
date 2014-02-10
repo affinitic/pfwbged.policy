@@ -55,3 +55,6 @@ def move_to_proper_location(context, event):
 
     new_url = target_folder.absolute_url() + '/' + result[0]['new_id']
     context.REQUEST.response.redirect(new_url, lock=True)
+
+    from document import create_task_after_creation
+    create_task_after_creation(target_folder[result[0]['new_id']], event)

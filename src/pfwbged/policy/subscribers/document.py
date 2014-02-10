@@ -105,7 +105,7 @@ def version_is_signed_at_creation(context, event):
 
 
 ### Workflow for other documents
-@grok.subscribe(IPfwbDocument, IObjectAddedEvent)
+# @grok.subscribe(IPfwbDocument, IObjectAddedEvent)
 def create_task_after_creation(context, event):
     """Create a task attributed to creator after document creation"""
     # only applies to "other documents"
