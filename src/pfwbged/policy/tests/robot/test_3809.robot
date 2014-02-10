@@ -52,7 +52,9 @@ Log in as
     Log in  ${username}  secret
 
 Open supermenu
-    Open Workflow Menu
+    # Open Workflow Menu
+    Click link  css=dl#plone-contentmenu-workflow dt.actionMenuHeader a
+    Wait until keyword succeeds  1  5  Element Should Be Visible  css=dl#plone-contentmenu-workflow dd.actionMenuContent
 
 Go to documents
     Go to  ${PLONE_URL}/documents
