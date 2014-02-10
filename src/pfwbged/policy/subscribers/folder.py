@@ -15,6 +15,7 @@ from collective.dms.basecontent.dmsdocument import IDmsDocument
 from pfwbged.folder.folder import IFolder
 
 from ..interfaces import IDocumentsFolder
+from .. import POOL_SIZE
 
 
 @grok.subscribe(IFolder, IObjectAddedEvent)
@@ -41,7 +42,7 @@ def move_to_proper_location(context, event):
         target_folder = api.portal.get().dossiers
     else:
         # for documents this is organized in subpools, pick one at random
-        subfolder_id = '%04d' % random.randint(0, 1000)
+        subfolder_id = '%04d' % random.randint(0, POOL_SIZE-1)
         target_folder = api.portal.get().documents[subfolder_id]
 
     result = target_folder.manage_pasteObjects(clipboard)

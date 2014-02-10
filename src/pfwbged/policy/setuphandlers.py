@@ -16,7 +16,7 @@ from Products.CMFPlone.interfaces.constrains import ISelectableConstrainTypes
 from plone.app.dexterity.behaviors import constrains
 from plone.dexterity.interfaces import IDexterityContainer
 
-from . import interfaces
+from . import interfaces, POOL_SIZE
 
 
 def isNotCurrentProfile(context):
@@ -251,7 +251,7 @@ def post_install(context):
         portal.invokeFactory('Folder', 'documents', title="Documents")
     mark(portal['documents'], interfaces.IDocumentsFolder)
 
-    for i in range(0, 1000):
+    for i in range(0, POOL_SIZE):
         subfolder_id = '%04d' % i
         if subfolder_id not in portal['documents']:
             portal['documents'].invokeFactory('Folder', subfolder_id, title=subfolder_id)
