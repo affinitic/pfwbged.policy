@@ -11,6 +11,7 @@
  <permission>collective.dms.mailcontent: Add Outgoing Mail</permission>
  <permission>Modify portal content</permission>
  <permission>View</permission>
+ <permission>Delete objects</permission>
  <state state_id="private" title="Private">
   <exit-transition transition_id="publish"/>
   <permission-map name="View" acquired="False">
@@ -49,6 +50,12 @@
    <permission-role>Owner</permission-role>
   </permission-map>
   <permission-map name="Add portal content" acquired="False">
+   <permission-role>Contributor</permission-role>
+   <permission-role>Manager</permission-role>
+   <permission-role>Member</permission-role>
+   <permission-role>Owner</permission-role>
+  </permission-map>
+  <permission-map name="Delete objects" acquired="False">
    <permission-role>Contributor</permission-role>
    <permission-role>Manager</permission-role>
    <permission-role>Member</permission-role>
