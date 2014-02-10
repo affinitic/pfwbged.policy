@@ -246,7 +246,8 @@ Scenario
 
     [Documentation]  Greffier assigns mail
     Log in as  greffier
-    Go to  ${PLONE_URL}/documents/new-mail
+    Go to documents
+    Click link  css=.listing a[href$='/new-mail']
     Execute transition  to_process
     Overlay is opened
     Input Text  form.widgets.comment  merci de traiter
@@ -267,12 +268,12 @@ Scenario
     [Documentation]  Finances group member sees document
     Log in as  finances
     Go to documents
-    Element Should Be Visible  id=folder-contents-item-new-mail
+    Element Should Be Visible  css=.listing a[href$='/new-mail']
 
     [Documentation]  info group member sees document
     Log in as  info
     Go to documents
-    Element Should Be Visible  id=folder-contents-item-new-mail
+    Element Should Be Visible  css=.listing a[href$='/new-mail']
 
     [Documentation]  Christine attributes task to Robert
     Log in as  christine
@@ -325,9 +326,9 @@ Scenario
     [Documentation]  Création d’une première version de réponse
     Log in as  robert
     Go to documents
-    Click link  css=.listing a[href$='documents/new-mail']
+    Click link  css=.listing a[href$='/new-mail']
     Wait Until Page Contains  New mail
-    Click link  css=#formfield-form-widgets-related_docs a[href$='re-new-mail']
+    Click link  css=#formfield-form-widgets-related_docs a[href$='/re-new-mail']
     Wait Until Page Contains  Re: New mail
 
     Create version  1  Robert
@@ -359,14 +360,14 @@ Scenario
     # Abdes doesn't see version 2
     Log in as  abdes
     Go to documents
-    Click link  css=.listing a[href$='documents/re-new-mail']
+    Click link  css=.listing a[href$='/re-new-mail']
     Wait Until Page Contains  Re: New mail
     #Versions should not contain  2
 
     [Documentation]  Demande de validation
     Log in as  robert
     Go to documents
-    Click link  css=.listing a[href$='documents/re-new-mail']
+    Click link  css=.listing a[href$='re-new-mail']
     Wait Until Page Contains  Re: New mail
     Ask validation to  chri  Christine  2
     Page should contain  Demande de validation pour la version 2
@@ -429,7 +430,7 @@ Scenario
     # Robert don't see version 3
     Log in as  robert
     Go to documents
-    Click link  css=.listing a[href$='documents/re-new-mail']
+    Click link  css=.listing a[href$='re-new-mail']
     Wait Until Page Contains  Re: New mail
     Versions should contain  1
     Versions should contain  2
@@ -438,7 +439,7 @@ Scenario
     [Documentation]  Finalisation de la version
     Log in as  christine
     Go to documents
-    Click link  css=.listing a[href$='documents/re-new-mail']
+    Click link  css=.listing a[href$='re-new-mail']
     Wait Until Page Contains  Re: New mail
     Versions should contain  Valid
     Execute transition on version  finish  3
@@ -449,7 +450,7 @@ Scenario
     [Documentation]  Import de la version signée.
     Log in as  greffier
     Go to documents
-    Click link  css=.listing a[href$='documents/re-new-mail']
+    Click link  css=.listing a[href$='re-new-mail']
     Select version  3
     Execute action  plone-contentmenu-actions-create_signed_version
     Overlay is opened
@@ -466,7 +467,7 @@ Scenario
 
     Log in as  robert
     Go to documents
-    Click link  css=.listing a[href$='documents/re-new-mail']
+    Click link  css=.listing a[href$='re-new-mail']
     Wait Until Page Contains  Version signée
     Execute transition  send
     Wait Until Page Contains  Envoyé
