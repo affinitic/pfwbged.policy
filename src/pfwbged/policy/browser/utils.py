@@ -18,5 +18,6 @@ class ImportGroupFolders(BrowserView):
                 continue
             folder = portal['dossiers'].invokeFactory('pfwbgedfolder',
                     term.value, title=term.title,
-                    treating_groups=[term.value])
+                    treating_groups=[term.value],
+                    recipient_groups=[term.value])
         return 'OK'
