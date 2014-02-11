@@ -30,5 +30,6 @@
   <portlet addview="collective.quickupload.QuickUploadPortlet" remove="true" />
   <portlet addview="plone.portlet.collection.Collection" remove="true" />
   <portlet addview="plone.portlet.static.Static" remove="true" />
+  <portlet addview="collective.task.browser.TasksPortlet" remove="true" />
 
 </portlets>
