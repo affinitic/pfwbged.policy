@@ -60,12 +60,23 @@
                      value="1"
                      />
 
-              <input class="destructive"
+              <tal:block condition="python: context.portal_type == 'pfwbgedlink'">
+                <input class="destructive"
+                     type="submit"
+                     value="Retirer"
+                     tal:condition="not:item_locked"
+                     />
+              </tal:block>
+
+              <tal:block condition="python: context.portal_type != 'pfwbgedlink'">
+                <input class="destructive"
                      type="submit"
                      value="Delete"
                      tal:condition="not:item_locked"
                      i18n:attributes="value;"
                      />
+              </tal:block>
+
               <input class="standalone"
                      type="submit"
                      value="Cancel"
