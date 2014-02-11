@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: pfwbged.policy\n"
-"POT-Creation-Date: 2014-02-07 15:28+0000\n"
+"POT-Creation-Date: 2014-02-11 12:51+0000\n"
 "PO-Revision-Date: 2013-09-04 11:37+0100\n"
 "Last-Translator: Frederic Peters <fpeters@entrouvert.com>\n"
 "Language-Team: --\n"
@@ -18,6 +18,14 @@ msgstr ""
 #: ../menu.py:166
 msgid "${action} the version ${version}"
 msgstr "${action} la version ${version}"
+
+#: ../skins/pfwbged_policy/object_delete.cpy:43
+msgid "${title} has been deleted."
+msgstr "L'élément ${title} a été supprimé."
+
+#: ../skins/pfwbged_policy/object_delete.cpy:31
+msgid "${title} is locked and cannot be deleted."
+msgstr "L'élément ${title} est verrouillé et ne peut être supprimé."
 
 #: ../browser/comments.py:98
 msgid "Accept refusal"
@@ -71,7 +79,7 @@ msgstr "Note"
 msgid "Create a new version"
 msgstr "Créer une nouvelle version"
 
-#: ../menu.py:347
+#: ../menu.py:348
 msgid "Create signed version for version ${version}"
 msgstr "Créer la version signée pour la version ${version}"
 
@@ -144,11 +152,11 @@ msgid "Return opinion about ${version}"
 msgstr "Rendre un avis sur la version ${version}"
 
 #: ../browser/to_process.py:46
-#: ../menu.py:439
+#: ../menu.py:440
 msgid "Save"
 msgstr "Enregistrer"
 
-#: ../menu.py:448
+#: ../menu.py:449
 msgid "Save As..."
 msgstr "Enregistrer sous…"
 
@@ -187,4 +195,3 @@ msgstr "Vous pouvez entrer une note."
 #: ../subscribers/document.py:252
 msgid "You received a request for action in the GED."
 msgstr "Vous avez reçu une demande d'action dans la GED."
-
