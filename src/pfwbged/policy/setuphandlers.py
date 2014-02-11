@@ -275,6 +275,10 @@ def post_install(context):
     setup_folder_portlets(portal['Members'])
     setup_folder_portlets(portal['dossiers'])
 
+    if 'thesaurus' not in portal:
+        portal.invokeFactory('dmsthesaurus', 'thesaurus', title=u"Thésaurus")
+    portal['thesaurus'].exclude_from_nav= True
+
     # everyone can see annuaire, documents, and dossiers
     if api.content.get_state(portal['annuaire']) == 'private':
         api.content.transition(obj=portal['annuaire'], transition="publish")
