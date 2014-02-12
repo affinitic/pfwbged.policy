@@ -43,12 +43,20 @@ def get_collection_query(type, role):
                'validation': {'enquirer': [u'todo', u'validated', u'refused'],
                               'responsible': [u'todo', u'validated', u'refused'],},
                }
+    if type == 'task':
+        # special case tasks to hold them all
+        portal_types = ['task', 'opinion', 'validation']
+        status = [u'abandoned', u'attributed', u'done',
+                  u'in-progress', u'refusal-requested', u'todo']
+    else:
+        portal_types = [type]
+        status = mapping[type][role]
     return [{u'i': u'portal_type',
               u'o': u'plone.app.querystring.operation.selection.is',
-              u'v': [type]},
+              u'v': portal_types},
              {u'i': u'review_state',
               u'o': u'plone.app.querystring.operation.selection.is',
-              u'v': mapping[type][role]},
+              u'v': status},
              {u'i': role,
               u'o': u'plone.app.querystring.operation.string.currentUser',
               },
