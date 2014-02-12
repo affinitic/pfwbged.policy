@@ -228,7 +228,6 @@ def document_is_reopened(context, event):
 @grok.subscribe(IBaseTask, IObjectAddedEvent)
 def email_notification_of_tasks(context, event):
     """Notify recipients of new tasks by email"""
-
     # go up in the acquisition chain to find the document
     document = None
     for obj in aq_chain(context):
@@ -240,7 +239,7 @@ def email_notification_of_tasks(context, event):
         return
 
     for enquirer in (context.enquirer or []):
-        member = context.portal_membership.getMemberById(responsible)
+        member = context.portal_membership.getMemberById(enquirer)
         if member:
             email_from = member.getProperty('email', None)
             if email_from:
