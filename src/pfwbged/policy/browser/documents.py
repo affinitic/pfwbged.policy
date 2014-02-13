@@ -19,7 +19,8 @@ class DocumentsView(grok.View):
         portal = api.portal.get()
         typesTool = getToolByName(portal, 'portal_types')
         fti = typesTool.getTypeInfo('pfwbgedfolder')
-        return ';'.join([x for x in fti.allowed_content_types if x not in ('pfwbgedfolder', 'pfwbgedlink',)])
+        return ';'.join([x for x in fti.allowed_content_types if x not in (
+            'pfwbgedfolder', 'pfwbgedlink', 'pfwbgedcollection')])
 
 
 
