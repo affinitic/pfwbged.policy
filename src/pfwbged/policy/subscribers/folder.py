@@ -30,12 +30,6 @@ def move_to_proper_location(context, event):
             # the folder is already in the right place, good
             return
 
-    if IFolder.providedBy(folder):
-        # add a link to classifying folder
-        intids = component.getUtility(IIntIds)
-        link = context.invokeFactory('pfwbgedlink', 'pfwbgedlink-0',
-                folder=RelationValue(intids.getId(folder)))
-
     # then move the document to the global pool folder
     clipboard = folder.manage_cutObjects([context.id])
     if context.portal_type == 'pfwbgedfolder':
@@ -56,5 +50,13 @@ def move_to_proper_location(context, event):
     new_url = target_folder.absolute_url() + '/' + result[0]['new_id']
     context.REQUEST.response.redirect(new_url, lock=True)
 
+    new_context = target_folder[result[0]['new_id']]
+    if IFolder.providedBy(folder):
+        # add a link to classifying folder
+        intids = component.getUtility(IIntIds)
+        link = new_context.invokeFactory('pfwbgedlink', 'pfwbgedlink-0',
+                folder=RelationValue(intids.getId(folder)))
+
+
     from document import create_task_after_creation
-    create_task_after_creation(target_folder[result[0]['new_id']], event)
+    create_task_after_creation(new_context, event)
