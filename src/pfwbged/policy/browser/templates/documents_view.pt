@@ -18,6 +18,11 @@
         Rechercher : <input name="text-criteria-fulltext">
     </div>
 
+    <div style="display: none;">
+      <input id="sort_on" value="sortable_title"/>
+      <input id="sort_order" type="checkbox"/>
+     </div>
+
     <div id="searchresults"/>
 
 
@@ -42,7 +47,10 @@ $.querywidget.updateSearch = function () {
         });
         query += "query.i:records=SearchableText&query.o:records=plone.app.querystring.operation.string.contains&query.v:records=";
         query += $('input[name="text-criteria-fulltext"]').val();
-        query += '&sort_on=sortable_title';
+        query += '&sort_on=' + $('#sort_on').val();
+        if ($('#sort_order:checked').length > 0) {
+            query += '&sort_order=reverse';
+        }
         $.querywidget.runQuery(query);
 };
 
