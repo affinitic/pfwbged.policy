@@ -232,7 +232,7 @@ def email_notification_of_tasks(context, event):
     document = None
     for obj in aq_chain(context):
         obj = aq_parent(obj)
-        if IPfwbDocument.providedBy(obj):
+        if IDmsDocument.providedBy(obj):
             document = obj
             break
     if not document:
@@ -278,3 +278,53 @@ def email_notification_of_tasks(context, event):
             # do not abort transaction in case of email error
             log = logging.getLogger('pfwbged.policy')
             log.exception(e)
+
+
+@grok.subscribe(IValidation, IAfterTransitionEvent)
+def email_notification_of_refused_task(context, event):
+    if event.new_state.id != 'refused':
+        return
+
+    # go up in the acquisition chain to find the document
+    document = None
+    for obj in aq_chain(context):
+        obj = aq_parent(obj)
+        if IDmsDocument.providedBy(obj):
+            document = obj
+            break
+    if not document:
+        return
+
+    email_enquirer = None
+    for enquirer in (context.enquirer or []):
+        member = context.portal_membership.getMemberById(enquirer)
+        if member:
+            email_enquirer = member.getProperty('email', None)
+            if email_enquirer:
+                break
+
+    if not email_enquirer:
+        return
+
+    email_from = api.user.get_current().email or 'admin@localhost'
+
+    subject = '%s - %s' % (context.title, document.title)
+    body = _('A validation request has been refused') + \
+            '\n\n' + \
+            _('Title: %s') % context.title + \
+            '\n\n' + \
+            _('Document: %s') % document.title + \
+            '\n\n' + \
+            _('Document Address: %s') % document.absolute_url() + \
+            '\n\n'
+
+    body += _('Note:') + '\n\n' + (context.note or '---')
+
+    body = body.encode('utf-8')
+
+    try:
+        context.MailHost.send(body, email_enquirer, email_from, subject, charset='utf-8')
+    except Exception as e:
+        # do not abort transaction in case of email error
+        log = logging.getLogger('pfwbged.policy')
+        log.exception(e)
