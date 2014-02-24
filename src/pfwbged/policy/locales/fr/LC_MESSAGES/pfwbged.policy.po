@@ -101,7 +101,7 @@ msgstr "Document : %s"
 
 #: ../menu.py:39
 msgid "File in a folder"
-msgstr "Ranger dans un dossier"
+msgstr "Classer dans un dossier"
 
 #: ../menu.py:46
 msgid "Finish version ${version}"
