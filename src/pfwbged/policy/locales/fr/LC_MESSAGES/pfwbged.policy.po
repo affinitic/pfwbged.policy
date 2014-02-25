@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: pfwbged.policy\n"
-"POT-Creation-Date: 2014-02-11 12:51+0000\n"
+"POT-Creation-Date: 2014-02-25 16:48+0000\n"
 "PO-Revision-Date: 2013-09-04 11:37+0100\n"
 "Last-Translator: Frederic Peters <fpeters@entrouvert.com>\n"
 "Language-Team: --\n"
@@ -26,6 +26,10 @@ msgstr "L'élément ${title} a été supprimé."
 #: ../skins/pfwbged_policy/object_delete.cpy:31
 msgid "${title} is locked and cannot be deleted."
 msgstr "L'élément ${title} est verrouillé et ne peut être supprimé."
+
+#: ../subscribers/document.py:312
+msgid "A validation request has been refused"
+msgstr "Une demande de validation a été refusée."
 
 #: ../browser/comments.py:98
 msgid "Accept refusal"
@@ -87,15 +91,15 @@ msgstr "Créer la version signée pour la version ${version}"
 msgid "Create version ${version}"
 msgstr "Création de la version ${version}"
 
-#: ../subscribers/document.py:261
+#: ../subscribers/document.py:260
 msgid "Deadline: %s"
 msgstr "Échéance : %s"
 
-#: ../subscribers/document.py:258
+#: ../subscribers/document.py:257
 msgid "Document Address: %s"
 msgstr "Adresse du document : %s"
 
-#: ../subscribers/document.py:256
+#: ../subscribers/document.py:255
 msgid "Document: %s"
 msgstr "Document : %s"
 
@@ -119,7 +123,7 @@ msgstr "Marquer le document comme lu"
 msgid "My Tasks"
 msgstr "Mes tâches"
 
-#: ../subscribers/document.py:265
+#: ../subscribers/document.py:264
 msgid "Note:"
 msgstr "Note :"
 
@@ -131,7 +135,7 @@ msgstr "Demande d'avis pour la version ${version}"
 msgid "Process document"
 msgstr "Traiter le document"
 
-#: ../subscribers/mail.py:31
+#: ../subscribers/mail.py:86
 msgid "Process mail"
 msgstr "Traiter ce courrier"
 
@@ -168,7 +172,7 @@ msgstr "Transmettre pour information"
 msgid "Tasks view"
 msgstr "Vue tâches"
 
-#: ../subscribers/document.py:254
+#: ../subscribers/document.py:253
 msgid "Title: %s"
 msgstr "Titre : %s"
 
@@ -192,6 +196,7 @@ msgstr "Transition du workflow"
 msgid "You can enter a note."
 msgstr "Vous pouvez entrer une note."
 
-#: ../subscribers/document.py:252
+#: ../subscribers/document.py:251
 msgid "You received a request for action in the GED."
 msgstr "Vous avez reçu une demande d'action dans la GED."
+
