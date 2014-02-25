@@ -248,20 +248,21 @@ def email_notification_of_tasks(context, event):
         email_from = api.user.get_current().email or 'admin@localhost'
 
     subject = '%s - %s' % (context.title, document.title)
-    body = _('You received a request for action in the GED.') + \
+    body = translate(_('You received a request for action in the GED.'), context=context.REQUEST) + \
             '\n\n' + \
-            _('Title: %s') % context.title + \
+            translate(_('Title: %s'), context=context.REQUEST) % context.title + \
             '\n\n' + \
-            _('Document: %s') % document.title + \
+            translate(_('Document: %s'), context=context.REQUEST) % document.title + \
             '\n\n' + \
-            _('Document Address: %s') % document.absolute_url() + \
+            translate(_('Document Address: %s'), context=context.REQUEST) % document.absolute_url() + \
             '\n\n'
     try:
-        body += _('Deadline: %s') % context.deadline + '\n\n'
+        body += translate(_('Deadline: %s'), context=context.REQUEST) % context.deadline + '\n\n'
     except AttributeError:
         pass
 
-    body += _('Note:') + '\n\n' + (context.note or '---')
+    if context.note:
+        body += translate(_('Note:'), context=context.REQUEST) + '\n\n' + context.note
 
     body = body.encode('utf-8')
 
@@ -309,16 +310,15 @@ def email_notification_of_refused_task(context, event):
     email_from = api.user.get_current().email or 'admin@localhost'
 
     subject = '%s - %s' % (context.title, document.title)
-    body = _('A validation request has been refused') + \
-            '\n\n' + \
-            _('Title: %s') % context.title + \
-            '\n\n' + \
-            _('Document: %s') % document.title + \
-            '\n\n' + \
-            _('Document Address: %s') % document.absolute_url() + \
-            '\n\n'
 
-    body += _('Note:') + '\n\n' + (context.note or '---')
+    body = translate(_('A validation request has been refused'), context=context.REQUEST) + \
+            '\n\n' + \
+            translate(_('Title: %s'), context=context.REQUEST) % context.title + \
+            '\n\n' + \
+            translate(_('Document: %s'), context=context.REQUEST) % document.title + \
+            '\n\n' + \
+            translate(_('Document Address: %s'), context=context.REQUEST) % document.absolute_url() + \
+            '\n\n'
 
     body = body.encode('utf-8')
 
