@@ -281,6 +281,10 @@ def post_install(context):
     if 'dossiers' not in portal:
         portal.invokeFactory('Folder', 'dossiers', title="Dossiers")
     setup_constrains(portal['dossiers'], ['pfwbgedfolder'])
+    # change main /dossiers folder to allow deletions by all members, as we
+    # need to keep it possible for members to remove the folders they created.
+    # (the 'Ownner' local roles gets 'Delete objects' from the workflow)
+    portal['dossiers'].manage_setLocalRoles('AuthenticatedUsers', (u'Owner',))
 
     setup_folder_portlets(portal['Members'])
     setup_folder_portlets(portal['dossiers'])
