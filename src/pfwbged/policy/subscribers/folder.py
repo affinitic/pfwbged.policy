@@ -11,6 +11,11 @@ from zope.app.intid.interfaces import IIntIds
 from z3c.relationfield import RelationValue
 from zope.lifecycleevent.interfaces import IObjectAddedEvent
 
+from AccessControl.SecurityManagement import getSecurityManager
+from AccessControl.SecurityManagement import newSecurityManager
+from AccessControl.SecurityManagement import setSecurityManager
+from zope.globalrequest import getRequest
+
 from collective.dms.basecontent.dmsdocument import IDmsDocument
 from pfwbged.folder.folder import IFolder
 
@@ -39,7 +44,15 @@ def move_to_proper_location(context, event):
         subfolder_id = '%04d' % random.randint(0, POOL_SIZE-1)
         target_folder = api.portal.get().documents[subfolder_id]
 
+    # move the object using the admin security context, this allows permissions
+    # to be kept intact on folders, instead of requiring "Delete objects",
+    # which we do not one, because things shouldn't be removable by anybody but
+    # the admin.
+    admin_user = aq_parent(api.portal.get()).acl_users.getUserById('admin')
+    old_security_manager = getSecurityManager()
+    newSecurityManager(getRequest(), admin_user)
     result = target_folder.manage_pasteObjects(clipboard)
+    setSecurityManager(old_security_manager)
 
     # makes sure original object is deleted
     try:

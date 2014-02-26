@@ -27,6 +27,9 @@
    <permission-role>Manager</permission-role>
    <permission-role>Owner</permission-role>
   </permission-map>
+  <permission-map name="Delete objects" acquired="False">
+   <permission-role>Manager</permission-role>
+  </permission-map>
   <permission-map name="collective.dms.mailcontent: Add Incoming Mail" acquired="False">
    <permission-role>Contributor</permission-role>
    <permission-role>Manager</permission-role>
@@ -56,10 +59,7 @@
    <permission-role>Owner</permission-role>
   </permission-map>
   <permission-map name="Delete objects" acquired="False">
-   <permission-role>Contributor</permission-role>
    <permission-role>Manager</permission-role>
-   <permission-role>Member</permission-role>
-   <permission-role>Owner</permission-role>
   </permission-map>
   <permission-map name="collective.dms.mailcontent: Add Incoming Mail" acquired="False">
    <permission-role>Contributor</permission-role>
