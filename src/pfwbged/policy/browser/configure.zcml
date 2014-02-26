@@ -97,6 +97,13 @@
       permission="cmf.ManagePortal"
       />
 
+  <browser:view
+      name="importUserFolders"
+      for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+      class=".utils.ImportUserFolders"
+      permission="cmf.ManagePortal"
+      />
+
   <browser:page
       name="reset-dashboard"
       for="Products.CMFPlone.interfaces.IPloneSiteRoot"

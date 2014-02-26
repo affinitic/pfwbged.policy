@@ -2,6 +2,10 @@ from zope.component import getUtility
 from zope.schema.interfaces import IVocabularyFactory
 
 from Products.Five.browser import BrowserView
+from Products.CMFCore.utils import getToolByName
+from Products.CMFPlone.utils import base_hasattr
+
+from plone import api
 
 from collective.z3cform.rolefield.field import LocalRolesToPrincipalsDataManager
 from pfwbged.folder import IFolder
@@ -40,5 +44,21 @@ class ImportGroupFolders(BrowserView):
                 canread_dm.set([])
             canread_dm.set([term.value])
             folder.reindexObjectSecurity()
+
+        return 'OK'
+
+
+class ImportUserFolders(BrowserView):
+    def __call__(self):
+        portal = self.context
+        factory = getUtility(IVocabularyFactory, 'plone.principalsource.Users')
+        membership_tool = getToolByName(portal, 'portal_membership')
+        vocabulary = factory(self.context)
+        members_folder = getattr(portal, 'Members')
+        for term in vocabulary:
+            if base_hasattr(members_folder, term.value):
+                continue
+            with api.env.adopt_user(username=term.value):
+                membership_tool.loginUser()
 
         return 'OK'
