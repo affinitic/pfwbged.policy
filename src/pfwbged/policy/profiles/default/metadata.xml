@@ -14,6 +14,7 @@
     <dependency>profile-pfwbged.theme:default</dependency>
     <dependency>profile-pfwbged.collection:default</dependency>
     <dependency>profile-pfwbged.folder:default</dependency>
+    <dependency>profile-pfwbged.contact:default</dependency>
     <dependency>profile-plone.app.contenttypes:default</dependency>
     <dependency>profile-plone.app.dexterity:default</dependency>
     <dependency>profile-Products.AROfficeTransforms:default</dependency>
