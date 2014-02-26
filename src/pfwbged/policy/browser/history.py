@@ -1,6 +1,8 @@
 from plone import api
 from plone.app.layout.viewlets.content import ContentHistoryView as BaseHistoryView
 
+from AccessControl import Unauthorized
+
 from .. import _
 from ..menu import dmsfile_wfactions_mapping, IGNORE_
 
@@ -28,7 +30,10 @@ class ContentHistoryView(BaseHistoryView):
         brains = catalog.unrestrictedSearchResults(query)
         old_context = self.context
         for brain in brains:
-            version = brain.getObject()
+            try:
+                version = brain.getObject()
+            except Unauthorized:
+                continue
             self.context = version
             results = super(ContentHistoryView, self).workflowHistory(complete)
             self._modify_title(results)
@@ -40,7 +45,10 @@ class ContentHistoryView(BaseHistoryView):
                  'portal_type': ['information', 'opinion', 'task', 'validation']}
         brains = catalog.unrestrictedSearchResults(query)
         for brain in brains:
-            task = brain.getObject()
+            try:
+                task = brain.getObject()
+            except Unauthorized:
+                continue
             review_history.append({
                 'actor': None,
                 'actorid': task.creators[0],
