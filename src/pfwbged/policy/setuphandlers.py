@@ -22,7 +22,9 @@ from . import interfaces, POOL_SIZE
 def isNotCurrentProfile(context):
     return context.readDataFile("pfwbgedpolicy_marker.txt") is None
 
-BLACKLISTED_TYPES = ('pfwb.medicalcertificate', 'pfwb.invoice', )
+BLACKLISTED_TYPES = ('pfwb.pressrelease', 'pfwb.greenboarddecision',
+                     'pfwb.agenda', 'pfwb.insurancedocument',
+                     'pfwb.internalnote', 'pfwb.minutes', )
 
 def setup_constrains(container, allowed_types):
     allowed_types = [x for x in allowed_types if x not in BLACKLISTED_TYPES]
