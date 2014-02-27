@@ -351,6 +351,8 @@ class CustomMenu(menu.WorkflowMenu):
             elif action['id'] == 'create_outgoing_mail':
                 # make it overlay !
                 cssClass += ' overlay-form-redirect'
+            elif action['id'] == 'delete':
+                cssClass += " overlay-form-redirect"
 
             if action['allowed']:
                 aid = action['id']
