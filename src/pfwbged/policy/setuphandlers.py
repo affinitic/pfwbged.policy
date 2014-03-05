@@ -282,6 +282,7 @@ def post_install(context):
 
     if 'dossiers' not in portal:
         portal.invokeFactory('Folder', 'dossiers', title="Dossiers")
+    mark(portal['dossiers'], interfaces.IFoldersFolder)
     setup_constrains(portal['dossiers'], ['pfwbgedfolder'])
     # change main /dossiers folder to allow deletions by all members, as we
     # need to keep it possible for members to remove the folders they created.
