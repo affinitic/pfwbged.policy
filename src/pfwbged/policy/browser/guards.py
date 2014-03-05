@@ -6,6 +6,7 @@ from five import grok
 
 from plone import api
 
+from collective.dms.basecontent.dmsdocument import IDmsDocument
 from collective.dms.mailcontent.dmsmail import IDmsOutgoingMail,\
     IDmsIncomingMail
 from collective.dms.basecontent.dmsfile import IDmsFile
@@ -27,6 +28,18 @@ class OutgoingMailReadyToSend(grok.View):
                                          'portal_type': 'dmsmainfile',
                                          'review_state': 'finished'})
         return bool(results)
+
+
+class CanAnswerGenericDocument(grok.View):
+    """Guard that check if a document that is not an incoming mail can be
+    answered (this will never be true but this allows to share the same
+    workflow)"""
+    grok.name('can_answer')
+    grok.context(IDmsDocument)
+    grok.require('zope2.View')
+
+    def render(self):
+        return False
 
 
 class CanAnswerIncomingMail(grok.View):
