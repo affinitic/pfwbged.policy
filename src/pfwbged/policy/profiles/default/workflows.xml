@@ -47,6 +47,12 @@
   <type type_id="pfwb.boarddecision">
    <bound-workflow workflow_id="incomingmail_workflow"/>
   </type>
+  <type type_id="pfwb.apfincomingmail">
+   <bound-workflow workflow_id="incomingmail_workflow"/>
+  </type>
+  <type type_id="pfwb.apfoutgoingmail">
+   <bound-workflow workflow_id="outgoingmail_workflow"/>
+  </type>
   <type type_id="pfwb.medicalcertificate">
    <bound-workflow workflow_id="incomingmail_workflow"/>
   </type>
