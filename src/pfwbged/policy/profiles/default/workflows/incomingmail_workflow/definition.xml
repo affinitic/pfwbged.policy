@@ -208,6 +208,7 @@
  <transition transition_id="to_assign" title="" new_state="assigning" trigger="USER" before_script="" after_script="">
   <action url="%(content_url)s/content_status_modify?workflow_action=to_assign" category="workflow" icon="" i18n:translate="">To assign</action>
   <guard>
+   <guard-role>Editor</guard-role>
    <guard-role>Manager</guard-role>
    <guard-role>Owner</guard-role>
    <guard-role>Reviewer</guard-role>
