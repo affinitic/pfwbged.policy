@@ -22,8 +22,8 @@ class ImportGroupFolders(BrowserView):
                     'Site Administrators', 'AuthenticatedUsers'):
                 # ignore system groups
                 continue
-            if term.title.startswith('(Group) '):
-                term.title = term.title[len('(Group) '):] # remove '(Group) '
+            if term.title.startswith('(Groupe) '):
+                term.title = term.title[len('(Groupe) '):] # remove '(Groupe) '
 
             if term.value in portal['dossiers']:
                 if not reset:
