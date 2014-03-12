@@ -111,10 +111,10 @@ def incoming_mail_attributed(context, comment):
     """Launched when a mail is attributed to some groups or users.
     """
     # first, copy treated_by and in_copy into treating_groups and recipient_groups
-    treating_groups = list(frozenset((context.treating_groups or []) + (context.treated_by or [])))
+    treating_groups = list(frozenset((context.treating_groups or ()) + (context.treated_by or ())))
     treating_dm = LocalRolesToPrincipalsDataManager(context, IDmsIncomingMail['treating_groups'])
     treating_dm.set(treating_groups)
-    recipient_groups = list(frozenset((context.recipient_groups or []) + (context.in_copy or [])))
+    recipient_groups = list(frozenset((context.recipient_groups or ()) + (context.in_copy or ())))
     recipient_dm = LocalRolesToPrincipalsDataManager(context, IDmsIncomingMail['recipient_groups'])
     recipient_dm.set(recipient_groups)
     context.reindexObjectSecurity()
