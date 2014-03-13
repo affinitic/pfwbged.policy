@@ -3,6 +3,7 @@
  <property
     name="title">Contains workflow definitions for your portal</property>
  <object name="incomingmail_workflow" meta_type="Workflow"/>
+ <object name="incomingapfmail_workflow" meta_type="Workflow"/>
  <object name="outgoingmail_workflow" meta_type="Workflow"/>
  <object name="pfwbgeddocument_workflow" meta_type="Workflow"/>
  <object name="pfwbgedfolder_workflow" meta_type="Workflow"/>
@@ -48,7 +49,7 @@
    <bound-workflow workflow_id="incomingmail_workflow"/>
   </type>
   <type type_id="pfwb.apfincomingmail">
-   <bound-workflow workflow_id="incomingmail_workflow"/>
+   <bound-workflow workflow_id="incomingapfmail_workflow"/>
   </type>
   <type type_id="pfwb.apfoutgoingmail">
    <bound-workflow workflow_id="outgoingmail_workflow"/>
