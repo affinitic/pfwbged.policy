@@ -1,3 +1,4 @@
+from Acquisition import aq_inner, aq_parent
 from five import grok
 from zc.relation.interfaces import ICatalog
 from zope.component import getMultiAdapter
@@ -7,6 +8,8 @@ from zope.i18nmessageid import MessageFactory
 from zope.interface import Interface
 from zope.intid.interfaces import IIntIds
 from zope.publisher.interfaces.browser import IDefaultBrowserLayer
+
+from AccessControl import Unauthorized
 
 from plone import api
 from plone.app.content.browser.folderfactories import _allowedTypes
@@ -345,6 +348,17 @@ class CustomMenu(menu.WorkflowMenu):
                 cssClass = "first-action"
 
             if action['id'] == 'create_signed_version':
+                parent_document = aq_parent(context)
+                has_signed = False
+                for key in parent_document.keys():
+                    try:
+                        has_signed = (parent_document.get(key).signed == True)
+                    except (Unauthorized, AttributeError):
+                        continue
+                    if has_signed:
+                        break
+                if has_signed:
+                    continue
                 action['title'] = _(u"Create signed version for version ${version}",
                                     mapping={'version': context.Title()})
                 cssClass += " overlay-form-reload"
