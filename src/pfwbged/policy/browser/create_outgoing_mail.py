@@ -49,7 +49,7 @@ form.widgets.in_reply_to:list=%(in_reply_to)s&
 form.widgets.IRelatedTask.related_task=%(related_task)s&
 form.widgets.treating_groups=%(treating_groups)s""" % values
         folder_url = api.portal.get()['documents'].absolute_url()
-        if incomingmail.portail_type == 'pfwb.apfincomingmail':
+        if incomingmail.portal_type == 'pfwb.apfincomingmail':
             outgoing_add_url = '/++add++pfwb.afpoutgoingmail?'
         else:
             outgoing_add_url = "/++add++dmsoutgoingmail?"
