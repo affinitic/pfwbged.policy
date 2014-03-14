@@ -115,7 +115,7 @@ class CustomMenu(menu.WorkflowMenu):
         """Get transitions actions"""
         results = []
 
-        if context.portal_type == 'pfwbgedfolder':
+        if context.portal_type in ('pfwbgedfolder', 'Folder'):
             return []
 
         locking_info = queryMultiAdapter((context, request),
