@@ -19,8 +19,8 @@
     </div>
 
     <div style="display: none;">
-      <input id="sort_on" value="sortable_title"/>
-      <input id="sort_order" type="checkbox"/>
+      <input id="sort_on" value="created"/>
+      <input id="sort_order" type="checkbox" checked="checked"/>
      </div>
 
     <div id="searchresults"/>
