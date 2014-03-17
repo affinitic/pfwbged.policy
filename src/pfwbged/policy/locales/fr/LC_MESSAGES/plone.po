@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pfwbged.policy\n"
 "POT-Creation-Date: 2013-09-04 09:37+0000\n"
-"PO-Revision-Date: 2013-08-30 19:33+0100\n"
+"PO-Revision-Date: 2014-03-17 14:24+0100\n"
 "Last-Translator: Cédric Messiant <cedric.messiant@gmail.com>\n"
 "Language-Team: French\n"
 "MIME-Version: 1.0\n"
@@ -55,7 +55,7 @@ msgstr "Pris en compte"
 
 #: ../profiles/default/types/task.xml
 msgid "Create outgoing mail"
-msgstr "Créer une réponse à ce courrier"
+msgstr "Créer une réponse"
 
 #: ../profiles/default/types/dmsmainfile.xml
 msgid "Create signed version"

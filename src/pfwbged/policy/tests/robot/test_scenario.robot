@@ -255,11 +255,10 @@ Scenario
     Wait Until Page Contains  En cours de traitement
     State should be  En cours de traitement
     # the task has been created
-    Page Should Contain  Traiter ce courrier
+    Page Should Contain  Traiter le document
     # verify the comment has been added to the created task
     # by opening the overlay and close it
-    Page Should Not Contain  Traiter le document
-    Click Link  Traiter ce courrier
+    Click Link  Traiter le document
     Overlay is opened
     Page Should Contain  merci de traiter
     Close Overlay

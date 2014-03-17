@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pfwbged.policy\n"
 "POT-Creation-Date: 2014-02-25 16:48+0000\n"
-"PO-Revision-Date: 2013-09-04 11:37+0100\n"
+"PO-Revision-Date: 2014-03-17 14:26+0100\n"
 "Last-Translator: Frederic Peters <fpeters@entrouvert.com>\n"
 "Language-Team: --\n"
 "MIME-Version: 1.0\n"
@@ -137,7 +137,7 @@ msgstr "Traiter le document"
 
 #: ../subscribers/mail.py:86
 msgid "Process mail"
-msgstr "Traiter ce courrier"
+msgstr "Traiter le document"
 
 #: ../browser/comments.py:100
 msgid "Refuse refusal"
