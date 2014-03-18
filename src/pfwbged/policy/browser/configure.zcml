@@ -111,4 +111,11 @@
       class=".reset.ResetView"
       />
 
+  <browser:view
+      name="pdb"
+      for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+      class=".utils.Pdb"
+      permission="cmf.ManagePortal"
+      />
+
 </configure>

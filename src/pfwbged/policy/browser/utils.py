@@ -62,3 +62,8 @@ class ImportUserFolders(BrowserView):
                 membership_tool.loginUser()
 
         return 'OK'
+
+
+class Pdb(BrowserView):
+    def __call__(self):
+        import pdb; pdb.set_trace()
