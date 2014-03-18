@@ -162,7 +162,7 @@ def version_note_finished(context, event):
         document = context.getParentNode()
         state = api.content.get_state(obj=document)
         # if parent is an outgoing mail, change its state to ready_to_send
-        if document.portal_type == 'dmsoutgoingmail' and state == 'writing':
+        if document.portal_type in ('dmsoutgoingmail', 'pfwb.apfoutgoingmail') and state == 'writing':
             api.content.transition(obj=document, transition='finish')
             document.reindexObject(idxs=['review_state'])
         elif IPfwbDocument.providedBy(document) and has_pfwbgeddocument_workflow(document):
