@@ -27,6 +27,8 @@ from collective.dms.basecontent.dmsfile import IDmsFile
 from pfwbged.basecontent.behaviors import IPfwbDocument
 from pfwbged.policy import _
 
+from mail import changeWorkflowState
+
 
 def has_pfwbgeddocument_workflow(obj):
     wtool = api.portal.get_tool('portal_workflow')
@@ -237,6 +239,7 @@ def email_notification_of_tasks(context, event):
             break
     if not document:
         return
+    document.reindexObject()
 
     for enquirer in (context.enquirer or []):
         member = context.portal_membership.getMemberById(enquirer)
