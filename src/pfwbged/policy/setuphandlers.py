@@ -267,8 +267,9 @@ def post_install(context):
         subfolder_id = '%04d' % i
         if subfolder_id not in portal['documents']:
             portal['documents'].invokeFactory('Folder', subfolder_id, title=subfolder_id)
-        if api.content.get_state(portal['documents'][subfolder_id]) == 'private':
-            api.content.transition(obj=portal['documents'][subfolder_id], transition="publish")
+        if api.content.get_state(portal['documents'][subfolder_id]) == 'published':
+            api.content.transition(obj=portal['documents'][subfolder_id],
+                    transition="make_private")
         mark(portal['documents'][subfolder_id], interfaces.ISubpoolFolder)
 
     # configure document types that can be added to the /documents folder, the
@@ -284,10 +285,6 @@ def post_install(context):
         portal.invokeFactory('Folder', 'dossiers', title="Dossiers")
     mark(portal['dossiers'], interfaces.IFoldersFolder)
     setup_constrains(portal['dossiers'], ['pfwbgedfolder'])
-    # change main /dossiers folder to allow deletions by all members, as we
-    # need to keep it possible for members to remove the folders they created.
-    # (the 'Ownner' local roles gets 'Delete objects' from the workflow)
-    portal['dossiers'].manage_setLocalRoles('AuthenticatedUsers', (u'Owner',))
 
     setup_folder_portlets(portal['Members'])
     setup_folder_portlets(portal['dossiers'])

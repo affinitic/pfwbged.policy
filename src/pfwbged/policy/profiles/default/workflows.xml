@@ -7,6 +7,7 @@
  <object name="outgoingmail_workflow" meta_type="Workflow"/>
  <object name="pfwbgeddocument_workflow" meta_type="Workflow"/>
  <object name="pfwbgedfolder_workflow" meta_type="Workflow"/>
+ <object name="pfwbgedmainfolder_workflow" meta_type="Workflow"/>
  <object name="versionnote_workflow" meta_type="Workflow"/>
  <bindings>
   <default>
@@ -28,7 +29,7 @@
    <bound-workflow workflow_id="pfwbgedfolder_workflow"/>
   </type>
   <type type_id="Folder">
-   <bound-workflow workflow_id="pfwbgedfolder_workflow"/>
+   <bound-workflow workflow_id="pfwbgedmainfolder_workflow"/>
   </type>
   <type type_id="directory">
    <bound-workflow workflow_id="pfwbgedfolder_workflow"/>
