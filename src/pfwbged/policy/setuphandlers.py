@@ -7,6 +7,7 @@ from zope.container.interfaces import INameChooser
 
 from plone import api
 
+from plone.registry.interfaces import IRegistry
 from plone.portlets.interfaces import IPortletManager
 from plone.portlets.interfaces import IPortletAssignmentMapping
 
@@ -317,3 +318,8 @@ def post_install(context):
 
     # configure portal_membership to use pfwbged.folder for user folders
     portal.portal_membership.memberarea_type = 'pfwbgedfolder'
+
+    # set empty strings as default mails internal number
+    registry = getUtility(IRegistry)
+    registry['collective.dms.mailcontent.browser.settings.IDmsMailConfig.incomingmail_talexpression'] = u"string:"
+    registry['collective.dms.mailcontent.browser.settings.IDmsMailConfig.outgoingmail_talexpression'] = u"string:"
