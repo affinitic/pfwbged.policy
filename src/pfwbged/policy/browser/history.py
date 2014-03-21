@@ -1,7 +1,10 @@
+from Acquisition import aq_inner
 from plone import api
 from plone.app.layout.viewlets.content import ContentHistoryView as BaseHistoryView
+from zope.annotation.interfaces import IAnnotations
 
 from AccessControl import Unauthorized
+from Products.CMFCore.utils import getToolByName
 
 from .. import _
 from ..menu import dmsfile_wfactions_mapping, IGNORE_
@@ -15,6 +18,23 @@ class ContentHistoryView(BaseHistoryView):
                     _(u"Create version ${version}"))
             title = IGNORE_(title, mapping={'version': version})
             action['transition_title'] = title
+
+    def pfwbged_history(self):
+        context = aq_inner(self.context)
+        annotations = IAnnotations(context)
+        if not 'pfwbged_history' in annotations:
+            return []
+        history = annotations['pfwbged_history'][:]
+        for history_line in history:
+            if history_line['action_id'] == 'pfwbged_field':
+                history_line['actor'] = None
+                history_line['actor_home'] = None
+                history_line['actorid'] = history_line['actor_name']
+                history_line['action'] = 'pfwbged_field'
+                history_line['type'] = 'pfwbged_field'
+                history_line['comments'] = ', '.join(history_line['value'])
+                history_line['transition_title'] = _('New value for %s') % history_line['attribute']
+        return history
 
     def workflowHistory(self, complete=True):
         review_history = []
@@ -57,6 +77,8 @@ class ContentHistoryView(BaseHistoryView):
                 'time': task.creation_date,
                 'transition_title': task.title,
                 'type': None})
+
+        review_history.extend(self.pfwbged_history())
 
         # makes sure the history is kept sorted
         review_history.sort(lambda x, y: cmp(x.get('time'), y.get('time')))

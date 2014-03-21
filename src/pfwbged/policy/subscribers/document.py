@@ -2,6 +2,7 @@ import logging
 
 from Acquisition import aq_chain, aq_parent
 from five import grok
+from DateTime import DateTime
 
 from zc.relation.interfaces import ICatalog
 from zope.container.interfaces import INameChooser
@@ -9,8 +10,9 @@ from zope.i18n import translate
 from zope.component import getUtility
 from zope.component.interfaces import ComponentLookupError
 from zope.intid.interfaces import IIntIds
-from zope.lifecycleevent.interfaces import IObjectAddedEvent
+from zope.lifecycleevent.interfaces import IObjectAddedEvent, IObjectModifiedEvent
 from OFS.interfaces import IObjectWillBeRemovedEvent
+from zope.annotation.interfaces import IAnnotations
 
 from plone import api
 
@@ -331,3 +333,25 @@ def email_notification_of_refused_task(context, event):
         # do not abort transaction in case of email error
         log = logging.getLogger('pfwbged.policy')
         log.exception(e)
+
+
+
+@grok.subscribe(IDmsDocument, IObjectModifiedEvent)
+def log_some_history(context, event):
+    for description in event.descriptions:
+        if not hasattr(description, 'attributes'):
+            continue
+        for field in ('treated_by', 'treating_groups', 'recipient_groups'):
+            if not field in description.attributes:
+                continue
+            annotations = IAnnotations(context)
+            if not 'pfwbged_history' in annotations:
+                annotations['pfwbged_history'] = []
+            value = getattr(context, field)
+            annotations['pfwbged_history'].append({'time': DateTime(),
+                'action_id': 'pfwbged_field',
+                'action': _('New value for %s: %s') % (field, ', '.join(value)),
+                'actor_name': api.user.get_current().getId(),
+                'attribute': field,
+                'value': value,
+                })
