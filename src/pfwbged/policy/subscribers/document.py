@@ -239,7 +239,7 @@ def email_notification_of_tasks(context, event):
             break
     if not document:
         return
-    document.reindexObject()
+    document.reindexObject(idxs=['allowedRolesAndUsers'])
 
     for enquirer in (context.enquirer or []):
         member = context.portal_membership.getMemberById(enquirer)
