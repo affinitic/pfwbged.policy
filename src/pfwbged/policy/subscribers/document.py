@@ -171,7 +171,8 @@ def version_note_finished(context, event):
             document.reindexObject(idxs=['review_state'])
         elif IPfwbDocument.providedBy(document) and has_pfwbgeddocument_workflow(document):
             if state == 'processing':
-                api.content.transition(obj=document, transition='process')
+                with api.env.adopt_user('admin'):
+                    api.content.transition(obj=document, transition='process')
                 document.reindexObject(idxs=['review_state'])
             elif state == "assigning":
                 tasks = portal_catalog.unrestrictedSearchResults(portal_type='task',
@@ -179,7 +180,8 @@ def version_note_finished(context, event):
                 for brain in tasks:
                     task = brain._unrestrictedGetObject()
                     if api.content.get_state(obj=task) == 'todo':
-                        api.content.transition(obj=task, transition='take-responsibility')
+                        with api.env.adopt_user('admin'):
+                            api.content.transition(obj=task, transition='take-responsibility')
                         task.reindexObject(idxs=['review_state'])
                 # the document is now in processing state because the task is in progress
                 api.content.transition(obj=document, transition='process')
@@ -207,7 +209,8 @@ def document_is_processed(context, event):
         for brain in tasks:
             task = brain._unrestrictedGetObject()
             if api.content.get_state(obj=task) == 'in-progress':
-                api.content.transition(obj=task, transition='mark-as-done')
+                with api.env.adopt_user('admin'):
+                    api.content.transition(obj=task, transition='mark-as-done')
                 task.reindexObject(idxs=['review_state'])
 
 
