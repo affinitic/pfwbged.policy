@@ -200,7 +200,7 @@ def version_note_finished(context, event):
         context.reindexObjectSecurity()
 
 
-@grok.subscribe(IPfwbDocument, IAfterTransitionEvent)
+@grok.subscribe(IDmsDocument, IAfterTransitionEvent)
 def document_is_processed(context, event):
     """When document is processed, close all tasks"""
     portal_catalog = api.portal.get_tool('portal_catalog')
@@ -215,7 +215,7 @@ def document_is_processed(context, event):
                 task.reindexObject(idxs=['review_state'])
 
 
-@grok.subscribe(IPfwbDocument, IAfterTransitionEvent)
+@grok.subscribe(IDmsDocument, IAfterTransitionEvent)
 def document_is_reopened(context, event):
     """When a document is reoponed, create a new task"""
     if has_pfwbgeddocument_workflow(context) and event.transition is not None and event.new_state.id == 'assigning':
