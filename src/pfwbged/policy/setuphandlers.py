@@ -323,3 +323,6 @@ def post_install(context):
     registry = getUtility(IRegistry)
     registry['collective.dms.mailcontent.browser.settings.IDmsMailConfig.incomingmail_talexpression'] = u"string:"
     registry['collective.dms.mailcontent.browser.settings.IDmsMailConfig.outgoingmail_talexpression'] = u"string:"
+
+    # makes sure collective.onlogin -- if installed -- do not redirect
+    registry['collective.onlogin.interfaces.IOnloginSettings.first_login_redirect_enabled'] = False
