@@ -359,3 +359,10 @@ def log_some_history(context, event):
                 'attribute': field,
                 'value': value,
                 })
+
+
+@grok.subscribe(IDmsDocument, IObjectAddedEvent)
+def set_owner_role_on_document(context, event):
+    """Makes sure a new document gets its owner role set properly."""
+    for creator in context.creators:
+        context.manage_setLocalRoles(creator, ['Owner'])
