@@ -52,6 +52,12 @@ form.widgets.treating_groups=%(treating_groups)s""" % values
             values_url += '&' + '&'.join([
                     'form.widgets.IPfwbDocument.keywords=%s' % x
                     for x in incomingmail.keywords])
+        for principal, local_roles in incomingmail.get_local_roles():
+            if 'Editor' in local_roles:
+                values_url += '&' + 'form.widgets.treating_groups:list=%s' % principal
+            if 'Reader' in local_roles:
+                values_url += '&' + 'form.widgets.recipient_groups:list=%s' % principal
+
         folder_url = api.portal.get()['documents'].absolute_url()
         if incomingmail.portal_type == 'pfwb.apfincomingmail':
             outgoing_add_url = '/++add++pfwb.apfoutgoingmail?'
