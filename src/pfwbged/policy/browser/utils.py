@@ -41,9 +41,11 @@ class ImportGroupFolders(BrowserView):
             if reset:
                 canwrite_dm.set([])
             canwrite_dm.set([term.value])
+            folder.treating_groups = [term.value]
             if reset:
                 canread_dm.set([])
             canread_dm.set([term.value])
+            folder.recipient_groups = [term.value]
             folder.reindexObjectSecurity()
 
         return 'OK'
