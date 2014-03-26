@@ -25,6 +25,7 @@ from collective.task.content.task import IBaseTask, ITask
 from collective.task.content.validation import IValidation
 from collective.task.interfaces import IBaseTask
 from collective.dms.basecontent.dmsfile import IDmsFile
+from pfwbged.folder.folder import IFolder
 
 from pfwbged.basecontent.behaviors import IPfwbDocument
 from pfwbged.policy import _
@@ -361,6 +362,7 @@ def log_some_history(context, event):
                 })
 
 
+@grok.subscribe(IFolder, IObjectAddedEvent)
 @grok.subscribe(IDmsDocument, IObjectAddedEvent)
 def set_owner_role_on_document(context, event):
     """Makes sure a new document gets its owner role set properly."""
