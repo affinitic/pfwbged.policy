@@ -30,8 +30,9 @@ class ImportGroupFolders(BrowserView):
                     continue
                 folder = portal['dossiers'].get(term.value)
             else:
-                folder = portal['dossiers'].invokeFactory('pfwbgedfolder',
+                folder_id = portal['dossiers'].invokeFactory('pfwbgedfolder',
                     term.value, title=term.title)
+                folder = portal['dossiers'].get(folder_id)
 
             canwrite_dm = LocalRolesToPrincipalsDataManager(folder,
                         IFolder['treating_groups'])
