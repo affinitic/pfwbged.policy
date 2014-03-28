@@ -178,6 +178,7 @@ class CustomMenu(menu.WorkflowMenu):
                 title = dmsfile_wfactions_mapping[action['id']]
                 title = IGNORE_(title, mapping={'version': version})
                 cssClass += ' version-action version-id-%s' % context.id
+                cssClass += ' version-action-%s' % action['id']
             else:
                 title = action['title']
 
