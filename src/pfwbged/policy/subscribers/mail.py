@@ -178,7 +178,8 @@ def outgoingmail_sent(context, event):
             for ref in context.related_task:
                 task = ref.to_object
                 if api.content.get_state(obj=task) == 'in-progress':
-                    api.content.transition(obj=task, transition='mark-as-done')
+                    with api.env.adopt_user('admin'):
+                        api.content.transition(obj=task, transition='mark-as-done')
                     task.reindexObject(idxs=['review_state'])
 
 
