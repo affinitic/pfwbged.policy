@@ -12,10 +12,12 @@
     <permission name="collective.dms.mailcontent: Add Incoming Mail" acquire="True">
       <role name="Manager"/>
       <role name="Site Administrator"/>
+      <role name="Member"/>
     </permission>
     <permission name="collective.dms.mailcontent: Add Outgoing Mail" acquire="True">
       <role name="Manager"/>
       <role name="Site Administrator"/>
+      <role name="Member"/>
     </permission>
     <permission name="CMFEditions: Access previous versions" acquire="True">
       <role name="Member"/>
