@@ -32,7 +32,7 @@ grok.global_adapter(sender_as_text, name='sender_as_text')
 @indexer(IDmsDocument)
 def recipients_as_text(obj, **kw):
     if not hasattr(obj, 'recipients') or not obj.recipients:
-        return None
+        return ''
     return ' / '.join([x.to_object.get_full_title() for x in obj.recipients])
 
 grok.global_adapter(recipients_as_text, name='recipients_as_text')
