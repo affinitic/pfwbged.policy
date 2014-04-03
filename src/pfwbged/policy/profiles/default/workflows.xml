@@ -43,6 +43,9 @@
   <type type_id="dmsdocument">
    <bound-workflow workflow_id="pfwbgeddocument_workflow"/>
   </type>
+  <type type_id="dmsappendixfile">
+   <bound-workflow workflow_id="appendix_workflow"/>
+  </type>
   <type type_id="dmsmainfile">
    <bound-workflow workflow_id="versionnote_workflow"/>
   </type>
