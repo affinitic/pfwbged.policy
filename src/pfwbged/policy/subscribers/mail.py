@@ -122,7 +122,7 @@ def incoming_mail_attributed(context, comment):
     already_in_charge = []
     for task in context.objectValues('task'):
         already_in_charge.extend(task.responsible)
-    new_treating_groups = frozenset(context.treating_groups or []) - frozenset(already_in_charge)
+    new_treating_groups = frozenset(context.treated_by or []) - frozenset(already_in_charge)
     # create a task for each group which has not already a task for this mail
     create_tasks(context, new_treating_groups, context.deadline, comment)
 
