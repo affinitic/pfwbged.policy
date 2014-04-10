@@ -46,7 +46,7 @@ def get_collection_query(type, role):
                         'responsible': [u'abandoned', u'attributed', u'done',
                                         u'in-progress', u'refusal-requested', u'todo'],},
                'validation': {'enquirer': [u'todo', u'validated', u'refused'],
-                              'responsible': [u'todo', u'validated', u'refused'],},
+                              'responsible': [u'todo'],},
                }
     if type == 'task':
         # special case tasks to hold them all
