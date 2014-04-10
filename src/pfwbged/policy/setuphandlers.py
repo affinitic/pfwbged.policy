@@ -40,7 +40,7 @@ def get_collection_query(type, role):
     mapping = {'information': {'enquirer': [u'todo', u'done'],
                                'responsible': [u'todo', u'done']},
                'opinion': {'enquirer': [u'todo', u'done'],
-                           'responsible': [u'todo', u'done']},
+                           'responsible': [u'todo']},
                'task': {'enquirer': [u'abandoned', u'attributed', u'done',
                                      u'in-progress', u'refusal-requested', u'todo'],
                         'responsible': [u'abandoned', u'attributed', u'done',
