@@ -368,3 +368,63 @@ def set_owner_role_on_document(context, event):
     """Makes sure a new document gets its owner role set properly."""
     for creator in context.creators:
         context.manage_setLocalRoles(creator, ['Owner'])
+
+
+@grok.subscribe(ITask, IObjectAddedEvent)
+@grok.subscribe(IValidation, IObjectAddedEvent)
+def set_permissions_on_task_on_add(context, event):
+    '''Gives read access to a task for persons that are handling the document'''
+    # go up in the acquisition chain to find the document
+    document = None
+    for obj in aq_chain(context):
+        obj = aq_parent(obj)
+        if IDmsDocument.providedBy(obj):
+            document = obj
+            break
+    if not document:
+        return
+
+    with api.env.adopt_user('admin'):
+        for user_id, roles in document.get_local_roles():
+            if 'Reader' in roles or 'Editor' in roles:
+                context.manage_addLocalRoles(user_id, ['Reader'])
+                context.reindexObjectSecurity()
+                context.reindexObject(idxs=['allowedRolesAndUsers'])
+
+        document.reindexObject(idxs=['allowedRolesAndUsers'])
+
+
+# not enabled for now, see #4516
+#@grok.subscribe(IDmsDocument, IObjectModifiedEvent)
+def set_permissions_on_task_from_doc(context, event):
+    portal_catalog = api.portal.get_tool('portal_catalog')
+    tasks = portal_catalog.unrestrictedSearchResults(
+            portal_type=['task', 'validation'],
+            path='/'.join(context.getPhysicalPath()))
+    if not tasks:
+        return
+
+    for description in event.descriptions:
+        if not hasattr(description, 'attributes'):
+            continue
+        for field in ('treated_by', 'treating_groups', 'recipient_groups'):
+            if field in description.attributes:
+                break
+        else:
+            return
+
+    with api.env.adopt_user('admin'):
+        tasks = [x.getObject() for x in tasks]
+        user_ids = []
+        for user_id, roles in document.get_local_roles():
+            if 'Reader' in roles or 'Editor' in roles:
+                user_ids.append(user_id)
+
+        for task in tasks:
+            for task_user_id, task_roles in task.get_local_roles():
+                if 'Reader' in task_roles and task_user_id not in user_ids:
+                    task.manage_delLocalRoles([task_user_id])
+            for user_id in user_ids:
+                task.manage_addLocalRoles(user_id, ['Reader'])
+            task.reindexObjectSecurity()
+            task.reindexObject(idxs=['allowedRolesAndUsers'])
