@@ -255,7 +255,7 @@ def email_notification_of_tasks(context, event):
             if email_from:
                 break
     else:
-        email_from = api.user.get_current().email or 'admin@localhost'
+        email_from = api.user.get_current().email or api.portal.get().getProperty('email_from_address')
 
     subject = '%s - %s' % (context.title, document.title)
     body = translate(_('You received a request for action in the GED.'), context=context.REQUEST) + \
@@ -317,7 +317,7 @@ def email_notification_of_refused_task(context, event):
     if not email_enquirer:
         return
 
-    email_from = api.user.get_current().email or 'admin@localhost'
+    email_from = api.user.get_current().email or api.portal.get().getProperty('email_from_address')
 
     subject = '%s - %s' % (context.title, document.title)
 
