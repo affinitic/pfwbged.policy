@@ -383,12 +383,14 @@ def set_permissions_on_task_on_add(context, event):
     if not document:
         return
 
+    if not hasattr(document, 'treated_by') or not document.treated_by:
+        return
+
     with api.env.adopt_user('admin'):
-        for user_id, roles in document.get_local_roles():
-            if 'Reader' in roles or 'Editor' in roles:
-                context.manage_addLocalRoles(user_id, ['Reader'])
-                context.reindexObjectSecurity()
-                context.reindexObject(idxs=['allowedRolesAndUsers'])
+        for user_id in document.treated_by:
+            context.manage_addLocalRoles(user_id, ['Reader'])
+            context.reindexObjectSecurity()
+            context.reindexObject(idxs=['allowedRolesAndUsers'])
 
         document.reindexObject(idxs=['allowedRolesAndUsers'])
 
