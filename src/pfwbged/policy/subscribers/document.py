@@ -370,8 +370,7 @@ def set_owner_role_on_document(context, event):
         context.manage_setLocalRoles(creator, ['Owner'])
 
 
-@grok.subscribe(ITask, IObjectAddedEvent)
-@grok.subscribe(IValidation, IObjectAddedEvent)
+@grok.subscribe(IBaseTask, IObjectAddedEvent)
 def set_permissions_on_task_on_add(context, event):
     '''Gives read access to a task for persons that are handling the document'''
     # go up in the acquisition chain to find the document
