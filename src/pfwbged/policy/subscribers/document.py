@@ -24,7 +24,7 @@ from collective.dms.basecontent.dmsdocument import IDmsDocument
 from collective.task.content.task import IBaseTask, ITask
 from collective.task.content.validation import IValidation
 from collective.task.interfaces import IBaseTask
-from collective.dms.basecontent.dmsfile import IDmsFile
+from collective.dms.basecontent.dmsfile import IDmsFile, IDmsAppendixFile
 from pfwbged.folder.folder import IFolder
 
 from pfwbged.basecontent.behaviors import IPfwbDocument
@@ -429,3 +429,30 @@ def set_permissions_on_task_from_doc(context, event):
                 task.manage_addLocalRoles(user_id, ['Reader'])
             task.reindexObjectSecurity()
             task.reindexObject(idxs=['allowedRolesAndUsers'])
+
+
+@grok.subscribe(IDmsAppendixFile, IObjectAddedEvent)
+@grok.subscribe(IDmsFile, IObjectAddedEvent)
+def set_permissions_on_files_on_add(context, event):
+    '''Gives read access to a version/appendix for persons that are handling
+       the document'''
+    # go up in the acquisition chain to find the document
+    document = None
+    for obj in aq_chain(context):
+        obj = aq_parent(obj)
+        if IDmsDocument.providedBy(obj):
+            document = obj
+            break
+    if not document:
+        return
+
+    if not hasattr(document, 'treated_by') or not document.treated_by:
+        return
+
+    with api.env.adopt_user('admin'):
+        for user_id in document.treated_by:
+            context.manage_addLocalRoles(user_id, ['Reader', 'Reviewer'])
+            context.reindexObjectSecurity()
+            context.reindexObject(idxs=['allowedRolesAndUsers'])
+
+        document.reindexObject(idxs=['allowedRolesAndUsers'])
