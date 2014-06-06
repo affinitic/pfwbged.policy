@@ -75,3 +75,12 @@ class WfCommentView(FormWrapper, BrowserView):
     def __init__(self, context, request):
         BrowserView.__init__(self, context, request)
         FormWrapper.__init__(self, context, request)
+
+
+class WfProcessNoCommentView(BrowserView):
+    def __call__(self):
+        incomingmail = self.context
+        api.content.transition(obj=incomingmail, transition='to_process')
+        incomingmail.reindexObject(idxs=['review_state'])
+        incoming_mail_attributed(incomingmail, u'')
+        self.request.response.redirect(self.context.absolute_url())

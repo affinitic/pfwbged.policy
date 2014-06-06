@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: pfwbged.policy\n"
-"POT-Creation-Date: 2013-09-04 09:37+0000\n"
-"PO-Revision-Date: 2014-03-17 14:24+0100\n"
+"POT-Creation-Date: 2014-06-06 07:52+0000\n"
+"PO-Revision-Date: 2014-06-06 09:53+0200\n"
 "Last-Translator: Cédric Messiant <cedric.messiant@gmail.com>\n"
 "Language-Team: French\n"
 "MIME-Version: 1.0\n"
@@ -16,10 +16,12 @@ msgstr ""
 "X-is-fallback-for: fr-fr fr-be fr-ca\n"
 "X-Generator: Poedit 1.5.4\n"
 
+#: ../profiles/default/workflows/incomingapfmail_workflow/definition.xml
 #: ../profiles/default/workflows/incomingmail_workflow/definition.xml
 msgid "Answer"
 msgstr "Répondre"
 
+#: ../profiles/default/workflows/incomingapfmail_workflow/definition.xml
 #: ../profiles/default/workflows/incomingmail_workflow/definition.xml
 msgid "Answered"
 msgstr "Répondu"
@@ -32,14 +34,17 @@ msgstr "Demander un avis"
 msgid "Ask validation"
 msgstr "Demander une validation"
 
+#: ../profiles/default/workflows/incomingapfmail_workflow/definition.xml
 #: ../profiles/default/workflows/incomingmail_workflow/definition.xml
 msgid "Assigning"
 msgstr "À attribuer"
 
+#: ../profiles/default/workflows/incomingapfmail_workflow/definition.xml
 #: ../profiles/default/workflows/incomingmail_workflow/definition.xml
 msgid "Back to assigning"
 msgstr "Retour à attribuer"
 
+#: ../profiles/default/workflows/incomingapfmail_workflow/definition.xml
 #: ../profiles/default/workflows/incomingmail_workflow/definition.xml
 msgid "Back to registering"
 msgstr "Retour à indicater"
@@ -48,6 +53,7 @@ msgstr "Retour à indicater"
 msgid "Back to to process"
 msgstr "Retour en à traiter"
 
+#: ../profiles/default/workflows/incomingapfmail_workflow/definition.xml
 #: ../profiles/default/workflows/incomingmail_workflow/definition.xml
 #: ../profiles/default/workflows/pfwbgeddocument_workflow/definition.xml
 msgid "Considered"
@@ -98,6 +104,7 @@ msgstr "Rendre obsolète"
 msgid "My Folder"
 msgstr "Mon dossier"
 
+#: ../profiles/default/workflows/incomingapfmail_workflow/definition.xml
 #: ../profiles/default/workflows/incomingmail_workflow/definition.xml
 #: ../profiles/default/workflows/pfwbgeddocument_workflow/definition.xml
 msgid "No action"
@@ -115,10 +122,15 @@ msgstr "Traiter"
 msgid "Processed"
 msgstr "Traité"
 
+#: ../profiles/default/workflows/incomingapfmail_workflow/definition.xml
 #: ../profiles/default/workflows/incomingmail_workflow/definition.xml
 #: ../profiles/default/workflows/pfwbgeddocument_workflow/definition.xml
 msgid "Processing"
 msgstr "En cours de traitement"
+
+#: ../profiles/default/workflows/appendix_workflow/definition.xml
+msgid "Published"
+msgstr "Publiée"
 
 #: ../profiles/default/workflows/outgoingmail_workflow/definition.xml
 msgid "Ready to send"
@@ -128,6 +140,7 @@ msgstr "Prêt à être envoyé"
 msgid "Refuse"
 msgstr "Refuser"
 
+#: ../profiles/default/workflows/incomingapfmail_workflow/definition.xml
 #: ../profiles/default/workflows/incomingmail_workflow/definition.xml
 msgid "Registering"
 msgstr "À indicater"
@@ -140,10 +153,12 @@ msgstr "Envoyer"
 msgid "Sent"
 msgstr "Envoyé"
 
+#: ../profiles/default/workflows/incomingapfmail_workflow/definition.xml
 #: ../profiles/default/workflows/incomingmail_workflow/definition.xml
 msgid "To assign"
 msgstr "À attribuer"
 
+#: ../profiles/default/workflows/incomingapfmail_workflow/definition.xml
 #: ../profiles/default/workflows/incomingmail_workflow/definition.xml
 #: ../profiles/default/workflows/pfwbgeddocument_workflow/definition.xml
 msgid "To process"

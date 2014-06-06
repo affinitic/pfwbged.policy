@@ -90,6 +90,13 @@
       permission="zope2.View"
       />
 
+  <browser:page
+      name="to_process_without_comment"
+      for="pfwbged.basecontent.behaviors.IPfwbIncomingMail"
+      class=".to_process.WfProcessNoCommentView"
+      permission="zope2.View"
+      />
+
   <browser:view
       name="importGroupFolders"
       for="Products.CMFPlone.interfaces.IPloneSiteRoot"

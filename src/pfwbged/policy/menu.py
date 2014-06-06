@@ -126,6 +126,15 @@ class CustomMenu(menu.WorkflowMenu):
         wf_tool = getToolByName(context, 'portal_workflow')
         workflowActions = wf_tool.listActionInfos(object=context)
 
+        if 'to_process' in [x.get('id') for x in workflowActions]:
+            to_process_action = [x for x in workflowActions if x['id'] == 'to_process'][0]
+            to_process_without_comment_action = to_process_action.copy()
+            to_process_without_comment_action['url'] = '%s/@@to_process_without_comment' % context.absolute_url()
+            to_process_without_comment_action['id'] = 'to_process_without_comment'
+            idx = workflowActions.index(to_process_action)
+            workflowActions.insert(idx, to_process_without_comment_action)
+            to_process_action['title'] = _(u'To process (with comment)')
+
         for action in workflowActions:
             if action['category'] != 'workflow':
                 continue
