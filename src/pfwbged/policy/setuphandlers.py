@@ -2,7 +2,7 @@
 import os
 
 from zope.interface import alsoProvides
-from zope.component import getMultiAdapter, getUtility
+from zope.component import getMultiAdapter, getUtility, queryUtility
 from zope.container.interfaces import INameChooser
 
 from plone import api
@@ -16,6 +16,7 @@ from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.interfaces.constrains import ISelectableConstrainTypes
 from plone.app.dexterity.behaviors import constrains
 from plone.dexterity.interfaces import IDexterityContainer
+from collective.solr.interfaces import ISolrConnectionConfig
 
 from . import interfaces, POOL_SIZE
 
@@ -326,3 +327,7 @@ def post_install(context):
 
     # makes sure collective.onlogin -- if installed -- do not redirect
     registry['collective.onlogin.interfaces.IOnloginSettings.first_login_redirect_enabled'] = False
+
+    # configure solr to be used on more indexes
+    util = queryUtility(ISolrConnectionConfig)
+    util.required = ['SearchableText', 'Title', 'sender_as_text', 'recipients_as_text']
