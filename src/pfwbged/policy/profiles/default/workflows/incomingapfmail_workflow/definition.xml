@@ -13,7 +13,6 @@
  <state state_id="answered" title="Answered" i18n:attributes="title">
   <permission-map name="Access contents information" acquired="False">
    <permission-role>Editor</permission-role>
-   <permission-role>SecretariatGeneralApf</permission-role>
    <permission-role>Manager</permission-role>
    <permission-role>Owner</permission-role>
    <permission-role>Reader</permission-role>
@@ -26,7 +25,6 @@
   </permission-map>
   <permission-map name="View" acquired="False">
    <permission-role>Editor</permission-role>
-   <permission-role>SecretariatGeneralApf</permission-role>
    <permission-role>Manager</permission-role>
    <permission-role>Owner</permission-role>
    <permission-role>Reader</permission-role>
@@ -69,7 +67,6 @@
   <exit-transition transition_id="back_to_assigning"/>
   <permission-map name="Access contents information" acquired="False">
    <permission-role>Editor</permission-role>
-   <permission-role>SecretariatGeneralApf</permission-role>
    <permission-role>Manager</permission-role>
    <permission-role>Owner</permission-role>
    <permission-role>Reader</permission-role>
@@ -84,7 +81,6 @@
   </permission-map>
   <permission-map name="View" acquired="False">
    <permission-role>Editor</permission-role>
-   <permission-role>SecretariatGeneralApf</permission-role>
    <permission-role>Manager</permission-role>
    <permission-role>Owner</permission-role>
    <permission-role>Reader</permission-role>
@@ -96,7 +92,6 @@
   <exit-transition transition_id="back_to_assigning"/>
   <permission-map name="Access contents information" acquired="False">
    <permission-role>Editor</permission-role>
-   <permission-role>SecretariatGeneralApf</permission-role>
    <permission-role>Manager</permission-role>
    <permission-role>Owner</permission-role>
    <permission-role>Reader</permission-role>
@@ -111,7 +106,6 @@
   </permission-map>
   <permission-map name="View" acquired="False">
    <permission-role>Editor</permission-role>
-   <permission-role>SecretariatGeneralApf</permission-role>
    <permission-role>Manager</permission-role>
    <permission-role>Owner</permission-role>
    <permission-role>Reader</permission-role>
@@ -125,7 +119,6 @@
   <exit-transition transition_id="to_considered"/>
   <permission-map name="Access contents information" acquired="False">
    <permission-role>Editor</permission-role>
-   <permission-role>SecretariatGeneralApf</permission-role>
    <permission-role>Manager</permission-role>
    <permission-role>Owner</permission-role>
    <permission-role>Reader</permission-role>
@@ -140,7 +133,6 @@
   </permission-map>
   <permission-map name="View" acquired="False">
    <permission-role>Editor</permission-role>
-   <permission-role>SecretariatGeneralApf</permission-role>
    <permission-role>Manager</permission-role>
    <permission-role>Owner</permission-role>
    <permission-role>Reader</permission-role>
