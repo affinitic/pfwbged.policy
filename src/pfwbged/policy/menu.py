@@ -164,12 +164,16 @@ class CustomMenu(menu.WorkflowMenu):
             if IInformation.providedBy(context):
                 if action['id'] == 'mark-as-done':
                     title = _(u"Mark document as read")
+                elif action['id'] == 'abandon':
+                    action['allowed'] = False
             elif IOpinion.providedBy(context):
                 if action['id'] == 'mark-as-done':
                     actionUrl = context.absolute_url()
                     cssClass = 'overlay-comment-form'
                     title = _(u"Return opinion about ${version}",
                               mapping={'version': version})
+                elif action['id'] == 'abandon':
+                    action['allowed'] = False
             elif ITask.providedBy(context):
                 if action['id'] in ('ask-for-refusal',
                                     'accept-refusal',
@@ -177,10 +181,13 @@ class CustomMenu(menu.WorkflowMenu):
                     cssClass = 'overlay-comment-form'
                 title= action['title']
             elif IValidation.providedBy(context):
-                action_name = action['title']
-                title = _(u"${action} the version ${version}",
-                          mapping={'action': action_name,
-                                   'version': version})
+                if action['id'] == 'abandon':
+                    action['allowed'] = False
+                else:
+                    action_name = action['title']
+                    title = _(u"${action} the version ${version}",
+                              mapping={'action': action_name,
+                                       'version': version})
             elif IDmsFile.providedBy(context):
                 action_name = action['title']
                 version = context.Title()

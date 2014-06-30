@@ -38,6 +38,16 @@ def has_pfwbgeddocument_workflow(obj):
     return 'pfwbgeddocument_workflow' in wtool.getChainFor(obj)
 
 
+def has_incomingmail_workflow(obj):
+    wtool = api.portal.get_tool('portal_workflow')
+    chain = wtool.getChainFor(obj)
+    if 'incomingmail_workflow' in chain:
+        return True
+    if 'incomingapfmail_workflow' in chain:
+        return True
+    return False
+
+
 @grok.subscribe(IBaseTask, IObjectAddedEvent)
 def set_role_on_document(context, event):
     """Add Reader role to document for the responsible of an
@@ -143,8 +153,12 @@ def task_in_progress(context, event):
         if not has_pfwbgeddocument_workflow(obj):
             return
         document = obj
-        api.content.transition(obj=document, transition='to_process')
-        document.reindexObject(idxs=['review_state'])
+        try:
+            api.content.transition(obj=document, transition='to_process')
+        except api.exc.InvalidParameterError:
+            pass
+        else:
+            document.reindexObject(idxs=['review_state'])
     elif event.new_state.id == 'abandoned':
         obj = aq_parent(context)
         if not IPfwbDocument.providedBy(obj):
@@ -155,6 +169,19 @@ def task_in_progress(context, event):
         document = obj
         api.content.transition(obj=document, transition='directly_noaction')
         document.reindexObject(idxs=['review_state'])
+
+
+def transition_tasks(obj, types, status, transition):
+    portal_catalog = api.portal.get_tool('portal_catalog')
+    tasks = portal_catalog.unrestrictedSearchResults(
+            portal_type=types, path='/'.join(obj.getPhysicalPath()))
+    for brain in tasks:
+        task = brain._unrestrictedGetObject()
+        if api.content.get_state(obj=task) == status:
+            print 'changing task', task
+            with api.env.adopt_user('admin'):
+                api.content.transition(obj=task, transition=transition)
+            task.reindexObject(idxs=['review_state'])
 
 
 @grok.subscribe(IDmsFile, IAfterTransitionEvent)
@@ -175,19 +202,19 @@ def version_note_finished(context, event):
             if state == 'processing':
                 with api.env.adopt_user('admin'):
                     api.content.transition(obj=document, transition='process')
-                document.reindexObject(idxs=['review_state'])
             elif state == "assigning":
-                tasks = portal_catalog.unrestrictedSearchResults(portal_type='task',
-                                                                 path='/'.join(document.getPhysicalPath()))
-                for brain in tasks:
-                    task = brain._unrestrictedGetObject()
-                    if api.content.get_state(obj=task) == 'todo':
-                        with api.env.adopt_user('admin'):
-                            api.content.transition(obj=task, transition='take-responsibility')
-                        task.reindexObject(idxs=['review_state'])
+                transition_tasks(document, types=('task'), status='todo', transition='take-responsibility')
                 # the document is now in processing state because the task is in progress
                 api.content.transition(obj=document, transition='process')
                 document.reindexObject(idxs=['review_state'])
+
+        if not has_incomingmail_workflow(document):
+            # for all documents (but not incoming mails), we transition all
+            # todo tasks to abandon.
+            transition_tasks(obj=document, status='todo',
+                    transition='abandon',
+                    types=('opinion', 'validation', 'task',))
+            document.reindexObject(idxs=['review_state'])
 
         version_notes = portal_catalog.unrestrictedSearchResults(portal_type='dmsmainfile',
                                                                  path='/'.join(document.getPhysicalPath()))
@@ -214,6 +241,20 @@ def document_is_processed(context, event):
                 with api.env.adopt_user('admin'):
                     api.content.transition(obj=task, transition='mark-as-done')
                 task.reindexObject(idxs=['review_state'])
+
+
+@grok.subscribe(IDmsDocument, IAfterTransitionEvent)
+def document_is_finished(context, event):
+    """When document is done for, abandon all tasks"""
+    portal_catalog = api.portal.get_tool('portal_catalog')
+    if event.new_state.id not in ('considered', 'noaction', 'sent'):
+        return
+    if has_incomingmail_workflow(context):
+        return
+    print 'document_is_finished'
+    transition_tasks(obj=context, status='todo',
+            transition='abandon',
+            types=('task', 'opinion', 'validation'))
 
 
 @grok.subscribe(IDmsDocument, IAfterTransitionEvent)
