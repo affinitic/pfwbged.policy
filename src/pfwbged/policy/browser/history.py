@@ -17,6 +17,9 @@ class ContentHistoryView(BaseHistoryView):
             title = dmsfile_wfactions_mapping.get(action['action'],
                     _(u"Create version ${version}"))
             title = IGNORE_(title, mapping={'version': version})
+            if action.get('action') == 'obsolete':
+                # do not include version marked as obsolete
+                title = ''
             action['transition_title'] = title
 
     def pfwbged_history(self):
@@ -57,6 +60,7 @@ class ContentHistoryView(BaseHistoryView):
             self.context = version
             results = super(ContentHistoryView, self).workflowHistory(complete)
             self._modify_title(results)
+            results = [x for x in results if x.get('transition_title')]
             review_history.extend(results)
         self.context = old_context
 
