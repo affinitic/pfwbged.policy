@@ -281,19 +281,10 @@ def document_is_reopened(context, event):
         task.reindexObject()
 
 
-def email_notification_of_tasks_sync(context, event, target_language=None):
+def email_notification_of_tasks_sync(context, event, document, absolute_url, target_language=None):
     """Notify recipients of new tasks by email"""
-    # go up in the acquisition chain to find the document
     log = logging.getLogger('pfwbged.policy')
     log.info('sending notifications')
-    document = None
-    for obj in aq_chain(context):
-        obj = aq_parent(obj)
-        if IDmsDocument.providedBy(obj):
-            document = obj
-            break
-    if not document:
-        return
     document.reindexObject(idxs=['allowedRolesAndUsers'])
 
     for enquirer in (context.enquirer or []):
@@ -313,7 +304,7 @@ def email_notification_of_tasks_sync(context, event, target_language=None):
             '\n\n' + \
             translate(_('Document: %s'), **kwargs) % document.title + \
             '\n\n' + \
-            translate(_('Document Address: %s'), **kwargs) % document.absolute_url() + \
+            translate(_('Document Address: %s'), **kwargs) % absolute_url + \
             '\n\n'
     try:
         body += translate(_('Deadline: %s'), **kwargs) % context.deadline + '\n\n'
@@ -343,13 +334,36 @@ def email_notification_of_tasks_sync(context, event, target_language=None):
 
 @grok.subscribe(IBaseTask, IObjectAddedEvent)
 def email_notification_of_tasks(context, event):
+    # go up in the acquisition chain to find the document, this cannot be done
+    # in the async job as absolute_url() needs the request object to give a
+    # correct result
+    document = None
+    for obj in aq_chain(context):
+        obj = aq_parent(obj)
+        if IDmsDocument.providedBy(obj):
+            document = obj
+            break
+    if not document:
+        return
+    absolute_url = document.absolute_url()
+
+    # request is also required to get the target language
     target_language = negotiate(context.REQUEST)
+
+    kwargs = {
+        'context': context,
+        'event': event,
+        'document': document,
+        'absolute_url': absolute_url,
+        'target_language': target_language
+    }
+
     if IAsyncService is None:
-        return email_notification_of_tasks_sync(context, event, target_language)
+        return email_notification_of_tasks_sync(**kwargs)
     async = getUtility(IAsyncService)
     log = logging.getLogger('pfwbged.policy')
     log.info('sending notifications async')
-    job = async.queueJob(email_notification_of_tasks_sync, context, event, target_language)
+    job = async.queueJob(email_notification_of_tasks_sync, **kwargs)
 
 
 @grok.subscribe(IValidation, IAfterTransitionEvent)
