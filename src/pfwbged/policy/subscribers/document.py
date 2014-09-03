@@ -6,7 +6,7 @@ from DateTime import DateTime
 
 from zc.relation.interfaces import ICatalog
 from zope.container.interfaces import INameChooser
-from zope.i18n import translate
+from zope.i18n import translate, negotiate
 from zope.component import getUtility
 from zope.component.interfaces import ComponentLookupError
 from zope.intid.interfaces import IIntIds
@@ -31,6 +31,12 @@ from pfwbged.basecontent.behaviors import IPfwbDocument
 from pfwbged.policy import _
 
 from mail import changeWorkflowState
+
+
+try:
+    from plone.app.async.interfaces import IAsyncService
+except ImportError:
+    IAsyncService = None
 
 
 def has_pfwbgeddocument_workflow(obj):
@@ -275,10 +281,11 @@ def document_is_reopened(context, event):
         task.reindexObject()
 
 
-@grok.subscribe(IBaseTask, IObjectAddedEvent)
-def email_notification_of_tasks(context, event):
+def email_notification_of_tasks_sync(context, event, target_language=None):
     """Notify recipients of new tasks by email"""
     # go up in the acquisition chain to find the document
+    log = logging.getLogger('pfwbged.policy')
+    log.info('sending notifications')
     document = None
     for obj in aq_chain(context):
         obj = aq_parent(obj)
@@ -298,26 +305,28 @@ def email_notification_of_tasks(context, event):
     else:
         email_from = api.user.get_current().email or api.portal.get().getProperty('email_from_address') or 'admin@localhost'
 
+    kwargs = {'target_language': target_language}
     subject = '%s - %s' % (context.title, document.title)
-    body = translate(_('You received a request for action in the GED.'), context=context.REQUEST) + \
+    body = translate(_('You received a request for action in the GED.'), **kwargs) + \
             '\n\n' + \
-            translate(_('Title: %s'), context=context.REQUEST) % context.title + \
+            translate(_('Title: %s'), **kwargs) % context.title + \
             '\n\n' + \
-            translate(_('Document: %s'), context=context.REQUEST) % document.title + \
+            translate(_('Document: %s'), **kwargs) % document.title + \
             '\n\n' + \
-            translate(_('Document Address: %s'), context=context.REQUEST) % document.absolute_url() + \
+            translate(_('Document Address: %s'), **kwargs) % document.absolute_url() + \
             '\n\n'
     try:
-        body += translate(_('Deadline: %s'), context=context.REQUEST) % context.deadline + '\n\n'
+        body += translate(_('Deadline: %s'), **kwargs) % context.deadline + '\n\n'
     except AttributeError:
         pass
 
     if context.note:
-        body += translate(_('Note:'), context=context.REQUEST) + '\n\n' + context.note
+        body += translate(_('Note:'), **kwargs) + '\n\n' + context.note
 
     body = body.encode('utf-8')
 
-    for responsible in (context.responsible or ['plop']):
+    log.info('sending notifications to %r' % context.responsible)
+    for responsible in (context.responsible or []):
         member = context.portal_membership.getMemberById(responsible)
         if not member:
             continue
@@ -330,6 +339,17 @@ def email_notification_of_tasks(context, event):
             # do not abort transaction in case of email error
             log = logging.getLogger('pfwbged.policy')
             log.exception(e)
+
+
+@grok.subscribe(IBaseTask, IObjectAddedEvent)
+def email_notification_of_tasks(context, event):
+    target_language = negotiate(context.REQUEST)
+    if IAsyncService is None:
+        return email_notification_of_tasks_sync(context, event, target_language)
+    async = getUtility(IAsyncService)
+    log = logging.getLogger('pfwbged.policy')
+    log.info('sending notifications async')
+    job = async.queueJob(email_notification_of_tasks_sync, context, event, target_language)
 
 
 @grok.subscribe(IValidation, IAfterTransitionEvent)
