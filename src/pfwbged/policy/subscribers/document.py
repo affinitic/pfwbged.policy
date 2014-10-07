@@ -15,6 +15,7 @@ from OFS.interfaces import IObjectWillBeRemovedEvent
 from zope.annotation.interfaces import IAnnotations
 
 from plone import api
+from plone.stringinterp.adapters import _recursiveGetMembersFromIds
 
 from Products.DCWorkflow.interfaces import IAfterTransitionEvent
 
@@ -317,10 +318,8 @@ def email_notification_of_tasks_sync(context, event, document, absolute_url, tar
     body = body.encode('utf-8')
 
     log.info('sending notifications to %r' % context.responsible)
-    for responsible in (context.responsible or []):
-        member = context.portal_membership.getMemberById(responsible)
-        if not member:
-            continue
+    members = []
+    for member in _recursiveGetMembersFromIds(api.portal.get(), (context.responsible or [])):
         email = member.getProperty('email', None)
         if not email:
             continue
