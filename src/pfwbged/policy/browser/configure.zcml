@@ -97,6 +97,13 @@
       permission="zope2.View"
       />
 
+  <browser:page
+      name="refuse"
+      for="collective.dms.basecontent.dmsfile.IDmsFile"
+      class=".refuse.WfCommentView"
+      permission="zope2.View"
+      />
+
   <browser:view
       name="importGroupFolders"
       for="Products.CMFPlone.interfaces.IPloneSiteRoot"

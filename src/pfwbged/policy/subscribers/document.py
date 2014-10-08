@@ -1,4 +1,5 @@
 import logging
+import datetime
 
 from Acquisition import aq_chain, aq_parent
 from five import grok
@@ -18,6 +19,7 @@ from plone import api
 from plone.stringinterp.adapters import _recursiveGetMembersFromIds
 
 from Products.DCWorkflow.interfaces import IAfterTransitionEvent
+from plone.app.discussion.interfaces import ICommentingTool, IConversation
 
 from collective.z3cform.rolefield.field import LocalRolesToPrincipalsDataManager
 
@@ -403,6 +405,13 @@ def email_notification_of_refused_task(context, event):
             '\n\n' + \
             translate(_('Document Address: %s'), context=context.REQUEST) % document.absolute_url() + \
             '\n\n'
+
+    conversation = IConversation(context)
+    if conversation and conversation.getComments():
+        last_comment = list(conversation.getComments())[-1]
+        if (datetime.datetime.utcnow() - last_comment.creation_date).seconds < 120:
+            # comment less than two minutes ago, include it.
+            body += translate(_('Note:'), context=context.REQUEST) + '\n\n' + last_comment.text
 
     body = body.encode('utf-8')
 

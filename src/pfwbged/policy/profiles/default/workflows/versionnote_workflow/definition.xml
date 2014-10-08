@@ -148,7 +148,7 @@
   </guard>
  </transition>
  <transition transition_id="refuse" title="Refuse" new_state="draft" trigger="USER" before_script="" after_script="" i18n:attributes="title">
-  <action url="" category="workflow" icon="" i18n:translate="">Refuse</action>
+  <action url="%(content_url)s/@@refuse?workflow_action=refuse" category="workflow" icon="" i18n:translate="">Refuse</action>
   <guard>
    <guard-expression>here/@@can_validate_or_refuse</guard-expression>
   </guard>

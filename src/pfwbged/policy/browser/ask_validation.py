@@ -8,6 +8,8 @@ from plone.dexterity.browser.add import DefaultAddForm
 from plone.dexterity.interfaces import IDexterityFTI
 from plone.dexterity.utils import addContentToContainer, getAdditionalSchemata
 
+from zope.annotation.interfaces import IAnnotations
+
 
 from pfwbged.policy import _
 
@@ -43,6 +45,12 @@ class AskValidation(DefaultAddForm):
     def add(self, object):
         fti = getUtility(IDexterityFTI, name=self.portal_type)
         container = aq_parent(aq_inner(self.context))
+
+        # annotate the validation task with the related version, it can later
+        # be used to match the task against the correct version.
+        annotations = IAnnotations(object)
+        annotations['related_version_id'] = self.context.id
+
         new_object = addContentToContainer(container, object)
         # execute transition on version
         api.content.transition(self.context, transition='submit')
