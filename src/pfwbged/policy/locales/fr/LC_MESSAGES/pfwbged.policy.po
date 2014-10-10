@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: pfwbged.policy\n"
-"POT-Creation-Date: 2014-06-06 07:52+0000\n"
-"PO-Revision-Date: 2014-06-06 09:53+0200\n"
+"POT-Creation-Date: 2014-10-10 13:29+0000\n"
+"PO-Revision-Date: 2014-10-10 15:31+0200\n"
 "Last-Translator: Frederic Peters <fpeters@entrouvert.com>\n"
 "Language-Team: --\n"
 "MIME-Version: 1.0\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Domain: pfwbged.policy\n"
 "X-Generator: Poedit 1.5.4\n"
 
-#: ../menu.py:181
+#: ../menu.py:204
 msgid "${action} the version ${version}"
 msgstr "${action} la version ${version}"
 
@@ -27,7 +27,7 @@ msgstr "L'élément ${title} a été supprimé."
 msgid "${title} is locked and cannot be deleted."
 msgstr "L'élément ${title} est verrouillé et ne peut être supprimé."
 
-#: ../subscribers/document.py:324
+#: ../subscribers/document.py:400
 msgid "A validation request has been refused"
 msgstr "Une demande de validation a été refusée."
 
@@ -35,11 +35,11 @@ msgstr "Une demande de validation a été refusée."
 msgid "Accept refusal"
 msgstr "Accepter la désattribution"
 
-#: ../menu.py:98
+#: ../menu.py:101
 msgid "Actions"
 msgstr "Actions"
 
-#: ../menu.py:264
+#: ../menu.py:287
 msgid "Add ${title}"
 msgstr "Ajouter ${title}"
 
@@ -51,15 +51,15 @@ msgstr "Demander la désattribution"
 msgid "Ask opinion"
 msgstr "Demander un avis"
 
-#: ../menu.py:45
+#: ../menu.py:47
 msgid "Ask opinion about version ${version}"
 msgstr "Demander un avis sur la version ${version}"
 
-#: ../browser/ask_validation.py:58
+#: ../browser/ask_validation.py:66
 msgid "Ask validation"
 msgstr "Demander une validation"
 
-#: ../menu.py:46
+#: ../menu.py:48
 msgid "Ask validation about version ${version}"
 msgstr "Demander une validation sur la version ${version}"
 
@@ -71,19 +71,23 @@ msgstr "Modifiable par"
 msgid "Can view"
 msgstr "Visible par"
 
+#: ../browser/refuse.py:109
+#: ../browser/send_by_email.py:92
 #: ../browser/to_process.py:63
 msgid "Cancel"
 msgstr "Annuler"
 
+#: ../browser/refuse.py:33
+#: ../browser/send_by_email.py:32
 #: ../browser/to_process.py:25
 msgid "Comment"
 msgstr "Note"
 
-#: ../menu.py:40
+#: ../menu.py:42
 msgid "Create a new version"
 msgstr "Créer une nouvelle version"
 
-#: ../menu.py:375
+#: ../menu.py:400
 msgid "Create signed version for version ${version}"
 msgstr "Créer la version signée pour la version ${version}"
 
@@ -91,23 +95,31 @@ msgstr "Créer la version signée pour la version ${version}"
 msgid "Create version ${version}"
 msgstr "Création de la version ${version}"
 
-#: ../subscribers/document.py:270
+#: ../subscribers/document.py:313
 msgid "Deadline: %s"
 msgstr "Échéance : %s"
 
-#: ../subscribers/document.py:267
+#: ../subscribers/document.py:310
 msgid "Document Address: %s"
 msgstr "Adresse du document : %s"
 
-#: ../subscribers/document.py:265
+#: ../subscribers/document.py:308
 msgid "Document: %s"
 msgstr "Document : %s"
 
-#: ../menu.py:42
+#: ../browser/send_by_email.py:29
+msgid "Email addresses of the recipients, one per line"
+msgstr "Adresses électroniques des destinataires, une par ligne"
+
+#: ../browser/send_by_email.py:88
+msgid "Error sending email"
+msgstr "Erreur à l'envoi d'un courrier électronique"
+
+#: ../menu.py:44
 msgid "File in a folder"
 msgstr "Classer dans un dossier"
 
-#: ../menu.py:49
+#: ../menu.py:51
 msgid "Finish version ${version}"
 msgstr "Finaliser la version ${version}"
 
@@ -115,7 +127,7 @@ msgstr "Finaliser la version ${version}"
 msgid "Folders"
 msgstr "Dossiers"
 
-#: ../menu.py:166
+#: ../menu.py:182
 msgid "Mark document as read"
 msgstr "Marquer le document comme lu"
 
@@ -123,15 +135,15 @@ msgstr "Marquer le document comme lu"
 msgid "My Tasks"
 msgstr "Mes tâches"
 
-#: ../browser/history.py:36
+#: ../browser/history.py:39
 msgid "New value for %s"
 msgstr "Nouvelle valeur pour %s"
 
-#: ../subscribers/document.py:358
+#: ../subscribers/document.py:441
 msgid "New value for %s: %s"
 msgstr "Nouvelle valeur pour %s : %s"
 
-#: ../subscribers/document.py:275
+#: ../subscribers/document.py:318
 msgid "Note:"
 msgstr "Note :"
 
@@ -139,7 +151,7 @@ msgstr "Note :"
 msgid "Opinion application for version ${version}"
 msgstr "Demande d'avis pour la version ${version}"
 
-#: ../subscribers/document.py:122
+#: ../subscribers/document.py:141
 msgid "Process document"
 msgstr "Traiter le document"
 
@@ -147,11 +159,19 @@ msgstr "Traiter le document"
 msgid "Process mail"
 msgstr "Traiter le document"
 
+#: ../browser/send_by_email.py:28
+msgid "Recipients"
+msgstr "Destinataires"
+
+#: ../browser/refuse.py:54
+msgid "Refuse"
+msgstr "Refuser"
+
 #: ../browser/comments.py:100
 msgid "Refuse refusal"
 msgstr "Refuser la désattribution"
 
-#: ../menu.py:48
+#: ../menu.py:50
 msgid "Refuse version ${version}"
 msgstr "Refuser la version ${version}"
 
@@ -159,56 +179,71 @@ msgstr "Refuser la version ${version}"
 msgid "Render opinion"
 msgstr "Rendre un avis"
 
-#: ../menu.py:171
+#: ../menu.py:189
 msgid "Return opinion about ${version}"
 msgstr "Rendre un avis sur la version ${version}"
 
 #: ../browser/to_process.py:46
-#: ../menu.py:477
+#: ../menu.py:504
 msgid "Save"
 msgstr "Enregistrer"
 
-#: ../menu.py:486
+#: ../menu.py:513
 msgid "Save As..."
 msgstr "Enregistrer sous…"
 
-#: ../menu.py:41
+#: ../browser/send_by_email.py:49
+msgid "Send"
+msgstr "Envoyer"
+
+#: ../menu.py:43
 msgid "Send for information"
 msgstr "Transmettre pour information"
+
+#: ../menu.py:53
+msgid "Send version ${version} by email"
+msgstr "Envoyer la version ${version} par email"
+
+#: ../browser/send_by_email.py:30
+msgid "Subject"
+msgstr "Objet"
 
 #: browser/configure.zcml
 msgid "Tasks view"
 msgstr "Vue tâches"
 
-#: ../subscribers/document.py:263
+#: ../subscribers/document.py:306
 msgid "Title: %s"
 msgstr "Titre : %s"
 
-#: ../menu.py:136
+#: ../menu.py:139
 msgid "To process (with comment)"
 msgstr "À traiter (avec commentaire)"
 
-#: ../menu.py:50
+#: ../menu.py:52
 msgid "Validate and finish version ${version}"
 msgstr "Valider et finaliser la version ${version}"
 
-#: ../menu.py:47
+#: ../menu.py:49
 msgid "Validate version ${version}"
 msgstr "Valider la version ${version}"
 
-#: ../browser/ask_validation.py:26
+#: ../browser/ask_validation.py:28
 msgid "Validation application for version ${version}"
 msgstr "Demande de validation pour la version ${version}"
 
+#: ../browser/refuse.py:29
 #: ../browser/to_process.py:21
 msgid "Workflow action"
 msgstr "Transition du workflow"
 
+#: ../browser/refuse.py:34
+#: ../browser/send_by_email.py:33
 #: ../browser/to_process.py:26
 msgid "You can enter a note."
 msgstr "Vous pouvez entrer une note."
 
-#: ../subscribers/document.py:261
+#: ../subscribers/document.py:304
 msgid "You received a request for action in the GED."
 msgstr "Vous avez reçu une demande d'action dans la GED."
 
