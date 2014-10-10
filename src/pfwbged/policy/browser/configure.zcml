@@ -43,6 +43,13 @@
     permission="zope2.View"
     />
 
+  <browser:page
+    name="send_by_email"
+    for="collective.dms.basecontent.dmsfile.IDmsFile"
+    class=".send_by_email.SendMailView"
+    permission="zope2.View"
+    />
+
   <!-- Custom comments viewlet for IBaseTask -->
   <browser:viewlet
       name="plone.comments"

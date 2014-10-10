@@ -48,6 +48,7 @@ dmsfile_wfactions_mapping = {'ask_opinion': _(u"Ask opinion about version ${vers
                              'refuse': _(u"Refuse version ${version}"),
                              'finish': _(u"Finish version ${version}"),
                              'finish_without_validation': _(u"Validate and finish version ${version}"),
+                             'send_by_email': _(u"Send version ${version} by email"),
                              }
 
 
@@ -135,6 +136,18 @@ class CustomMenu(menu.WorkflowMenu):
             workflowActions.insert(idx, to_process_without_comment_action)
             to_process_action['title'] = _(u'To process (with comment)')
 
+        if IDmsFile.providedBy(context):
+            workflowActions.append(
+                    {'available': True,
+                     'visible': True,
+                     'allowed': True,
+                     'link_target': None,
+                     'id': 'send_by_email',
+                     'category': 'workflow',
+                     'title': 'Send by email',
+                     'url': context.absolute_url() + '/@@send_by_email',
+                     'icon': None})
+
         for action in workflowActions:
             if action['category'] != 'workflow':
                 continue
@@ -152,7 +165,7 @@ class CustomMenu(menu.WorkflowMenu):
             description = ''
 
             if action['id'] in ('submit', 'ask_opinion', 'attribute',
-                    'to_process', 'refuse'):
+                    'to_process', 'refuse', 'send_by_email'):
                 cssClass += " overlay-form-reload"
 
             transition = action.get('transition', None)
@@ -349,7 +362,9 @@ class CustomMenu(menu.WorkflowMenu):
             _editActions = ttool.listActionInfos(object=context,
                                                 category='object_buttons',
                                                 max=-1)
-            editActions = [action for action in _editActions if action['id'] != 'create_outgoing_mail' or (is_linked_to_an_incoming_mail(context) and not outgoingmail_created(context))]
+            editActions = [action for action in _editActions if
+                    action['id'] not in ('create_outgoing_mail', 'send_by_email') or (
+                    is_linked_to_an_incoming_mail(context) and not outgoingmail_created(context))]
 
         else:
             editActions = []
