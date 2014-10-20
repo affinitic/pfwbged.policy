@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: pfwbged.policy\n"
-"POT-Creation-Date: 2014-10-10 13:29+0000\n"
-"PO-Revision-Date: 2014-10-10 15:31+0200\n"
+"POT-Creation-Date: 2014-10-20 14:13+0000\n"
+"PO-Revision-Date: 2014-10-20 16:14+0200\n"
 "Last-Translator: Frederic Peters <fpeters@entrouvert.com>\n"
 "Language-Team: --\n"
 "MIME-Version: 1.0\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Domain: pfwbged.policy\n"
 "X-Generator: Poedit 1.5.4\n"
 
-#: ../menu.py:204
+#: ../menu.py:216
 msgid "${action} the version ${version}"
 msgstr "${action} la version ${version}"
 
@@ -35,11 +35,11 @@ msgstr "Une demande de validation a été refusée."
 msgid "Accept refusal"
 msgstr "Accepter la désattribution"
 
-#: ../menu.py:101
+#: ../menu.py:102
 msgid "Actions"
 msgstr "Actions"
 
-#: ../menu.py:287
+#: ../menu.py:299
 msgid "Add ${title}"
 msgstr "Ajouter ${title}"
 
@@ -87,7 +87,7 @@ msgstr "Note"
 msgid "Create a new version"
 msgstr "Créer une nouvelle version"
 
-#: ../menu.py:400
+#: ../menu.py:413
 msgid "Create signed version for version ${version}"
 msgstr "Créer la version signée pour la version ${version}"
 
@@ -127,7 +127,7 @@ msgstr "Finaliser la version ${version}"
 msgid "Folders"
 msgstr "Dossiers"
 
-#: ../menu.py:182
+#: ../menu.py:194
 msgid "Mark document as read"
 msgstr "Marquer le document comme lu"
 
@@ -179,16 +179,16 @@ msgstr "Refuser la version ${version}"
 msgid "Render opinion"
 msgstr "Rendre un avis"
 
-#: ../menu.py:189
+#: ../menu.py:201
 msgid "Return opinion about ${version}"
 msgstr "Rendre un avis sur la version ${version}"
 
 #: ../browser/to_process.py:46
-#: ../menu.py:504
+#: ../menu.py:517
 msgid "Save"
 msgstr "Enregistrer"
 
-#: ../menu.py:513
+#: ../menu.py:526
 msgid "Save As..."
 msgstr "Enregistrer sous…"
 
@@ -204,6 +204,10 @@ msgstr "Transmettre pour information"
 msgid "Send version ${version} by email"
 msgstr "Envoyer la version ${version} par email"
 
+#: ../menu.py:54
+msgid "Send version ${version} with PES"
+msgstr "Envoyer la version ${version} avec la PES"
+
 #: ../browser/send_by_email.py:30
 msgid "Subject"
 msgstr "Objet"
@@ -216,7 +220,7 @@ msgstr "Vue tâches"
 msgid "Title: %s"
 msgstr "Titre : %s"
 
-#: ../menu.py:139
+#: ../menu.py:140
 msgid "To process (with comment)"
 msgstr "À traiter (avec commentaire)"
 

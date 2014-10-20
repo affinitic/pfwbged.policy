@@ -50,6 +50,13 @@
     permission="zope2.View"
     />
 
+  <browser:page
+    name="send_with_docbow"
+    for="collective.dms.basecontent.dmsfile.IDmsFile"
+    class=".send_with_docbow.SendWithDocbowView"
+    permission="zope2.View"
+    />
+
   <!-- Custom comments viewlet for IBaseTask -->
   <browser:viewlet
       name="plone.comments"

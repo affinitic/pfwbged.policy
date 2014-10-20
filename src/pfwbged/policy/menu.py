@@ -1,3 +1,5 @@
+import sys, time
+
 from Acquisition import aq_inner, aq_parent
 from five import grok
 from zc.relation.interfaces import ICatalog
@@ -49,6 +51,7 @@ dmsfile_wfactions_mapping = {'ask_opinion': _(u"Ask opinion about version ${vers
                              'finish': _(u"Finish version ${version}"),
                              'finish_without_validation': _(u"Validate and finish version ${version}"),
                              'send_by_email': _(u"Send version ${version} by email"),
+                             'send_with_docbow': _(u"Send version ${version} with PES"),
                              }
 
 
@@ -147,6 +150,17 @@ class CustomMenu(menu.WorkflowMenu):
                      'title': 'Send by email',
                      'url': context.absolute_url() + '/@@send_by_email',
                      'icon': None})
+            if request.cookies.get('docbow-user') == 'true':
+                workflowActions.append(
+                        {'available': True,
+                         'visible': True,
+                         'allowed': True,
+                         'link_target': None,
+                         'id': 'send_with_docbow',
+                         'category': 'workflow',
+                         'title': 'Send by email',
+                         'url': context.absolute_url() + '/@@send_with_docbow',
+                         'icon': None})
 
         for action in workflowActions:
             if action['category'] != 'workflow':
@@ -363,7 +377,8 @@ class CustomMenu(menu.WorkflowMenu):
                                                 category='object_buttons',
                                                 max=-1)
             editActions = [action for action in _editActions if
-                    action['id'] not in ('create_outgoing_mail', 'send_by_email') or (
+                    action['id'] not in ('create_outgoing_mail',
+                        'send_by_email', 'send_with_docbow') or (
                     is_linked_to_an_incoming_mail(context) and not outgoingmail_created(context))]
 
         else:
@@ -444,6 +459,8 @@ class CustomMenu(menu.WorkflowMenu):
         return actions
 
     def getMenuItems(self, context, request):
+        t0 = time.time()
+        print >> sys.stderr, time.time(), 'getmenuitems'
         actions = []
         actions.extend(self.getWorkflowActionsForObject(context, request))
 
@@ -513,4 +530,5 @@ class CustomMenu(menu.WorkflowMenu):
             if not action.get('icon'):
                 action['extra']['class'] += ' no-icon'
 
+        print >> sys.stderr, time.time(), 'getmenuitems -- end (%.2f)' % (time.time()-t0)
         return actions
