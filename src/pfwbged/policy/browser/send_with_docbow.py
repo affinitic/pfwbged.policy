@@ -15,7 +15,7 @@ from plone import api
 class SendWithDocbowView(BrowserView):
     def __call__(self):
         version_url = self.context.absolute_url()
-        if 'test.pfwb.be' in version_url:
+        if 'test.ged.pfwb.be' in version_url:
             docbow = 'https://test-secure.pfwb.be'
         else:
             docbow = 'https://secure.pfwb.be'
