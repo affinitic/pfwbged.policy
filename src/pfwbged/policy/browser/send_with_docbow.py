@@ -19,5 +19,6 @@ class SendWithDocbowView(BrowserView):
             docbow = 'https://test-secure.pfwb.be'
         else:
             docbow = 'https://secure.pfwb.be'
-        docbow += '/send_file/?url=' + urllib.quote(version_url + '/@@download')
+        docbow += '/send_file/?url=' + urllib.quote(
+                version_url + '/@@download?filename=' + self.context.file.filename)
         self.request.response.redirect(docbow)
