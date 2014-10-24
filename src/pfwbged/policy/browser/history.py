@@ -36,7 +36,17 @@ class ContentHistoryView(BaseHistoryView):
                 history_line['action'] = 'pfwbged_field'
                 history_line['type'] = 'pfwbged_field'
                 history_line['comments'] = ', '.join(history_line['value'])
-                history_line['transition_title'] = _('New value for %s') % history_line['attribute']
+                history_line['transition_title'] = _('New value for ${attribute}',
+                        mapping={'attribute': history_line['attribute']})
+            if history_line['action_id'] == 'pfwbged_mail':
+                history_line['actor'] = None
+                history_line['actor_home'] = None
+                history_line['actorid'] = history_line['actor_name']
+                history_line['action'] = 'pfwbged_mail'
+                history_line['type'] = 'pfwbged_mail'
+                history_line['comments'] = _('To: ${to}', mapping={'to': history_line.get('to', '')})
+                history_line['transition_title'] = _('Sent version ${version} by email',
+                        mapping={'version': history_line.get('version', '?')})
         return history
 
     def workflowHistory(self, complete=True):

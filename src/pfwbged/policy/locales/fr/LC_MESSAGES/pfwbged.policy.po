@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: pfwbged.policy\n"
-"POT-Creation-Date: 2014-10-20 14:13+0000\n"
-"PO-Revision-Date: 2014-10-20 16:14+0200\n"
+"POT-Creation-Date: 2014-10-24 11:52+0000\n"
+"PO-Revision-Date: 2014-10-24 13:52+0200\n"
 "Last-Translator: Frederic Peters <fpeters@entrouvert.com>\n"
 "Language-Team: --\n"
 "MIME-Version: 1.0\n"
@@ -72,13 +72,13 @@ msgid "Can view"
 msgstr "Visible par"
 
 #: ../browser/refuse.py:109
-#: ../browser/send_by_email.py:92
+#: ../browser/send_by_email.py:111
 #: ../browser/to_process.py:63
 msgid "Cancel"
 msgstr "Annuler"
 
 #: ../browser/refuse.py:33
-#: ../browser/send_by_email.py:32
+#: ../browser/send_by_email.py:35
 #: ../browser/to_process.py:25
 msgid "Comment"
 msgstr "Note"
@@ -107,11 +107,11 @@ msgstr "Adresse du document : %s"
 msgid "Document: %s"
 msgstr "Document : %s"
 
-#: ../browser/send_by_email.py:29
+#: ../browser/send_by_email.py:32
 msgid "Email addresses of the recipients, one per line"
 msgstr "Adresses électroniques des destinataires, une par ligne"
 
-#: ../browser/send_by_email.py:88
+#: ../browser/send_by_email.py:91
 msgid "Error sending email"
 msgstr "Erreur à l'envoi d'un courrier électronique"
 
@@ -136,8 +136,8 @@ msgid "My Tasks"
 msgstr "Mes tâches"
 
 #: ../browser/history.py:39
-msgid "New value for %s"
-msgstr "Nouvelle valeur pour %s"
+msgid "New value for ${attribute}"
+msgstr "Nouvelle valeur pour ${attribute}"
 
 #: ../subscribers/document.py:441
 msgid "New value for %s: %s"
@@ -159,7 +159,7 @@ msgstr "Traiter le document"
 msgid "Process mail"
 msgstr "Traiter le document"
 
-#: ../browser/send_by_email.py:28
+#: ../browser/send_by_email.py:31
 msgid "Recipients"
 msgstr "Destinataires"
 
@@ -192,7 +192,7 @@ msgstr "Enregistrer"
 msgid "Save As..."
 msgstr "Enregistrer sous…"
 
-#: ../browser/send_by_email.py:49
+#: ../browser/send_by_email.py:52
 msgid "Send"
 msgstr "Envoyer"
 
@@ -208,7 +208,15 @@ msgstr "Envoyer la version ${version} par email"
 msgid "Send version ${version} with PES"
 msgstr "Envoyer la version ${version} avec la PES"
 
-#: ../browser/send_by_email.py:30
+#: ../browser/send_by_email.py:99
+msgid "Sent by email to %s"
+msgstr "Envoyé par email à %s"
+
+#: ../browser/history.py:48
+msgid "Sent version ${version} by email"
+msgstr "Version ${version} envoyée par email"
+
+#: ../browser/send_by_email.py:33
 msgid "Subject"
 msgstr "Objet"
 
@@ -223,6 +231,10 @@ msgstr "Titre : %s"
 #: ../menu.py:140
 msgid "To process (with comment)"
 msgstr "À traiter (avec commentaire)"
+
+#: ../browser/history.py:47
+msgid "To: ${to}"
+msgstr "À : ${to}"
 
 #: ../menu.py:52
 msgid "Validate and finish version ${version}"
@@ -242,7 +254,7 @@ msgid "Workflow action"
 msgstr "Transition du workflow"
 
 #: ../browser/refuse.py:34
-#: ../browser/send_by_email.py:33
+#: ../browser/send_by_email.py:36
 #: ../browser/to_process.py:26
 msgid "You can enter a note."
 msgstr "Vous pouvez entrer une note."

@@ -443,6 +443,9 @@ def log_some_history(context, event):
                 'attribute': field,
                 'value': value,
                 })
+            # assign it back as a change to the list won't trigger the
+            # annotation to be saved on disk.
+            annotations['pfwbged_history'] = annotations['pfwbged_history'][:]
 
 
 @grok.subscribe(IFolder, IObjectAddedEvent)

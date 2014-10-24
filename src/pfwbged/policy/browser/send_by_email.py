@@ -1,7 +1,9 @@
 # -*- encoding: utf-8 -*-
 
+import random
 import logging
 from datetime import datetime
+from DateTime import DateTime
 from email.mime.base import MIMEBase
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
@@ -13,6 +15,7 @@ from zope.component import createObject, queryUtility
 from z3c.form import form, button
 from z3c.form.field import Fields
 from z3c.form.interfaces import HIDDEN_MODE
+from zope.annotation.interfaces import IAnnotations
 
 from Acquisition import aq_inner, aq_parent
 
@@ -86,6 +89,21 @@ class MailForm(form.AddForm):
             log = logging.getLogger('pfwbged.policy')
             log.exception(e)
             self.context.plone_utils.addPortalMessage(_('Error sending email'))
+        else:
+            document = aq_parent(self.context)
+            annotations = IAnnotations(document)
+            if not 'pfwbged_history' in annotations:
+                annotations['pfwbged_history'] = []
+            annotations['pfwbged_history'].append({'time': DateTime(),
+                'action_id': 'pfwbged_mail',
+                'action': 'Sent by email',
+                'actor_name': api.user.get_current().getId(),
+                'to': msg['To'],
+                'version': self.context.Title(),
+                })
+            # assign it back as a change to the list won't trigger the
+            # annotation to be saved on disk.
+            annotations['pfwbged_history'] = annotations['pfwbged_history'][:]
 
         self.next_url = aq_parent(self.context).absolute_url()
 
