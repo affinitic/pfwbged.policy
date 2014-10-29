@@ -459,8 +459,6 @@ class CustomMenu(menu.WorkflowMenu):
         return actions
 
     def getMenuItems(self, context, request):
-        t0 = time.time()
-        print >> sys.stderr, time.time(), 'getmenuitems'
         actions = []
         actions.extend(self.getWorkflowActionsForObject(context, request))
 
@@ -530,5 +528,4 @@ class CustomMenu(menu.WorkflowMenu):
             if not action.get('icon'):
                 action['extra']['class'] += ' no-icon'
 
-        print >> sys.stderr, time.time(), 'getmenuitems -- end (%.2f)' % (time.time()-t0)
         return actions
