@@ -139,7 +139,7 @@ class CustomMenu(menu.WorkflowMenu):
             workflowActions.insert(idx, to_process_without_comment_action)
             to_process_action['title'] = _(u'To process (with comment)')
 
-        if IDmsFile.providedBy(context):
+        if IDmsFile.providedBy(context) and context.file:
             workflowActions.append(
                     {'available': True,
                      'visible': True,
