@@ -64,7 +64,13 @@ class MailForm(form.AddForm):
         msg = MIMEMultipart()
         msg['Subject'] = subject
         msg['To'] = ', '.join(recipients)
-        msg['From'] = api.user.get_current().email or \
+
+        ldap_email = api.user.get_current().getProperty('email')
+        if not isinstance(ldap_email, str):
+            ldap_email = None
+
+        msg['From'] = api.user.get_current().getProperty('email', None) or \
+                api.user.get_current().email or \
                 api.portal.get().getProperty('email_from_address') or \
                 'admin@localhost'
 
