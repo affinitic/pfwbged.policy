@@ -182,6 +182,9 @@ class CustomMenu(menu.WorkflowMenu):
                     'to_process', 'refuse', 'send_by_email'):
                 cssClass += " overlay-form-reload"
 
+            if action['id'] in ('send_with_docbow',):
+                cssClass += " target-new-tab"
+
             transition = action.get('transition', None)
             if transition is not None:
                 description = transition.description
