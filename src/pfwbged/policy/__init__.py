@@ -5,7 +5,7 @@ from zope.i18nmessageid import MessageFactory
 
 _ = MessageFactory('pfwbged.policy')
 
-POOL_SIZE = 10
+POOL_SIZE = 1000
 
 
 def initialize(context):
