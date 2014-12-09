@@ -317,6 +317,7 @@ def email_notification_of_tasks_sync(context, event, document, absolute_url, tar
     if context.note:
         body += translate(_('Note:'), **kwargs) + '\n\n' + context.note
 
+    body += '\n\n\n-- \n' + translate(_('Sent by GED'), **kwargs)
     body = body.encode('utf-8')
 
     log.info('sending notifications to %r' % context.responsible)
@@ -413,6 +414,7 @@ def email_notification_of_refused_task(context, event):
             # comment less than two minutes ago, include it.
             body += translate(_('Note:'), context=context.REQUEST) + '\n\n' + last_comment.text
 
+    body += '\n\n\n-- \n' + translate(_('Sent by GED'), **kwargs)
     body = body.encode('utf-8')
 
     try:
