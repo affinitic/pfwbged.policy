@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: pfwbged.policy\n"
-"POT-Creation-Date: 2014-10-24 11:52+0000\n"
-"PO-Revision-Date: 2014-10-24 13:52+0200\n"
+"POT-Creation-Date: 2014-12-09 06:37+0000\n"
+"PO-Revision-Date: 2014-12-09 07:38+0100\n"
 "Last-Translator: Frederic Peters <fpeters@entrouvert.com>\n"
 "Language-Team: --\n"
 "MIME-Version: 1.0\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Domain: pfwbged.policy\n"
 "X-Generator: Poedit 1.5.4\n"
 
-#: ../menu.py:216
+#: ../menu.py:219
 msgid "${action} the version ${version}"
 msgstr "${action} la version ${version}"
 
@@ -27,7 +27,7 @@ msgstr "L'élément ${title} a été supprimé."
 msgid "${title} is locked and cannot be deleted."
 msgstr "L'élément ${title} est verrouillé et ne peut être supprimé."
 
-#: ../subscribers/document.py:400
+#: ../subscribers/document.py:416
 msgid "A validation request has been refused"
 msgstr "Une demande de validation a été refusée."
 
@@ -39,7 +39,7 @@ msgstr "Accepter la désattribution"
 msgid "Actions"
 msgstr "Actions"
 
-#: ../menu.py:299
+#: ../menu.py:302
 msgid "Add ${title}"
 msgstr "Ajouter ${title}"
 
@@ -63,6 +63,10 @@ msgstr "Demander une validation"
 msgid "Ask validation about version ${version}"
 msgstr "Demander une validation sur la version ${version}"
 
+#: ../subscribers/document.py:318
+msgid "Assigned to: %s"
+msgstr "Attribué à : %s"
+
 #: ../customize.py:21
 msgid "Can edit"
 msgstr "Modifiable par"
@@ -72,7 +76,7 @@ msgid "Can view"
 msgstr "Visible par"
 
 #: ../browser/refuse.py:109
-#: ../browser/send_by_email.py:111
+#: ../browser/send_by_email.py:116
 #: ../browser/to_process.py:63
 msgid "Cancel"
 msgstr "Annuler"
@@ -87,7 +91,7 @@ msgstr "Note"
 msgid "Create a new version"
 msgstr "Créer une nouvelle version"
 
-#: ../menu.py:413
+#: ../menu.py:416
 msgid "Create signed version for version ${version}"
 msgstr "Créer la version signée pour la version ${version}"
 
@@ -95,15 +99,15 @@ msgstr "Créer la version signée pour la version ${version}"
 msgid "Create version ${version}"
 msgstr "Création de la version ${version}"
 
-#: ../subscribers/document.py:313
+#: ../subscribers/document.py:328
 msgid "Deadline: %s"
 msgstr "Échéance : %s"
 
-#: ../subscribers/document.py:310
+#: ../subscribers/document.py:325
 msgid "Document Address: %s"
 msgstr "Adresse du document : %s"
 
-#: ../subscribers/document.py:308
+#: ../subscribers/document.py:323
 msgid "Document: %s"
 msgstr "Document : %s"
 
@@ -111,7 +115,7 @@ msgstr "Document : %s"
 msgid "Email addresses of the recipients, one per line"
 msgstr "Adresses électroniques des destinataires, une par ligne"
 
-#: ../browser/send_by_email.py:91
+#: ../browser/send_by_email.py:97
 msgid "Error sending email"
 msgstr "Erreur à l'envoi d'un courrier électronique"
 
@@ -127,7 +131,7 @@ msgstr "Finaliser la version ${version}"
 msgid "Folders"
 msgstr "Dossiers"
 
-#: ../menu.py:194
+#: ../menu.py:197
 msgid "Mark document as read"
 msgstr "Marquer le document comme lu"
 
@@ -139,11 +143,11 @@ msgstr "Mes tâches"
 msgid "New value for ${attribute}"
 msgstr "Nouvelle valeur pour ${attribute}"
 
-#: ../subscribers/document.py:441
+#: ../subscribers/document.py:458
 msgid "New value for %s: %s"
 msgstr "Nouvelle valeur pour %s : %s"
 
-#: ../subscribers/document.py:318
+#: ../subscribers/document.py:333
 msgid "Note:"
 msgstr "Note :"
 
@@ -179,16 +183,16 @@ msgstr "Refuser la version ${version}"
 msgid "Render opinion"
 msgstr "Rendre un avis"
 
-#: ../menu.py:201
+#: ../menu.py:204
 msgid "Return opinion about ${version}"
 msgstr "Rendre un avis sur la version ${version}"
 
 #: ../browser/to_process.py:46
-#: ../menu.py:517
+#: ../menu.py:518
 msgid "Save"
 msgstr "Enregistrer"
 
-#: ../menu.py:526
+#: ../menu.py:527
 msgid "Save As..."
 msgstr "Enregistrer sous…"
 
@@ -208,9 +212,9 @@ msgstr "Envoyer la version ${version} par email"
 msgid "Send version ${version} with PES"
 msgstr "Envoyer la version ${version} avec la PES"
 
-#: ../browser/send_by_email.py:99
-msgid "Sent by email to %s"
-msgstr "Envoyé par email à %s"
+#: ../subscribers/document.py:335
+msgid "Sent by GED"
+msgstr "Envoyé par le système de GED du PFWB"
 
 #: ../browser/history.py:48
 msgid "Sent version ${version} by email"
@@ -224,7 +228,7 @@ msgstr "Objet"
 msgid "Tasks view"
 msgstr "Vue tâches"
 
-#: ../subscribers/document.py:306
+#: ../subscribers/document.py:321
 msgid "Title: %s"
 msgstr "Titre : %s"
 
@@ -259,7 +263,7 @@ msgstr "Transition du workflow"
 msgid "You can enter a note."
 msgstr "Vous pouvez entrer une note."
 
-#: ../subscribers/document.py:304
+#: ../subscribers/document.py:315
 msgid "You received a request for action in the GED."
 msgstr "Vous avez reçu une demande d'action dans la GED."
 
