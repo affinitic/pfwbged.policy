@@ -24,6 +24,7 @@ from plone.app.discussion.interfaces import ICommentingTool, IConversation
 from collective.z3cform.rolefield.field import LocalRolesToPrincipalsDataManager
 
 from collective.dms.basecontent.dmsdocument import IDmsDocument
+from collective.dms.basecontent.source import PrincipalSource
 from collective.task.content.task import IBaseTask, ITask
 from collective.task.content.validation import IValidation
 from collective.task.interfaces import IBaseTask
@@ -301,13 +302,11 @@ def email_notification_of_tasks_sync(context, event, document, absolute_url, tar
 
     responsible_labels = []
     for responsible in (context.responsible or []):
-        user = api.user.get(username=responsible)
-        if user:
-            responsible_labels.append(user.getProperty('fullname'))
-            continue
-        group = api.group.get(groupname=responsible)
-        if group:
-            responsible_labels.append(group.getProperty('title'))
+        try:
+            responsible_labels.append(
+                    PrincipalSource(context).getTerm(responsible).title)
+        except LookupError:
+            pass
     responsible_label = ', '.join(responsible_labels)
 
     kwargs = {'target_language': target_language}
