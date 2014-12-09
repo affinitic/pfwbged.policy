@@ -299,10 +299,25 @@ def email_notification_of_tasks_sync(context, event, document, absolute_url, tar
     else:
         email_from = api.user.get_current().email or api.portal.get().getProperty('email_from_address') or 'admin@localhost'
 
+    responsible_labels = []
+    for responsible in (context.responsible or []):
+        user = api.user.get(username=responsible)
+        if user:
+            responsible_labels.append(user.getProperty('fullname'))
+            continue
+        group = api.group.get(groupname=responsible)
+        if group:
+            responsible_labels.append(group.getProperty('title'))
+    responsible_label = ', '.join(responsible_labels)
+
     kwargs = {'target_language': target_language}
     subject = '%s - %s' % (context.title, document.title)
-    body = translate(_('You received a request for action in the GED.'), **kwargs) + \
-            '\n\n' + \
+    body = translate(_('You received a request for action in the GED.'), **kwargs)
+
+    if responsible_label:
+        body += '\n\n' + translate(_('Assigned to: %s'), **kwargs) % responsible_label
+
+    body += '\n\n' + \
             translate(_('Title: %s'), **kwargs) % context.title + \
             '\n\n' + \
             translate(_('Document: %s'), **kwargs) % document.title + \
