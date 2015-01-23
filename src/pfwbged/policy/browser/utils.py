@@ -1,5 +1,7 @@
 import os
 
+from zope.event import notify
+from zope.lifecycleevent import ObjectModifiedEvent
 from zope.component import getUtility
 from zope.schema.interfaces import IVocabularyFactory
 
@@ -85,4 +87,5 @@ class FixMime(BrowserView):
         if self.context.file.contentType == new_mime:
             return 'No change'
         self.context.file.contentType = new_mime
+        notify(ObjectModifiedEvent(self.context))
         return 'OK'
