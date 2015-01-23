@@ -146,4 +146,11 @@
       permission="cmf.ManagePortal"
       />
 
+  <browser:view
+      name="fixmime"
+      for="collective.dms.basecontent.dmsfile.IDmsFile"
+      class=".utils.FixMime"
+      permission="cmf.ManagePortal"
+      />
+
 </configure>

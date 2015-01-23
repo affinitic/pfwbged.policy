@@ -1,3 +1,5 @@
+import os
+
 from zope.component import getUtility
 from zope.schema.interfaces import IVocabularyFactory
 
@@ -70,3 +72,17 @@ class ImportUserFolders(BrowserView):
 class Pdb(BrowserView):
     def __call__(self):
         import pdb; pdb.set_trace()
+
+class FixMime(BrowserView):
+    def __call__(self):
+        ext = os.path.splitext(self.context.file.filename)[-1]
+        if ext == '.odt':
+            new_mime = 'application/vnd.oasis.opendocument.text'
+        elif ext == '.pdf':
+            new_mime = 'application/pdf'
+        else:
+            return 'Unknown'
+        if self.context.file.contentType == new_mime:
+            return 'No change'
+        self.context.file.contentType = new_mime
+        return 'OK'
