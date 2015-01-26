@@ -428,7 +428,7 @@ def email_notification_of_refused_task(context, event):
             # comment less than two minutes ago, include it.
             body += translate(_('Note:'), context=context.REQUEST) + '\n\n' + last_comment.text
 
-    body += '\n\n\n-- \n' + translate(_('Sent by GED'), **kwargs)
+    body += '\n\n\n-- \n' + translate(_('Sent by GED'))
     body = body.encode('utf-8')
 
     try:
