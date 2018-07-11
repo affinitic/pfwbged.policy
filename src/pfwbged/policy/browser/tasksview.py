@@ -80,14 +80,20 @@ class DocumentTitleColumn(column.TitleColumn):
     grok.adapts(Interface, Interface, TasksTable)
 
     def getLinkContent(self, item):
-        if item.document_title is Missing.Value:
+        try:
+            if item.document_title is Missing.Value:
+                return super(DocumentTitleColumn, self).getLinkContent(item)
+        except AttributeError:
             return super(DocumentTitleColumn, self).getLinkContent(item)
 
         return item.document_title.decode('utf8') + ' / ' + \
                 column.get_value(self.request, item, 'Title').decode('utf8')
 
     def getLinkURL(self, item):
-        if item.document_title is Missing.Value:
+        try:
+            if item.document_title is Missing.Value:
+                return super(DocumentTitleColumn, self).getLinkURL(item)
+        except AttributeError:
             return super(DocumentTitleColumn, self).getLinkURL(item)
 
         return self.request.physicalPathToURL(item.document_path)
