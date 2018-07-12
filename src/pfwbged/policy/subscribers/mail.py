@@ -114,9 +114,10 @@ def incoming_mail_attributed(context, comment):
     treating_groups = list(frozenset(list(context.treating_groups or []) + list(context.treated_by or [])))
     treating_dm = LocalRolesToPrincipalsDataManager(context, IDmsIncomingMail['treating_groups'])
     treating_dm.set(treating_groups)
-    recipient_groups = list(frozenset(list(context.recipient_groups or []) + list(context.in_copy or [])))
-    recipient_dm = LocalRolesToPrincipalsDataManager(context, IDmsIncomingMail['recipient_groups'])
-    recipient_dm.set(recipient_groups)
+    if hasattr(context, 'in_copy'):
+        recipient_groups = list(frozenset(list(context.recipient_groups or []) + list(context.in_copy or [])))
+        recipient_dm = LocalRolesToPrincipalsDataManager(context, IDmsIncomingMail['recipient_groups'])
+        recipient_dm.set(recipient_groups)
     context.reindexObjectSecurity()
 
     already_in_charge = []
