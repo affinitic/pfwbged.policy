@@ -57,6 +57,13 @@
     permission="zope2.View"
     />
 
+  <browser:page
+    name="add_multi_information"
+    for="*"
+    class=".add_multi_information.AddInformation"
+    permission="cmf.AddPortalContent"
+    />
+
   <!-- Custom comments viewlet for IBaseTask -->
   <browser:viewlet
       name="plone.comments"
