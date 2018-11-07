@@ -29,7 +29,7 @@
     </div>
 
 <script>
-$.querywidget.updateSearch = function () {
+$.querywidget.updateSearch = function (stay_on_page) {
         var context_url = (function() {
             var baseUrl, pieces;
             baseUrl = $('base').attr('href');
@@ -51,6 +51,9 @@ $.querywidget.updateSearch = function () {
         if ($('#sort_order:checked').length > 0) {
             query += '&sort_order=reverse';
         }
+        /*if (stay_on_page && $('a.batch-link.current').length) {
+          query += '&' + $('a.batch-link.current').data('query');
+        }*/
         $.querywidget.runQuery(query);
 };
 
