@@ -64,6 +64,13 @@
     permission="cmf.AddPortalContent"
     />
 
+  <browser:page
+    name="multi_attribute_task"
+    for="*"
+    class=".multi_attribute_task.AttributeTasks"
+    permission="cmf.AddPortalContent"
+    />
+
   <!-- Custom comments viewlet for IBaseTask -->
   <browser:viewlet
       name="plone.comments"
