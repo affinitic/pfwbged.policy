@@ -3,6 +3,9 @@
   <index name="has_final_unsigned_version" meta_type="FieldIndex">
     <indexed_attr value="has_final_unsigned_version"/>
   </index>
+  <index name="can_last_version_validate" meta_type="FieldIndex">
+    <indexed_attr value="can_last_version_validate"/>
+  </index>
 
   <!-- those two are actually delegated to solr, but plone.app.querystring
        requires indexes to be declared in the plone catalog -->
@@ -14,6 +17,7 @@
   </index>
 
   <column value="has_final_unsigned_version"/>
+  <column value="can_last_version_validate"/>
   <column value="sender_as_text"/>
   <column value="recipients_as_text"/>
 </object>

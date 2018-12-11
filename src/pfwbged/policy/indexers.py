@@ -1,6 +1,7 @@
 from five import grok
 from plone.indexer import indexer
 from plone import api
+from Products.CMFCore.utils import getToolByName
 
 from collective.dms.basecontent.dmsdocument import IDmsDocument
 
@@ -36,3 +37,16 @@ def recipients_as_text(obj, **kw):
     return ' / '.join([x.to_object.get_full_title() for x in obj.recipients])
 
 grok.global_adapter(recipients_as_text, name='recipients_as_text')
+
+
+@indexer(IDmsDocument)
+def can_last_version_validate(obj, **kw):
+    for child in reversed(obj.values()):
+        if child.portal_type != 'dmsmainfile':
+            continue
+        wf_tool = getToolByName(obj, 'portal_workflow')
+        workflowActions = wf_tool.listActionInfos(object=child)
+        return bool('validate' in [x.get('id') for x in workflowActions])
+    return False
+
+grok.global_adapter(can_last_version_validate, name='can_last_version_validate')
