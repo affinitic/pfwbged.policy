@@ -10,6 +10,7 @@ from collective.dms.basecontent.dmsdocument import IDmsDocument
 from collective.dms.mailcontent.dmsmail import IDmsOutgoingMail,\
     IDmsIncomingMail
 from collective.dms.basecontent.dmsfile import IDmsFile
+from collective.dms.basecontent.dmsfile import IDmsAppendixFile
 from collective.task.content.validation import IValidation
 
 
@@ -102,3 +103,23 @@ class CanValidateOrRefuse(grok.View):
                 if 'Editor' in roles:
                     return True
         return False
+
+
+class CanBeTrashedDmsFile(grok.View):
+    """"""
+    grok.name('can_be_trashed')
+    grok.context(IDmsFile)
+    grok.require('zope2.View')
+
+    def render(self):
+        return getattr(self.context, 'signed', False) and api.content.get_state(self.context) == 'finished'
+
+
+class CanBeTrashedDmsAppendixFile(grok.View):
+    """"""
+    grok.name('can_be_trashed')
+    grok.context(IDmsAppendixFile)
+    grok.require('zope2.View')
+
+    def render(self):
+        return api.content.get_state(self.context) == 'published'

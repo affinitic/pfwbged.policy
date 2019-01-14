@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-09-04 09:37+0000\n"
+"POT-Creation-Date: 2019-01-18 14:42+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,19 +17,36 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: pfwbged.policy\n"
 
-#: ../menu.py:164
+#: ../menu.py:224
 msgid "${action} the version ${version}"
+msgstr ""
+
+#: ../skins/pfwbged_policy/object_delete.cpy:43
+msgid "${title} has been deleted."
+msgstr ""
+
+#: ../skins/pfwbged_policy/object_delete.cpy:31
+msgid "${title} is locked and cannot be deleted."
+msgstr ""
+
+#: ../subscribers/document.py:430
+msgid "A validation request has been refused"
 msgstr ""
 
 #: ../browser/comments.py:98
 msgid "Accept refusal"
 msgstr ""
 
-#: ../menu.py:93
+#: ../menu.py:103
 msgid "Actions"
 msgstr ""
 
-#: ../menu.py:231
+#: ../browser/add_multi_information.py:25
+#: ../browser/multi_attribute_task.py:41
+msgid "Add"
+msgstr ""
+
+#: ../menu.py:307
 msgid "Add ${title}"
 msgstr ""
 
@@ -41,75 +58,139 @@ msgstr ""
 msgid "Ask opinion"
 msgstr ""
 
-#: ../menu.py:40
+#: ../menu.py:47
 msgid "Ask opinion about version ${version}"
 msgstr ""
 
-#: ../browser/ask_validation.py:58
+#: ../browser/ask_validation.py:66
 msgid "Ask validation"
 msgstr ""
 
-#: ../menu.py:41
+#: ../menu.py:48
 msgid "Ask validation about version ${version}"
 msgstr ""
 
-#: ../customize.py:11
+#: ../subscribers/document.py:332
+msgid "Assigned to: %s"
+msgstr ""
+
+#: ../customize.py:21
 msgid "Can edit"
 msgstr ""
 
-#: ../customize.py:16
+#: ../customize.py:26
 msgid "Can view"
 msgstr ""
 
+#: ../browser/refuse.py:109
+#: ../browser/send_by_email.py:116
 #: ../browser/to_process.py:63
 msgid "Cancel"
 msgstr ""
 
+#: ../browser/refuse.py:33
+#: ../browser/send_by_email.py:35
 #: ../browser/to_process.py:25
 msgid "Comment"
 msgstr ""
 
-#: ../menu.py:35
+#: ../menu.py:42
 msgid "Create a new version"
 msgstr ""
 
-#: ../menu.py:330
+#: ../menu.py:421
 msgid "Create signed version for version ${version}"
 msgstr ""
 
-#: ../browser/history.py:13
+#: ../browser/history.py:18
 msgid "Create version ${version}"
 msgstr ""
 
-#: ../menu.py:37
-msgid "File in a folder"
+#: ../subscribers/document.py:342
+msgid "Deadline: %s"
+msgstr ""
+
+#: ../subscribers/document.py:339
+msgid "Document Address: %s"
+msgstr ""
+
+#: ../subscribers/document.py:337
+msgid "Document: %s"
+msgstr ""
+
+#: ../browser/send_by_email.py:32
+msgid "Email addresses of the recipients, one per line"
+msgstr ""
+
+#: ../browser/send_by_email.py:97
+msgid "Error sending email"
 msgstr ""
 
 #: ../menu.py:44
+msgid "File in a folder"
+msgstr ""
+
+#: ../menu.py:51
 msgid "Finish version ${version}"
 msgstr ""
 
-#: ../menu.py:149
+#: ../customize.py:40
+msgid "Folders"
+msgstr ""
+
+#: ../configure.zcml:58
+msgid "Installs the pfwbged.policy add-on."
+msgstr ""
+
+#: ../menu.py:202
 msgid "Mark document as read"
+msgstr ""
+
+#: ../customize.py:42
+msgid "My Tasks"
+msgstr ""
+
+#: ../browser/history.py:39
+msgid "New value for ${attribute}"
+msgstr ""
+
+#: ../subscribers/document.py:513
+msgid "New value for %s: %s"
+msgstr ""
+
+#: ../subscribers/document.py:347
+msgid "Note:"
+msgstr ""
+
+#: ../subscribers/document.py:480
+msgid "One of your tasks has been cancelled"
 msgstr ""
 
 #: ../browser/ask_opinion.py:25
 msgid "Opinion application for version ${version}"
 msgstr ""
 
-#: ../subscribers/document.py:111
+#: ../subscribers/document.py:142
 msgid "Process document"
 msgstr ""
 
-#: ../subscribers/mail.py:31
+#: ../subscribers/mail.py:86
 msgid "Process mail"
+msgstr ""
+
+#: ../browser/send_by_email.py:31
+msgid "Recipients"
+msgstr ""
+
+#: ../browser/refuse.py:54
+msgid "Refuse"
 msgstr ""
 
 #: ../browser/comments.py:100
 msgid "Refuse refusal"
 msgstr ""
 
-#: ../menu.py:43
+#: ../menu.py:50
 msgid "Refuse version ${version}"
 msgstr ""
 
@@ -117,39 +198,105 @@ msgstr ""
 msgid "Render opinion"
 msgstr ""
 
-#: ../menu.py:154
+#: ../menu.py:56
+msgid "Restore version ${version}"
+msgstr ""
+
 msgid "Return opinion about ${version}"
 msgstr ""
 
 #: ../browser/to_process.py:46
+#: ../menu.py:523
 msgid "Save"
 msgstr ""
 
-#: ../menu.py:36
+#: ../menu.py:532
+msgid "Save As..."
+msgstr ""
+
+#: ../browser/send_by_email.py:52
+msgid "Send"
+msgstr ""
+
+#: ../menu.py:43
 msgid "Send for information"
 msgstr ""
 
-#: browser/configure.zcml
+#: ../menu.py:53
+msgid "Send version ${version} by email"
+msgstr ""
+
+#: ../menu.py:54
+msgid "Send version ${version} with PES"
+msgstr ""
+
+#: ../subscribers/document.py:349
+msgid "Sent by GED"
+msgstr ""
+
+#: ../browser/history.py:48
+msgid "Sent version ${version} by email"
+msgstr ""
+
+#: ../testing.zcml:16
+msgid "Steps to ease tests of pfwbged.policy"
+msgstr ""
+
+#: ../browser/send_by_email.py:33
+msgid "Subject"
+msgstr ""
+
+#: ../browser/configure.zcml:29
 msgid "Tasks view"
 msgstr ""
 
-#: ../menu.py:45
+#: ../overrides.zcml:10
+msgid "The 'workflow' menu - allows the user to execute workflow transitions"
+msgstr ""
+
+#: ../subscribers/document.py:335
+msgid "Title: %s"
+msgstr ""
+
+#: ../menu.py:141
+msgid "To process (with comment)"
+msgstr ""
+
+#: ../browser/history.py:47
+msgid "To: ${to}"
+msgstr ""
+
+#: ../menu.py:52
 msgid "Validate and finish version ${version}"
 msgstr ""
 
-#: ../menu.py:42
+#: ../menu.py:49
 msgid "Validate version ${version}"
 msgstr ""
 
-#: ../browser/ask_validation.py:26
+#: ../browser/ask_validation.py:28
 msgid "Validation application for version ${version}"
 msgstr ""
 
+#: ../browser/refuse.py:29
 #: ../browser/to_process.py:21
 msgid "Workflow action"
 msgstr ""
 
+#: ../browser/refuse.py:34
+#: ../browser/send_by_email.py:36
 #: ../browser/to_process.py:26
 msgid "You can enter a note."
 msgstr ""
 
+#: ../subscribers/document.py:329
+msgid "You received a request for action in the GED."
+msgstr ""
+
+#: ../configure.zcml:58
+msgid "pfwbged.policy"
+msgstr ""
+
+#: ../testing.zcml:16
+msgid "pfwbged.policy tests"
+msgstr ""
