@@ -179,6 +179,16 @@ def task_in_progress(context, event):
         document = obj
         api.content.transition(obj=document, transition='directly_noaction')
         document.reindexObject(idxs=['review_state'])
+    elif event.transition and event.transition.id == 'return-responsibility':
+        obj = aq_parent(context)
+        if not IPfwbDocument.providedBy(obj):
+            return
+        # only applies to "other documents"
+        if not has_pfwbgeddocument_workflow(obj):
+            return
+        document = obj
+        api.content.transition(obj=document, transition='back_to_assigning')
+        document.reindexObject(idxs=['review_state'])
 
 
 def transition_tasks(obj, types, status, transition):
@@ -271,6 +281,11 @@ def document_is_finished(context, event):
 def document_is_reopened(context, event):
     """When a document is reoponed, create a new task"""
     if has_pfwbgeddocument_workflow(context) and event.transition is not None and event.new_state.id == 'assigning':
+
+        # Task responsibility has just been returned
+        if event.old_state.id == 'processing':
+            return
+
         creator = api.user.get_current().getId()
         params = {'responsible': [],
                   'title': translate(_(u'Process document'),

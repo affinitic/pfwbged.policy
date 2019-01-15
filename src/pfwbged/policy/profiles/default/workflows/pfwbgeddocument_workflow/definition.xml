@@ -149,6 +149,7 @@
   <exit-transition transition_id="process"/>
   <exit-transition transition_id="to_considered"/>
   <exit-transition transition_id="to_noaction"/>
+  <exit-transition transition_id="back_to_assigning"/>
   <permission-map name="Access contents information" acquired="False">
    <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>

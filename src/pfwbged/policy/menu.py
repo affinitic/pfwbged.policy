@@ -167,6 +167,10 @@ class CustomMenu(menu.WorkflowMenu):
             if action['category'] != 'workflow':
                 continue
 
+            # that action is already triggered when returning responsibility on a task
+            if action['id'] == 'back_to_assigning' and IDmsDocument.providedBy(context) and api.content.get_state(context) == 'processing':
+                continue
+
             cssClass = 'kssIgnore'
             actionUrl = action['url']
             if actionUrl == "":
