@@ -166,6 +166,10 @@ msgstr ""
 msgid "One of your tasks has been cancelled"
 msgstr ""
 
+#: ../subscribers/document.py:480
+msgid "One of your tasks has been cancelled"
+msgstr ""
+
 #: ../browser/ask_opinion.py:25
 msgid "Opinion application for version ${version}"
 msgstr ""

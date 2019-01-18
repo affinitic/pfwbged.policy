@@ -184,7 +184,7 @@ class CustomMenu(menu.WorkflowMenu):
             description = ''
 
             if action['id'] in ('submit', 'ask_opinion', 'attribute',
-                    'to_process', 'refuse', 'send_by_email'):
+                    'to_process', 'refuse', 'send_by_email', 'cancel-attribution'):
                 cssClass += " overlay-form-reload"
 
             if action['id'] in ('send_with_docbow',):
