@@ -448,6 +448,24 @@ class CustomMenu(menu.WorkflowMenu):
                               'class': cssClass},
                     'submenu': None,
                 })
+
+        if IDmsDocument.providedBy(context) and \
+                context.listFolderContents(contentFilter={
+                    'portal_type': 'information',
+                    'Creator': api.user.get_current().id,
+                }):
+            results.append({
+                'title': _(u'Cancel information'),
+                'description': '',
+                'action': context.absolute_url() + '/@@cancel_information',
+                'selected': False,
+                'icon': None,
+                'extra': {'id': 'plone-contentmenu-actions-cancel-information',
+                          'separator': None,
+                          'class': ''},
+                'submenu': None,
+            })
+
         return results
 
     def getWorkflowActionsForType(self, context, request, portal_type):

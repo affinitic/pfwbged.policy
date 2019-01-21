@@ -496,6 +496,46 @@ def email_notification_of_canceled_subtask(context):
             log.exception(e)
 
 
+def email_notification_of_canceled_information(context):
+    document = None
+    for obj in aq_chain(context):
+        obj = aq_parent(obj)
+        if IDmsDocument.providedBy(obj):
+            document = obj
+            break
+    if not document:
+        return
+    absolute_url = document.absolute_url()
+
+    responsible = context.responsible[0]
+    principal = api.user.get(responsible)
+    recipient_email = principal.getProperty('email') if principal else None
+    if recipient_email:
+
+        email_from = api.user.get_current().email or api.portal.get().getProperty(
+            'email_from_address') or 'admin@localhost'
+
+        subject = '%s - %s' % (context.title, document.title)
+
+        body = translate(_('One document is not mentioned for your information anymore'), context=context.REQUEST) + \
+            '\n\n' + \
+            translate(_('Title: %s'), context=context.REQUEST) % context.title + \
+            '\n\n' + \
+            translate(_('Document: %s'), context=context.REQUEST) % document.title + \
+            '\n\n' + \
+            translate(_('Document Address: %s'), context=context.REQUEST) % document.absolute_url() + \
+            '\n\n\n\n-- \n' + \
+            translate(_('Sent by GED'))
+        body = body.encode('utf-8')
+
+        try:
+            context.MailHost.send(body, recipient_email, email_from, subject, charset='utf-8')
+        except Exception as e:
+            # do not abort transaction in case of email error
+            log = logging.getLogger('pfwbged.policy')
+            log.exception(e)
+
+
 @grok.subscribe(IDmsDocument, IObjectModifiedEvent)
 def log_some_history(context, event):
     for description in event.descriptions:
