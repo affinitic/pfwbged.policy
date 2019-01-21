@@ -188,7 +188,8 @@
   <guard>
    <guard-role>Reviewer</guard-role>
    <guard-role>Manager</guard-role>
-   <permission-role>SecretariatGeneralApf</permission-role>
+   <guard-role>Greffier</guard-role>
+   <guard-role>SecretariatGeneralApf</guard-role>
   </guard>
  </transition>
  <transition transition_id="directly_noaction" title="" new_state="noaction" trigger="USER" before_script="" after_script="">
