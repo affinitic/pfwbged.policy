@@ -46,7 +46,46 @@ def can_last_version_validate(obj, **kw):
             continue
         wf_tool = getToolByName(obj, 'portal_workflow')
         workflowActions = wf_tool.listActionInfos(object=child)
-        return bool('validate' in [x.get('id') for x in workflowActions])
+        return bool('submit' in [x.get('id') for x in workflowActions])
     return False
-
 grok.global_adapter(can_last_version_validate, name='can_last_version_validate')
+
+
+@indexer(IDmsDocument)
+def has_last_version_accept(obj, **kw):
+    last_version = None
+    wf_tool = getToolByName(obj, 'portal_workflow')
+    for child in reversed(obj.values()):
+        if child.portal_type != 'dmsmainfile':
+            continue
+        last_version = child
+        for task in reversed(obj.values()):
+            if task.portal_type != 'validation':
+                continue
+            if task.target.to_object.Title() != last_version.Title():
+                continue
+            workflowActions = wf_tool.listActionInfos(object=task)
+            return bool('validate' in [x.get('id') for x in workflowActions])
+        break
+    return False
+grok.global_adapter(has_last_version_accept, name='has_last_version_accept')
+
+
+@indexer(IDmsDocument)
+def has_last_version_refuse(obj, **kw):
+    last_version = None
+    wf_tool = getToolByName(obj, 'portal_workflow')
+    for child in reversed(obj.values()):
+        if child.portal_type != 'dmsmainfile':
+            continue
+        last_version = child
+        for task in reversed(obj.values()):
+            if task.portal_type != 'validation':
+                continue
+            if task.target.to_object.Title() != last_version.Title():
+                continue
+            workflowActions = wf_tool.listActionInfos(object=task)
+            return bool('refuse' in [x.get('id') for x in workflowActions])
+        break
+    return False
+grok.global_adapter(has_last_version_refuse, name='has_last_version_refuse')
