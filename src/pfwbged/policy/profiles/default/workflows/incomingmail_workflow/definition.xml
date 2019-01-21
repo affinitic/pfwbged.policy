@@ -11,6 +11,7 @@
  <permission>Modify portal content</permission>
  <permission>View</permission>
  <state state_id="answered" title="Answered" i18n:attributes="title">
+  <exit-transition transition_id="back_to_assigning"/>
   <permission-map name="Access contents information" acquired="False">
    <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
