@@ -1,0 +1,22 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    i18n_domain="pfwbged.policy">
+
+  <genericsetup:upgradeStep
+      title="Publish document subfolders"
+      description="Allows use of Delete Objects permission on folder contents"
+      source="1"
+      destination="2"
+      handler=".workflow.publish_document_subfolders"
+      profile="pfwbged.policy:default" />
+
+  <genericsetup:upgradeStep
+      title="Update role mappings"
+      description="Updating security settings after changing workflow"
+      source="2"
+      destination="3"
+      handler=".workflow.update_role_mappings"
+      profile="pfwbged.policy:default" />
+
+</configure>
