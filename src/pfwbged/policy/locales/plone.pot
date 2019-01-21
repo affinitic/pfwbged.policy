@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-09-04 09:37+0000\n"
+"POT-Creation-Date: 2019-01-21 15:06+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,10 +17,12 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: plone\n"
 
+#: ../profiles/default/workflows/incomingapfmail_workflow/definition.xml
 #: ../profiles/default/workflows/incomingmail_workflow/definition.xml
 msgid "Answer"
 msgstr ""
 
+#: ../profiles/default/workflows/incomingapfmail_workflow/definition.xml
 #: ../profiles/default/workflows/incomingmail_workflow/definition.xml
 msgid "Answered"
 msgstr ""
@@ -33,14 +35,21 @@ msgstr ""
 msgid "Ask validation"
 msgstr ""
 
+#: ../profiles/default/workflows/incomingapfmail_workflow/definition.xml
 #: ../profiles/default/workflows/incomingmail_workflow/definition.xml
 msgid "Assigning"
 msgstr ""
 
+#: ../profiles/default/workflows/incomingapfmail_workflow/definition.xml
 #: ../profiles/default/workflows/incomingmail_workflow/definition.xml
 msgid "Back to assigning"
 msgstr ""
 
+#: ../profiles/default/workflows/versionnote_workflow/definition.xml
+msgid "Back to draft"
+msgstr ""
+
+#: ../profiles/default/workflows/incomingapfmail_workflow/definition.xml
 #: ../profiles/default/workflows/incomingmail_workflow/definition.xml
 msgid "Back to registering"
 msgstr ""
@@ -49,6 +58,11 @@ msgstr ""
 msgid "Back to to process"
 msgstr ""
 
+#: ../profiles/default/workflows/outgoingmail_workflow/definition.xml
+msgid "Back to writing"
+msgstr ""
+
+#: ../profiles/default/workflows/incomingapfmail_workflow/definition.xml
 #: ../profiles/default/workflows/incomingmail_workflow/definition.xml
 #: ../profiles/default/workflows/pfwbgeddocument_workflow/definition.xml
 msgid "Considered"
@@ -99,6 +113,7 @@ msgstr ""
 msgid "My Folder"
 msgstr ""
 
+#: ../profiles/default/workflows/incomingapfmail_workflow/definition.xml
 #: ../profiles/default/workflows/incomingmail_workflow/definition.xml
 #: ../profiles/default/workflows/pfwbgeddocument_workflow/definition.xml
 msgid "No action"
@@ -116,9 +131,14 @@ msgstr ""
 msgid "Processed"
 msgstr ""
 
+#: ../profiles/default/workflows/incomingapfmail_workflow/definition.xml
 #: ../profiles/default/workflows/incomingmail_workflow/definition.xml
 #: ../profiles/default/workflows/pfwbgeddocument_workflow/definition.xml
 msgid "Processing"
+msgstr ""
+
+#: ../profiles/default/workflows/appendix_workflow/definition.xml
+msgid "Published"
 msgstr ""
 
 #: ../profiles/default/workflows/outgoingmail_workflow/definition.xml
@@ -129,25 +149,43 @@ msgstr ""
 msgid "Refuse"
 msgstr ""
 
+#: ../profiles/default/workflows/incomingapfmail_workflow/definition.xml
 #: ../profiles/default/workflows/incomingmail_workflow/definition.xml
 msgid "Registering"
+msgstr ""
+
+#: ../profiles/default/workflows/appendix_workflow/definition.xml
+#: ../profiles/default/workflows/versionnote_workflow/definition.xml
+msgid "Restore"
 msgstr ""
 
 #: ../profiles/default/workflows/outgoingmail_workflow/definition.xml
 msgid "Send"
 msgstr ""
 
+#: ../profiles/default/workflows/appendix_workflow/definition.xml
+#: ../profiles/default/workflows/versionnote_workflow/definition.xml
+msgid "Send to trash"
+msgstr ""
+
 #: ../profiles/default/workflows/outgoingmail_workflow/definition.xml
 msgid "Sent"
 msgstr ""
 
+#: ../profiles/default/workflows/incomingapfmail_workflow/definition.xml
 #: ../profiles/default/workflows/incomingmail_workflow/definition.xml
 msgid "To assign"
 msgstr ""
 
+#: ../profiles/default/workflows/incomingapfmail_workflow/definition.xml
 #: ../profiles/default/workflows/incomingmail_workflow/definition.xml
 #: ../profiles/default/workflows/pfwbgeddocument_workflow/definition.xml
 msgid "To process"
+msgstr ""
+
+#: ../profiles/default/workflows/appendix_workflow/definition.xml
+#: ../profiles/default/workflows/versionnote_workflow/definition.xml
+msgid "Trashed"
 msgstr ""
 
 #: ../profiles/default/workflows/versionnote_workflow/definition.xml
@@ -169,4 +207,3 @@ msgstr ""
 #: ../profiles/default/workflows/outgoingmail_workflow/definition.xml
 msgid "Writing"
 msgstr ""
-

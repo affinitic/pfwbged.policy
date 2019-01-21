@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: pfwbged.policy\n"
-"POT-Creation-Date: 2014-12-09 06:37+0000\n"
+"POT-Creation-Date: 2019-01-21 15:06+0000\n"
 "PO-Revision-Date: 2014-06-06 09:53+0200\n"
 "Last-Translator: Cédric Messiant <cedric.messiant@gmail.com>\n"
 "Language-Team: French\n"
@@ -44,6 +44,10 @@ msgstr "À attribuer"
 msgid "Back to assigning"
 msgstr "Retour à attribuer"
 
+#: ../profiles/default/workflows/versionnote_workflow/definition.xml
+msgid "Back to draft"
+msgstr "Retour à la rédaction"
+
 #: ../profiles/default/workflows/incomingapfmail_workflow/definition.xml
 #: ../profiles/default/workflows/incomingmail_workflow/definition.xml
 msgid "Back to registering"
@@ -52,6 +56,10 @@ msgstr "Retour à indicater"
 #: ../profiles/default/workflows/pfwbgeddocument_workflow/definition.xml
 msgid "Back to to process"
 msgstr "Retour en à traiter"
+
+#: ../profiles/default/workflows/outgoingmail_workflow/definition.xml
+msgid "Back to writing"
+msgstr "Retour à la rédaction"
 
 #: ../profiles/default/workflows/incomingapfmail_workflow/definition.xml
 #: ../profiles/default/workflows/incomingmail_workflow/definition.xml
@@ -145,9 +153,19 @@ msgstr "Refuser"
 msgid "Registering"
 msgstr "À indicater"
 
+#: ../profiles/default/workflows/appendix_workflow/definition.xml
+#: ../profiles/default/workflows/versionnote_workflow/definition.xml
+msgid "Restore"
+msgstr "Restaurer"
+
 #: ../profiles/default/workflows/outgoingmail_workflow/definition.xml
 msgid "Send"
 msgstr "Envoyer"
+
+#: ../profiles/default/workflows/appendix_workflow/definition.xml
+#: ../profiles/default/workflows/versionnote_workflow/definition.xml
+msgid "Send to trash"
+msgstr "Envoyer à la corbeille"
 
 #: ../profiles/default/workflows/outgoingmail_workflow/definition.xml
 msgid "Sent"
@@ -163,6 +181,11 @@ msgstr "À attribuer"
 #: ../profiles/default/workflows/pfwbgeddocument_workflow/definition.xml
 msgid "To process"
 msgstr "À traiter"
+
+#: ../profiles/default/workflows/appendix_workflow/definition.xml
+#: ../profiles/default/workflows/versionnote_workflow/definition.xml
+msgid "Trashed"
+msgstr ""
 
 #: ../profiles/default/workflows/versionnote_workflow/definition.xml
 msgid "Validate"
@@ -183,4 +206,3 @@ msgstr "En cours de validation"
 #: ../profiles/default/workflows/outgoingmail_workflow/definition.xml
 msgid "Writing"
 msgstr "En rédaction"
-
