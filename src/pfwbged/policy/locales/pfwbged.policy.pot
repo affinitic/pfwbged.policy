@@ -88,6 +88,10 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
+#: ../menu.py:56
+msgid "Cancel validate and finish ${version}"
+msgstr ""
+
 #: ../browser/refuse.py:33
 #: ../browser/send_by_email.py:35
 #: ../browser/to_process.py:25

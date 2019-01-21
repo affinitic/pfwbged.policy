@@ -53,6 +53,7 @@ dmsfile_wfactions_mapping = {'ask_opinion': _(u"Ask opinion about version ${vers
                              'send_by_email': _(u"Send version ${version} by email"),
                              'send_with_docbow': _(u"Send version ${version} with PES"),
                              'restore_from_trash': _(u"Restore version ${version}"),
+                             'back_to_draft': _(u"Cancel validate and finish ${version}"),
                              }
 
 

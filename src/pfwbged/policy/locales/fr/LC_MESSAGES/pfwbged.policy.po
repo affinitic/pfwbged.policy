@@ -86,6 +86,10 @@ msgstr "Visible par"
 msgid "Cancel"
 msgstr "Annuler"
 
+#: ../menu.py:56
+msgid "Cancel validate and finish ${version}"
+msgstr "Annuler la validation et finalisation de la version ${version}"
+
 #: ../browser/refuse.py:33
 #: ../browser/send_by_email.py:35
 #: ../browser/to_process.py:25
