@@ -69,6 +69,7 @@ class AttributeTasks(DefaultAddForm):
 
             for responsible in data['responsible']:
                 nontask.manage_addLocalRoles(responsible, ['Editor',])
-            nontask.reindexObjectSecurity()
             if 'attribute' in transition_ids:
                 portal_workflow.doActionFor(nontask, 'attribute')
+            nontask.reindexObjectSecurity()
+            nontask.reindexObject(idxs=['allowedRolesAndUsers'])
