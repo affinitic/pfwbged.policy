@@ -185,7 +185,7 @@ msgstr "À traiter"
 #: ../profiles/default/workflows/appendix_workflow/definition.xml
 #: ../profiles/default/workflows/versionnote_workflow/definition.xml
 msgid "Trashed"
-msgstr ""
+msgstr "Supprimé"
 
 #: ../profiles/default/workflows/versionnote_workflow/definition.xml
 msgid "Validate"
