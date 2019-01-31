@@ -1,3 +1,5 @@
+# -*- coding: utf8 -*-
+
 from zope.component import getUtility
 from zope.intid.interfaces import IIntIds
 from zc.relation.interfaces import ICatalog
@@ -123,3 +125,24 @@ class CanBeTrashedDmsAppendixFile(grok.View):
 
     def render(self):
         return api.content.get_state(self.context) == 'published'
+
+
+class CanReturnToRegistering(grok.View):
+    """"""
+    grok.name('can_return_to_registering')
+    grok.context(IDmsIncomingMail)
+    grok.require('zope2.View')
+
+    def render(self):
+        # accept any of these roles
+        allowed_roles = {'Reviewer', 'Manager', 'Greffier'}
+        user_roles = api.user.get_roles(obj=self.context)
+        if allowed_roles.intersection(user_roles):
+            return True
+
+        # or this user group
+        for group in api.group.get_groups():
+            if group.id == 'Gestion-secretariat-general':
+                return True
+
+        return False
