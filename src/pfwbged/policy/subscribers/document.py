@@ -100,6 +100,16 @@ def change_validation_state(context, event):
             if api.content.get_state(validation) == 'todo':
                 api.content.transition(validation, 'validate')
                 validation.reindexObject(idxs=['review_state'])
+    elif event.transition.id == 'cancel-validation':
+        for ref in catalog.findRelations(query):
+            validation = ref.from_object
+            api.content.transition(validation, 'cancel-validation')
+            validation.reindexObject(idxs=['review_state'])
+    elif event.transition.id == 'cancel-refusal':
+        for ref in catalog.findRelations(query):
+            validation = ref.from_object
+            api.content.transition(validation, 'cancel-refusal')
+            validation.reindexObject(idxs=['review_state'])
 
 
 @grok.subscribe(IDmsFile, IObjectWillBeRemovedEvent)
@@ -395,6 +405,63 @@ def email_notification_of_tasks(context, event):
     log = logging.getLogger('pfwbged.policy')
     log.info('sending notifications async')
     job = async.queueJob(email_notification_of_tasks_sync, **kwargs)
+
+
+@grok.subscribe(IValidation, IAfterTransitionEvent)
+def email_notification_of_validation_reversal(context, event):
+    """Notify a validation requester when their previously validated
+     (or refused) request has returned to pending state"""
+    if not event.transition:
+        return
+    elif event.transition.id == 'cancel-validation':
+        comment = translate(_('A previously validated version has returned to waiting validation'), context=context.REQUEST)
+    elif event.transition.id == 'cancel-refusal':
+        comment = translate(_('A previously refused version has returned to waiting validation'), context=context.REQUEST)
+    else:
+        return
+
+    # go up in the acquisition chain to find the document
+    document = None
+    for obj in aq_chain(context):
+        obj = aq_parent(obj)
+        if IDmsDocument.providedBy(obj):
+            document = obj
+            break
+    if not document:
+        return
+
+    email_enquirer = None
+    for enquirer in (context.enquirer or []):
+        member = context.portal_membership.getMemberById(enquirer)
+        if member:
+            email_enquirer = member.getProperty('email', None)
+            if email_enquirer:
+                break
+
+    if not email_enquirer:
+        return
+
+    email_from = api.user.get_current().email or api.portal.get().getProperty('email_from_address') or 'admin@localhost'
+
+    subject = '%s - %s' % (context.title, document.title)
+
+    body = comment + \
+            '\n\n' + \
+            translate(_('Title: %s'), context=context.REQUEST) % context.title + \
+            '\n\n' + \
+            translate(_('Document: %s'), context=context.REQUEST) % document.title + \
+            '\n\n' + \
+            translate(_('Document Address: %s'), context=context.REQUEST) % document.absolute_url()
+
+    body += '\n\n\n-- \n' + translate(_('Sent by GED'))
+    body = body.encode('utf-8')
+
+    try:
+        context.MailHost.send(body, email_enquirer, email_from, subject, charset='utf-8')
+    except Exception as e:
+        # do not abort transaction in case of email error
+        log = logging.getLogger('pfwbged.policy')
+        log.exception(e)
 
 
 @grok.subscribe(IValidation, IAfterTransitionEvent)

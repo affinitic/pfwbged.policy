@@ -62,6 +62,14 @@ msgstr ""
 msgid "Back to writing"
 msgstr ""
 
+#: ../profiles/default/workflows/versionnote_workflow/definition.xml
+msgid "Cancel refusal"
+msgstr ""
+
+#: ../profiles/default/workflows/versionnote_workflow/definition.xml
+msgid "Cancel validation"
+msgstr ""
+
 #: ../profiles/default/workflows/incomingapfmail_workflow/definition.xml
 #: ../profiles/default/workflows/incomingmail_workflow/definition.xml
 #: ../profiles/default/workflows/pfwbgeddocument_workflow/definition.xml

@@ -16,6 +16,7 @@
   <exit-transition transition_id="submit"/>
   <exit-transition transition_id="ask_opinion"/>
   <exit-transition transition_id="obsolete"/>
+  <exit-transition transition_id="cancel-refusal"/>
   <permission-map name="View" acquired="False">
    <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
@@ -109,6 +110,7 @@
   <exit-transition transition_id="finish"/>
   <exit-transition transition_id="obsolete"/>
   <exit-transition transition_id="submit"/>
+  <exit-transition transition_id="cancel-validation"/>
   <permission-map name="View" acquired="False">
    <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
@@ -201,6 +203,18 @@
   <action url="" category="workflow" icon="" i18n:translate="">Validate</action>
   <guard>
    <guard-expression>here/@@can_validate_or_refuse</guard-expression>
+  </guard>
+ </transition>
+ <transition transition_id="cancel-validation" title="Cancel validation" new_state="pending" trigger="USER" before_script="" after_script="" i18n:attributes="title">
+  <action url="" category="workflow" icon="" i18n:translate="">Cancel validation</action>
+  <guard>
+   <guard-expression>here/@@can_cancel_validation</guard-expression>
+  </guard>
+ </transition>
+ <transition transition_id="cancel-refusal" title="Cancel refusal" new_state="pending" trigger="USER" before_script="" after_script="" i18n:attributes="title">
+  <action url="" category="workflow" icon="" i18n:translate="">Cancel validation</action>
+  <guard>
+   <guard-expression>here/@@can_cancel_refusal</guard-expression>
   </guard>
  </transition>
  <variable variable_id="action" for_catalog="False" for_status="True" update_always="True">

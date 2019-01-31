@@ -27,7 +27,15 @@ msgstr "L'élément ${title} a été supprimé."
 msgid "${title} is locked and cannot be deleted."
 msgstr "L'élément ${title} est verrouillé et ne peut être supprimé."
 
-#: ../subscribers/document.py:430
+#: ../subscribers/document.py:417
+msgid "A previously refused version has returned to waiting validation"
+msgstr "Un document précédemment refusé est revenu en attente de validation"
+
+#: ../subscribers/document.py:415
+msgid "A previously validated version has returned to waiting validation"
+msgstr "Un document précédemment validé est revenu en attente de validation"
+
+#: ../subscribers/document.py:495
 msgid "A validation request has been refused"
 msgstr "Une demande de validation a été refusée."
 
@@ -86,9 +94,17 @@ msgstr "Visible par"
 msgid "Cancel"
 msgstr "Annuler"
 
+#: ../menu.py:58
+msgid "Cancel refusal of ${version}"
+msgstr "Annuler le refus de la version ${version}"
+
 #: ../menu.py:56
 msgid "Cancel validate and finish ${version}"
 msgstr "Annuler la validation et finalisation de la version ${version}"
+
+#: ../menu.py:57
+msgid "Cancel validation of ${version}"
+msgstr "Annuler la validation de la version ${version}"
 
 #: ../browser/refuse.py:33
 #: ../browser/send_by_email.py:35

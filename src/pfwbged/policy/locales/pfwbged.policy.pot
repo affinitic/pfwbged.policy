@@ -29,7 +29,15 @@ msgstr ""
 msgid "${title} is locked and cannot be deleted."
 msgstr ""
 
-#: ../subscribers/document.py:430
+#: ../subscribers/document.py:417
+msgid "A previously refused version has returned to waiting validation"
+msgstr ""
+
+#: ../subscribers/document.py:415
+msgid "A previously validated version has returned to waiting validation"
+msgstr ""
+
+#: ../subscribers/document.py:495
 msgid "A validation request has been refused"
 msgstr ""
 
@@ -88,8 +96,16 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
+#: ../menu.py:58
+msgid "Cancel refusal of ${version}"
+msgstr ""
+
 #: ../menu.py:56
 msgid "Cancel validate and finish ${version}"
+msgstr ""
+
+#: ../menu.py:57
+msgid "Cancel validation of ${version}"
 msgstr ""
 
 #: ../browser/refuse.py:33

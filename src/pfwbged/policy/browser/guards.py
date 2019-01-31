@@ -107,6 +107,40 @@ class CanValidateOrRefuse(grok.View):
         return False
 
 
+class CanCancelRefusal(grok.View):
+    grok.name("can_cancel_refusal")
+    grok.context(IDmsFile)
+    grok.require('zope2.View')
+
+    def render(self):
+
+        workflow = api.portal.get_tool('portal_workflow')
+        with api.env.adopt_user('admin'):
+            review_history = workflow.getInfoFor(self.context, 'review_history')
+        if not review_history:
+            return False
+        last_transition = review_history[-1]
+        return last_transition.get('action') == 'refuse' and \
+            last_transition.get('actor') == api.user.get_current().id
+
+
+class CanCancelValidation(grok.View):
+    grok.name("can_cancel_validation")
+    grok.context(IDmsFile)
+    grok.require('zope2.View')
+
+    def render(self):
+
+        workflow = api.portal.get_tool('portal_workflow')
+        with api.env.adopt_user('admin'):
+            review_history = workflow.getInfoFor(self.context, 'review_history')
+        if not review_history:
+            return False
+        last_transition = review_history[-1]
+        return last_transition.get('action') == 'validate' and \
+            last_transition.get('actor') == api.user.get_current().id
+
+
 class CanBeTrashedDmsFile(grok.View):
     """"""
     grok.name('can_be_trashed')

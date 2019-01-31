@@ -54,6 +54,8 @@ dmsfile_wfactions_mapping = {'ask_opinion': _(u"Ask opinion about version ${vers
                              'send_with_docbow': _(u"Send version ${version} with PES"),
                              'restore_from_trash': _(u"Restore version ${version}"),
                              'back_to_draft': _(u"Cancel validate and finish ${version}"),
+                             'cancel-validation': _(u"Cancel validation of ${version}"),
+                             'cancel-refusal': _(u"Cancel refusal of ${version}"),
                              }
 
 
@@ -232,6 +234,21 @@ class CustomMenu(menu.WorkflowMenu):
                 title = IGNORE_(title, mapping={'version': version})
                 cssClass += ' version-action version-id-%s' % context.id
                 cssClass += ' version-action-%s' % action['id']
+
+                # limit cancelling actions to a version's rightful owner
+                # guards are bypassed for Managers, so call them at least once
+                action_guards = {
+                    'cancel-refusal': 'can_cancel_refusal',
+                    'cancel-validation': 'can_cancel_validation',
+                }
+                if action['id'] in action_guards:
+                    view = queryMultiAdapter(
+                        (context, request),
+                        name=action_guards.get(action['id'])
+                    )
+                    if view and not view.render():
+                        action['allowed'] = False
+
             else:
                 title = action['title']
 
