@@ -22,3 +22,4 @@ def publish_document_subfolders(context):
                 obj=subfolder,
                 transition="publish"
             )
+            subfolder.reindexObject(idxs=['review_state'])
