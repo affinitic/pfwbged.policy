@@ -480,7 +480,7 @@ class CustomMenu(menu.WorkflowMenu):
                 'icon': None,
                 'extra': {'id': 'plone-contentmenu-actions-cancel-information',
                           'separator': None,
-                          'class': ''},
+                          'class': 'no-icon overlay-form-reload link-overlay'},
                 'submenu': None,
             })
 
