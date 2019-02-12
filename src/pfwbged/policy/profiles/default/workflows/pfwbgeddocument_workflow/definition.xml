@@ -12,7 +12,6 @@
  <permission>Modify portal content</permission>
  <permission>View</permission>
  <state state_id="assigning" title="To process" i18n:attributes="title">
-  <exit-transition transition_id="back_to_registering"/>
   <exit-transition transition_id="directly_noaction"/>
   <exit-transition transition_id="to_process"/>
   <permission-map name="Access contents information" acquired="False">
