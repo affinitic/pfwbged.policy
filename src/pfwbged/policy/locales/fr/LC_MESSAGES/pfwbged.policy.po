@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: pfwbged.policy\n"
-"POT-Creation-Date: 2019-01-18 14:42+0000\n"
+"POT-Creation-Date: 2019-02-12 09:43+0000\n"
 "PO-Revision-Date: 2014-12-09 07:38+0100\n"
 "Last-Translator: Frederic Peters <fpeters@entrouvert.com>\n"
 "Language-Team: --\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Domain: pfwbged.policy\n"
 "X-Generator: Poedit 1.5.4\n"
 
-#: ../menu.py:224
+#: ../menu.py:227
 msgid "${action} the version ${version}"
 msgstr "${action} la version ${version}"
 
@@ -27,15 +27,15 @@ msgstr "L'élément ${title} a été supprimé."
 msgid "${title} is locked and cannot be deleted."
 msgstr "L'élément ${title} est verrouillé et ne peut être supprimé."
 
-#: ../subscribers/document.py:417
+#: ../subscribers/document.py:421
 msgid "A previously refused version has returned to waiting validation"
 msgstr "Un document précédemment refusé est revenu en attente de validation"
 
-#: ../subscribers/document.py:415
+#: ../subscribers/document.py:419
 msgid "A previously validated version has returned to waiting validation"
 msgstr "Un document précédemment validé est revenu en attente de validation"
 
-#: ../subscribers/document.py:495
+#: ../subscribers/document.py:499
 msgid "A validation request has been refused"
 msgstr "Une demande de validation a été refusée."
 
@@ -47,7 +47,7 @@ msgstr "Une demande de validation qui vous était adressée a été supprimée"
 msgid "Accept refusal"
 msgstr "Accepter la désattribution"
 
-#: ../menu.py:103
+#: ../menu.py:106
 msgid "Actions"
 msgstr "Actions"
 
@@ -56,7 +56,7 @@ msgstr "Actions"
 msgid "Add"
 msgstr ""
 
-#: ../menu.py:307
+#: ../menu.py:332
 msgid "Add ${title}"
 msgstr "Ajouter ${title}"
 
@@ -80,7 +80,7 @@ msgstr "Demander une validation"
 msgid "Ask validation about version ${version}"
 msgstr "Demander une validation sur la version ${version}"
 
-#: ../subscribers/document.py:332
+#: ../subscribers/document.py:344
 msgid "Assigned to: %s"
 msgstr "Attribué à : %s"
 
@@ -97,6 +97,10 @@ msgstr "Visible par"
 #: ../browser/to_process.py:63
 msgid "Cancel"
 msgstr "Annuler"
+
+#: ../menu.py:483
+msgid "Cancel information"
+msgstr "Annuler la note pour information"
 
 #: ../menu.py:58
 msgid "Cancel refusal of ${version}"
@@ -124,7 +128,7 @@ msgstr "Note"
 msgid "Create a new version"
 msgstr "Créer une nouvelle version"
 
-#: ../menu.py:421
+#: ../menu.py:446
 msgid "Create signed version for version ${version}"
 msgstr "Créer la version signée pour la version ${version}"
 
@@ -132,15 +136,15 @@ msgstr "Créer la version signée pour la version ${version}"
 msgid "Create version ${version}"
 msgstr "Création de la version ${version}"
 
-#: ../subscribers/document.py:342
+#: ../subscribers/document.py:354
 msgid "Deadline: %s"
 msgstr "Échéance : %s"
 
-#: ../subscribers/document.py:339
+#: ../subscribers/document.py:351
 msgid "Document Address: %s"
 msgstr "Adresse du document : %s"
 
-#: ../subscribers/document.py:337
+#: ../subscribers/document.py:349
 msgid "Document: %s"
 msgstr "Document : %s"
 
@@ -168,7 +172,7 @@ msgstr "Dossiers"
 msgid "Installs the pfwbged.policy add-on."
 msgstr ""
 
-#: ../menu.py:202
+#: ../menu.py:205
 msgid "Mark document as read"
 msgstr "Marquer le document comme lu"
 
@@ -180,15 +184,19 @@ msgstr "Mes tâches"
 msgid "New value for ${attribute}"
 msgstr "Nouvelle valeur pour ${attribute}"
 
-#: ../subscribers/document.py:513
+#: ../subscribers/document.py:671
 msgid "New value for %s: %s"
 msgstr "Nouvelle valeur pour %s : %s"
 
-#: ../subscribers/document.py:347
+#: ../subscribers/document.py:359
 msgid "Note:"
 msgstr "Note :"
 
-#: ../subscribers/document.py:480
+#: ../subscribers/document.py:589
+msgid "One document is not mentioned for your information anymore"
+msgstr "Une note pour information vous concernant a été supprimée"
+
+#: ../subscribers/document.py:549
 msgid "One of your tasks has been cancelled"
 msgstr "Une de vos tâches a été annulée"
 
@@ -196,7 +204,7 @@ msgstr "Une de vos tâches a été annulée"
 msgid "Opinion application for version ${version}"
 msgstr "Demande d'avis pour la version ${version}"
 
-#: ../subscribers/document.py:142
+#: ../subscribers/document.py:154
 msgid "Process document"
 msgstr "Traiter le document"
 
@@ -224,19 +232,20 @@ msgstr "Refuser la version ${version}"
 msgid "Render opinion"
 msgstr "Rendre un avis"
 
-#: ../menu.py:56
+#: ../menu.py:55
 msgid "Restore version ${version}"
 msgstr "Restaurer la version ${version}"
 
+#: ../menu.py:212
 msgid "Return opinion about ${version}"
 msgstr "Rendre un avis sur la version ${version}"
 
 #: ../browser/to_process.py:46
-#: ../menu.py:523
+#: ../menu.py:587
 msgid "Save"
 msgstr "Enregistrer"
 
-#: ../menu.py:532
+#: ../menu.py:596
 msgid "Save As..."
 msgstr "Enregistrer sous…"
 
@@ -256,7 +265,7 @@ msgstr "Envoyer la version ${version} par email"
 msgid "Send version ${version} with PES"
 msgstr "Envoyer la version ${version} avec la PES"
 
-#: ../subscribers/document.py:349
+#: ../subscribers/document.py:361
 msgid "Sent by GED"
 msgstr "Envoyé par le système de GED du PFWB"
 
@@ -280,11 +289,11 @@ msgstr "Vue tâches"
 msgid "The 'workflow' menu - allows the user to execute workflow transitions"
 msgstr ""
 
-#: ../subscribers/document.py:335
+#: ../subscribers/document.py:347
 msgid "Title: %s"
 msgstr "Titre : %s"
 
-#: ../menu.py:141
+#: ../menu.py:144
 msgid "To process (with comment)"
 msgstr "À traiter (avec commentaire)"
 
@@ -315,7 +324,7 @@ msgstr "Transition du workflow"
 msgid "You can enter a note."
 msgstr "Vous pouvez entrer une note."
 
-#: ../subscribers/document.py:329
+#: ../subscribers/document.py:341
 msgid "You received a request for action in the GED."
 msgstr "Vous avez reçu une demande d'action dans la GED."
 

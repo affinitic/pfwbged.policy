@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2019-01-18 14:42+0000\n"
+"POT-Creation-Date: 2019-02-12 09:43+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: pfwbged.policy\n"
 
-#: ../menu.py:224
+#: ../menu.py:227
 msgid "${action} the version ${version}"
 msgstr ""
 
@@ -29,15 +29,15 @@ msgstr ""
 msgid "${title} is locked and cannot be deleted."
 msgstr ""
 
-#: ../subscribers/document.py:417
+#: ../subscribers/document.py:421
 msgid "A previously refused version has returned to waiting validation"
 msgstr ""
 
-#: ../subscribers/document.py:415
+#: ../subscribers/document.py:419
 msgid "A previously validated version has returned to waiting validation"
 msgstr ""
 
-#: ../subscribers/document.py:495
+#: ../subscribers/document.py:499
 msgid "A validation request has been refused"
 msgstr ""
 
@@ -49,7 +49,7 @@ msgstr ""
 msgid "Accept refusal"
 msgstr ""
 
-#: ../menu.py:103
+#: ../menu.py:106
 msgid "Actions"
 msgstr ""
 
@@ -58,7 +58,7 @@ msgstr ""
 msgid "Add"
 msgstr ""
 
-#: ../menu.py:307
+#: ../menu.py:332
 msgid "Add ${title}"
 msgstr ""
 
@@ -82,7 +82,7 @@ msgstr ""
 msgid "Ask validation about version ${version}"
 msgstr ""
 
-#: ../subscribers/document.py:332
+#: ../subscribers/document.py:344
 msgid "Assigned to: %s"
 msgstr ""
 
@@ -98,6 +98,10 @@ msgstr ""
 #: ../browser/send_by_email.py:116
 #: ../browser/to_process.py:63
 msgid "Cancel"
+msgstr ""
+
+#: ../menu.py:483
+msgid "Cancel information"
 msgstr ""
 
 #: ../menu.py:58
@@ -126,7 +130,7 @@ msgstr ""
 msgid "Create a new version"
 msgstr ""
 
-#: ../menu.py:421
+#: ../menu.py:446
 msgid "Create signed version for version ${version}"
 msgstr ""
 
@@ -134,15 +138,15 @@ msgstr ""
 msgid "Create version ${version}"
 msgstr ""
 
-#: ../subscribers/document.py:342
+#: ../subscribers/document.py:354
 msgid "Deadline: %s"
 msgstr ""
 
-#: ../subscribers/document.py:339
+#: ../subscribers/document.py:351
 msgid "Document Address: %s"
 msgstr ""
 
-#: ../subscribers/document.py:337
+#: ../subscribers/document.py:349
 msgid "Document: %s"
 msgstr ""
 
@@ -170,7 +174,7 @@ msgstr ""
 msgid "Installs the pfwbged.policy add-on."
 msgstr ""
 
-#: ../menu.py:202
+#: ../menu.py:205
 msgid "Mark document as read"
 msgstr ""
 
@@ -182,19 +186,19 @@ msgstr ""
 msgid "New value for ${attribute}"
 msgstr ""
 
-#: ../subscribers/document.py:513
+#: ../subscribers/document.py:671
 msgid "New value for %s: %s"
 msgstr ""
 
-#: ../subscribers/document.py:347
+#: ../subscribers/document.py:359
 msgid "Note:"
 msgstr ""
 
-#: ../subscribers/document.py:480
-msgid "One of your tasks has been cancelled"
+#: ../subscribers/document.py:589
+msgid "One document is not mentioned for your information anymore"
 msgstr ""
 
-#: ../subscribers/document.py:480
+#: ../subscribers/document.py:549
 msgid "One of your tasks has been cancelled"
 msgstr ""
 
@@ -202,7 +206,7 @@ msgstr ""
 msgid "Opinion application for version ${version}"
 msgstr ""
 
-#: ../subscribers/document.py:142
+#: ../subscribers/document.py:154
 msgid "Process document"
 msgstr ""
 
@@ -230,19 +234,20 @@ msgstr ""
 msgid "Render opinion"
 msgstr ""
 
-#: ../menu.py:56
+#: ../menu.py:55
 msgid "Restore version ${version}"
 msgstr ""
 
+#: ../menu.py:212
 msgid "Return opinion about ${version}"
 msgstr ""
 
 #: ../browser/to_process.py:46
-#: ../menu.py:523
+#: ../menu.py:587
 msgid "Save"
 msgstr ""
 
-#: ../menu.py:532
+#: ../menu.py:596
 msgid "Save As..."
 msgstr ""
 
@@ -262,7 +267,7 @@ msgstr ""
 msgid "Send version ${version} with PES"
 msgstr ""
 
-#: ../subscribers/document.py:349
+#: ../subscribers/document.py:361
 msgid "Sent by GED"
 msgstr ""
 
@@ -286,11 +291,11 @@ msgstr ""
 msgid "The 'workflow' menu - allows the user to execute workflow transitions"
 msgstr ""
 
-#: ../subscribers/document.py:335
+#: ../subscribers/document.py:347
 msgid "Title: %s"
 msgstr ""
 
-#: ../menu.py:141
+#: ../menu.py:144
 msgid "To process (with comment)"
 msgstr ""
 
@@ -321,7 +326,7 @@ msgstr ""
 msgid "You can enter a note."
 msgstr ""
 
-#: ../subscribers/document.py:329
+#: ../subscribers/document.py:341
 msgid "You received a request for action in the GED."
 msgstr ""
 
