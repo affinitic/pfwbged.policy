@@ -103,13 +103,15 @@ def change_validation_state(context, event):
     elif event.transition.id == 'cancel-validation':
         for ref in catalog.findRelations(query):
             validation = ref.from_object
-            api.content.transition(validation, 'cancel-validation')
-            validation.reindexObject(idxs=['review_state'])
+            if api.content.get_state(validation) == 'validated':
+                api.content.transition(validation, 'cancel-validation')
+                validation.reindexObject(idxs=['review_state'])
     elif event.transition.id == 'cancel-refusal':
         for ref in catalog.findRelations(query):
             validation = ref.from_object
-            api.content.transition(validation, 'cancel-refusal')
-            validation.reindexObject(idxs=['review_state'])
+            if api.content.get_state(validation) == 'refused':
+                api.content.transition(validation, 'cancel-refusal')
+                validation.reindexObject(idxs=['review_state'])
 
 
 @grok.subscribe(IDmsFile, IObjectWillBeRemovedEvent)
