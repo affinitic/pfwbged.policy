@@ -85,6 +85,8 @@
   <exit-transition transition_id="refuse"/>
   <exit-transition transition_id="validate"/>
   <exit-transition transition_id="obsolete"/>
+  <exit-transition transition_id="back_to_draft"/>
+  <exit-transition transition_id="back_to_validated"/>
   <permission-map name="View" acquired="False">
    <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
@@ -143,6 +145,15 @@
   <guard>
    <guard-role>Manager</guard-role>
    <guard-role>Owner</guard-role>
+   <guard-role>Reviewer</guard-role>
+  </guard>
+ </transition>
+ <transition transition_id="back_to_validated" title="Back to validated" new_state="validated" trigger="USER" before_script="" after_script="" i18n:attributes="title">
+   <action url="" category="hidden" icon="" i18n:translate="">Back to draft</action>
+  <guard>
+   <guard-role>Manager</guard-role>
+   <guard-role>Owner</guard-role>
+   <guard-role>Reviewer</guard-role>
   </guard>
  </transition>
  <transition transition_id="restore_from_trash" title="Restore" new_state="finished" trigger="USER" before_script="" after_script="" i18n:attributes="title">

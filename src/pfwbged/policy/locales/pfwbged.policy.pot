@@ -41,6 +41,10 @@ msgstr ""
 msgid "A validation request has been refused"
 msgstr ""
 
+#: ../subscribers/document.py:638
+msgid "A validation request previously sent to you has been deleted"
+msgstr ""
+
 #: ../browser/comments.py:98
 msgid "Accept refusal"
 msgstr ""
@@ -106,6 +110,10 @@ msgstr ""
 
 #: ../menu.py:57
 msgid "Cancel validation of ${version}"
+msgstr ""
+
+#: ../menu.py:504
+msgid "Cancel validation request"
 msgstr ""
 
 #: ../browser/refuse.py:33

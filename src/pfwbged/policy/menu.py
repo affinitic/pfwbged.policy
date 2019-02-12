@@ -235,6 +235,13 @@ class CustomMenu(menu.WorkflowMenu):
                 cssClass += ' version-action version-id-%s' % context.id
                 cssClass += ' version-action-%s' % action['id']
 
+                # special case to allow cancellation of validation requests:
+                # back_to_draft is available from state pending,
+                # but it must not be done directly by users.
+                if action['id'] == 'back_to_draft' and \
+                    api.content.get_state(context) == 'pending':
+                    continue
+
                 # limit cancelling actions to a version's rightful owner
                 # guards are bypassed for Managers, so call them at least once
                 action_guards = {
@@ -479,6 +486,27 @@ class CustomMenu(menu.WorkflowMenu):
                 'selected': False,
                 'icon': None,
                 'extra': {'id': 'plone-contentmenu-actions-cancel-information',
+                          'separator': None,
+                          'class': 'no-icon overlay-form-reload link-overlay'},
+                'submenu': None,
+            })
+
+        catalog = api.portal.get_tool('portal_catalog')
+        container_path = '/'.join(context.getPhysicalPath())
+        brains = catalog.searchResults({
+            'path': container_path,
+            'portal_type': 'validation',
+            'review_state': 'todo',
+            'Creator': api.user.get_current().id,
+        })
+        if IDmsDocument.providedBy(context) and brains:
+            results.append({
+                'title': _(u'Cancel validation request'),
+                'description': '',
+                'action': context.absolute_url() + '/@@cancel_validation',
+                'selected': False,
+                'icon': None,
+                'extra': {'id': 'plone-contentmenu-actions-cancel-validation',
                           'separator': None,
                           'class': 'no-icon overlay-form-reload link-overlay'},
                 'submenu': None,

@@ -39,6 +39,10 @@ msgstr "Un document précédemment validé est revenu en attente de validation"
 msgid "A validation request has been refused"
 msgstr "Une demande de validation a été refusée."
 
+#: ../subscribers/document.py:638
+msgid "A validation request previously sent to you has been deleted"
+msgstr "Une demande de validation qui vous était adressée a été supprimée"
+
 #: ../browser/comments.py:98
 msgid "Accept refusal"
 msgstr "Accepter la désattribution"
@@ -105,6 +109,10 @@ msgstr "Annuler la validation et finalisation de la version ${version}"
 #: ../menu.py:57
 msgid "Cancel validation of ${version}"
 msgstr "Annuler la validation de la version ${version}"
+
+#: ../menu.py:504
+msgid "Cancel validation request"
+msgstr "Annuler la demande de validation"
 
 #: ../browser/refuse.py:33
 #: ../browser/send_by_email.py:35

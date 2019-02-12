@@ -57,6 +57,10 @@ msgstr "Retour à indicater"
 msgid "Back to to process"
 msgstr "Retour en à traiter"
 
+#: ../profiles/default/workflows/versionnote_workflow/definition.xml
+msgid "Back to validated"
+msgstr "Retour à validé"
+
 #: ../profiles/default/workflows/outgoingmail_workflow/definition.xml
 msgid "Back to writing"
 msgstr "Retour à la rédaction"

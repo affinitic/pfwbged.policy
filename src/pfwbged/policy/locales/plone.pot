@@ -58,6 +58,10 @@ msgstr ""
 msgid "Back to to process"
 msgstr ""
 
+#: ../profiles/default/workflows/versionnote_workflow/definition.xml
+msgid "Back to validated"
+msgstr ""
+
 #: ../profiles/default/workflows/outgoingmail_workflow/definition.xml
 msgid "Back to writing"
 msgstr ""
