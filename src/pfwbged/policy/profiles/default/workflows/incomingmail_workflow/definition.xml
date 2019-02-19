@@ -205,7 +205,7 @@
  <transition transition_id="back_to_registering" title="" new_state="registering" trigger="USER" before_script="" after_script="">
   <action url="%(content_url)s/content_status_modify?workflow_action=back_to_registering" category="workflow" icon="" i18n:translate="">Back to registering</action>
   <guard>
-   <guard-expression>here/@@can_return_to_registering</guard-expression>
+   <guard-expression>here/@@can_return_to_registering_or_process</guard-expression>
   </guard>
  </transition>
  <transition transition_id="directly_noaction" title="" new_state="noaction" trigger="USER" before_script="" after_script="">
@@ -241,9 +241,7 @@
  <transition transition_id="to_process" title="" new_state="processing" trigger="USER" before_script="" after_script="">
   <action url="%(content_url)s/@@to_process?workflow_action=to_process" category="workflow" icon="" i18n:translate="">To process</action>
   <guard>
-   <guard-role>Greffier</guard-role>
-   <guard-role>Manager</guard-role>
-   <guard-role>Reviewer</guard-role>
+   <guard-expression>here/@@can_return_to_registering_or_process</guard-expression>
   </guard>
  </transition>
  <variable variable_id="action" for_catalog="False" for_status="True" update_always="True">

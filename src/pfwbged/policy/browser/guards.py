@@ -161,9 +161,9 @@ class CanBeTrashedDmsAppendixFile(grok.View):
         return api.content.get_state(self.context) == 'published'
 
 
-class CanReturnToRegistering(grok.View):
+class CanReturnToRegisteringOrProcess(grok.View):
     """"""
-    grok.name('can_return_to_registering')
+    grok.name('can_return_to_registering_or_process')
     grok.context(IDmsIncomingMail)
     grok.require('zope2.View')
 

@@ -204,7 +204,7 @@
  <transition transition_id="back_to_registering" title="" new_state="registering" trigger="USER" before_script="" after_script="">
   <action url="%(content_url)s/content_status_modify?workflow_action=back_to_registering" category="workflow" icon="" i18n:translate="">Back to registering</action>
   <guard>
-   <guard-expression>here/@@can_return_to_registering</guard-expression>
+   <guard-expression>here/@@can_return_to_registering_or_process</guard-expression>
   </guard>
  </transition>
  <transition transition_id="directly_noaction" title="" new_state="noaction" trigger="USER" before_script="" after_script="">
