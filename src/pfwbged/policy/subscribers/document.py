@@ -534,29 +534,32 @@ def email_notification_of_canceled_subtask(context):
         return
     absolute_url = document.absolute_url()
 
-    responsible = context.responsible[0]
-    principal = api.user.get(responsible)
-    if not principal:
-        principal = api.group.get(responsible)
-    recipient_email = principal.getProperty('email') if principal else None
-    if recipient_email:
+    recipient_emails = []
+    for recipient in _recursiveGetMembersFromIds(api.portal.get(), (context.responsible or [])):
+        email = recipient.getProperty('email', None)
+        if email:
+            recipient_emails.append(email)
 
-        email_from = api.user.get_current().email or api.portal.get().getProperty(
-            'email_from_address') or 'admin@localhost'
+    if not recipient_emails:
+        return
 
-        subject = '%s - %s' % (context.title, document.title)
+    email_from = api.user.get_current().email or api.portal.get().getProperty(
+        'email_from_address') or 'admin@localhost'
 
-        body = translate(_('One of your tasks has been cancelled'), context=context.REQUEST) + \
-            '\n\n' + \
-            translate(_('Title: %s'), context=context.REQUEST) % context.title + \
-            '\n\n' + \
-            translate(_('Document: %s'), context=context.REQUEST) % document.title + \
-            '\n\n' + \
-            translate(_('Document Address: %s'), context=context.REQUEST) % document.absolute_url() + \
-            '\n\n\n\n-- \n' + \
-            translate(_('Sent by GED'))
-        body = body.encode('utf-8')
+    subject = '%s - %s' % (context.title, document.title)
 
+    body = translate(_('One of your tasks has been cancelled'), context=context.REQUEST) + \
+        '\n\n' + \
+        translate(_('Title: %s'), context=context.REQUEST) % context.title + \
+        '\n\n' + \
+        translate(_('Document: %s'), context=context.REQUEST) % document.title + \
+        '\n\n' + \
+        translate(_('Document Address: %s'), context=context.REQUEST) % document.absolute_url() + \
+        '\n\n\n\n-- \n' + \
+        translate(_('Sent by GED'))
+    body = body.encode('utf-8')
+
+    for recipient_email in recipient_emails:
         try:
             context.MailHost.send(body, recipient_email, email_from, subject, charset='utf-8')
         except Exception as e:
