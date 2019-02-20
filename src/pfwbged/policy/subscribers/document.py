@@ -607,6 +607,7 @@ def email_notification_of_canceled_information(context):
             log = logging.getLogger('pfwbged.policy')
             log.exception(e)
 
+
 @grok.subscribe(IValidation, IObjectWillBeRemovedEvent)
 def email_notification_of_canceled_validation(context, event):
     document = None
@@ -619,6 +620,15 @@ def email_notification_of_canceled_validation(context, event):
         return
     absolute_url = document.absolute_url()
 
+    recipient_emails = []
+    for recipient in _recursiveGetMembersFromIds(api.portal.get(), (context.responsible or [])):
+        email = recipient.getProperty('email', None)
+        if email:
+            recipient_emails.append(email)
+
+    if not recipient_emails:
+        return
+
     for enquirer in (context.enquirer or []):
         member = context.portal_membership.getMemberById(enquirer)
         if member:
@@ -627,14 +637,6 @@ def email_notification_of_canceled_validation(context, event):
                 break
     else:
         email_from = api.user.get_current().email or api.portal.get().getProperty('email_from_address') or 'admin@localhost'
-
-    responsible = context.responsible[0]
-    principal = api.user.get(responsible)
-    if not principal:
-        principal = api.group.get(responsible)
-    recipient_email = principal.getProperty('email') if principal else None
-    if not recipient_email:
-        return
 
     subject = '%s - %s' % (context.title, document.title)
 
@@ -649,12 +651,13 @@ def email_notification_of_canceled_validation(context, event):
            translate(_('Sent by GED'))
     body = body.encode('utf-8')
 
-    try:
-        context.MailHost.send(body, recipient_email, email_from, subject, charset='utf-8')
-    except Exception as e:
-        # do not abort transaction in case of email error
-        log = logging.getLogger('pfwbged.policy')
-        log.exception(e)
+    for recipient_email in recipient_emails:
+        try:
+            context.MailHost.send(body, recipient_email, email_from, subject, charset='utf-8')
+        except Exception as e:
+            # do not abort transaction in case of email error
+            log = logging.getLogger('pfwbged.policy')
+            log.exception(e)
 
 
 @grok.subscribe(IDmsDocument, IObjectModifiedEvent)
