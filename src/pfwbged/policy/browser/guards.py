@@ -175,7 +175,7 @@ class CanReturnToRegisteringOrProcess(grok.View):
             return True
 
         # or this user group
-        for group in api.group.get_groups():
+        for group in api.group.get_groups(user=api.user.get_current()):
             if group.id == 'Gestion-secretariat-general':
                 return True
 
