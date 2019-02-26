@@ -27,6 +27,7 @@ from collective.dms.basecontent.dmsdocument import IDmsDocument
 from collective.dms.basecontent.source import PrincipalSource
 from collective.task.content.task import IBaseTask, ITask
 from collective.task.content.validation import IValidation
+from collective.task.content.information import IInformation
 from collective.task.interfaces import IBaseTask
 from collective.dms.basecontent.dmsfile import IDmsFile, IDmsAppendixFile
 from pfwbged.folder.folder import IFolder
@@ -523,7 +524,8 @@ def email_notification_of_refused_task(context, event):
         log.exception(e)
 
 
-def email_notification_of_canceled_subtask(context):
+@grok.subscribe(ITask, IObjectWillBeRemovedEvent)
+def email_notification_of_canceled_subtask(context, event):
     document = None
     for obj in aq_chain(context):
         obj = aq_parent(obj)
@@ -568,7 +570,8 @@ def email_notification_of_canceled_subtask(context):
             log.exception(e)
 
 
-def email_notification_of_canceled_information(context):
+@grok.subscribe(IInformation, IObjectWillBeRemovedEvent)
+def email_notification_of_canceled_information(context, event):
     document = None
     for obj in aq_chain(context):
         obj = aq_parent(obj)
