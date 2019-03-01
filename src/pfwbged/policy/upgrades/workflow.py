@@ -68,7 +68,7 @@ def update_refused_version_state(context):
         for brain in results:
             version = brain.getObject()
             old_state = portal_workflow.getStatusOf(wf_id, version)
-            if old_state.get('action') == 'refuse':
+            if old_state and old_state.get('action') == 'refuse':
                 new_state = old_state.copy()
                 new_state.update({'review_state': 'refused'})
                 overrideStatusOf(wf_id, version, old_state, new_state)
