@@ -101,13 +101,13 @@ def change_validation_state(context, event):
             if api.content.get_state(validation) == 'todo':
                 api.content.transition(validation, 'validate')
                 validation.reindexObject(idxs=['review_state'])
-    elif event.transition.id == 'cancel-validation':
+    elif event.transition and event.transition.id == 'cancel-validation':
         for ref in catalog.findRelations(query):
             validation = ref.from_object
             if api.content.get_state(validation) == 'validated':
                 api.content.transition(validation, 'cancel-validation')
                 validation.reindexObject(idxs=['review_state'])
-    elif event.transition.id == 'cancel-refusal':
+    elif event.transition and event.transition.id == 'cancel-refusal':
         for ref in catalog.findRelations(query):
             validation = ref.from_object
             if api.content.get_state(validation) == 'refused':
@@ -416,9 +416,9 @@ def email_notification_of_validation_reversal(context, event):
      (or refused) request has returned to pending state"""
     if not event.transition:
         return
-    elif event.transition.id == 'cancel-validation':
+    elif event.transition and event.transition.id == 'cancel-validation':
         comment = translate(_('A previously validated version has returned to waiting validation'), context=context.REQUEST)
-    elif event.transition.id == 'cancel-refusal':
+    elif event.transition and event.transition.id == 'cancel-refusal':
         comment = translate(_('A previously refused version has returned to waiting validation'), context=context.REQUEST)
     else:
         return
