@@ -19,4 +19,22 @@
       handler=".workflow.update_role_mappings"
       profile="pfwbged.policy:default" />
 
+
+  <genericsetup:upgradeSteps
+      source="3"
+      destination="4"
+      profile="pfwbged.policy:default">
+
+      <genericsetup:upgradeStep
+          title="Set up refused version state"
+          description="Set refused state to version in draft state, that were lastly refused"
+          handler=".workflow.update_refused_version_state"
+           />
+
+      <genericsetup:upgradeDepends
+          title="Reimport workflows"
+          import_steps="workflow" />
+
+  </genericsetup:upgradeSteps>
+
 </configure>

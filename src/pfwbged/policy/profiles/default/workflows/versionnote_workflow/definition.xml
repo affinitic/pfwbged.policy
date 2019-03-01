@@ -16,7 +16,6 @@
   <exit-transition transition_id="submit"/>
   <exit-transition transition_id="ask_opinion"/>
   <exit-transition transition_id="obsolete"/>
-  <exit-transition transition_id="cancel-refusal"/>
   <permission-map name="View" acquired="False">
    <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
@@ -134,6 +133,30 @@
    <permission-role>Manager</permission-role>
   </permission-map>
  </state>
+ <state state_id="refused" title="Refused" i18n:attributes="title">
+  <exit-transition transition_id="cancel-refusal"/>
+  <exit-transition transition_id="obsolete"/>
+  <permission-map name="View" acquired="False">
+   <permission-role>Editor</permission-role>
+   <permission-role>Manager</permission-role>
+   <permission-role>Reader</permission-role>
+   <permission-role>Reviewer</permission-role>
+   <permission-role>Owner</permission-role>
+  </permission-map>
+  <permission-map name="Access contents information" acquired="False">
+   <permission-role>Editor</permission-role>
+   <permission-role>Manager</permission-role>
+   <permission-role>Reader</permission-role>
+   <permission-role>Reviewer</permission-role>
+   <permission-role>Owner</permission-role>
+  </permission-map>
+  <permission-map name="Modify portal content" acquired="False">
+   <permission-role>Manager</permission-role>
+  </permission-map>
+  <permission-map name="Delete objects" acquired="False">
+   <permission-role>Manager</permission-role>
+  </permission-map>
+ </state>
  <state state_id="trashed" title="Trashed" i18n:attributes="title">
   <exit-transition transition_id="restore_from_trash"/>
   <permission-map name="View" acquired="False">
@@ -189,7 +212,7 @@
   <guard>
   </guard>
  </transition>
- <transition transition_id="refuse" title="Refuse" new_state="draft" trigger="USER" before_script="" after_script="" i18n:attributes="title">
+ <transition transition_id="refuse" title="Refuse" new_state="refused" trigger="USER" before_script="" after_script="" i18n:attributes="title">
   <action url="%(content_url)s/@@refuse?workflow_action=refuse" category="workflow" icon="" i18n:translate="">Refuse</action>
   <guard>
    <guard-expression>here/@@can_validate_or_refuse</guard-expression>

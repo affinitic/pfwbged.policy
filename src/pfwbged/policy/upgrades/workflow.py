@@ -1,3 +1,5 @@
+from Acquisition import aq_base
+from Persistence import PersistentMapping
 from Products.CMFCore.utils import getToolByName
 from plone import api
 
@@ -23,3 +25,52 @@ def publish_document_subfolders(context):
                 transition="publish"
             )
             subfolder.reindexObject(idxs=['review_state'])
+
+
+def overrideStatusOf(wf_id, ob, old_status, new_status):
+    """Update a particular status in an object's workflow history,
+       e.g. dict returned by wf_tool.getStatusOf.
+       Derived from wf_tool.setStatusOf."""
+    wfh = None
+    has_history = 0
+    if hasattr(aq_base(ob), 'workflow_history'):
+        history = ob.workflow_history
+        if history is not None:
+            has_history = 1
+            wfh = history.get(wf_id, None)
+            if wfh is not None:
+                wfh = list(wfh)
+    if not wfh:
+        wfh = []
+    if old_status in wfh:
+        position = wfh.index(old_status)
+        wfh[position] = new_status
+    if not has_history:
+        ob.workflow_history = PersistentMapping()
+    ob.workflow_history[wf_id] = tuple(wfh)
+
+
+def update_refused_version_state(context):
+    """Set refused versions to refused state (instead of draft)."""
+    portal = api.portal.get()
+    if 'documents' in portal:
+        portal_catalog = api.portal.get_tool('portal_catalog')
+        portal_workflow = api.portal.get_tool('portal_workflow')
+        wf_id = portal_workflow.getChainFor('dmsmainfile')[0]
+        wf_def = portal_workflow.getWorkflowById(wf_id)
+
+        folder_path = '/'.join(portal['documents'].getPhysicalPath())
+        query = {'path': {
+            'query': folder_path},
+            'portal_type': 'dmsmainfile',
+            'review_state': 'draft'}
+        results = portal_catalog.unrestrictedSearchResults(query)
+        for brain in results:
+            version = brain.getObject()
+            old_state = portal_workflow.getStatusOf(wf_id, version)
+            if old_state.get('action') == 'refuse':
+                new_state = old_state.copy()
+                new_state.update({'review_state': 'refused'})
+                overrideStatusOf(wf_id, version, old_state, new_state)
+                wf_def.updateRoleMappingsFor(version)
+                version.reindexObject(idxs=['allowedRolesAndUsers', 'review_state'])

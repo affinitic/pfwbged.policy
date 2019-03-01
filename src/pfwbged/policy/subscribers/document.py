@@ -89,7 +89,7 @@ def change_validation_state(context, event):
     query = {'to_id': version_intid,
              'from_interfaces_flattened': IValidation,
              'from_attribute': 'target'}
-    if event.new_state.id == 'draft':
+    if event.new_state.id == 'refused':
         for ref in catalog.findRelations(query):
             validation = ref.from_object
             if api.content.get_state(validation) == 'todo':
@@ -254,7 +254,7 @@ def version_note_finished(context, event):
         # make obsolete other versions
         for version_brain in version_notes:
             version = version_brain._unrestrictedGetObject()
-            if api.content.get_state(obj=version) in ('draft', 'pending', 'validated'):
+            if api.content.get_state(obj=version) in ('draft', 'pending', 'refused', 'validated'):
                 api.content.transition(obj=version, transition='obsolete')
                 version.reindexObject(idxs=['review_state'])
         context.__ac_local_roles_block__ = False
