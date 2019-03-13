@@ -47,6 +47,26 @@ class ContentHistoryView(BaseHistoryView):
                 history_line['comments'] = _('To: ${to}', mapping={'to': history_line.get('to', '')})
                 history_line['transition_title'] = _('Sent version ${version} by email',
                         mapping={'version': history_line.get('version', '?')})
+
+            # Task / Information creation and cancellation lines
+            if history_line['action_id'] == 'creation':
+                history_line['actor'] = None
+                history_line['actor_home'] = None
+                history_line['actorid'] = history_line['actor_name']
+                history_line['type'] = 'creation'
+                history_line['action'] = 'creation'
+                history_line['transition_title'] = history_line['task_title']
+            if history_line['action_id'] == 'cancellation':
+                history_line['actor'] = None
+                history_line['actor_home'] = None
+                history_line['actorid'] = history_line['actor_name']
+                history_line['type'] = 'cancellation'
+                history_line['action'] = 'cancellation'
+                history_line['transition_title'] = _(
+                    'Cancelling ${task} for ${responsible}',
+                    mapping={'task': history_line['task_title'],
+                             'responsible': history_line['responsible']})
+
         return history
 
     def workflowHistory(self, complete=True):

@@ -120,6 +120,10 @@ msgstr ""
 msgid "Cancel validation request"
 msgstr ""
 
+#: ../browser/history.py:69
+msgid "Cancelling ${task} for ${responsible}"
+msgstr ""
+
 #: ../browser/refuse.py:33
 #: ../browser/send_by_email.py:35
 #: ../browser/to_process.py:25

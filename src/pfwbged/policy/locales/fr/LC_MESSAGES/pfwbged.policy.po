@@ -118,6 +118,10 @@ msgstr "Annuler la validation de la version ${version}"
 msgid "Cancel validation request"
 msgstr "Annuler la demande de validation"
 
+#: ../browser/history.py:69
+msgid "Cancelling ${task} for ${responsible}"
+msgstr "Annulation de ${task} pour ${responsible}"
+
 #: ../browser/refuse.py:33
 #: ../browser/send_by_email.py:35
 #: ../browser/to_process.py:25
