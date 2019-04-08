@@ -14,6 +14,7 @@ from plone.dexterity.utils import createContentInContainer
 from plone.stringinterp.adapters import _recursiveGetMembersFromIds
 
 from collective.task import _
+from collective.task.content.task import ITask
 from collective.task.browser.attribute_task import find_nontask
 
 
@@ -33,10 +34,16 @@ class AttributeTasks(DefaultAddForm):
     def updateWidgets(self):
         """Update widgets then add workflow_action value to workflow_action field"""
         super(AttributeTasks, self).updateWidgets()
-        for task_id in self.request.documents.split(','):
-            base_task = api.content.get(str(task_id))
-            self.widgets['title'].value = base_task.title
-            break
+        for obj_id in self.request.documents.split(','):
+            base_obj = api.content.get(str(obj_id))
+            if ITask.providedBy(base_obj):
+                self.widgets['title'].value = base_obj.title
+                break
+            else:
+                tasks = base_obj.listFolderContents({"portal_type": "task"})
+                if tasks:
+                    self.widgets['title'].value = tasks[0].title
+                    break
 
     @button.buttonAndHandler(_('Add'), name='add')
     def handleAdd(self, action):
