@@ -64,6 +64,17 @@ msgstr "Retour à validé"
 #: ../profiles/default/workflows/outgoingmail_workflow/definition.xml
 msgid "Back to writing"
 msgstr "Retour à la rédaction"
+#: ../profiles/default/workflows/incomingmail_workflow/definition.xml
+msgid "Cancel Answering"
+msgstr "Annuler la réponse"
+
+#: ../profiles/default/workflows/incomingmail_workflow/definition.xml
+msgid "Cancel Considering"
+msgstr "Annuler la prise en compte"
+
+#: ../profiles/default/workflows/incomingmail_workflow/definition.xml
+msgid "Cancel No action"
+msgstr "Annuler le classement sans suite"
 
 #: ../profiles/default/workflows/versionnote_workflow/definition.xml
 msgid "Cancel refusal"

@@ -12,6 +12,7 @@
  <permission>Modify portal content</permission>
  <permission>View</permission>
  <state state_id="answered" title="Answered" i18n:attributes="title">
+  <exit-transition transition_id="cancel_answered"/>
   <permission-map name="Access contents information" acquired="False">
    <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
@@ -70,6 +71,7 @@
  </state>
  <state state_id="noaction" title="No action" i18n:attributes="title">
   <exit-transition transition_id="back_to_assigning"/>
+  <exit-transition transition_id="cancel_noaction"/>
   <permission-map name="Access contents information" acquired="False">
    <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
@@ -97,6 +99,7 @@
  </state>
  <state state_id="considered" title="Considered" i18n:attributes="title">
   <exit-transition transition_id="back_to_assigning"/>
+  <exit-transition transition_id="cancel_considered"/>
   <permission-map name="Access contents information" acquired="False">
    <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
@@ -243,6 +246,29 @@
    <guard-expression>here/@@can_return_to_registering_or_process</guard-expression>
   </guard>
  </transition>
+
+ <transition transition_id="cancel_considered" title="" new_state="processing" trigger="USER" before_script="" after_script="">
+  <action url="%(content_url)s/content_status_modify?workflow_action=cancel_considered" category="workflow" icon="" i18n:translate="">Cancel Considering</action>
+  <guard>
+   <guard-role>Editor</guard-role>
+   <guard-role>Manager</guard-role>
+  </guard>
+ </transition>
+ <transition transition_id="cancel_noaction" title="" new_state="processing" trigger="USER" before_script="" after_script="">
+  <action url="%(content_url)s/content_status_modify?workflow_action=cancel_noaction" category="workflow" icon="" i18n:translate="">Cancel No action</action>
+  <guard>
+   <guard-role>Editor</guard-role>
+   <guard-role>Manager</guard-role>
+  </guard>
+ </transition>
+ <transition transition_id="cancel_answered" title="" new_state="processing" trigger="USER" before_script="" after_script="">
+  <action url="%(content_url)s/content_status_modify?workflow_action=cancel_answered" category="workflow" icon="" i18n:translate="">Cancel Answering</action>
+  <guard>
+   <guard-role>Editor</guard-role>
+   <guard-role>Manager</guard-role>
+  </guard>
+ </transition>
+
  <variable variable_id="action" for_catalog="False" for_status="True" update_always="True">
   <description>Previous transition</description>
   <default>
