@@ -33,6 +33,7 @@ from collective.dms.basecontent.dmsfile import IDmsFile, IDmsAppendixFile
 from pfwbged.folder.folder import IFolder
 
 from pfwbged.basecontent.behaviors import IPfwbDocument
+from pfwbged.policy.indexers import reindex_after_version_changes
 from pfwbged.policy import _
 
 from mail import changeWorkflowState
@@ -113,6 +114,7 @@ def change_validation_state(context, event):
             if api.content.get_state(validation) == 'refused':
                 api.content.transition(validation, 'cancel-refusal')
                 validation.reindexObject(idxs=['review_state'])
+    reindex_after_version_changes(aq_parent(context))
 
 
 @grok.subscribe(IDmsFile, IObjectWillBeRemovedEvent)
@@ -132,6 +134,7 @@ def delete_tasks(context, event):
         obj = rv.from_object
         #obj.aq_parent.manage_delObjects([obj.getId()])  # we don't want to verify Delete object permission on object
         del aq_parent(obj)[obj.getId()]
+    reindex_after_version_changes(aq_parent(context))
 
 
 @grok.subscribe(IDmsFile, IObjectAddedEvent)
@@ -140,6 +143,7 @@ def version_is_signed_at_creation(context, event):
     if context.signed:
         api.content.transition(context, 'finish_without_validation')
         context.reindexObject(idxs=['review_state'])
+        reindex_after_version_changes(aq_parent(context))
 
 
 ### Workflow for other documents
@@ -259,6 +263,8 @@ def version_note_finished(context, event):
                 version.reindexObject(idxs=['review_state'])
         context.__ac_local_roles_block__ = False
         context.reindexObjectSecurity()
+
+        reindex_after_version_changes(document)
 
 
 @grok.subscribe(IDmsDocument, IAfterTransitionEvent)
@@ -781,3 +787,4 @@ def set_permissions_on_files_on_add(context, event):
             context.reindexObject(idxs=['allowedRolesAndUsers'])
 
         document.reindexObject(idxs=['allowedRolesAndUsers'])
+    reindex_after_version_changes(document)

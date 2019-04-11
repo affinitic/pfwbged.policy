@@ -45,6 +45,8 @@ def can_last_version_validate(obj, **kw):
         for child in reversed(obj.values()):
             if child.portal_type != 'dmsmainfile':
                 continue
+            if api.content.get_state(child) == 'trashed':
+                continue
             wf_tool = getToolByName(obj, 'portal_workflow')
             workflowActions = wf_tool.listActionInfos(object=child)
             return bool('submit' in [x.get('id') for x in workflowActions])
@@ -59,6 +61,8 @@ def has_last_version_accept(obj, **kw):
         wf_tool = getToolByName(obj, 'portal_workflow')
         for child in reversed(obj.values()):
             if child.portal_type != 'dmsmainfile':
+                continue
+            if api.content.get_state(child) == 'trashed':
                 continue
             last_version = child
             for task in reversed(obj.values()):
@@ -81,6 +85,8 @@ def has_last_version_refuse(obj, **kw):
         for child in reversed(obj.values()):
             if child.portal_type != 'dmsmainfile':
                 continue
+            if api.content.get_state(child) == 'trashed':
+                continue
             last_version = child
             for task in reversed(obj.values()):
                 if task.portal_type != 'validation':
@@ -92,3 +98,10 @@ def has_last_version_refuse(obj, **kw):
             break
         return False
 grok.global_adapter(has_last_version_refuse, name='has_last_version_refuse')
+
+
+def reindex_after_version_changes(document):
+    if IDmsDocument.providedBy(document):
+        document.reindexObject(idxs=['can_last_version_validate',
+                                     'has_last_version_accept',
+                                     'has_last_version_refuse'])
