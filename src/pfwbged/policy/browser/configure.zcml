@@ -71,6 +71,13 @@
     permission="cmf.AddPortalContent"
     />
 
+  <browser:page
+    name="ask_multi_validation"
+    for="*"
+    class=".ask_multi_validation.AskValidations"
+    permission="cmf.AddPortalContent"
+    />
+
   <!-- Custom comments viewlet for IBaseTask -->
   <browser:viewlet
       name="plone.comments"
