@@ -164,7 +164,7 @@ class CanBeTrashedDmsAppendixFile(grok.View):
 class CanReturnToRegisteringOrProcess(grok.View):
     """"""
     grok.name('can_return_to_registering_or_process')
-    grok.context(IDmsIncomingMail)
+    grok.context(IDmsDocument)
     grok.require('zope2.View')
 
     def render(self):
