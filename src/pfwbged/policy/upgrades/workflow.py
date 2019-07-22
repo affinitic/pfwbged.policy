@@ -74,3 +74,27 @@ def update_refused_version_state(context):
                 overrideStatusOf(wf_id, version, old_state, new_state)
                 wf_def.updateRoleMappingsFor(version)
                 version.reindexObject(idxs=['allowedRolesAndUsers', 'review_state'])
+
+
+def refresh_workflow_permissions(context, workflow_id):
+    portal_workflow = api.portal.get_tool('portal_workflow')
+    portal_catalog = api.portal.get_tool('portal_catalog')
+    workflow = portal_workflow.getWorkflowById(workflow_id)
+    portal = api.portal.get()
+    folder_path = '/'.join(portal['documents'].getPhysicalPath())
+
+    for dx_type, wf_ids in portal_workflow._chains_by_type.items():
+        if workflow_id in wf_ids:
+            query = {'path': {
+                'query': folder_path},
+                'portal_type': dx_type}
+            results = portal_catalog.unrestrictedSearchResults(query)
+            for brain in results:
+                obj = brain.getObject()
+                workflow.updateRoleMappingsFor(obj)
+                obj.reindexObjectSecurity()
+                obj.reindexObject(idxs=['allowedRolesAndUsers'])
+
+
+def incomingmail_deletion_permissions(context):
+    refresh_workflow_permissions(context, "incomingmail_workflow")

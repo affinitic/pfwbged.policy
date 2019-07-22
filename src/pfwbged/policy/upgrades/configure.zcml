@@ -37,4 +37,21 @@
 
   </genericsetup:upgradeSteps>
 
+  <genericsetup:upgradeSteps
+      source="4"
+      destination="5"
+      profile="pfwbged.policy:default">
+
+      <genericsetup:upgradeStep
+          title="Incoming mail deletion permissions for admins"
+          description=""
+          handler=".workflow.incomingmail_deletion_permissions"
+           />
+
+      <genericsetup:upgradeDepends
+          title="Reimport workflows"
+          import_steps="workflow" />
+
+  </genericsetup:upgradeSteps>
+
 </configure>
