@@ -1,8 +1,14 @@
+import pickle
 from copy import deepcopy
+
+from Products.Five.browser import BrowserView
+
 import z3c.form
+from collective.taskqueue import taskqueue
 from z3c.form import button
 
 import zope.event
+from zope.component import getUtility
 from zope.i18nmessageid.message import MessageFactory
 
 from plone import api
@@ -13,33 +19,14 @@ from plone.stringinterp.adapters import _recursiveGetMembersFromIds
 from collective.task import _
 
 
-class AddInformation(DefaultAddForm):
-    """Custom add information view"""
 
-    portal_type = "information"
-
-    @property
-    def action(self):
-        return self.request.getURL() + '?documents=' + self.request.documents
-
-    @button.buttonAndHandler(_('Add'), name='add')
-    def handleAdd(self, action):
-        data, errors = self.extractData()
-        if errors:
-            self.status = self.formErrorsMessage
-            return
-
-        for document_id in self.request.documents.split(','):
-            base_document = api.content.get(str(document_id))
-            self.add_info(base_document, data)
-
-        self._finishedAdd = True
-        return
-
-    def add_info(self, base_document, data):
+class BackgroundAddInformationView(BrowserView):
+    def __call__(self):
+        base_document = self.context
+        data = pickle.load(self.request.stdin)
         portal = api.portal.get()
-        objs = []
         seen = {}
+
         for responsible in data['responsible']:
             group = api.group.get(responsible)
             if group is not None:
@@ -63,4 +50,28 @@ class AddInformation(DefaultAddForm):
                 createContentInContainer(base_document, 'information', **_data)
                 seen[responsible] = True
 
-        print 'seen:', seen
+
+class AddInformation(DefaultAddForm):
+    """Custom add information view"""
+
+    portal_type = "information"
+
+    @property
+    def action(self):
+        return self.request.getURL() + '?documents=' + self.request.documents
+
+    @button.buttonAndHandler(_('Add'), name='add')
+    def handleAdd(self, action):
+        data, errors = self.extractData()
+        if errors:
+            self.status = self.formErrorsMessage
+            return
+
+        for document_id in self.request.documents.split(','):
+            taskqueue.add(
+                '{}/background_add_information'.format(document_id),
+                payload=pickle.dumps(data),
+            )
+
+        self._finishedAdd = True
+        return

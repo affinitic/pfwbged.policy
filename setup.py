@@ -53,6 +53,7 @@ setup(
         'collective.onlogin',
         'collective.solr',
         'collective.task',
+        'collective.taskqueue',
         'five.grok',
         'pfwbged.basecontent',
         'pfwbged.collection',

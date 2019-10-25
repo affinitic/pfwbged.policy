@@ -1,17 +1,51 @@
+import pickle
+
+from Products.Five.browser import BrowserView
+
 from zope.i18n import translate
 
+from collective.taskqueue import taskqueue
 from copy import deepcopy
 from plone import api
 from plone.dexterity.browser.add import DefaultAddForm
 from plone.dexterity.utils import addContentToContainer, getAdditionalSchemata
+from plone.dexterity.utils import createContent
 from z3c.form.interfaces import HIDDEN_MODE
 
 from zope.annotation.interfaces import IAnnotations
-import zope.event
-import zope.lifecycleevent
 
 from z3c.form import button
 from pfwbged.policy import _
+
+
+class BackgroundAskValidationView(BrowserView):
+    def __call__(self):
+        base_document = self.context
+        data = pickle.load(self.request.stdin)
+
+        for child in reversed(base_document.values()):
+            if child.portal_type == 'dmsmainfile':
+                last_version = child
+                break
+
+        _data = deepcopy(data)
+        _data['title'] = translate(
+            _(u"Validation application for version ${version}",
+              mapping={'version': last_version.Title()}),
+            context=self.request)
+        _data['ITarget.target'] = last_version
+
+        new_validation = createContent('validation', **_data)
+        addContentToContainer(base_document, new_validation)
+
+        # annotate the validation task with the related version, it can later
+        # be used to match the task against the correct version.
+        annotations = IAnnotations(new_validation)
+        annotations['related_version_id'] = last_version.id
+
+        # execute transition on version
+        api.content.transition(last_version, transition='submit')
+        last_version.reindexObject(idxs=['review_state'])
 
 
 class AskValidations(DefaultAddForm):
@@ -49,34 +83,10 @@ class AskValidations(DefaultAddForm):
             return
 
         for document_id in self.request.documents.split(','):
-            base_document = api.content.get(str(document_id))
-            self.ask_validation(base_document, data)
+            taskqueue.add(
+                '{}/background_ask_validation'.format(document_id),
+                payload=pickle.dumps(data),
+            )
 
         self._finishedAdd = True
         return
-
-    def ask_validation(self, base_document, data):
-        for child in reversed(base_document.values()):
-            if child.portal_type == 'dmsmainfile':
-                last_version = child
-                break
-
-        _data = deepcopy(data)
-        _data['title'] = translate(
-            _(u"Validation application for version ${version}",
-              mapping={'version': last_version.Title()}),
-            context=self.request)
-        _data['ITarget.target'] = last_version
-
-        new_validation = self.create(_data)
-        zope.event.notify(zope.lifecycleevent.ObjectCreatedEvent(new_validation))
-        addContentToContainer(base_document, new_validation)
-
-        # annotate the validation task with the related version, it can later
-        # be used to match the task against the correct version.
-        annotations = IAnnotations(new_validation)
-        annotations['related_version_id'] = last_version.id
-
-        # execute transition on version
-        api.content.transition(last_version, transition='submit')
-        last_version.reindexObject(idxs=['review_state'])

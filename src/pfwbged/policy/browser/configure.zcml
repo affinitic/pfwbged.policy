@@ -65,10 +65,26 @@
     />
 
   <browser:page
+    name="background_add_information"
+    class=".add_multi_information.BackgroundAddInformationView"
+    for="*"
+    permission="cmf.AddPortalContent"
+    layer="collective.taskqueue.interfaces.ITaskQueueLayer"
+    />
+
+  <browser:page
     name="multi_attribute_task"
     for="*"
     class=".multi_attribute_task.AttributeTasks"
     permission="cmf.AddPortalContent"
+    />
+
+  <browser:page
+    name="background_attribute_task"
+    class=".multi_attribute_task.BackgroundAttributeTaskView"
+    for="*"
+    permission="cmf.AddPortalContent"
+    layer="collective.taskqueue.interfaces.ITaskQueueLayer"
     />
 
   <browser:page
@@ -77,6 +93,16 @@
     class=".ask_multi_validation.AskValidations"
     permission="cmf.AddPortalContent"
     />
+
+
+  <browser:page
+    name="background_ask_validation"
+    class=".ask_multi_validation.BackgroundAskValidationView"
+    for="*"
+    permission="cmf.AddPortalContent"
+    layer="collective.taskqueue.interfaces.ITaskQueueLayer"
+    />
+
 
   <!-- Custom comments viewlet for IBaseTask -->
   <browser:viewlet
