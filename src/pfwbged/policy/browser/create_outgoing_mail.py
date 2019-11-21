@@ -1,18 +1,17 @@
 from Acquisition import aq_parent
-
 from five import grok
-
 from plone import api
 
 from collective.dms.mailcontent.dmsmail import IDmsIncomingMail
 from collective.task.content.task import ITask
+from pfwbged.basecontent.types import IBoardDecision
 
 
 class NoIDmsIncomingMailFound(Exception):
     """No IDmsIncomingMail found"""
 
 
-class CreateOutgoingMail(grok.View):
+class CreateOutgoingMailFromTask(grok.View):
 
     grok.name("create_outgoing_mail")
     grok.context(ITask)
@@ -64,4 +63,41 @@ form.widgets.treating_groups=%(treating_groups)s""" % values
         else:
             outgoing_add_url = "/++add++dmsoutgoingmail?"
         url = folder_url + outgoing_add_url + values_url.encode('utf-8')
+        self.request.response.redirect(url)
+
+
+class CreateOutgoingMailFromBoardDecision(grok.View):
+
+    grok.name("create_outgoing_mail")
+    grok.context(IBoardDecision)
+    grok.require("zope2.View")
+
+    def render(self):
+        decision = self.context
+
+        values_params = [
+            u'form.widgets.related_docs:list={}'.format(
+                u'/'.join(decision.getPhysicalPath()),
+            ),
+        ]
+
+        list_fields = {
+            'treated_by': 'IPfwbDocument.treated_by',
+            'treating_groups': 'treating_groups',
+            'recipient_groups': 'recipient_groups',
+            'keywords': 'IPfwbDocument.keywords',
+        }
+        for field_id, field_param_id in list_fields.items():
+            field = getattr(decision, field_id, []) or []
+            for item in field:
+                values_params.append(
+                    u'form.widgets.{}:list={}'.format(field_param_id, item)
+                )
+
+        documents_folder_url = api.portal.get()['documents'].absolute_url()
+        encoded_params = "&".join(values_params).encode('utf-8')
+        url = '{0}/++add++dmsoutgoingmail?{1}'.format(
+            documents_folder_url,
+            encoded_params,
+        )
         self.request.response.redirect(url)
