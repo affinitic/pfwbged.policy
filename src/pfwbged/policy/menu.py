@@ -446,11 +446,13 @@ class CustomMenu(menu.WorkflowMenu):
                 action['title'] = _(u"Create signed version for version ${version}",
                                     mapping={'version': context.Title()})
                 cssClass += " overlay-form-reload"
-            elif action['id'] == 'create_outgoing_mail':
+            elif action['id'] in (
+                    'create_outgoing_mail',
+                    'create_board_decision',
+                    'delete',
+            ):
                 # make it overlay !
                 cssClass += ' overlay-form-redirect'
-            elif action['id'] == 'delete':
-                cssClass += " overlay-form-redirect"
 
             if action['allowed']:
                 aid = action['id']
@@ -562,14 +564,6 @@ class CustomMenu(menu.WorkflowMenu):
 
             # wf actions on informations
             actions.extend(self.getWorkflowActionsForType(context, request, 'information'))
-
-            if context.portal_type in ('pfwb.boarddecision',):
-                # ideally this condition would be part of the task action
-                # condition_expr, but that would require to get down from there
-                # back to the document; it's much easier to just hide it from
-                # here.
-                actions = [x for x in actions if \
-                        x.get('extra').get('id') != 'plone-contentmenu-actions-create_outgoing_mail']
 
         if ICollection.providedBy(context):
             # edition of collections is done inline, remove edit action but add
