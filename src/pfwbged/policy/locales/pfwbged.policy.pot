@@ -154,8 +154,8 @@ msgstr ""
 msgid "Document: %s"
 msgstr ""
 
-#: ../browser/send_by_email.py:32
-msgid "Email addresses of the recipients, one per line"
+#: ../browser/send_by_email.py:35
+msgid "Email addresses of the recipients"
 msgstr ""
 
 #: ../browser/send_by_email.py:97

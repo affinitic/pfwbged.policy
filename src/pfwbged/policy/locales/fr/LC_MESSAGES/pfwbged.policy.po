@@ -152,9 +152,9 @@ msgstr "Adresse du document : %s"
 msgid "Document: %s"
 msgstr "Document : %s"
 
-#: ../browser/send_by_email.py:32
-msgid "Email addresses of the recipients, one per line"
-msgstr "Adresses électroniques des destinataires, une par ligne"
+#: ../browser/send_by_email.py:35
+msgid "Email addresses of the recipients"
+msgstr "Adresses électroniques des destinataires"
 
 #: ../browser/send_by_email.py:97
 msgid "Error sending email"

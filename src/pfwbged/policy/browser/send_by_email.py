@@ -9,6 +9,7 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email import encoders
 
+from collective.dms.basecontent.widget import AjaxChosenMultiFieldWidget
 from zope.interface import Interface
 from zope import schema
 from zope.component import createObject, queryUtility
@@ -27,9 +28,17 @@ from plone import api
 
 from .. import _
 
+
 class IMail(Interface):
-    recipients = schema.Text(title=_(u"Recipients"), required=True,
-            description=_(u"Email addresses of the recipients, one per line"))
+    recipients = schema.List(
+        title=_(u"Recipients"),
+        description=_(u"Email addresses of the recipients"),
+        required=True,
+        value_type=schema.Choice(
+            vocabulary=u'collective.dms.basecontent.ldap_emails',
+        ),
+    )
+
     subject = schema.TextLine(title=_(u"Subject"), required=True)
     comment = schema.Text(
         title=_(u"Comment"),
@@ -39,6 +48,7 @@ class IMail(Interface):
 
 class MailForm(form.AddForm):
     fields = Fields(IMail)
+    fields['recipients'].widgetFactory = AjaxChosenMultiFieldWidget
     next_url = None
 
     def updateActions(self):
@@ -58,7 +68,7 @@ class MailForm(form.AddForm):
         self._finishedAdd = True
 
         subject = data['subject']
-        recipients = data['recipients'].splitlines()
+        recipients = data['recipients']
         comment = data.get('comment')
 
         msg = MIMEMultipart()
