@@ -63,4 +63,13 @@
       handler=".types.refresh_documents_addable_types"
       />
 
+  <genericsetup:upgradeStep
+      title="Remove APF content types"
+      description=""
+      source="6"
+      destination="7"
+      profile="pfwbged.policy:default"
+      handler=".types.remove_apf_content_types"
+      />
+
 </configure>

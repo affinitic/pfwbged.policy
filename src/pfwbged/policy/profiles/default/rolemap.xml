@@ -2,7 +2,6 @@
 <rolemap>
   <roles>
     <role name="Greffier"/>
-    <role name="SecretariatGeneralAPF"/>
   </roles>
   <permissions>
     <permission name="Add portal content" acquire="True">
@@ -30,7 +29,6 @@
       <role name="Reviewer"/>
       <role name="Site Administrator"/>
       <role name="Greffier"/>
-      <role name="SecretariatGeneralAPF"/>
     </permission>
   </permissions>
 </rolemap>

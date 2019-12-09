@@ -55,8 +55,6 @@ def has_incomingmail_workflow(obj):
     chain = wtool.getChainFor(obj)
     if 'incomingmail_workflow' in chain:
         return True
-    if 'incomingapfmail_workflow' in chain:
-        return True
     return False
 
 
@@ -231,7 +229,7 @@ def version_note_finished(context, event):
         document = context.getParentNode()
         state = api.content.get_state(obj=document)
         # if parent is an outgoing mail, change its state to ready_to_send
-        if document.portal_type in ('dmsoutgoingmail', 'pfwb.apfoutgoingmail') and state == 'writing':
+        if document.portal_type == 'dmsoutgoingmail' and state == 'writing':
             with api.env.adopt_user('admin'):
                 api.content.transition(obj=document, transition='finish')
             document.reindexObject(idxs=['review_state'])

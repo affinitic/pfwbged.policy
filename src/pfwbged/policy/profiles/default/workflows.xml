@@ -4,7 +4,6 @@
     name="title">Contains workflow definitions for your portal</property>
  <object name="appendix_workflow" meta_type="Workflow"/>
  <object name="incomingmail_workflow" meta_type="Workflow"/>
- <object name="incomingapfmail_workflow" meta_type="Workflow"/>
  <object name="outgoingmail_workflow" meta_type="Workflow"/>
  <object name="pfwbgeddocument_workflow" meta_type="Workflow"/>
  <object name="pfwbgedfolder_workflow" meta_type="Workflow"/>
@@ -52,12 +51,6 @@
   </type>
   <type type_id="pfwb.boarddecision">
    <bound-workflow workflow_id="incomingmail_workflow"/>
-  </type>
-  <type type_id="pfwb.apfincomingmail">
-   <bound-workflow workflow_id="incomingapfmail_workflow"/>
-  </type>
-  <type type_id="pfwb.apfoutgoingmail">
-   <bound-workflow workflow_id="outgoingmail_workflow"/>
   </type>
   <type type_id="pfwb.medicalcertificate">
    <bound-workflow workflow_id="incomingmail_workflow"/>

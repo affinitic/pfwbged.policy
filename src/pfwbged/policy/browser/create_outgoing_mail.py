@@ -58,11 +58,7 @@ form.widgets.treating_groups=%(treating_groups)s""" % values
                 values_url += '&' + 'form.widgets.recipient_groups:list=%s' % principal
 
         folder_url = api.portal.get()['documents'].absolute_url()
-        if incomingmail.portal_type == 'pfwb.apfincomingmail':
-            outgoing_add_url = '/++add++pfwb.apfoutgoingmail?'
-        else:
-            outgoing_add_url = "/++add++dmsoutgoingmail?"
-        url = folder_url + outgoing_add_url + values_url.encode('utf-8')
+        url = folder_url + "/++add++dmsoutgoingmail?" + values_url.encode('utf-8')
         self.request.response.redirect(url)
 
 
