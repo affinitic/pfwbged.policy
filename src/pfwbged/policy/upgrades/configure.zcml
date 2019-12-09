@@ -54,4 +54,13 @@
 
   </genericsetup:upgradeSteps>
 
+  <genericsetup:upgradeStep
+      title="Refresh addable types in Documents folder"
+      description=""
+      source="5"
+      destination="6"
+      profile="pfwbged.policy:default"
+      handler=".types.refresh_documents_addable_types"
+      />
+
 </configure>

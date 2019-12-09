@@ -65,5 +65,20 @@
   <type type_id="pfwb.invoice">
    <bound-workflow workflow_id="incomingmail_workflow"/>
   </type>
+  <type type_id="pfwb.memorandum">
+   <bound-workflow workflow_id="outgoingmail_workflow"/>
+  </type>
+  <type type_id="pfwb.notice">
+   <bound-workflow workflow_id="outgoingmail_workflow"/>
+  </type>
+  <type type_id="pfwb.informationnote">
+   <bound-workflow workflow_id="outgoingmail_workflow"/>
+  </type>
+  <type type_id="pfwb.copnote">
+   <bound-workflow workflow_id="outgoingmail_workflow"/>
+  </type>
+  <type type_id="pfwb.copminutes">
+   <bound-workflow workflow_id="outgoingmail_workflow"/>
+  </type>
  </bindings>
 </object>
