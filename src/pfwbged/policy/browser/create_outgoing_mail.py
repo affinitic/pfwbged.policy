@@ -1,3 +1,5 @@
+import zope
+
 from Acquisition import aq_parent
 from five import grok
 from plone import api
@@ -5,6 +7,7 @@ from plone import api
 from collective.dms.mailcontent.dmsmail import IDmsIncomingMail
 from collective.task.content.task import ITask
 from pfwbged.basecontent.types import IBoardDecision
+from plone.dexterity.browser import add
 
 
 class NoIDmsIncomingMailFound(Exception):
@@ -91,9 +94,55 @@ class CreateOutgoingMailFromBoardDecision(grok.View):
                 )
 
         documents_folder_url = api.portal.get()['documents'].absolute_url()
+        if self.request.form.get('follow_up'):
+            values_params.append('follow_up=1')
         encoded_params = "&".join(values_params).encode('utf-8')
         url = '{0}/++add++dmsoutgoingmail?{1}'.format(
             documents_folder_url,
             encoded_params,
         )
         self.request.response.redirect(url)
+
+
+class AddForm(add.DefaultAddForm):
+
+    portal_type = "dmsoutgoingmail"
+
+    @property
+    def action(self):
+        base_action = super(AddForm, self).action
+        return '{}?follow_up=1'.format(base_action)
+
+    def createAndAdd(self, data):
+        obj = self.create(data)
+        zope.event.notify(zope.lifecycleevent.ObjectCreatedEvent(obj))
+        self.add(obj)
+        self.transition_board_decision()  # addition to base method
+        return obj
+
+    def transition_board_decision(self):
+        """
+        If the created mail is a follow-up (GET parameter),
+        search for board decisions in processing state among related documents,
+        transition the first one found to answered.
+        """
+
+        follow_up = self.request.form.get('follow_up', False)
+        if not follow_up:
+            return
+
+        related_docs = getattr(
+            self.widgets.get('related_docs'),
+            'value',
+            [],
+        )
+        portal = api.portal.get()
+        for related_doc_path in related_docs:
+            related_doc = portal.restrictedTraverse(related_doc_path.split('/'))
+            if IBoardDecision.providedBy(related_doc) and api.content.get_state(related_doc) == 'processing':
+                api.content.transition(related_doc, 'answer')
+                break
+
+
+class AddView(add.DefaultAddView):
+    form = AddForm

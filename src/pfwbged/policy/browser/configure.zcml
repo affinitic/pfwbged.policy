@@ -200,4 +200,21 @@
       permission="cmf.ManagePortal"
       />
 
+  <!-- Outgoing mail add form -->
+  <adapter
+      for="Products.CMFCore.interfaces.IFolderish
+           zope.publisher.interfaces.browser.IDefaultBrowserLayer
+           plone.dexterity.interfaces.IDexterityFTI"
+      provides="zope.publisher.interfaces.browser.IBrowserPage"
+      factory="pfwbged.policy.browser.create_outgoing_mail.AddView"
+      name="dmsoutgoingmail"
+      />
+
+  <class class="pfwbged.policy.browser.create_outgoing_mail.AddView">
+      <require
+          permission="cmf.AddPortalContent"
+          interface="zope.publisher.interfaces.browser.IBrowserPage"
+          />
+  </class>
+
 </configure>
