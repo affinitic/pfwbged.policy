@@ -7,6 +7,7 @@ from plone import api
 from collective.dms.mailcontent.dmsmail import IDmsIncomingMail
 from collective.task.content.task import ITask
 from pfwbged.basecontent.types import IBoardDecision
+from plone.api.exc import InvalidParameterError
 from plone.dexterity.browser import add
 
 
@@ -140,8 +141,11 @@ class AddForm(add.DefaultAddForm):
         for related_doc_path in related_docs:
             related_doc = portal.restrictedTraverse(related_doc_path.split('/'))
             if IBoardDecision.providedBy(related_doc) and api.content.get_state(related_doc) == 'processing':
-                api.content.transition(related_doc, 'answer')
-                break
+                try:
+                    api.content.transition(related_doc, 'answer')
+                    break
+                except InvalidParameterError:  # answer transition is not available
+                    pass
 
 
 class AddView(add.DefaultAddView):
