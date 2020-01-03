@@ -1,4 +1,5 @@
 import logging
+import os
 import datetime
 
 from Acquisition import aq_chain, aq_parent
@@ -43,6 +44,24 @@ try:
     from plone.app.async.interfaces import IAsyncService
 except ImportError:
     IAsyncService = None
+
+
+def build_absolute_url(obj):
+    """
+    Used within taskqueue requests,
+    because they don't have a good SERVER_URL,
+    and thus absolute_url calls are wrong.
+    """
+
+    root_url = os.getenv("ROOT_URL", None)
+    if root_url:
+        portal_path = api.portal.get().getPhysicalPath()
+        obj_path = obj.getPhysicalPath()
+        relative_path = obj_path[len(portal_path):]
+        absolute_path = (root_url,) + relative_path
+        return "/".join(absolute_path)
+    else:
+        return obj.absolute_url()  # no choice left
 
 
 def has_pfwbgeddocument_workflow(obj):
@@ -393,7 +412,7 @@ def email_notification_of_tasks(context, event):
             break
     if not document:
         return
-    absolute_url = document.absolute_url()
+    absolute_url = build_absolute_url(document)
 
     # request is also required to get the target language
     target_language = negotiate(context.REQUEST)
@@ -436,6 +455,7 @@ def email_notification_of_validation_reversal(context, event):
             break
     if not document:
         return
+    absolute_url = build_absolute_url(document)
 
     email_enquirer = None
     for enquirer in (context.enquirer or []):
@@ -458,7 +478,7 @@ def email_notification_of_validation_reversal(context, event):
             '\n\n' + \
             translate(_('Document: %s'), context=context.REQUEST) % document.title + \
             '\n\n' + \
-            translate(_('Document Address: %s'), context=context.REQUEST) % document.absolute_url()
+            translate(_('Document Address: %s'), context=context.REQUEST) % absolute_url
 
     body += '\n\n\n-- \n' + translate(_('Sent by GED'))
     body = body.encode('utf-8')
@@ -485,6 +505,7 @@ def email_notification_of_refused_task(context, event):
             break
     if not document:
         return
+    absolute_url = build_absolute_url(document)
 
     email_enquirer = None
     for enquirer in (context.enquirer or []):
@@ -507,7 +528,7 @@ def email_notification_of_refused_task(context, event):
             '\n\n' + \
             translate(_('Document: %s'), context=context.REQUEST) % document.title + \
             '\n\n' + \
-            translate(_('Document Address: %s'), context=context.REQUEST) % document.absolute_url() + \
+            translate(_('Document Address: %s'), context=context.REQUEST) % absolute_url + \
             '\n\n'
 
     conversation = IConversation(context)
@@ -538,7 +559,7 @@ def email_notification_of_canceled_subtask(context, event):
             break
     if not document:
         return
-    absolute_url = document.absolute_url()
+    absolute_url = build_absolute_url(document)
 
     recipient_emails = []
     for recipient in _recursiveGetMembersFromIds(api.portal.get(), (context.responsible or [])):
@@ -560,7 +581,7 @@ def email_notification_of_canceled_subtask(context, event):
         '\n\n' + \
         translate(_('Document: %s'), context=context.REQUEST) % document.title + \
         '\n\n' + \
-        translate(_('Document Address: %s'), context=context.REQUEST) % document.absolute_url() + \
+        translate(_('Document Address: %s'), context=context.REQUEST) % absolute_url + \
         '\n\n\n\n-- \n' + \
         translate(_('Sent by GED'))
     body = body.encode('utf-8')
@@ -584,7 +605,7 @@ def email_notification_of_canceled_information(context, event):
             break
     if not document:
         return
-    absolute_url = document.absolute_url()
+    absolute_url = build_absolute_url(document)
 
     responsible = context.responsible[0]
     principal = api.user.get(responsible)
@@ -602,7 +623,7 @@ def email_notification_of_canceled_information(context, event):
             '\n\n' + \
             translate(_('Document: %s'), context=context.REQUEST) % document.title + \
             '\n\n' + \
-            translate(_('Document Address: %s'), context=context.REQUEST) % document.absolute_url() + \
+            translate(_('Document Address: %s'), context=context.REQUEST) % absolute_url + \
             '\n\n\n\n-- \n' + \
             translate(_('Sent by GED'))
         body = body.encode('utf-8')
@@ -625,7 +646,7 @@ def email_notification_of_canceled_validation(context, event):
             break
     if not document:
         return
-    absolute_url = document.absolute_url()
+    absolute_url = build_absolute_url(document)
 
     recipient_emails = []
     for recipient in _recursiveGetMembersFromIds(api.portal.get(), (context.responsible or [])):
@@ -653,7 +674,7 @@ def email_notification_of_canceled_validation(context, event):
            '\n\n' + \
            translate(_('Document: %s'), context=context.REQUEST) % document.title + \
            '\n\n' + \
-           translate(_('Document Address: %s'), context=context.REQUEST) % document.absolute_url() + \
+           translate(_('Document Address: %s'), context=context.REQUEST) % absolute_url + \
            '\n\n\n\n-- \n' + \
            translate(_('Sent by GED'))
     body = body.encode('utf-8')
