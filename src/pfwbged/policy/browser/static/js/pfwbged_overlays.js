@@ -7,7 +7,13 @@ $(document).ready(function(){
         noform: function(el) {return jQuery.plonepopups.noformerrorshow(el, 'reload');},
         config: {
             closeOnClick: false,
-            closeOnEsc: false
+            closeOnEsc: false,
+            onLoad : function (e) {
+                $('.pb-ajax .select2-multi-widget').select2Widget({
+                    multiple: true
+                });
+                return true;
+            }
         }
     });
     $(document).find('.overlay-form-redirect').prepOverlay({

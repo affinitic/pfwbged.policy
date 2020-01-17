@@ -1,41 +1,35 @@
 # -*- encoding: utf-8 -*-
 
-import random
 import logging
-from datetime import datetime
-from DateTime import DateTime
+from email import encoders
 from email.mime.base import MIMEBase
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-from email import encoders
 
-from collective.dms.basecontent.widget import AjaxChosenMultiFieldWidget
-from zope.interface import Interface
-from zope import schema
-from zope.component import createObject, queryUtility
-from z3c.form import form, button
-from z3c.form.field import Fields
-from z3c.form.interfaces import HIDDEN_MODE
-from zope.annotation.interfaces import IAnnotations
-
-from Acquisition import aq_inner, aq_parent
-
-from plone.z3cform.layout import FormWrapper
+from Acquisition import aq_parent
+from DateTime import DateTime
 from Products.Five.browser import BrowserView
-from Products.CMFCore.utils import getToolByName
-
+from collective.select2.field import Select2MultiField
+from pfwbged.policy import _
 from plone import api
-
-from .. import _
+from plone.z3cform.layout import FormWrapper
+from z3c.form import button
+from z3c.form import form
+from z3c.form.field import Fields
+from zope import schema
+from zope.annotation.interfaces import IAnnotations
+from zope.interface import Interface
 
 
 class IMail(Interface):
-    recipients = schema.List(
+    recipients = Select2MultiField(
         title=_(u"Recipients"),
         description=_(u"Email addresses of the recipients"),
+        search_view=lambda x: '{}/select2-ldap-emails-search'.format(x),
+        placeholder=_(u"Select a value here"),
         required=True,
-        value_type=schema.Choice(
-            vocabulary=u'collective.dms.basecontent.ldap_emails',
+        value_type=schema.TextLine(
+            title=_(u"Recipients"),
         ),
     )
 
@@ -48,7 +42,6 @@ class IMail(Interface):
 
 class MailForm(form.AddForm):
     fields = Fields(IMail)
-    fields['recipients'].widgetFactory = AjaxChosenMultiFieldWidget
     next_url = None
 
     def updateActions(self):

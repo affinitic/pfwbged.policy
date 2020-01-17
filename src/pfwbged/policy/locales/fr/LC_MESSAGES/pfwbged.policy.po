@@ -54,7 +54,7 @@ msgstr "Actions"
 #: ../browser/add_multi_information.py:25
 #: ../browser/multi_attribute_task.py:41
 msgid "Add"
-msgstr ""
+msgstr "Ajouter"
 
 #: ../menu.py:332
 msgid "Add ${title}"
@@ -253,7 +253,11 @@ msgstr "Enregistrer"
 msgid "Save As..."
 msgstr "Enregistrer sous…"
 
-#: ../browser/send_by_email.py:52
+#: ../browser/send_by_email.py:29
+msgid "Select a value here"
+msgstr "Sélectionner une valeur ici"
+
+#: ../browser/send_by_email.py:55
 msgid "Send"
 msgstr "Envoyer"
 

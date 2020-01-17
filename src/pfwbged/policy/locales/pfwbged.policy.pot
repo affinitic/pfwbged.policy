@@ -255,7 +255,11 @@ msgstr ""
 msgid "Save As..."
 msgstr ""
 
-#: ../browser/send_by_email.py:52
+#: ../browser/send_by_email.py:29
+msgid "Select a value here"
+msgstr ""
+
+#: ../browser/send_by_email.py:55
 msgid "Send"
 msgstr ""
 

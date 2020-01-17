@@ -51,6 +51,7 @@ setup(
         'collective.edm.listing',
         'collective.externaleditor',
         'collective.onlogin',
+        'collective.select2',
         'collective.solr',
         'collective.task',
         'collective.taskqueue',
