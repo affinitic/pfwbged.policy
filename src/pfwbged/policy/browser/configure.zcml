@@ -88,6 +88,21 @@
     />
 
   <browser:page
+    name="add_multi_link"
+    for="*"
+    class=".add_multi_link.AddLinks"
+    permission="cmf.AddPortalContent"
+    />
+
+  <browser:page
+    name="background_add_link"
+    class=".add_multi_link.BackgroundAddLinkView"
+    for="*"
+    permission="cmf.AddPortalContent"
+    layer="collective.taskqueue.interfaces.ITaskQueueLayer"
+    />
+
+  <browser:page
     name="ask_multi_validation"
     for="*"
     class=".ask_multi_validation.AskValidations"
