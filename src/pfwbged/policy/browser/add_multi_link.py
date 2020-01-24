@@ -48,7 +48,7 @@ class AddLinks(DefaultAddForm):
             self.status = self.formErrorsMessage
             return
 
-        folder_path = data['folder'].absolute_url_path()
+        folder_path = data['folder'].absolute_url_path().lstrip("/")
 
         for document_id in self.request.documents.split(','):
             taskqueue.add(
