@@ -5,3 +5,7 @@
 .template-view .overlay-ajax .empty.field {
     display: block;
 }
+
+.select2-drop {
+    z-index: 11000 !important;  /* only necessary for Firefox; no explanation found. */
+}
