@@ -64,6 +64,7 @@ setup(
         'plone.app.contenttypes',
         'z3c.jbot',
         'Products.AROfficeTransforms',
+        'collective.impersonate',
     ],
     extras_require={
         'test': [

@@ -18,5 +18,6 @@
     <dependency>profile-plone.app.contenttypes:default</dependency>
     <dependency>profile-plone.app.dexterity:default</dependency>
     <dependency>profile-Products.AROfficeTransforms:default</dependency>
+    <dependency>profile-collective.impersonate:default</dependency>
   </dependencies>
 </metadata>
