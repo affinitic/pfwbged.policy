@@ -44,6 +44,10 @@ msgstr "Retour à attribuer"
 msgid "Back to draft"
 msgstr "Retour à la rédaction"
 
+#: ../profiles/default/workflows/private_public_workflow/definition.xml
+msgid "Back to private"
+msgstr ""
+
 #: ../profiles/default/workflows/incomingmail_workflow/definition.xml
 msgid "Back to registering"
 msgstr "Retour à indicater"
@@ -138,6 +142,10 @@ msgstr "Sans suite"
 msgid "Obsolete"
 msgstr "Obsolète"
 
+#: ../profiles/default/workflows/private_public_workflow/definition.xml
+msgid "Private"
+msgstr ""
+
 #: ../profiles/default/workflows/pfwbgeddocument_workflow/definition.xml
 msgid "Process"
 msgstr "Traiter"
@@ -151,7 +159,12 @@ msgstr "Traité"
 msgid "Processing"
 msgstr "En cours de traitement"
 
+#: ../profiles/default/workflows/private_public_workflow/definition.xml
+msgid "Publish"
+msgstr ""
+
 #: ../profiles/default/workflows/appendix_workflow/definition.xml
+#: ../profiles/default/workflows/private_public_workflow/definition.xml
 msgid "Published"
 msgstr "Publiée"
 

@@ -94,6 +94,8 @@ def create_tasks_collections(context):
                            item_count=item_count,
                            query=query,
                            )
+        api.content.transition(collection, 'publish')
+
     role = u'responsible'
     id = '%s-%s' % (type, role)
     if id not in container:
@@ -108,6 +110,8 @@ def create_tasks_collections(context):
                            item_count=item_count,
                            query=query,
                            )
+        api.content.transition(collection, 'publish')
+
     # opinions
     type = u'opinion'
     role = u'enquirer'
@@ -124,6 +128,8 @@ def create_tasks_collections(context):
                            item_count=item_count,
                            query=query,
                            )
+        api.content.transition(collection, 'publish')
+
     role = u'responsible'
     id = '%s-%s' % (type, role)
     if id not in container:
@@ -138,6 +144,8 @@ def create_tasks_collections(context):
                            item_count=item_count,
                            query=query,
                            )
+        api.content.transition(collection, 'publish')
+
     # validations
     type = u'validation'
     role = u'enquirer'
@@ -154,6 +162,8 @@ def create_tasks_collections(context):
                            item_count=item_count,
                            query=query,
                            )
+        api.content.transition(collection, 'publish')
+
     role = u'responsible'
     id = '%s-%s' % (type, role)
     if id not in container:
@@ -168,6 +178,8 @@ def create_tasks_collections(context):
                            item_count=item_count,
                            query=query,
                            )
+        api.content.transition(collection, 'publish')
+
     # informations
     sort_on = u'created'
     type = u'information'
@@ -185,6 +197,8 @@ def create_tasks_collections(context):
                            item_count=item_count,
                            query=query,
                            )
+        api.content.transition(collection, 'publish')
+
     role = u'responsible'
     id = '%s-%s' % (type, role)
     if id not in container:
@@ -199,6 +213,8 @@ def create_tasks_collections(context):
                            item_count=item_count,
                            query=query,
                            )
+        api.content.transition(collection, 'publish')
+
 
 
 def setup_folder_portlets(folder):

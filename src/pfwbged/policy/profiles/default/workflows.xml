@@ -8,6 +8,7 @@
  <object name="pfwbgeddocument_workflow" meta_type="Workflow"/>
  <object name="pfwbgedfolder_workflow" meta_type="Workflow"/>
  <object name="pfwbgedmainfolder_workflow" meta_type="Workflow"/>
+ <object name="private_public_workflow" meta_type="Workflow"/>
  <object name="versionnote_workflow" meta_type="Workflow"/>
  <bindings>
   <default>
@@ -17,7 +18,7 @@
    <bound-workflow workflow_id=""/>
   </type>
   <type type_id="pfwbgedcollection">
-   <bound-workflow workflow_id="one_state_workflow"/>
+   <bound-workflow workflow_id="private_public_workflow"/>
   </type>
   <type type_id="pfwbgedlink">
    <bound-workflow workflow_id=""/>

@@ -81,4 +81,21 @@
       handler=".registry.setup_mail_reader_group"
       />
 
+    <genericsetup:upgradeSteps
+      source="8"
+      destination="9"
+      profile="pfwbged.policy:default">
+
+      <genericsetup:upgradeStep
+          title="Update saved search workflow"
+          description=""
+          handler=".workflow.update_saved_search_workflow"
+           />
+
+      <genericsetup:upgradeDepends
+          title="Reimport workflows"
+          import_steps="workflow" />
+
+    </genericsetup:upgradeSteps>
+
 </configure>

@@ -76,25 +76,44 @@ def update_refused_version_state(context):
                 version.reindexObject(idxs=['allowedRolesAndUsers', 'review_state'])
 
 
-def refresh_workflow_permissions(context, workflow_id):
+def refresh_workflow_permissions(context, workflow_id, folder_path=None):
+    if not folder_path:
+        folder_path = '/'.join(api.portal.get().getPhysicalPath())
     portal_workflow = api.portal.get_tool('portal_workflow')
     portal_catalog = api.portal.get_tool('portal_catalog')
     workflow = portal_workflow.getWorkflowById(workflow_id)
-    portal = api.portal.get()
-    folder_path = '/'.join(portal['documents'].getPhysicalPath())
 
     for dx_type, wf_ids in portal_workflow._chains_by_type.items():
         if workflow_id in wf_ids:
-            query = {'path': {
-                'query': folder_path},
-                'portal_type': dx_type}
+            query = {
+                'path': {'query': folder_path},
+                'portal_type': dx_type,
+            }
             results = portal_catalog.unrestrictedSearchResults(query)
             for brain in results:
                 obj = brain.getObject()
                 workflow.updateRoleMappingsFor(obj)
                 obj.reindexObjectSecurity()
-                obj.reindexObject(idxs=['allowedRolesAndUsers'])
+                obj.reindexObject(idxs=['allowedRolesAndUsers', 'review_state'])
 
 
 def incomingmail_deletion_permissions(context):
-    refresh_workflow_permissions(context, "incomingmail_workflow")
+    folder_path = '/'.join(api.portal.get()['documents'].getPhysicalPath())
+    refresh_workflow_permissions(context, "incomingmail_workflow", folder_path)
+
+
+def update_saved_search_workflow(context):
+    refresh_workflow_permissions(context, "private_public_workflow")
+
+    # publish the communal searches in /Members
+    query = {
+        'path': {
+            'query': '/'.join(api.portal.get().Members.getPhysicalPath()),
+            'depth': 1,
+        },
+        'portal_type': 'pfwbgedcollection',
+        'review_state': 'private',
+    }
+    portal_catalog = api.portal.get_tool('portal_catalog')
+    for brain in portal_catalog.unrestrictedSearchResults(query):
+        api.content.transition(brain.getObject(), 'publish')

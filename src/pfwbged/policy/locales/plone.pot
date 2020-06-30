@@ -45,6 +45,10 @@ msgstr ""
 msgid "Back to draft"
 msgstr ""
 
+#: ../profiles/default/workflows/private_public_workflow/definition.xml
+msgid "Back to private"
+msgstr ""
+
 #: ../profiles/default/workflows/incomingmail_workflow/definition.xml
 msgid "Back to registering"
 msgstr ""
@@ -128,6 +132,10 @@ msgstr ""
 msgid "Obsolete"
 msgstr ""
 
+#: ../profiles/default/workflows/private_public_workflow/definition.xml
+msgid "Private"
+msgstr ""
+
 #: ../profiles/default/workflows/pfwbgeddocument_workflow/definition.xml
 msgid "Process"
 msgstr ""
@@ -141,7 +149,12 @@ msgstr ""
 msgid "Processing"
 msgstr ""
 
+#: ../profiles/default/workflows/private_public_workflow/definition.xml
+msgid "Publish"
+msgstr ""
+
 #: ../profiles/default/workflows/appendix_workflow/definition.xml
+#: ../profiles/default/workflows/private_public_workflow/definition.xml
 msgid "Published"
 msgstr ""
 
