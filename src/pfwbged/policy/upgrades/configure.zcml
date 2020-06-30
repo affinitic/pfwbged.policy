@@ -72,4 +72,13 @@
       handler=".types.remove_apf_content_types"
       />
 
+    <genericsetup:upgradeStep
+      title="Setup mail reader group"
+      description=""
+      source="7"
+      destination="8"
+      profile="pfwbged.policy:default"
+      handler=".registry.setup_mail_reader_group"
+      />
+
 </configure>

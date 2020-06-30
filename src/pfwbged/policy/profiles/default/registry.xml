@@ -99,4 +99,12 @@
     </field>
     <value>False</value>
   </record>
+  <record name="pfwbged.mail_reader_group">
+    <field type="plone.registry.field.ASCIILine">
+      <title>Mail reader user group</title>
+      <description>Members of this group can read all incoming and outgoing mails on the platform.</description>
+      <required>False</required>
+    </field>
+    <value>lecture-courriers</value>
+  </record>
 </registry>

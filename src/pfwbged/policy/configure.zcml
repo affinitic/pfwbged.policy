@@ -84,4 +84,19 @@
         replacement=".monkey.patchedNamedBlobFileInit"
         />
 
+
+    <include package="borg.localrole" />
+
+    <adapter
+        for="collective.dms.mailcontent.dmsmail.IDmsIncomingMail"
+        provides="borg.localrole.interfaces.ILocalRoleProvider"
+        factory=".localrole.LocalRoleAdapter"
+        />
+
+    <adapter
+        for="collective.dms.mailcontent.dmsmail.IDmsOutgoingMail"
+        provides="borg.localrole.interfaces.ILocalRoleProvider"
+        factory=".localrole.LocalRoleAdapter"
+        />
+
 </configure>

@@ -176,9 +176,17 @@ msgstr "Dossiers"
 msgid "Installs the pfwbged.policy add-on."
 msgstr ""
 
+#: ../upgrades/registry.py:17
+msgid "Mail reader user group"
+msgstr "Groupe de lecture du courrier"
+
 #: ../menu.py:205
 msgid "Mark document as read"
 msgstr "Marquer le document comme lu"
+
+#: ../upgrades/registry.py:18
+msgid "Members of this group can read all incoming and outgoing mails on the platform."
+msgstr "Les membres de ce groupe ont un accès en lecture sur tous les courriers entrants et sortants"
 
 #: ../customize.py:42
 msgid "My Tasks"
