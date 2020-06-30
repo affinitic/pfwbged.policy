@@ -208,7 +208,11 @@ msgstr "Note :"
 msgid "One document is not mentioned for your information anymore"
 msgstr "Une note pour information vous concernant a été supprimée"
 
-#: ../subscribers/document.py:549
+#: ../subscribers/document.py:429
+msgid "One of the tasks you requested has been marked as done"
+msgstr "Une tâche demandée par vous a été marquée comme faite"
+
+#: ../subscribers/document.py:625
 msgid "One of your tasks has been cancelled"
 msgstr "Une de vos tâches a été annulée"
 

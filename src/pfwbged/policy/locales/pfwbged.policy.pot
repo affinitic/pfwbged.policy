@@ -210,7 +210,11 @@ msgstr ""
 msgid "One document is not mentioned for your information anymore"
 msgstr ""
 
-#: ../subscribers/document.py:549
+#: ../subscribers/document.py:429
+msgid "One of the tasks you requested has been marked as done"
+msgstr ""
+
+#: ../subscribers/document.py:625
 msgid "One of your tasks has been cancelled"
 msgstr ""
 
