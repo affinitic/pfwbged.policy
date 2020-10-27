@@ -401,7 +401,7 @@ def email_notification_of_tasks_sync(context, event, document, absolute_url, tar
 
 @grok.subscribe(ITask, IAfterTransitionEvent)
 def email_notification_of_done_tasks(context, event):
-    if event.transition.id == 'mark-as-done':
+    if event.transition and event.transition.id == 'mark-as-done':
         document = None
         for obj in aq_chain(context):
             obj = aq_parent(obj)
