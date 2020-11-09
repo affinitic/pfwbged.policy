@@ -98,15 +98,4 @@
 
     </genericsetup:upgradeSteps>
 
-
-    <genericsetup:upgradeStep
-      title="Disable live search"
-      description=""
-      source="9"
-      destination="10"
-      profile="pfwbged.policy:default"
-      handler=".registry.disable_live_search"
-      />
-
-
 </configure>

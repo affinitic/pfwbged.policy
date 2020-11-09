@@ -1,4 +1,3 @@
-from Products.CMFCore.utils import getToolByName
 from pfwbged.policy import _
 from plone.registry.interfaces import IRegistry
 from plone.registry import field
@@ -24,12 +23,3 @@ def setup_mail_reader_group(context):
 
     if not api.group.get(group_id):
         api.group.create(group_id, group_name)
-
-
-def disable_live_search(context):
-    pprop = getToolByName(context, 'portal_properties')
-    context = pprop.site_properties
-    jstool = getToolByName(context, 'portal_javascripts')
-    context.manage_changeProperties(enable_livesearch=False)
-    jstool.getResource('livesearch.js').setEnabled(False)
-    jstool.cookResources()
