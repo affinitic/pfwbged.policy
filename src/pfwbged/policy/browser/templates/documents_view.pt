@@ -14,10 +14,6 @@
 
     <div id="documents-table-view" tal:attributes="data-types view/document_types">
 
-    <div class="criteria-content" style="display:block;">
-        Rechercher : <input name="text-criteria-fulltext">
-    </div>
-
     <div style="display: none;">
       <input id="sort_on" value="created"/>
       <input id="sort_order" type="checkbox" checked="checked"/>
@@ -45,8 +41,6 @@ $.querywidget.updateSearch = function (stay_on_page) {
         $.map($('#documents-table-view').data('types').split(';'), function(a) {
           query += "query.v:records:list=" + a + "&";
         });
-        query += "query.i:records=SearchableText&query.o:records=plone.app.querystring.operation.string.contains&query.v:records=";
-        query += $('input[name="text-criteria-fulltext"]').val();
         query += '&sort_on=' + $('#sort_on').val();
         if ($('#sort_order:checked').length > 0) {
             query += '&sort_order=reverse';
@@ -59,11 +53,6 @@ $.querywidget.updateSearch = function (stay_on_page) {
 
 $(function() {
   $.querywidget.updateSearch();
-
-  $('input[name="text-criteria-fulltext"]').on('keyup', function() {
-   $.querywidget.updateSearch();
-  });
-
 });
 </script>
 </metal:main>
