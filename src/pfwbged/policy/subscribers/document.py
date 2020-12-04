@@ -247,11 +247,15 @@ def version_note_finished(context, event):
         portal_catalog = api.portal.get_tool('portal_catalog')
         document = context.getParentNode()
         state = api.content.get_state(obj=document)
-        # if parent is an outgoing mail, change its state to ready_to_send
-        if document.portal_type == 'dmsoutgoingmail' and state == 'writing':
+
+        # if parent is an outgoing mail, memorandum or notice,
+        # change its state to ready_to_send
+        types_to_finish = ['dmsoutgoingmail', 'pfwb.memorandum', 'pfwb.notice']
+        if document.portal_type in types_to_finish and state == 'writing':
             with api.env.adopt_user('admin'):
                 api.content.transition(obj=document, transition='finish')
             document.reindexObject(idxs=['review_state'])
+
         elif IPfwbDocument.providedBy(document) and has_pfwbgeddocument_workflow(document):
             if state == 'processing':
                 with api.env.adopt_user('admin'):
