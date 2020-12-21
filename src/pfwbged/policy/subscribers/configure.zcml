@@ -1,0 +1,16 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:i18n="http://namespaces.zope.org/i18n"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:plone="http://namespaces.plone.org/plone"
+    i18n_domain="pfwbged.policy">
+
+  <browser:page
+      name="background_delete_tasks"
+      class=".document.BackgroundDeleteTasksView"
+      permission="zope2.View"
+      for="*"
+      layer="collective.taskqueue.interfaces.ITaskQueueLayer"
+      />
+
+</configure>

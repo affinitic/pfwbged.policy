@@ -19,6 +19,7 @@
     <grok:grok package="." />
 
     <include package=".browser" />
+    <include package=".subscribers" />
 
     <include package="collective.dms.basecontent" />
     <include package="collective.dms.batchimport" />

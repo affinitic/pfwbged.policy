@@ -1,8 +1,12 @@
 import logging
 import os
 import datetime
+import pickle
 
 from Acquisition import aq_chain, aq_parent
+from Products.Five import BrowserView
+from collective.taskqueue import taskqueue
+from collective.task.indexers import get_document
 from five import grok
 from DateTime import DateTime
 
@@ -147,11 +151,28 @@ def delete_tasks(context, event):
     query = {'to_id': version_intid,
              'from_interfaces_flattened': IBaseTask,
              'from_attribute': 'target'}
-    for rv in catalog.findRelations(query):
-        obj = rv.from_object
-        #obj.aq_parent.manage_delObjects([obj.getId()])  # we don't want to verify Delete object permission on object
-        del aq_parent(obj)[obj.getId()]
-    reindex_after_version_changes(aq_parent(context))
+    task_paths = [rv.from_path for rv in catalog.findRelations(query)]
+    taskqueue.add(
+        '{}/background_delete_tasks'.format(api.portal.get().absolute_url_path()),
+        payload=pickle.dumps(task_paths),
+    )
+
+
+class BackgroundDeleteTasksView(BrowserView):
+
+    def __call__(self):
+        portal = api.portal.get()
+        document = None
+        for task_path in pickle.load(self.request.stdin):
+            try:
+                task = portal.unrestrictedTraverse(task_path)
+            except KeyError:
+                continue
+            if task:
+                document = get_document(task)
+                del document[task.getId()]
+        if document:
+            reindex_after_version_changes(document)
 
 
 @grok.subscribe(IDmsFile, IObjectAddedEvent)
