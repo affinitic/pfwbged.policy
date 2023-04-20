@@ -152,8 +152,9 @@ def delete_tasks(context, event):
              'from_interfaces_flattened': IBaseTask,
              'from_attribute': 'target'}
     task_paths = [rv.from_path for rv in catalog.findRelations(query)]
+    portal_path = "/".join(api.portal.get().getPhysicalPath())
     taskqueue.add(
-        '{}/background_delete_tasks'.format(api.portal.get().absolute_url_path()),
+        '{}/background_delete_tasks'.format(portal_path),
         payload=pickle.dumps(task_paths),
     )
 
