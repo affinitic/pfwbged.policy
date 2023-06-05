@@ -98,4 +98,13 @@
 
     </genericsetup:upgradeSteps>
 
+    <genericsetup:upgradeStep
+      title="Migrate documentviewer files to blobs"
+      description=""
+      source="9"
+      destination="10"
+      profile="pfwbged.policy:default"
+      handler=".documentviewer.migrate_documentviewer_files_to_blobs"
+      />
+
 </configure>
