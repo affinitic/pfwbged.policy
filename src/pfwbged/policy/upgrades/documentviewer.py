@@ -14,6 +14,12 @@ from plone import api
 logger = logging.getLogger('pfwbged.policy')
 
 
+def commit_transaction(msg):
+    logger.info(msg)
+    transaction.get().note(msg)
+    transaction.commit()
+
+
 def migrate_documentviewer_files_to_blobs(context):
     portal = api.portal.get()
     file_storage_root_folder = GlobalSettings(portal).storage_location
@@ -24,15 +30,13 @@ def migrate_documentviewer_files_to_blobs(context):
         obj = brain.getObject()
         settings = Settings(obj)
         if settings.storage_type == 'File' and not getattr(settings, 'blob_files'):
-            if migrate_dmsfile_to_blobs(context, file_storage_root_folder):
+            if migrate_dmsfile_to_blobs(settings, file_storage_root_folder):
                 modified_counter += 1
         if modified_counter and modified_counter % 1000 == 0:
-            msg = 'Committing after migrating {} files to blobs ...'.format(modified_counter)
-            logger.info(msg)
-            transaction.get().note(msg)
-            transaction.commit()
+            commit_transaction('Committing after migrating {} files to blobs ...'.format(modified_counter))
 
-    logger.info('Migration is over.')
+    commit_transaction('Committing after last file migration ...')
+    logger.info('{} files were migrated to blobs.'.format(modified_counter))
 
 
 def migrate_dmsfile_to_blobs(settings, file_storage_root_folder):
