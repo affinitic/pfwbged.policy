@@ -13,10 +13,12 @@ from DateTime import DateTime
 from zc.relation.interfaces import ICatalog
 from zope.container.interfaces import INameChooser
 from zope.i18n import translate, negotiate
+from zope.i18nmessageid import MessageFactory
 from zope.component import getUtility
 from zope.component.interfaces import ComponentLookupError
 from zope.intid.interfaces import IIntIds
 from zope.lifecycleevent.interfaces import IObjectAddedEvent, IObjectModifiedEvent
+from zope.schema.interfaces import IVocabularyFactory
 from OFS.interfaces import IObjectWillBeRemovedEvent
 from zope.annotation.interfaces import IAnnotations
 
@@ -42,6 +44,9 @@ from pfwbged.policy.indexers import reindex_after_version_changes
 from pfwbged.policy import _
 
 from mail import changeWorkflowState
+
+
+PMF = MessageFactory('plone')
 
 
 try:
@@ -79,6 +84,16 @@ def has_incomingmail_workflow(obj):
     if 'incomingmail_workflow' in chain:
         return True
     return False
+
+
+def get_document_type_name(document):
+    """
+    Takes a Dexterity object, returns its portal type name in English.
+    """
+    factory = getUtility(IVocabularyFactory, 'plone.app.vocabularies.ReallyUserFriendlyTypes')
+    vocabulary = factory(document)
+    term = vocabulary.getTerm(document.portal_type)
+    return term.title
 
 
 @grok.subscribe(IBaseTask, IObjectAddedEvent)
@@ -387,7 +402,8 @@ def email_notification_of_tasks_sync(context, event, document, absolute_url, tar
     responsible_label = ', '.join(responsible_labels)
 
     kwargs = {'target_language': target_language}
-    subject = '%s - %s' % (context.title, document.title)
+    document_type = translate(PMF(get_document_type_name(document)), **kwargs)
+    subject = '%s - %s - %s' % (context.title, document_type, document.title)
     body = translate(_('You received a request for action in the GED.'), **kwargs)
 
     if responsible_label:
@@ -450,7 +466,8 @@ def email_notification_of_done_tasks(context, event):
         email_from = api.user.get_current().email or api.portal.get().getProperty(
             'email_from_address') or 'admin@localhost'
 
-        subject = '%s - %s' % (context.title, document.title)
+        document_type = translate(PMF(get_document_type_name(document)), context=context.REQUEST)
+        subject = '%s - %s - %s' % (context.title, document_type, document.title)
 
         body = translate(_('One of the tasks you requested has been marked as done'), context=context.REQUEST) + \
                '\n\n' + \
@@ -543,7 +560,8 @@ def email_notification_of_validation_reversal(context, event):
 
     email_from = api.user.get_current().email or api.portal.get().getProperty('email_from_address') or 'admin@localhost'
 
-    subject = '%s - %s' % (context.title, document.title)
+    document_type = translate(PMF(get_document_type_name(document)), context=context.REQUEST)
+    subject = '%s - %s - %s' % (context.title, document_type, document.title)
 
     body = comment + \
             '\n\n' + \
@@ -593,7 +611,8 @@ def email_notification_of_refused_task(context, event):
 
     email_from = api.user.get_current().email or api.portal.get().getProperty('email_from_address') or 'admin@localhost'
 
-    subject = '%s - %s' % (context.title, document.title)
+    document_type = translate(PMF(get_document_type_name(document)), context=context.REQUEST)
+    subject = '%s - %s - %s' % (context.title, document_type, document.title)
 
     body = translate(_('A validation request has been refused'), context=context.REQUEST) + \
             '\n\n' + \
@@ -646,7 +665,8 @@ def email_notification_of_canceled_subtask(context, event):
     email_from = api.user.get_current().email or api.portal.get().getProperty(
         'email_from_address') or 'admin@localhost'
 
-    subject = '%s - %s' % (context.title, document.title)
+    document_type = translate(PMF(get_document_type_name(document)), context=context.REQUEST)
+    subject = '%s - %s - %s' % (context.title, document_type, document.title)
 
     body = translate(_('One of your tasks has been cancelled'), context=context.REQUEST) + \
         '\n\n' + \
@@ -688,7 +708,8 @@ def email_notification_of_canceled_information(context, event):
         email_from = api.user.get_current().email or api.portal.get().getProperty(
             'email_from_address') or 'admin@localhost'
 
-        subject = '%s - %s' % (context.title, document.title)
+        document_type = translate(PMF(get_document_type_name(document)), context=context.REQUEST)
+        subject = '%s - %s - %s' % (context.title, document_type, document.title)
 
         body = translate(_('One document is not mentioned for your information anymore'), context=context.REQUEST) + \
             '\n\n' + \
@@ -739,7 +760,8 @@ def email_notification_of_canceled_validation(context, event):
     else:
         email_from = api.user.get_current().email or api.portal.get().getProperty('email_from_address') or 'admin@localhost'
 
-    subject = '%s - %s' % (context.title, document.title)
+    document_type = translate(PMF(get_document_type_name(document)), context=context.REQUEST)
+    subject = '%s - %s - %s' % (context.title, document_type, document.title)
 
     body = translate(_('A validation request previously sent to you has been deleted'), context=context.REQUEST) + \
            '\n\n' + \
