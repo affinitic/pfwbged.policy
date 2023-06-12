@@ -37,7 +37,11 @@ msgstr ""
 msgid "A previously validated version has returned to waiting validation"
 msgstr ""
 
-#: ../subscribers/document.py:499
+#: ../subscribers/document.py:539
+msgid "A validation request has been approved"
+msgstr ""
+
+#: ../subscribers/document.py:541
 msgid "A validation request has been refused"
 msgstr ""
 

@@ -35,7 +35,11 @@ msgstr "Un document précédemment refusé est revenu en attente de validation"
 msgid "A previously validated version has returned to waiting validation"
 msgstr "Un document précédemment validé est revenu en attente de validation"
 
-#: ../subscribers/document.py:499
+#: ../subscribers/document.py:539
+msgid "A validation request has been approved"
+msgstr "Une demande de validation a été approuvée."
+
+#: ../subscribers/document.py:541
 msgid "A validation request has been refused"
 msgstr "Une demande de validation a été refusée."
 
