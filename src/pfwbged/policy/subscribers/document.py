@@ -524,15 +524,28 @@ def email_notification_of_tasks(context, event):
 
 
 @grok.subscribe(IValidation, IAfterTransitionEvent)
-def email_notification_of_validation_reversal(context, event):
-    """Notify a validation requester when their previously validated
-     (or refused) request has returned to pending state"""
+def email_notification_after_validation_transitions(context, event):
+    """Notify a validation requester when the requestee acts on the validation"""
+
+    extra_text = ""
+
     if not event.transition:
         return
     elif event.transition and event.transition.id == 'cancel-validation':
         comment = translate(_('A previously validated version has returned to waiting validation'), context=context.REQUEST)
     elif event.transition and event.transition.id == 'cancel-refusal':
         comment = translate(_('A previously refused version has returned to waiting validation'), context=context.REQUEST)
+    elif event.new_state.id == 'validated':
+        comment = translate(_('A validation request has been approved'), context=context.REQUEST)
+    elif event.new_state.id == 'refused':
+        comment = translate(_('A validation request has been refused'), context=context.REQUEST)
+
+        conversation = IConversation(context)
+        if conversation and conversation.getComments():
+            last_comment = list(conversation.getComments())[-1]
+            if (datetime.datetime.utcnow() - last_comment.creation_date).seconds < 120:
+                # comment less than two minutes ago, include it.
+                extra_text = '\n\n' + translate(_('Note:'), context=context.REQUEST) + '\n\n' + last_comment.text
     else:
         return
 
@@ -571,64 +584,8 @@ def email_notification_of_validation_reversal(context, event):
             '\n\n' + \
             translate(_('Document Address: %s'), context=context.REQUEST) % absolute_url
 
-    body += '\n\n\n-- \n' + translate(_('Sent by GED'))
-    body = body.encode('utf-8')
-
-    try:
-        context.MailHost.send(body, email_enquirer, email_from, subject, charset='utf-8')
-    except Exception as e:
-        # do not abort transaction in case of email error
-        log = logging.getLogger('pfwbged.policy')
-        log.exception(e)
-
-
-@grok.subscribe(IValidation, IAfterTransitionEvent)
-def email_notification_of_refused_task(context, event):
-    if event.new_state.id != 'refused':
-        return
-
-    # go up in the acquisition chain to find the document
-    document = None
-    for obj in aq_chain(context):
-        obj = aq_parent(obj)
-        if IDmsDocument.providedBy(obj):
-            document = obj
-            break
-    if not document:
-        return
-    absolute_url = build_absolute_url(document)
-
-    email_enquirer = None
-    for enquirer in (context.enquirer or []):
-        member = context.portal_membership.getMemberById(enquirer)
-        if member:
-            email_enquirer = member.getProperty('email', None)
-            if email_enquirer:
-                break
-
-    if not email_enquirer:
-        return
-
-    email_from = api.user.get_current().email or api.portal.get().getProperty('email_from_address') or 'admin@localhost'
-
-    document_type = translate(PMF(get_document_type_name(document)), context=context.REQUEST)
-    subject = '%s - %s - %s' % (context.title, document_type, document.title)
-
-    body = translate(_('A validation request has been refused'), context=context.REQUEST) + \
-            '\n\n' + \
-            translate(_('Title: %s'), context=context.REQUEST) % context.title + \
-            '\n\n' + \
-            translate(_('Document: %s'), context=context.REQUEST) % document.title + \
-            '\n\n' + \
-            translate(_('Document Address: %s'), context=context.REQUEST) % absolute_url + \
-            '\n\n'
-
-    conversation = IConversation(context)
-    if conversation and conversation.getComments():
-        last_comment = list(conversation.getComments())[-1]
-        if (datetime.datetime.utcnow() - last_comment.creation_date).seconds < 120:
-            # comment less than two minutes ago, include it.
-            body += translate(_('Note:'), context=context.REQUEST) + '\n\n' + last_comment.text
+    if extra_text:
+        body += extra_text
 
     body += '\n\n\n-- \n' + translate(_('Sent by GED'))
     body = body.encode('utf-8')
