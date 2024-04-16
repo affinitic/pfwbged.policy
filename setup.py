@@ -56,6 +56,7 @@ setup(
         'collective.task',
         'collective.taskqueue',
         'five.grok',
+        'pas.plugins.affinitic',
         'pfwbged.basecontent',
         'pfwbged.collection',
         'pfwbged.contact',
