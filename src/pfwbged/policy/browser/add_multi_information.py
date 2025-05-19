@@ -39,6 +39,7 @@ class BackgroundAddInformationView(BrowserView):
                         continue
                     _data = deepcopy(data)
                     _data['responsible'] = [username]
+                    _data['responsible_groups'] = [groupname]
                     createContentInContainer(base_document, 'information', **_data)
                     seen[username] = True
             else:

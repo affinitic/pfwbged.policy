@@ -105,7 +105,11 @@ def set_role_on_document(context, event):
     if not ITask.providedBy(context):
         document = context.getParentNode()
         if IDmsDocument.providedBy(document):
-            new_recipients = tuple(frozenset(document.recipient_groups or []) | frozenset(context.responsible or []))
+            if IInformation.providedBy(context):
+                information_responsibles = context.responsible_groups or context.responsible
+            else:
+                information_responsibles = context.responsible
+            new_recipients = tuple(frozenset(document.recipient_groups or []) | frozenset(information_responsibles or []))
             cansee_dm = LocalRolesToPrincipalsDataManager(document, IDmsDocument['recipient_groups'])
             cansee_dm.set(new_recipients)
             document.reindexObjectSecurity()
