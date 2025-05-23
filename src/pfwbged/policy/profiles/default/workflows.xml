@@ -72,7 +72,7 @@
    <bound-workflow workflow_id="outgoingmail_workflow"/>
   </type>
   <type type_id="pfwb.copminutes">
-   <bound-workflow workflow_id="outgoingmail_workflow"/>
+   <bound-workflow workflow_id="pfwbgeddocument_workflow"/>
   </type>
  </bindings>
 </object>

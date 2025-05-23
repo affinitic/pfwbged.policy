@@ -107,4 +107,13 @@
       handler=".documentviewer.migrate_documentviewer_files_to_blobs"
       />
 
+    <genericsetup:upgradeStep
+      title="Migrate Cop Minutes type"
+      description=""
+      source="10"
+      destination="11"
+      profile="pfwbged.policy:default"
+      handler=".workflow.migrate_copminutes"
+      />
+
 </configure>

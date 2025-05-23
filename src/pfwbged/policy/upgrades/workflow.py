@@ -76,7 +76,9 @@ def update_refused_version_state(context):
                 version.reindexObject(idxs=['allowedRolesAndUsers', 'review_state'])
 
 
-def refresh_workflow_permissions(context, workflow_id, folder_path=None):
+def refresh_workflow_permissions(context, workflow_id, folder_path=None, dx_type_filter=None):
+    if dx_type_filter is None:
+        dx_type_filter = []
     if not folder_path:
         folder_path = '/'.join(api.portal.get().getPhysicalPath())
     portal_workflow = api.portal.get_tool('portal_workflow')
@@ -84,6 +86,8 @@ def refresh_workflow_permissions(context, workflow_id, folder_path=None):
     workflow = portal_workflow.getWorkflowById(workflow_id)
 
     for dx_type, wf_ids in portal_workflow._chains_by_type.items():
+        if dx_type_filter and dx_type not in dx_type_filter:
+            continue
         if workflow_id in wf_ids:
             query = {
                 'path': {'query': folder_path},
@@ -117,3 +121,23 @@ def update_saved_search_workflow(context):
     portal_catalog = api.portal.get_tool('portal_catalog')
     for brain in portal_catalog.unrestrictedSearchResults(query):
         api.content.transition(brain.getObject(), 'publish')
+
+
+def migrate_copminutes(context):
+    from pfwbged.policy.subscribers.document import create_task_after_creation
+
+    portal_setup = api.portal.get_tool("portal_setup")
+    portal_setup.runImportStepFromProfile("profile-pfwbged.policy:default", "workflow")
+
+    refresh_workflow_permissions(context, "pfwbgeddocument_workflow", dx_type_filter=["pfwb.copminutes"])
+
+    # fix for existing documents
+    # adds a task "a traiter" if missing (goes with "pfwbgeddocument_workflow")
+    portal_catalog = api.portal.get_tool('portal_catalog')
+    for doc_brain in portal_catalog.unrestrictedSearchResults({
+        'portal_type': 'pfwb.copminutes',
+    }):
+        doc_obj = doc_brain.getObject()
+        tasks = doc_obj.listFolderContents(contentFilter={"portal_type": "task"})
+        if len(tasks) == 0:
+            create_task_after_creation(doc_obj, None)
