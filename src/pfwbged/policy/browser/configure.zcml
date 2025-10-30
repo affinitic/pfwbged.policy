@@ -232,4 +232,20 @@
           />
   </class>
 
+  <!-- Control panel -->
+
+  <browser:page
+    name="pfwbged-controlpanel"
+    for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+    class=".controlpanel.PfwbgedControlPanel"
+    permission="cmf.ManagePortal"
+    />
+
+  <browser:page
+    for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+    name="rename-group"
+    class="pfwbged.policy.browser.usergroups.RenameGroupView"
+    permission="cmf.ManagePortal"
+    />
+
 </configure>

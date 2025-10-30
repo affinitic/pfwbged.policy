@@ -1,0 +1,33 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+         metal:use-macro="context/prefs_main_template/macros/master">
+<body>
+
+<metal:main fill-slot="prefs_configlet_main">
+
+    <metal:form metal:define-macro="form">
+
+    <h1 class="documentFirstHeading"
+        i18n:translate=""
+        metal:define-slot="heading">
+        PFWB GED Settings
+    </h1>
+
+    <div id="content-core">
+
+        <div class="portalMessage info">
+            <strong>Group Management:</strong>
+            <a tal:attributes="href view/rename_group_url" i18n:translate="">
+                Rename a Plone group
+            </a>
+            <p class="discreet" i18n:translate="">This action can take <strong>more than an hour</strong>. Please use it during off-peak
+                hours.</p>
+        </div>
+
+    </div>
+   </metal:form>
+</metal:main>
+
+</body>
+</html>

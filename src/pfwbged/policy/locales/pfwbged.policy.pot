@@ -134,6 +134,10 @@ msgstr ""
 msgid "Comment"
 msgstr ""
 
+#: ../browser/controlpanel.py:20
+msgid "Configure PFWB GED settings"
+msgstr ""
+
 #: ../menu.py:42
 msgid "Create a new version"
 msgstr ""
@@ -182,6 +186,10 @@ msgstr ""
 msgid "Installs the pfwbged.policy add-on."
 msgstr ""
 
+#: ../browser/usergroups.py:123
+msgid "Launch renaming"
+msgstr ""
+
 #: ../upgrades/registry.py:17
 msgid "Mail reader user group"
 msgstr ""
@@ -226,7 +234,11 @@ msgstr ""
 msgid "Opinion application for version ${version}"
 msgstr ""
 
-#: ../subscribers/document.py:154
+#: ../browser/controlpanel.py:19
+msgid "PFWB GED Settings"
+msgstr ""
+
+#: ../subscribers/document.py:217
 msgid "Process document"
 msgstr ""
 
@@ -248,6 +260,10 @@ msgstr ""
 
 #: ../menu.py:50
 msgid "Refuse version ${version}"
+msgstr ""
+
+#: ../browser/usergroups.py:119
+msgid "Rename Plone groups"
 msgstr ""
 
 #: ../browser/comments.py:50
@@ -299,6 +315,10 @@ msgstr ""
 msgid "Sent version ${version} by email"
 msgstr ""
 
+#: ../browser/usergroups.py:156
+msgid "Some of new names are used multiple times."
+msgstr ""
+
 #: ../testing.zcml:16
 msgid "Steps to ease tests of pfwbged.policy"
 msgstr ""
@@ -315,7 +335,23 @@ msgstr ""
 msgid "The 'workflow' menu - allows the user to execute workflow transitions"
 msgstr ""
 
-#: ../subscribers/document.py:347
+#: ../browser/usergroups.py:141
+msgid "The following group(s) already exist: ${groups}"
+msgstr ""
+
+#: ../browser/usergroups.py:164
+msgid "The groups have been renamed."
+msgstr ""
+
+#: ../browser/usergroups.py:149
+msgid "The number of groups to rename does not match the number of new names."
+msgstr ""
+
+#: ../browser/usergroups.py:120
+msgid "This action can take more than an hour. Please use it during off-peak hours."
+msgstr ""
+
+#: ../subscribers/document.py:417
 msgid "Title: %s"
 msgstr ""
 
@@ -354,7 +390,27 @@ msgstr ""
 msgid "You received a request for action in the GED."
 msgstr ""
 
-#: ../configure.zcml:58
+#. Default: "Select the groups you want to rename."
+#: ../browser/usergroups.py:94
+msgid "help_groups_to_rename"
+msgstr ""
+
+#. Default: "Enter the new name for each selected group, one per line, in the same order as the groups above."
+#: ../browser/usergroups.py:106
+msgid "help_new_names"
+msgstr ""
+
+#. Default: "Groups to rename"
+#: ../browser/usergroups.py:93
+msgid "label_groups_to_rename"
+msgstr ""
+
+#. Default: "New names"
+#: ../browser/usergroups.py:105
+msgid "label_new_names"
+msgstr ""
+
+#: ../configure.zcml:67
 msgid "pfwbged.policy"
 msgstr ""
 

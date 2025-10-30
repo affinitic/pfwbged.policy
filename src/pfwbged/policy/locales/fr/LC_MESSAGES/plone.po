@@ -142,6 +142,10 @@ msgstr "Sans suite"
 msgid "Obsolete"
 msgstr "Obsolète"
 
+#: ../profiles/default/controlpanel.xml
+msgid "PFWB GED Settings"
+msgstr "Paramètres GED"
+
 #: ../profiles/default/workflows/private_public_workflow/definition.xml
 msgid "Private"
 msgstr ""

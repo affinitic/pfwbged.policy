@@ -132,6 +132,10 @@ msgstr "Annulation de ${task} pour ${responsible}"
 msgid "Comment"
 msgstr "Note"
 
+#: ../browser/controlpanel.py:20
+msgid "Configure PFWB GED settings"
+msgstr "Configurer les paramètres de la GED"
+
 #: ../menu.py:42
 msgid "Create a new version"
 msgstr "Créer une nouvelle version"
@@ -224,7 +228,11 @@ msgstr "Une de vos tâches a été annulée"
 msgid "Opinion application for version ${version}"
 msgstr "Demande d'avis pour la version ${version}"
 
-#: ../subscribers/document.py:154
+#: ../browser/controlpanel.py:19
+msgid "PFWB GED Settings"
+msgstr "Paramètres GED"
+
+#: ../subscribers/document.py:217
 msgid "Process document"
 msgstr "Traiter le document"
 
@@ -247,6 +255,10 @@ msgstr "Refuser la désattribution"
 #: ../menu.py:50
 msgid "Refuse version ${version}"
 msgstr "Refuser la version ${version}"
+
+#: ../browser/usergroups.py:119
+msgid "Rename Plone groups"
+msgstr "Renommer des groupes"
 
 #: ../browser/comments.py:50
 msgid "Render opinion"
@@ -297,6 +309,10 @@ msgstr "Envoyé par le système de GED du PFWB"
 msgid "Sent version ${version} by email"
 msgstr "Version ${version} envoyée par email"
 
+#: ../browser/usergroups.py:156
+msgid "Some of new names are used multiple times."
+msgstr "Certains identifiants sont utilisés plusieurs fois."
+
 #: ../testing.zcml:16
 msgid "Steps to ease tests of pfwbged.policy"
 msgstr ""
@@ -313,7 +329,23 @@ msgstr "Vue tâches"
 msgid "The 'workflow' menu - allows the user to execute workflow transitions"
 msgstr ""
 
-#: ../subscribers/document.py:347
+#: ../browser/usergroups.py:141
+msgid "The following group(s) already exist: ${groups}"
+msgstr "Les groupes suivants existent déjà: ${groups}"
+
+#: ../browser/usergroups.py:164
+msgid "The groups have been renamed."
+msgstr "Les groupes ont été renommés."
+
+#: ../browser/usergroups.py:149
+msgid "The number of groups to rename does not match the number of new names."
+msgstr "Le nombre de groupes existants ne correspond pas au nombre de nouveaux groupes."
+
+#: ../browser/usergroups.py:120
+msgid "This action can take more than an hour. Please use it during off-peak hours."
+msgstr "Cette transformation peut prendre plus d'une heure. Merci de la faire tourner en dehors des heures de travail."
+
+#: ../subscribers/document.py:417
 msgid "Title: %s"
 msgstr "Titre : %s"
 
@@ -352,7 +384,27 @@ msgstr "Vous pouvez entrer une note."
 msgid "You received a request for action in the GED."
 msgstr "Vous avez reçu une demande d'action dans la GED."
 
-#: ../configure.zcml:58
+#. Default: "Select the groups you want to rename."
+#: ../browser/usergroups.py:94
+msgid "help_groups_to_rename"
+msgstr "Sélectionnez les groupes à renommer."
+
+#. Default: "Enter the new name for each selected group, one per line, in the same order as the groups above."
+#: ../browser/usergroups.py:106
+msgid "help_new_names"
+msgstr "Saisissez le nouveau nom de chaque groupe sélectionné, un par ligne, dans le même ordre que les groupes ci-dessus."
+
+#. Default: "Groups to rename"
+#: ../browser/usergroups.py:93
+msgid "label_groups_to_rename"
+msgstr "Groupes à renommer"
+
+#. Default: "New names"
+#: ../browser/usergroups.py:105
+msgid "label_new_names"
+msgstr "Nouveaux noms"
+
+#: ../configure.zcml:67
 msgid "pfwbged.policy"
 msgstr ""
 
