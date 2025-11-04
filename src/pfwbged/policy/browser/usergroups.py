@@ -101,14 +101,17 @@ class IRenameGroupForm(Interface):
         required=True,
     )
 
-    new_names = schema.Text(
+    new_names = schema.List(
         title=_('label_new_names', default=u'New names'),
         description=_(
             'help_new_names',
             default=(
-                u'Enter the new name for each selected group, one per line, '
+                u'Select the new name for each group, '
                 u'in the same order as the groups above.'
             )
+        ),
+        value_type=schema.Choice(
+            source=group_ids_vocabulary,
         ),
         required=True,
     )
@@ -127,22 +130,8 @@ class RenameGroupForm(form.Form):
             self.status = self.formErrorsMessage
             return
 
-        portal_groups = api.portal.get_tool(name='portal_groups')
-        existing_ids = portal_groups.getGroupIds()
-
         groups_to_rename = data.get("groups_to_rename")
-        new_names = [
-            x.strip().decode("utf8") for x in data.get("new_names").split("\r\n") if x.strip()
-        ]
-
-        overwrites = set(new_names).intersection(existing_ids)
-        if overwrites:
-            raise Invalid(
-                _(
-                    u"The following group(s) already exist: ${groups}",
-                    mapping={"groups": ", ".join(overwrites)},
-                )
-            )
+        new_names = data.get("new_names")
 
         if len(groups_to_rename) != len(new_names):
             raise Invalid(
@@ -151,10 +140,10 @@ class RenameGroupForm(form.Form):
                 )
             )
 
-        if len(set(new_names)) < len(new_names):
+        if len(set(groups_to_rename)) < len(groups_to_rename) or len(set(new_names)) < len(new_names):
             raise Invalid(
                 _(
-                    u"Some of new names are used multiple times.",
+                    u"Some of the groups are used multiple times.",
                 )
             )
 
@@ -167,11 +156,6 @@ class RenameGroupForm(form.Form):
 
         portal = api.portal.get()
         counter = Counter()
-
-        # create new plone groups
-        for old_id, new_id in mapping_names.items():
-            group_roles = api.group.get_roles(groupname=old_id)
-            api.group.create(new_id, title=new_id, roles=group_roles)
 
         # object migration over all the site
         def migrate_object(portal_setup, obj_path):
@@ -270,7 +254,7 @@ class RenameGroupForm(form.Form):
                         dirty_obj = True
 
             if dirty_obj:
-                obj._p_changed = True
+                obj._p_changed = 1
                 counter.modified += 1
             else:
                 counter.ignored += 1
@@ -284,15 +268,11 @@ class RenameGroupForm(form.Form):
             search_sub=True,
             apply_func=migrate_object,
         )
-
-        # delete old plone groups
-        for old_id in mapping_names.keys():
-            api.group.delete(groupname=old_id)
-
         transaction.commit()
 
         # reindex site
         reindex(portal)
+        transaction.commit()
 
 
 class RenameGroupView(FormWrapper):

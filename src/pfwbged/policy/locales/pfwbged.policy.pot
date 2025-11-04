@@ -315,8 +315,8 @@ msgstr ""
 msgid "Sent version ${version} by email"
 msgstr ""
 
-#: ../browser/usergroups.py:156
-msgid "Some of new names are used multiple times."
+#: ../browser/usergroups.py:145
+msgid "Some of the groups are used multiple times."
 msgstr ""
 
 #: ../testing.zcml:16

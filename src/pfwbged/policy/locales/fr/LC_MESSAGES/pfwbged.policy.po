@@ -184,6 +184,10 @@ msgstr "Dossiers"
 msgid "Installs the pfwbged.policy add-on."
 msgstr ""
 
+#: ../browser/usergroups.py:126
+msgid "Launch renaming"
+msgstr "Lancer le renommage"
+
 #: ../upgrades/registry.py:17
 msgid "Mail reader user group"
 msgstr "Groupe de lecture du courrier"
@@ -204,23 +208,23 @@ msgstr "Mes tâches"
 msgid "New value for ${attribute}"
 msgstr "Nouvelle valeur pour ${attribute}"
 
-#: ../subscribers/document.py:671
+#: ../subscribers/document.py:761
 msgid "New value for %s: %s"
 msgstr "Nouvelle valeur pour %s : %s"
 
-#: ../subscribers/document.py:359
+#: ../subscribers/document.py:429
 msgid "Note:"
 msgstr "Note :"
 
-#: ../subscribers/document.py:589
+#: ../subscribers/document.py:675
 msgid "One document is not mentioned for your information anymore"
 msgstr "Une note pour information vous concernant a été supprimée"
 
-#: ../subscribers/document.py:429
+#: ../subscribers/document.py:476
 msgid "One of the tasks you requested has been marked as done"
 msgstr "Une tâche demandée par vous a été marquée comme faite"
 
-#: ../subscribers/document.py:625
+#: ../subscribers/document.py:632
 msgid "One of your tasks has been cancelled"
 msgstr "Une de vos tâches a été annulée"
 
@@ -240,7 +244,7 @@ msgstr "Traiter le document"
 msgid "Process mail"
 msgstr "Traiter le document"
 
-#: ../browser/send_by_email.py:31
+#: ../browser/send_by_email.py:26
 msgid "Recipients"
 msgstr "Destinataires"
 
@@ -256,7 +260,7 @@ msgstr "Refuser la désattribution"
 msgid "Refuse version ${version}"
 msgstr "Refuser la version ${version}"
 
-#: ../browser/usergroups.py:119
+#: ../browser/usergroups.py:122
 msgid "Rename Plone groups"
 msgstr "Renommer des groupes"
 
@@ -273,11 +277,11 @@ msgid "Return opinion about ${version}"
 msgstr "Rendre un avis sur la version ${version}"
 
 #: ../browser/to_process.py:46
-#: ../menu.py:587
+#: ../menu.py:581
 msgid "Save"
 msgstr "Enregistrer"
 
-#: ../menu.py:596
+#: ../menu.py:590
 msgid "Save As..."
 msgstr "Enregistrer sous…"
 
@@ -301,7 +305,7 @@ msgstr "Envoyer la version ${version} par email"
 msgid "Send version ${version} with PES"
 msgstr "Envoyer la version ${version} avec la PES"
 
-#: ../subscribers/document.py:361
+#: ../subscribers/document.py:431
 msgid "Sent by GED"
 msgstr "Envoyé par le système de GED du PFWB"
 
@@ -309,15 +313,15 @@ msgstr "Envoyé par le système de GED du PFWB"
 msgid "Sent version ${version} by email"
 msgstr "Version ${version} envoyée par email"
 
-#: ../browser/usergroups.py:156
-msgid "Some of new names are used multiple times."
-msgstr "Certains identifiants sont utilisés plusieurs fois."
+#: ../browser/usergroups.py:145
+msgid "Some of the groups are used multiple times."
+msgstr "Certains groupes sont utilisés plusieurs fois."
 
 #: ../testing.zcml:16
 msgid "Steps to ease tests of pfwbged.policy"
 msgstr ""
 
-#: ../browser/send_by_email.py:33
+#: ../browser/send_by_email.py:36
 msgid "Subject"
 msgstr "Objet"
 
@@ -329,19 +333,15 @@ msgstr "Vue tâches"
 msgid "The 'workflow' menu - allows the user to execute workflow transitions"
 msgstr ""
 
-#: ../browser/usergroups.py:141
-msgid "The following group(s) already exist: ${groups}"
-msgstr "Les groupes suivants existent déjà: ${groups}"
-
-#: ../browser/usergroups.py:164
+#: ../browser/usergroups.py:153
 msgid "The groups have been renamed."
 msgstr "Les groupes ont été renommés."
 
-#: ../browser/usergroups.py:149
+#: ../browser/usergroups.py:138
 msgid "The number of groups to rename does not match the number of new names."
 msgstr "Le nombre de groupes existants ne correspond pas au nombre de nouveaux groupes."
 
-#: ../browser/usergroups.py:120
+#: ../browser/usergroups.py:123
 msgid "This action can take more than an hour. Please use it during off-peak hours."
 msgstr "Cette transformation peut prendre plus d'une heure. Merci de la faire tourner en dehors des heures de travail."
 
@@ -365,6 +365,7 @@ msgstr "Valider et finaliser la version ${version}"
 msgid "Validate version ${version}"
 msgstr "Valider la version ${version}"
 
+#: ../browser/ask_multi_validation.py:33
 #: ../browser/ask_validation.py:28
 msgid "Validation application for version ${version}"
 msgstr "Demande de validation pour la version ${version}"
@@ -375,12 +376,12 @@ msgid "Workflow action"
 msgstr "Transition du workflow"
 
 #: ../browser/refuse.py:34
-#: ../browser/send_by_email.py:36
+#: ../browser/send_by_email.py:39
 #: ../browser/to_process.py:26
 msgid "You can enter a note."
 msgstr "Vous pouvez entrer une note."
 
-#: ../subscribers/document.py:341
+#: ../subscribers/document.py:411
 msgid "You received a request for action in the GED."
 msgstr "Vous avez reçu une demande d'action dans la GED."
 
@@ -389,7 +390,7 @@ msgstr "Vous avez reçu une demande d'action dans la GED."
 msgid "help_groups_to_rename"
 msgstr "Sélectionnez les groupes à renommer."
 
-#. Default: "Enter the new name for each selected group, one per line, in the same order as the groups above."
+#. Default: "Select the new name for each group, in the same order as the groups above."
 #: ../browser/usergroups.py:106
 msgid "help_new_names"
 msgstr "Saisissez le nouveau nom de chaque groupe sélectionné, un par ligne, dans le même ordre que les groupes ci-dessus."
